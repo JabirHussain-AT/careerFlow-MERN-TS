@@ -1,6 +1,7 @@
 import { userCollection } from "../..";
 import mongoose, { startSession } from "mongoose";
-import { IUserData } from "../../schemas/userSchema";
+import { IUserData , IUserDoc} from "../../schemas/userSchema";
+
 
 export const createNewUser = async (
   userCredentials: IUserData
@@ -14,3 +15,14 @@ export const createNewUser = async (
     return false;
   }
 };
+
+export const userExistCheck = async (userCredentials : IUserData ) :Promise< IUserData | boolean | IUserDoc  > =>{
+  try{
+    const userEmail = userCredentials?.email 
+    let userExistOrNot = await userCollection.findOne({email:userEmail})
+    if(!userExistOrNot)return false
+    else return userExistOrNot
+  }catch(err : any){
+    console.log(err,'======  err happened in userRepo userExistCheck')
+  }
+} 

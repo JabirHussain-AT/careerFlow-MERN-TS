@@ -36,3 +36,22 @@ export interface IUserData extends IUser{
     createdAt: Date;
     updatedAt: Date;
 }
+export interface IUserDoc {
+    _id : ObjectId ,
+    name : string ,
+    email : string, 
+    password : string, 
+    phone?: string | null,
+    profilePic?: string | null ,
+    status?:boolean ,
+    skills?:string[] | null,
+    socialLinks?:{
+        link?:string | null ;
+        socialMedia?:string | null ;
+    }[];
+    dob?:string| null,
+    about?:string | null,
+    languages?:string[] | null,
+    education?:object[] | null ,
+    experiance : object [ ] | null 
+}

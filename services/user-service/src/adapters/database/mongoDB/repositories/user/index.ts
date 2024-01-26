@@ -1,5 +1,9 @@
-import { createNewUser } from "./userRepo"; 
+import { 
+    createNewUser,
+    userExistCheck
+ } from "./userRepo"; 
 
 export = {
-    createNewUser
+    createNewUser,
+    userExistCheck
 }
