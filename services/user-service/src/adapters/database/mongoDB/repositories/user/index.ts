@@ -1,9 +1,13 @@
 import { 
     createNewUser,
-    userExistCheck
+    userExistCheck,
+    saveOtp,
+    verifyOtp
  } from "./userRepo"; 
 
 export = {
     createNewUser,
-    userExistCheck
+    userExistCheck,
+    saveOtp,
+    verifyOtp
 }

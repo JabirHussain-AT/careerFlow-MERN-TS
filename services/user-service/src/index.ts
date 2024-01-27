@@ -1,5 +1,5 @@
 import start from './start';
-import dbConnection from './config/dbConnection';
+import dbConnection from './config/db/dbConnection';
 import envChecker from './util/checker/envChecker';
 import { broker, producer, consumer } from './adapters/messageBroker/kafka/connection';
 import { userCreatedProducer } from './adapters/messageBroker/kafka/producer';
