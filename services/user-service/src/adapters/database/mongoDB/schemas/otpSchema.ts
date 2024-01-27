@@ -16,8 +16,9 @@ const otpSchema: Schema = new Schema({
         required: true,
     },
 }, {
-    expires: 120, //expiry time is set to the 2 miniutes
+    expires: 120, // expiry time is set to 2 minutes
 });
+
 
 export default  mongoose.model<IOtp & Document>('Otp', otpSchema);
 

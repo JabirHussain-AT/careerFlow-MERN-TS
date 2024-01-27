@@ -1,5 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import generateOtp from "../../../util/externalServices/nodemailer/generateOtp";
+import { hashPassword } from "../../../util/externalServices/bcrypt/hashPass";
+import { generateToken } from "../../../util/externalServices/jwt";
 
 export = (dependencies: any): any => {
   const {
@@ -73,23 +75,39 @@ export = (dependencies: any): any => {
             success: false,
             message: "Otp is Invalid try another",
           });
-        }else{
-            try{
-              const user = await signUp_useCase(dependencies).interactor(userCredentials)
-              
-              if (!user)
+        } else {
+          try {
+            // in this phase we need to do hash our password
+            userCredentials.password = await hashPassword(
+              userCredentials?.password
+            );
+            const user = await signUp_useCase(dependencies).interactor(
+              userCredentials
+            );
+
+            if (!user) {
               return res.json({
                 success: false,
                 message: "Something Went wrong try again in create user",
               });
-    
-
-            }catch(err : any){
-
+            } else {
+              // creating jwt token for furthor authentication
+              const token = generateToken(user?.id);
+              res.cookie("user_jwt", token, {
+                httpOnly: true, 
+                maxAge: 7 * 24 * 60 * 60 * 1000, 
+                sameSite: false, 
+            });
+              user.token = token;
+              res.status(201).json(user);
             }
-        }
 
-        
+
+          } catch (err: any) {
+            console.log(err, "err occured while creating user ");
+            next(err);
+          }
+        }
       } catch (err) {}
     }
   };
