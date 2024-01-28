@@ -1,5 +1,8 @@
 import { Request, Response, NextFunction } from "express";
 import generateOtp from "../../../util/externalServices/nodemailer/generateOtp";
+import { hashPassword } from "../../../util/externalServices/bcrypt/hashPass";
+import { generateToken } from "../../../util/externalServices/jwt";
+import ErrorResponse from "../../../util/errorHandlers/errorResponse";
 
 export = (dependencies: any): any => {
   const {
@@ -48,10 +51,15 @@ export = (dependencies: any): any => {
             });
           }
         } else {
-          res.json({
-            success: false,
-            message: "User Exists With The Same Email, Try Another One",
-          });
+          // res.json({
+          //   success: false,
+          //   message: "User Exists With The Same Email, Try Another One",
+          // });
+          return next(
+            ErrorResponse.forbidden(
+              "Email already resgitered, try another email"
+            )
+          );
         }
       } catch (err) {
         console.log(err, "something went wrong ");
@@ -69,27 +77,42 @@ export = (dependencies: any): any => {
         );
 
         if (!otpVerified) {
-          return res.status(401).json({
-            success: false,
-            message: "Otp is Invalid try another",
-          });
-        }else{
-            try{
-              const user = await signUp_useCase(dependencies).interactor(userCredentials)
-              
-              if (!user)
+          return  next(ErrorResponse.forbidden('otp is invalied !'))
+          // res.status(401).json({
+          //   success: false,
+          //   message: "Otp is Invalid try another",
+          // });
+        } else {
+          try {
+            // in this phase we need to do hash our password
+            userCredentials.password = await hashPassword(
+              userCredentials?.password
+            );
+            const user = await signUp_useCase(dependencies).interactor(
+              userCredentials
+            );
+
+            if (!user) {
               return res.json({
                 success: false,
                 message: "Something Went wrong try again in create user",
               });
-    
-
-            }catch(err : any){
-
+            } else {
+              // creating jwt token for furthor authentication
+              const token = generateToken(user?.id);
+              res.cookie("user_jwt", token, {
+                httpOnly: true,
+                maxAge: 7 * 24 * 60 * 60 * 1000,
+                sameSite: false,
+              });
+              user.token = token;
+              res.status(201).json(user);
             }
+          } catch (err: any) {
+            console.log(err, "err occured while creating user ");
+            next(err);
+          }
         }
-
-        
       } catch (err) {}
     }
   };
