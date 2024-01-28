@@ -22,8 +22,7 @@ const userSchema : Schema = new Schema({
           required : true ,
     },
     phone : {
-        type : Number ,
-        unique : true ,
+        type : Number 
     },
     skills : [{ type : String }],
     socialMediaLinks : [{
@@ -51,7 +50,7 @@ export interface IUserDoc {
     email : string, 
     role : string ,
     password : string, 
-    phone?: string | null,
+    phone?: number | null,
     profilePic?: string | null ,
     status?:boolean ,
     skills?:string[] | null,

@@ -6,6 +6,7 @@ import cookieParser from 'cookie-parser'
 import session from 'express-session'
 import dependencies from './util/config/dependencies'
 import { routes } from './adapters/routes'
+import errHandler from './util/errorHandlers/errorHandler'
 
 
 
@@ -34,6 +35,12 @@ app.get('/',(req : Request,res : Response)=>{
 })  
 
 app.use('/api/users',routes(dependencies))
+
+app.use((req: Request, res: Response) => {
+  res.status(404).json({ success: false, status: 404, message: "Api Not found" });
+});
+
+app.use(errHandler);
 
 app.listen( PORT, () => {
   console.log(`users-service is listening at the port ${PORT}`);

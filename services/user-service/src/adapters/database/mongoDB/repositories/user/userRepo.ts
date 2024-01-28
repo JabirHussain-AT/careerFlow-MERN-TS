@@ -7,11 +7,17 @@ export const createNewUser = async (
 ): Promise<IUserData | boolean> => {
   try {
     const newUser = await userCollection.create(userCredentials);
-    if (newUser) return newUser as IUserData;
-    else throw new Error("Something went Wrong  during creating user ");
+    return newUser as IUserData; // Assuming userCollection.create returns a single document
   } catch (err: any) {
-    if (err.code === 11000) return false;
-    return false;
+    if (err.code && (err.code === 11000 || err.code === 11001)) {
+      // Duplicate key error (unique constraint violation)
+      console.error('Duplicate key violation:', err);
+      return false;
+    } else {
+      // Other errors
+      console.error('Error creating user:', err);
+      return false;
+    }
   }
 };
 
@@ -34,6 +40,11 @@ export const userExistCheck = async (
 export const saveOtp = async (otp: number, email: string) => {
   try {
     console.log("save otp repo");
+
+    setTimeout(()=>{
+     otpCollection.findOneAndDelete({email : email})
+    },120*1000)
+
     await otpCollection
       .findOneAndUpdate(
         { email: email },
@@ -50,6 +61,8 @@ export const saveOtp = async (otp: number, email: string) => {
     console.log(err, "======  err happened in userRepo saveOtp repo");
   }
 };
+
+
 
 export const verifyOtp = async (otp: number, email: string) => {
   try {

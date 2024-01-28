@@ -6,13 +6,11 @@ export = (dependencies : any) : any =>{
     const router = express.Router()
 
     const {
-    userSignupController
+    userSignupController,
     } = userController(dependencies)
 
+//user-signup
     router.post('/sign-up',userSignupController)
-    // router.post('/otp-request',(req : Request , res : Response)=>{
-    //     console.log('otp request ,=====',req.body.email)
-    // })
 
     return router
 }

@@ -2,6 +2,7 @@ import { Request, Response, NextFunction } from "express";
 import generateOtp from "../../../util/externalServices/nodemailer/generateOtp";
 import { hashPassword } from "../../../util/externalServices/bcrypt/hashPass";
 import { generateToken } from "../../../util/externalServices/jwt";
+import ErrorResponse from "../../../util/errorHandlers/errorResponse";
 
 export = (dependencies: any): any => {
   const {
@@ -50,10 +51,15 @@ export = (dependencies: any): any => {
             });
           }
         } else {
-          res.json({
-            success: false,
-            message: "User Exists With The Same Email, Try Another One",
-          });
+          // res.json({
+          //   success: false,
+          //   message: "User Exists With The Same Email, Try Another One",
+          // });
+          return next(
+            ErrorResponse.forbidden(
+              "Email already resgitered, try another email"
+            )
+          );
         }
       } catch (err) {
         console.log(err, "something went wrong ");
@@ -71,10 +77,11 @@ export = (dependencies: any): any => {
         );
 
         if (!otpVerified) {
-          return res.status(401).json({
-            success: false,
-            message: "Otp is Invalid try another",
-          });
+          return  next(ErrorResponse.forbidden('otp is invalied !'))
+          // res.status(401).json({
+          //   success: false,
+          //   message: "Otp is Invalid try another",
+          // });
         } else {
           try {
             // in this phase we need to do hash our password
@@ -94,15 +101,13 @@ export = (dependencies: any): any => {
               // creating jwt token for furthor authentication
               const token = generateToken(user?.id);
               res.cookie("user_jwt", token, {
-                httpOnly: true, 
-                maxAge: 7 * 24 * 60 * 60 * 1000, 
-                sameSite: false, 
-            });
+                httpOnly: true,
+                maxAge: 7 * 24 * 60 * 60 * 1000,
+                sameSite: false,
+              });
               user.token = token;
               res.status(201).json(user);
             }
-
-
           } catch (err: any) {
             console.log(err, "err occured while creating user ");
             next(err);
