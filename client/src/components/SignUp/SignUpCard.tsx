@@ -2,17 +2,19 @@ import React, { useState } from "react";
 import { useFormik } from "formik";
 import { IoMdEye, IoMdEyeOff } from "react-icons/io";
 import { signUpValidationSchema } from "../../validation/SignupFormValidation";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch } from "../../redux/store";
 import OtpPage from "./OtpPage";
 import { SignUpFormValues } from "../helper/interfaces";
 import { userSignUp } from "../../redux/actions/userActions";
+import { IUserSelector } from "../../interface/IUserSlice";
 
 
 
 
 const SignUpCard: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>()
+  const { user, loading, error } = useSelector((state: IUserSelector) => state.user);
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [stepFirst, setStepFirst] = useState<boolean>(false);
   const [userTempData, setUserTempData] = useState<SignUpFormValues>({
@@ -48,10 +50,12 @@ const SignUpCard: React.FC = () => {
     <>
      { stepFirst ? <OtpPage userData = {userTempData} /> :
     <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
+      { error && <h6 className='text-red-600 font-semibold text-center pt-5'>{error}</h6> }
       <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
         <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
           Create an account
         </h1>
+
           <form
             className="space-y-4 md:space-y-6"
             onSubmit={formik.handleSubmit}

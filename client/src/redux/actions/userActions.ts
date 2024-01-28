@@ -4,7 +4,7 @@ import { IUserLoginData } from "../../interface/IUserLogin";
 import { AuthBaseUrl } from "../../config/constants";
 import { ApiError, config, handleError } from "../../config/configuration";
 
-
+//signup process
 export const userSignUp = createAsyncThunk('user/userSignUp' , async (userCredientials : IUserLoginData,{rejectWithValue})=>{
      try{
           const {data} = await axios.post(`${AuthBaseUrl}/sign-up`,userCredientials,config)
@@ -14,3 +14,6 @@ export const userSignUp = createAsyncThunk('user/userSignUp' , async (userCredie
           return handleError(axiosError, rejectWithValue);
      }
   })
+
+
+
