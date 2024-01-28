@@ -40,7 +40,11 @@ const OtpPage: FC<OtpPageProps> = ({ userData }) => {
 
   useEffect(() => {
     inputRefs[0].current?.focus();
-  }, []);
+    setOtp1('')
+    setOtp2('')
+    setOtp3('')
+    setOtp4('')
+  }, [error]);
 
   const handleOtpChange = (index: number, value: string) => {
     // Update local state with entered OTP based on index
@@ -66,6 +70,8 @@ const OtpPage: FC<OtpPageProps> = ({ userData }) => {
   };
 
   const handleToResendOtp = async () => {
+    setCountdown(120)
+    setResendDisabled(true);
     console.log("called the resend button");
   };
 
