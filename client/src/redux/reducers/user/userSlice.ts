@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { userSignUp } from "../../actions/userActions";
+import { userSignUp , userLogin} from "../../actions/userActions";
 import { IUserLoginData } from "../../../interface/IUserLogin";
 
 const userSlice = createSlice({
@@ -25,6 +25,21 @@ const userSlice = createSlice({
             state.loading = false;
             state.error = action.payload as string;
           })
+         
+        .addCase(userLogin.pending, (state) => {
+            state.loading = true;
+            state.error = null;
+          })
+          .addCase(userLogin.fulfilled, (state, action) => {
+            state.loading = false;
+            state.user = action.payload as IUserLoginData;
+            state.error = null;
+          })
+          .addCase(userLogin.rejected, (state, action) => {
+            state.loading = false;
+            state.error = action.payload as string;
+          })
+         
         
     },
 })

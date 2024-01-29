@@ -2,33 +2,35 @@ import React from "react";
 import { useFormik } from "formik";
 import GoogleButton from "../Login/GoogleButton";
 import { LoginFormProps } from "../../interface/IUserLogin";
-import { FormData } from '../../interface/IUserLogin';
-import { validationSchema } from '../../validation/LoginFormValdiation';
-import { useDispatch } from "react-redux";
+import { FormData } from "../../interface/IUserLogin";
+import { validationSchema } from "../../validation/LoginFormValdiation";
+import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch } from "../../redux/store";
 import { userLogin } from "../../redux/actions/userActions";
-
+import { IUserSelector } from "../../interface/IUserSlice";
 
 const LoginForm: React.FC<LoginFormProps> = ({ textToshow, submitLink }) => {
-  const dispatch = useDispatch<AppDispatch>()
+  const { user, loading, error } = useSelector(
+    (state: IUserSelector) => state.user
+  );
+  console.log(error, "<<<<<>>> error vanu", user);
+  const dispatch = useDispatch<AppDispatch>();
   const formik = useFormik({
     initialValues: {
-      email: '',
-      password: '',
+      email: "",
+      password: "",
       rememberMe: false,
     },
     validationSchema,
     onSubmit: (values) => {
       handleFormSubmit(values, submitLink);
-    }
+    },
   });
-  
-  const handleFormSubmit = (values: FormData, submitLink: string) => {
-    dispatch(userLogin(values ))
-    console.log('Form Data:', values, `submitted to ${submitLink}`);
-  };
-  
 
+  const handleFormSubmit = (values: FormData, submitLink: string) => {
+    dispatch(userLogin(values));
+    console.log("Form Data:", values, `submitted to ${submitLink}`);
+  };
 
   return (
     <section className="h-[500px] mr-10">
@@ -42,99 +44,119 @@ const LoginForm: React.FC<LoginFormProps> = ({ textToshow, submitLink }) => {
             />
           </div>
 
-          <div className="mb-12 md:mb-0 md:w-8/12 lg:w-5/12 xl:w-5/12">
-            <div className='text-center mt-0 mb-5'>
-              <h1 className='text-3xl font-bold mb-2'>Welcome to Career<span className="text-blue-500">Flow</span></h1>
+          <div className="mb-12 flext justify-center items-center md:mb-0 md:w-8/12 lg:w-5/12 xl:w-5/12">
+            {error && (
+              <div className="bg-red-500 text center mb-2 text-white text-sm py-2 px-3 rounded-md mt-3">
+                {error}
+              </div>
+            )}
+            <div className="text-center mt-0 mb-5">
+              <h1 className="text-3xl font-bold mb-2">
+                Welcome to Career<span className="text-blue-500">Flow</span>
+              </h1>
             </div>
+
             <form onSubmit={formik.handleSubmit}>
-          <GoogleButton />
+              <GoogleButton />
 
-          <div className="my-4 flex items-center  justify-center border-t border-neutral-300">
-            <p className="mx-4 mb-0 text-center font-semibold text-gray-500 dark:text-white">
-              OR
-            </p>
-          </div>
+              <div className="my-4 flex items-center  justify-center border-t border-neutral-300">
+                <p className="mx-4 mb-0 text-center font-semibold text-gray-500 dark:text-white">
+                  OR
+                </p>
+              </div>
 
-          {/* Email input */}
-          <div className="mb-4">
-            <label
-              htmlFor="email"
-              className="block text-xs font-semibold text-gray-500 mb-1"
-            >
-              Email
-            </label>
-            <input
-              type="text"
-              id="email"
-              name="email"
-              placeholder="Your email"
-              value={formik.values.email}
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              className={`border border-gray-300 rounded p-2 w-full ${formik.touched.email && formik.errors.email && 'border-red-500'}`}
-            />
-            {formik.touched.email && formik.errors.email && (
-              <div className="text-red-500 text-xs mt-1">{formik.errors.email}</div>
-            )}
-          </div>
+              {/* Email input */}
+              <div className="mb-4">
+                <label
+                  htmlFor="email"
+                  className="block text-xs font-semibold text-gray-500 mb-1"
+                >
+                  Email
+                </label>
+                <input
+                  type="text"
+                  id="email"
+                  name="email"
+                  placeholder="Your email"
+                  value={formik.values.email}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  className={`border border-gray-300 rounded p-2 w-full ${
+                    formik.touched.email &&
+                    formik.errors.email &&
+                    "border-red-500"
+                  }`}
+                />
+                {formik.touched.email && formik.errors.email && (
+                  <div className="text-red-500 text-xs mt-1">
+                    {formik.errors.email}
+                  </div>
+                )}
+              </div>
 
-          {/* Password input */}
-          <div className="mb-4">
-            <label
-              htmlFor="password"
-              className="block text-xs font-semibold text-gray-500 mb-1"
-            >
-              Password
-            </label>
-            <input
-              type="password"
-              id="password"
-              name="password"
-              placeholder="Your password"
-              value={formik.values.password}
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              className={`border border-gray-300 rounded p-2 w-full ${formik.touched.password && formik.errors.password && 'border-red-500'}`}
-            />
-            {formik.touched.password && formik.errors.password && (
-              <div className="text-red-500 text-xs mt-1">{formik.errors.password}</div>
-            )}
-          </div>
+              {/* Password input */}
+              <div className="mb-4">
+                <label
+                  htmlFor="password"
+                  className="block text-xs font-semibold text-gray-500 mb-1"
+                >
+                  Password
+                </label>
+                <input
+                  type="password"
+                  id="password"
+                  name="password"
+                  placeholder="Your password"
+                  value={formik.values.password}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  className={`border border-gray-300 rounded p-2 w-full ${
+                    formik.touched.password &&
+                    formik.errors.password &&
+                    "border-red-500"
+                  }`}
+                />
+                {formik.touched.password && formik.errors.password && (
+                  <div className="text-red-500 text-xs mt-1">
+                    {formik.errors.password}
+                  </div>
+                )}
+              </div>
 
-          <div className="mb-4 flex items-center justify-between">
-            <a href="#!" className="text-blue-500 hover:underline">
-              Forgot password?
-            </a>
-          </div>
+              <div className="mb-4 flex items-center justify-between">
+                <a href="#!" className="text-blue-500 hover:underline">
+                  Forgot password?
+                </a>
+              </div>
 
-          <button
-            className="w-full bg-blue-600 py-2 text-sm font-medium text-white rounded transition duration-300 ease-in-out transform hover:bg-blue-700"
-            type="submit"
-          >
-            Login
-          </button>
-
-          <div className="flex justify-between items-center mt-4">
-            <p className="text-sm font-semibold">
-              Don't have an account?{" "}
-              <a
-                href="#!"
-                className="text-blue-700 hover:text-primary-600 focus:text-primary-600 active:text-primary-700"
+              <button
+                className="w-full bg-blue-600 py-2 text-sm font-medium text-white rounded transition duration-300 ease-in-out transform hover:bg-blue-700"
+                type="submit"
               >
-                Register
-              </a>
-            </p>
-            <p className="text-sm font-semibold">
-              {textToshow}{" "}
-              <a
-                href="#!"
-                className="text-blue-700 hover:text-primary-600 focus:text-primary-600 active:text-primary-700"
-              >
-                Click here
-              </a>
-            </p>
-          </div>
-        </form>
+                Login
+              </button>
+
+              <div className="flex justify-between items-center mt-4">
+                <p className="text-sm font-semibold">
+                  Don't have an account?{" "}
+                  <a
+                    href="#!"
+                    className="text-blue-700 hover:text-primary-600 focus:text-primary-600 active:text-primary-700"
+                  >
+                    Register
+                  </a>
+                </p>
+                <p className="text-sm font-semibold">
+                  {textToshow}{" "}
+                  <a
+                    href="#!"
+                    className="text-blue-700 hover:text-primary-600 focus:text-primary-600 active:text-primary-700"
+                  >
+                    Click here
+                  </a>
+                </p>
+              </div>
+            </form>
           </div>
         </div>
       </div>
