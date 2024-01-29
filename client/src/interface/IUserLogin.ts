@@ -5,8 +5,18 @@ export interface IUserLoginData {
     phone?:string | null 
     otp?:number | null,
     profilePic?:string | null
-}
-export interface FormData {
+  }
+
+
+  
+  export interface ILoginForm {
+    email : string ,
+    password : string
+  }
+
+
+
+  export interface FormData {
     email: string;
     password: string;
     rememberMe: boolean;
@@ -15,3 +25,6 @@ export interface LoginFormProps {
   textToshow: string;
   submitLink: string;
 }
+
+
+

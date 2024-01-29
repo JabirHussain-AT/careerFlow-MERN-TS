@@ -1,6 +1,6 @@
-import { createAsyncThunk } from "@reduxjs/toolkit";
+import { createAsyncThunk, isRejectedWithValue } from "@reduxjs/toolkit";
 import axios, { AxiosError } from "axios";
-import { IUserLoginData } from "../../interface/IUserLogin";
+import { IUserLoginData , ILoginForm} from "../../interface/IUserLogin";
 import { AuthBaseUrl } from "../../config/constants";
 import { ApiError, config, handleError } from "../../config/configuration";
 
@@ -9,11 +9,22 @@ export const userSignUp = createAsyncThunk('user/userSignUp' , async (userCredie
      try{
           const {data} = await axios.post(`${AuthBaseUrl}/sign-up`,userCredientials,config)
           return data 
-     }catch(err){
+     }catch(err : any){
       const axiosError = err as AxiosError<ApiError>;
           return handleError(axiosError, rejectWithValue);
      }
   })
+
+export const userLogin = createAsyncThunk('user/userLogin' ,async (userCredentials : ILoginForm ,{rejectWithValue}) =>{
+     try{
+          const {data} = await axios.post(`${AuthBaseUrl}/login`,userCredentials,config)
+          return data
+
+     }catch(err : any ){
+          const axiosError = err as AxiosError<ApiError> ;
+          return handleError(axiosError,rejectWithValue)
+     }
+})
 
 
 

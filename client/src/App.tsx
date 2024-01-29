@@ -5,8 +5,8 @@ import Signup from "./pages/user/Signup"
 function App() {
   return (
     <>
-     {/* < Login /> */}
-     < Signup />
+     < Login />
+     {/* < Signup /> */}
     </>
   )
 }
