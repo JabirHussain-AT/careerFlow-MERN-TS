@@ -5,17 +5,15 @@ export const login_useCase = (dependencies : any ) : any =>{
         }
     } = dependencies
 
-    console.log('in login useCase ')
     if(!loginVerify) throw  new Error
-
     const interactor = async (email : string, password : string ) =>{
         try{
             console.log('in interactor of the login use case')
-            await loginVerify(email,password)
-
+            let result = await loginVerify(email,password)
+            return result
         }catch(err : any){
             return false
         }
     }
-    return interactor
+    return {interactor}
 }

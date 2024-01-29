@@ -81,11 +81,12 @@ export const verifyOtp = async (otp: number, email: string) => {
 
 export const loginVerify = async(email : string , password : string) =>{
   try{
-    console.log("loginVerify repo");
     let isUserExist  = await userCollection.findOne({email : email})
-    if(!isUserExist){
+    // console.log(isUserExist,'<<<<<<<<<<<>...........')
+    if(isUserExist == null){
       return false 
     }else{
+      // console.log("loginVerify repo");
        return isUserExist
     }
   }catch(err : any){
