@@ -4,9 +4,13 @@ import GoogleButton from "../Login/GoogleButton";
 import { LoginFormProps } from "../../interface/IUserLogin";
 import { FormData } from '../../interface/IUserLogin';
 import { validationSchema } from '../../validation/LoginFormValdiation';
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "../../redux/store";
+import { userLogin } from "../../redux/actions/userActions";
 
 
 const LoginForm: React.FC<LoginFormProps> = ({ textToshow, submitLink }) => {
+  const dispatch = useDispatch<AppDispatch>()
   const formik = useFormik({
     initialValues: {
       email: '',
@@ -20,6 +24,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ textToshow, submitLink }) => {
   });
   
   const handleFormSubmit = (values: FormData, submitLink: string) => {
+    dispatch(userLogin(values ))
     console.log('Form Data:', values, `submitted to ${submitLink}`);
   };
   

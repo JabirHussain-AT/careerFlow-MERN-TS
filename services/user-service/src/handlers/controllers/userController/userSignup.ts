@@ -77,11 +77,7 @@ export = (dependencies: any): any => {
         );
 
         if (!otpVerified) {
-          return  next(ErrorResponse.forbidden('otp is invalied !'))
-          // res.status(401).json({
-          //   success: false,
-          //   message: "Otp is Invalid try another",
-          // });
+          return next(ErrorResponse.forbidden("otp is invalied !"));
         } else {
           try {
             // in this phase we need to do hash our password
@@ -113,7 +109,9 @@ export = (dependencies: any): any => {
             next(err);
           }
         }
-      } catch (err) {}
+      } catch (err) {
+        console.log(err,'err in the user signuo')
+      }
     }
   };
 

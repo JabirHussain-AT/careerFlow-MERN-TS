@@ -77,3 +77,18 @@ export const verifyOtp = async (otp: number, email: string) => {
     return false;
   }
 };
+
+
+export const loginVerify = async(email : string , password : string) =>{
+  try{
+    console.log("loginVerify repo");
+    let isUserExist  = await userCollection.findOne({email : email})
+    if(!isUserExist){
+      return false 
+    }else{
+       return isUserExist
+    }
+  }catch(err : any){
+    console.log(err, "====== err occured in the verify otp repo");
+  }
+}

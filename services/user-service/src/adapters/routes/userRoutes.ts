@@ -7,10 +7,12 @@ export = (dependencies : any) : any =>{
 
     const {
     userSignupController,
+    userLoginController
     } = userController(dependencies)
 
 //user-signup
     router.post('/sign-up',userSignupController)
+    router.post('/logIn',userLoginController)
 
     return router
 }
