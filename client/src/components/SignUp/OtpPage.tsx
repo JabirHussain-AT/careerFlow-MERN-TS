@@ -1,12 +1,14 @@
 import React, { FC, useEffect, useRef, useState } from "react";
 import { OtpPageProps } from "../helper/interfaces";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { AppDispatch } from "../../redux/store";
 import { userSignUp } from "../../redux/actions/userActions";
 import { IUserSelector } from "../../interface/IUserSlice";
 
 const OtpPage: FC<OtpPageProps> = ({ userData }) => {
   const dispatch = useDispatch<AppDispatch>();
+  const navigate = useNavigate();
   const { user, loading, error } = useSelector(
     (state: IUserSelector) => state.user
   );
@@ -40,10 +42,10 @@ const OtpPage: FC<OtpPageProps> = ({ userData }) => {
 
   useEffect(() => {
     inputRefs[0].current?.focus();
-    setOtp1('')
-    setOtp2('')
-    setOtp3('')
-    setOtp4('')
+    setOtp1("");
+    setOtp2("");
+    setOtp3("");
+    setOtp4("");
   }, [error]);
 
   const handleOtpChange = (index: number, value: string) => {
@@ -70,7 +72,7 @@ const OtpPage: FC<OtpPageProps> = ({ userData }) => {
   };
 
   const handleToResendOtp = async () => {
-    setCountdown(120)
+    setCountdown(120);
     setResendDisabled(true);
     console.log("called the resend button");
   };
@@ -81,12 +83,17 @@ const OtpPage: FC<OtpPageProps> = ({ userData }) => {
     const totalOtp = parseInt("" + otp1 + otp2 + otp3 + otp4);
     const status = await dispatch(userSignUp({ ...userData, otp: totalOtp }));
     console.log(status, "status from th handleSubmit");
+    if (status?.payload?.email) {
+      navigate("/");
+    }
   };
 
   return (
-    <div className="relative flex min-h-screen flex-col justify-center overflow-hidden bg-gray-50 py-12">
+    <div className="relative flex min-h-screen flex-col shadow-md justify-center overflow-hidden bg-gray-50 py-12">
       {error && (
-        <h6 className="text-red-600 font-semibold text-center pt-5">{error}</h6>
+        <div className="bg-red-500 z-[999] text-center mb-2 text-white text-sm py-2 px-5 rounded-md mt-3">
+          {error}
+        </div>
       )}
       <div className="relative bg-white px-6 pt-10 pb-9 shadow-xl mx-auto w-full max-w-lg rounded-2xl">
         <div className="mx-auto flex w-full max-w-md flex-col space-y-16">
@@ -111,6 +118,7 @@ const OtpPage: FC<OtpPageProps> = ({ userData }) => {
                       <input
                         className="w-full h-full flex flex-col items-center justify-center text-center px-5 outline-none rounded-xl border border-gray-200 text-lg bg-white focus:bg-gray-50 focus:ring-1 ring-blue-700"
                         minLength={1}
+                        required
                         ref={inputRefs[index]}
                         maxLength={1}
                         type="text"

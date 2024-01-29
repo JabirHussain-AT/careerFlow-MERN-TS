@@ -6,6 +6,7 @@ import { FormData } from "../../interface/IUserLogin";
 import { validationSchema } from "../../validation/LoginFormValdiation";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch } from "../../redux/store";
+import {useNavigate} from 'react-router-dom'
 import { userLogin } from "../../redux/actions/userActions";
 import { IUserSelector } from "../../interface/IUserSlice";
 
@@ -13,7 +14,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ textToshow, submitLink }) => {
   const { user, loading, error } = useSelector(
     (state: IUserSelector) => state.user
   );
-  console.log(error, "<<<<<>>> error vanu", user);
+  const navigate = useNavigate()
   const dispatch = useDispatch<AppDispatch>();
   const formik = useFormik({
     initialValues: {
@@ -46,7 +47,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ textToshow, submitLink }) => {
 
           <div className="mb-12 flext justify-center items-center md:mb-0 md:w-8/12 lg:w-5/12 xl:w-5/12">
             {error && (
-              <div className="bg-red-500 text center mb-2 text-white text-sm py-2 px-3 rounded-md mt-3">
+              <div className="bg-red-500 z-999 text center mb-2 text-white text-sm py-2 px-3 rounded-md mt-3">
                 {error}
               </div>
             )}
@@ -57,7 +58,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ textToshow, submitLink }) => {
             </div>
 
             <form onSubmit={formik.handleSubmit}>
-              <GoogleButton />
+              <GoogleButton text={'Login with Google'}/>
 
               <div className="my-4 flex items-center  justify-center border-t border-neutral-300">
                 <p className="mx-4 mb-0 text-center font-semibold text-gray-500 dark:text-white">
@@ -140,7 +141,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ textToshow, submitLink }) => {
                 <p className="text-sm font-semibold">
                   Don't have an account?{" "}
                   <a
-                    href="#!"
+                    href={`${navigate('/signup')}`}
                     className="text-blue-700 hover:text-primary-600 focus:text-primary-600 active:text-primary-700"
                   >
                     Register
