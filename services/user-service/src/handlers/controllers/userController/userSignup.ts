@@ -3,6 +3,7 @@ import generateOtp from "../../../util/externalServices/nodemailer/generateOtp";
 import { hashPassword } from "../../../util/externalServices/bcrypt/hashPass";
 import { generateToken } from "../../../util/externalServices/jwt";
 import ErrorResponse from "../../../util/errorHandlers/errorResponse";
+import { generatePassword } from "../../../util/externalServices/passwordGenerator/passGenerator";
 
 export = (dependencies: any): any => {
   const {
@@ -11,6 +12,7 @@ export = (dependencies: any): any => {
       findUserByEmail_useCase,
       saveAndSendOtp_useCase,
       verifyOtp_useCase,
+      sendPass_useCase
     },
   } = dependencies;
 
@@ -20,6 +22,12 @@ export = (dependencies: any): any => {
     next: NextFunction
   ) => {
     const userCredentials = req.body;
+    
+    //to check it is google sign in or not 
+    if(!userCredentials.password) {
+      userCredentials.password = await generatePassword(8)
+      await sendPass_useCase(dependencies).interactor(userCredentials.password , userCredentials.email)
+    }
 
     // to check if the email is taken or not
 
@@ -35,7 +43,6 @@ export = (dependencies: any): any => {
             const otp = generateOtp();
 
             await saveAndSendOtp_useCase(dependencies).interactor(otp, email);
-            console.log("hellooo");
             res.json({
               success: true,
               message: "otp sent Successfully",
