@@ -46,7 +46,7 @@ const SignUpCard: React.FC = () => {
     },
   });
 
-  const googleSignIn = async (response: string | any, status: boolean): any => {
+  const googleSignIn = async (response: string | any, status: boolean)=> {
     if (status) {
       try {
         let credentials : CustomJwtPayload = jwtDecode(response.credential);
