@@ -10,3 +10,15 @@ export interface SignUpFormValues {
 export interface OtpPageProps {
     userData: SignUpFormValues;
   }
+
+export  interface UserValues {
+    userName: string;
+    email: string;
+    profilePic?: string;
+  }
+
+ export interface CustomJwtPayload {
+  name: string;
+  email: string;
+  picture?: string;
+ }

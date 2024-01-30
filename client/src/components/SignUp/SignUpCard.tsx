@@ -1,19 +1,22 @@
 import React, { useState } from "react";
+import { GoogleLogin } from "@react-oauth/google";
 import { useFormik } from "formik";
 import { IoMdEye, IoMdEyeOff } from "react-icons/io";
 import { signUpValidationSchema } from "../../validation/SignupFormValidation";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch } from "../../redux/store";
 import OtpPage from "./OtpPage";
-import { SignUpFormValues } from "../helper/interfaces";
+import { CustomJwtPayload, SignUpFormValues, UserValues } from "../helper/interfaces";
 import { userSignUp } from "../../redux/actions/userActions";
 import { IUserSelector } from "../../interface/IUserSlice";
-import GoogleButton from "../Login/GoogleButton";
+import jw_decode, { jwtDecode } from "jwt-decode";
+import { useNavigate } from "react-router-dom";
 
 const SignUpCard: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
   const { error } = useSelector((state: IUserSelector) => state.user);
-  console.log(error,'<<<<<<<<<>>>>>>>>>>>>>>>')
+  console.log(error, "<<<<<<<<<>>>>>>>>>>>>>>>");
+  const navigate = useNavigate()
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [stepFirst, setStepFirst] = useState<boolean>(false);
   const [userTempData, setUserTempData] = useState<SignUpFormValues>({
@@ -43,6 +46,28 @@ const SignUpCard: React.FC = () => {
     },
   });
 
+  const googleSignIn = async (response: string | any, status: boolean): any => {
+    if (status) {
+      try {
+        let credentials : CustomJwtPayload = jwtDecode(response.credential);
+  
+        let userValues: UserValues = {
+          userName: credentials?.name,
+          email: credentials?.email,
+          profilePic: credentials?.picture,
+        };
+  
+        const userData = await dispatch(userSignUp(userValues));
+        if(userData?.payload?.success){
+          navigate('')
+        }
+         
+      } catch (error) {
+        console.error('Error processing Google Sign In:', error);
+      }
+    }
+  };
+  
   return (
     <>
       {stepFirst ? (
@@ -53,13 +78,27 @@ const SignUpCard: React.FC = () => {
             <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
               Create an account
             </h1>
-            <GoogleButton text={'continue with gooogle'}/>
+            {/* <GoogleButton text={'continue with gooogle'}/> */}
+            <div className="flex justify-center items-start">
+
+            <GoogleLogin
+              text='signup_with'
+              onSuccess={(credentialResponse) => {
+                googleSignIn(credentialResponse,true)
+              }}
+              onError={() => {
+                googleSignIn('err',false)
+                console.log("Login Failed");
+              }}
+              />
+            </div>
+
             <div className="my-4 flex items-center  justify-center border-t border-neutral-300">
-                <p className="mx-4 mb-0 text-center font-semibold text-gray-500 dark:text-white">
-                  OR
-                </p>
-              </div>
-          {error && (
+              <p className="mx-4 mb-0 text-center font-semibold text-gray-500 dark:text-white">
+                OR
+              </p>
+            </div>
+            {error && (
               <div className="bg-red-500 z-[999] text-center mb-2 text-white text-sm py-2 px-3 rounded-md mt-3">
                 {error}
               </div>
