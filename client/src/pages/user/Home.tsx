@@ -10,7 +10,7 @@ const Home: FC = () => {
       <NavBar />
       <Banner />
       <CategorySec />
-      < FeaturedJobSec  />
+      <FeaturedJobSec />
     </>
   );
 };
