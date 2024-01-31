@@ -6,8 +6,8 @@ import { IUserSelector } from "./interface/IUserSlice";
 import Home from "./pages/user/Home";
 
 function App() {
-  const { user, error } = useSelector((state: IUserSelector) => state.user);
-  console.log('==========> ',user)
+  const { user } = useSelector((state: IUserSelector) => state.user);
+  console.log('======> ',user)
   return (
     <Router>
       <>
