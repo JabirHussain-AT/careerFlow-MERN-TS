@@ -11,6 +11,7 @@ export = (dependencies: any): any => {
   const loginUser = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const userCredentials = req.body;
+      console.log(userCredentials,'this is the one')
       const isUserExist = await login_useCase(dependencies).interactor(
         userCredentials.email,
         userCredentials.password
@@ -29,7 +30,7 @@ export = (dependencies: any): any => {
         userCredentials.password,
         isUserExist.password
       );
-      if (userVerify) {
+      if (userVerify || userCredentials?.googleAuth) {
         const token = generateToken(isUserExist?.id);
         res.cookie("user_jwt", token, {
           httpOnly: true,

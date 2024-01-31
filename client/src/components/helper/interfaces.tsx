@@ -17,6 +17,13 @@ export  interface UserValues {
     profilePic?: string;
   }
 
+export interface userDataByGoogle {
+    email : string,
+    password : string
+    googleAuth : boolean ;
+
+}
+
  export interface CustomJwtPayload {
   name: string;
   email: string;

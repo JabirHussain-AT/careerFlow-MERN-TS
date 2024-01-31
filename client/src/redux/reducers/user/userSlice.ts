@@ -1,6 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { userSignUp , userLogin} from "../../actions/userActions";
 import { IUserLoginData } from "../../../interface/IUserLogin";
+import { persistReducer } from "redux-persist";
+import { persistConfig } from "../../../config/constants";
 
 const userSlice = createSlice({
     name : "userSlice",
@@ -26,7 +28,7 @@ const userSlice = createSlice({
             state.error = action.payload as string;
           })
          
-        .addCase(userLogin.pending, (state) => {
+         .addCase(userLogin.pending, (state) => {
             state.loading = true;
             state.error = null;
           })
@@ -43,5 +45,6 @@ const userSlice = createSlice({
         
     },
 })
+const persistedUserReducer = persistReducer(persistConfig, userSlice.reducer);
 
-export default userSlice.reducer    
+export default persistedUserReducer;

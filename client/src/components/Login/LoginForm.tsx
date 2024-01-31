@@ -6,15 +6,19 @@ import { FormData } from "../../interface/IUserLogin";
 import { validationSchema } from "../../validation/LoginFormValdiation";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch } from "../../redux/store";
-import {useNavigate} from 'react-router-dom'
+import { useNavigate } from "react-router-dom";
 import { userLogin } from "../../redux/actions/userActions";
 import { IUserSelector } from "../../interface/IUserSlice";
+
+import { jwtDecode } from "jwt-decode";
+import { GoogleLogin } from "@react-oauth/google";
+import { CustomJwtPayload, UserValues, userDataByGoogle } from "../helper/interfaces";
 
 const LoginForm: React.FC<LoginFormProps> = ({ textToshow, submitLink }) => {
   const { user, loading, error } = useSelector(
     (state: IUserSelector) => state.user
   );
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
   const formik = useFormik({
     initialValues: {
@@ -28,9 +32,39 @@ const LoginForm: React.FC<LoginFormProps> = ({ textToshow, submitLink }) => {
     },
   });
 
-  const handleFormSubmit = (values: FormData, submitLink: string) => {
-    dispatch(userLogin(values));
-    console.log("Form Data:", values, `submitted to ${submitLink}`);
+  const googleLogin = async (response: string | any, status: boolean)=> {
+    if (status) {
+      try {
+        let credentials : CustomJwtPayload = jwtDecode(response.credential);
+  
+        let userValues: userDataByGoogle = {
+          email: credentials?.email,
+          password : '%^%^&%&' ,
+          googleAuth : true
+        };
+  
+        const userData = await dispatch(userLogin(userValues));
+
+        if(userData){
+          console.log(userData,'<<<<<<>>>>>>>>',user)
+         navigate('/')
+        }
+         
+      } catch (error) {
+        console.error('Error processing Google Log In:', error);
+      }
+    }
+  };
+  
+
+  const handleFormSubmit = async (values: FormData, submitLink: string) => {
+    const data = await dispatch(userLogin(values));
+    console.log("Form Data:", data, `submitted to `, user);
+    if (data.type !== "user/userLogin/rejected") {
+      setTimeout(() => {
+        navigate("/");
+      }, 5000);
+    }
   };
 
   return (
@@ -58,7 +92,19 @@ const LoginForm: React.FC<LoginFormProps> = ({ textToshow, submitLink }) => {
             </div>
 
             <form onSubmit={formik.handleSubmit}>
-              <GoogleButton text={'Login with Google'}/>
+              {/* <GoogleButton text={'Login with Google'}/> */}
+              <div className="flex justify-center items-start">
+                <GoogleLogin
+                  text="continue_with"
+                  onSuccess={(credentialResponse) => {
+                    googleLogin(credentialResponse, true);
+                  }}
+                  onError={() => {
+                    googleLogin("err", false);
+                    console.log("Login Failed");
+                  }}
+                />
+              </div>
 
               <div className="my-4 flex items-center  justify-center border-t border-neutral-300">
                 <p className="mx-4 mb-0 text-center font-semibold text-gray-500 dark:text-white">
@@ -141,8 +187,8 @@ const LoginForm: React.FC<LoginFormProps> = ({ textToshow, submitLink }) => {
                 <p className="text-sm font-semibold">
                   Don't have an account?{" "}
                   <a
-                    href={`${navigate('/signup')}`}
-                    className="text-blue-700 hover:text-primary-600 focus:text-primary-600 active:text-primary-700"
+                    onClick={() => navigate("/signup ")}
+                    className=" cursor-pointer text-blue-700 hover:text-primary-600 focus:text-primary-600 active:text-primary-700"
                   >
                     Register
                   </a>

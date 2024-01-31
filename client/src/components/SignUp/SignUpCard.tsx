@@ -9,13 +9,12 @@ import OtpPage from "./OtpPage";
 import { CustomJwtPayload, SignUpFormValues, UserValues } from "../helper/interfaces";
 import { userSignUp } from "../../redux/actions/userActions";
 import { IUserSelector } from "../../interface/IUserSlice";
-import jw_decode, { jwtDecode } from "jwt-decode";
+import { jwtDecode } from "jwt-decode";
 import { useNavigate } from "react-router-dom";
 
 const SignUpCard: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
-  const { error } = useSelector((state: IUserSelector) => state.user);
-  console.log(error, "<<<<<<<<<>>>>>>>>>>>>>>>");
+  const { user,error } = useSelector((state: IUserSelector) => state.user);
   const navigate = useNavigate()
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [stepFirst, setStepFirst] = useState<boolean>(false);
@@ -58,8 +57,12 @@ const SignUpCard: React.FC = () => {
         };
   
         const userData = await dispatch(userSignUp(userValues));
-        if(userData?.payload?.success){
-          navigate('')
+
+        if(userData){
+          console.log(userData,'<<<<<<>>>>>>>>',user)
+          setTimeout(()=>{
+            navigate('/')
+          },3000)
         }
          
       } catch (error) {
@@ -101,6 +104,7 @@ const SignUpCard: React.FC = () => {
             {error && (
               <div className="bg-red-500 z-[999] text-center mb-2 text-white text-sm py-2 px-3 rounded-md mt-3">
                 {error}
+              
               </div>
             )}
             <form

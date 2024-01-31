@@ -12,7 +12,7 @@ export = (dependencies: any): any => {
       findUserByEmail_useCase,
       saveAndSendOtp_useCase,
       verifyOtp_useCase,
-      sendPass_useCase
+      sendPass_useCase,
     },
   } = dependencies;
 
@@ -22,16 +22,10 @@ export = (dependencies: any): any => {
     next: NextFunction
   ) => {
     const userCredentials = req.body;
-    
-    //to check it is google sign in or not 
-    if(!userCredentials.password) {
-      userCredentials.password = await generatePassword(8)
-      await sendPass_useCase(dependencies).interactor(userCredentials.password , userCredentials.email)
-    }
 
     // to check if the email is taken or not
 
-    if (!userCredentials.otp) {
+    if (!userCredentials.otp && userCredentials.password) {
       try {
         const userExist = await findUserByEmail_useCase(
           dependencies
@@ -77,13 +71,34 @@ export = (dependencies: any): any => {
       //verify otp enetered by the user
 
       try {
-        const otp = userCredentials?.otp;
-        const otpVerified = await verifyOtp_useCase(dependencies).interactor(
-          userCredentials.email,
-          otp
-        );
+        let otpVerified = false;
+        if (userCredentials.otp) {
+          const otp = userCredentials?.otp;
+          otpVerified = await verifyOtp_useCase(dependencies).interactor(
+            userCredentials.email,
+            otp
+          );
+        }
 
-        if (!otpVerified) {
+        //if user is user signed through google
+        //to check it is google sign in or not
+        if (!userCredentials.password) {
+
+          const userExist = await findUserByEmail_useCase(
+            dependencies
+          ).interactor(userCredentials);
+
+          if(userExist) return next(ErrorResponse.forbidden('User Already Exists ! try another one'))
+
+          userCredentials.password = await generatePassword(8);
+          await sendPass_useCase(dependencies).interactor(
+            userCredentials.password,
+            userCredentials.email
+          )
+          }
+
+        
+        if (!otpVerified && userCredentials.otp) {
           return next(ErrorResponse.forbidden("otp is invalied !"));
         } else {
           try {
@@ -93,13 +108,10 @@ export = (dependencies: any): any => {
             );
             const user = await signUp_useCase(dependencies).interactor(
               userCredentials
-            );
+              );
 
             if (!user) {
-              return res.json({
-                success: false,
-                message: "Something Went wrong try again in create user",
-              });
+              return next(ErrorResponse.forbidden('User Already Exists ! try another one'))
             } else {
               // creating jwt token for furthor authentication
               const token = generateToken(user?.id);
@@ -117,7 +129,7 @@ export = (dependencies: any): any => {
           }
         }
       } catch (err) {
-        console.log(err,'err in the user signuo')
+        console.log(err, "err in the user signuo");
       }
     }
   };
