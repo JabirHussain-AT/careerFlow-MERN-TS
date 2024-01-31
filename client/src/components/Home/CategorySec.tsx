@@ -38,23 +38,6 @@ const CategorySec: React.FC = () => {
 
         {/* to make loop over here */}
       </div>
-
-      {/* This is featuered JOb section */}
-      <div className="h-auto w-full bg-white">
-        <div className="flex justify-between py-5 px-4  bg-white">
-          <div className="">
-            <h3 className="font-bold font-sans text-3xl">
-             Featured <span className="text-blue-500"> Jobs  </span>{" "}
-            </h3>
-          </div>
-          <div>
-            <h4 className="text-blue-600 font-medium">
-              View All{" "}
-              <FontAwesomeIcon icon={faArrowRight} className="ml-2" />
-            </h4>
-          </div>
-        </div>
-      </div>
     </>
   );
 };
