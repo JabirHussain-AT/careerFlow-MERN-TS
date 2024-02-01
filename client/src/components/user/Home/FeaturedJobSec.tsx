@@ -1,6 +1,6 @@
 import { faArrowRight, faBookmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import GoogleIcon from "../../assets/googleIcon.png";
+import GoogleIcon from "../../../assets/googleIcon.png";
 import React from "react";
 
 const FeaturedJobSec: React.FC = () => {

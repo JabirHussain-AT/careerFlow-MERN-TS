@@ -1,7 +1,7 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
-import designLogo from "../../assets/design.png";
+import designLogo from "../../../assets/design.png";
 
 const CategorySec: React.FC = () => {
   return (

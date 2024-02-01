@@ -1,5 +1,5 @@
 import React from "react";
-import GoogleIcon from "../../assets/googleIcon.png";
+import GoogleIcon from "../../../assets/googleIcon.png";
 
 const TopCompanies: React.FC = () => {
   return (

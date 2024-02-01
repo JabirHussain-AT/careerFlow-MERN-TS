@@ -1,14 +1,17 @@
 import React, { FC, useEffect, useRef, useState } from "react";
-import { OtpPageProps } from "../helper/interfaces";
+import { OtpPageProps } from "../../helper/interfaces";
 import { useDispatch, useSelector } from "react-redux";
+import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import { AppDispatch } from "../../redux/store";
-import { userSignUp } from "../../redux/actions/userActions";
-import { IUserSelector } from "../../interface/IUserSlice";
+import { AppDispatch } from "../../../redux/store";
+import { userSignUp } from "../../../redux/actions/userActions";
+import { IUserSelector } from "../../../interface/IUserSlice";
+import { companySignUp } from "../../../redux/actions/companyActions";
 
 const OtpPage: FC<OtpPageProps> = ({ userData }) => {
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
+  const location = useLocation();
   const { user, loading, error } = useSelector(
     (state: IUserSelector) => state.user
   );
@@ -39,6 +42,8 @@ const OtpPage: FC<OtpPageProps> = ({ userData }) => {
       clearInterval(timer);
     };
   }, [countdown]);
+
+
 
   useEffect(() => {
     inputRefs[0].current?.focus();
@@ -81,7 +86,16 @@ const OtpPage: FC<OtpPageProps> = ({ userData }) => {
     event.preventDefault();
 
     const totalOtp = parseInt("" + otp1 + otp2 + otp3 + otp4);
-    const status = await dispatch(userSignUp({ ...userData, otp: totalOtp }));
+
+    const pathLocater =  location.pathname.includes("/company");
+    let status 
+    if(pathLocater){
+      
+      status = await dispatch(companySignUp({ ...userData, otp: totalOtp }));
+    }else{
+      status = await dispatch(userSignUp({ ...userData, otp: totalOtp }));
+    }
+
     console.log(status, "status from th handleSubmit");
     if (status?.payload?.email) {
       navigate("/");
