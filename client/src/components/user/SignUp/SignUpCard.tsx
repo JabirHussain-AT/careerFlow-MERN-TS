@@ -28,7 +28,7 @@ const SignUpCard: React.FC<{
   
   const location = useLocation();
   const dispatch = useDispatch<AppDispatch>();
-  const { user, error } = useSelector((state: IUserSelector) => state.user);
+  const { error } = useSelector((state: IUserSelector) => state.user);
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [stepFirst, setStepFirst] = useState<boolean>(false);
@@ -95,22 +95,13 @@ const SignUpCard: React.FC<{
 
         if (!pathLocater) {
 
-          userData = await dispatch(userSignUp(userValues));
+          userData =  userSignUp(userValues);
 
         } else {
-
-          userData = await dispatch(companySignUp(userValues));
+          
+          userData =  companySignUp(userValues);
 
         }
-
-        if (userData) {
-          // console.log(userData, "<<<<<<>>>>>>>>", user);
-          setTimeout(() => {
-            navigate("/");
-          }, 3000);
-        }
-
-
       } catch (error) {
         console.error("Error processing Google Sign In:", error);
       }
@@ -343,7 +334,7 @@ const SignUpCard: React.FC<{
               </p>
             </form>
 
-            
+
           </div>
         </div>
       )}

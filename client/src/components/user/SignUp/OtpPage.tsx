@@ -9,19 +9,26 @@ import { IUserSelector } from "../../../interface/IUserSlice";
 import { companySignUp } from "../../../redux/actions/companyActions";
 
 const OtpPage: FC<OtpPageProps> = ({ userData }) => {
+
+
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
   const location = useLocation();
-  const { user, loading, error } = useSelector(
+  const { error } = useSelector(
     (state: IUserSelector) => state.user
   );
+
+
+
   const [otp1, setOtp1] = useState<string>("");
   const [otp2, setOtp2] = useState<string>("");
   const [otp3, setOtp3] = useState<string>("");
   const [otp4, setOtp4] = useState<string>("");
   const [resendDisabled, setResendDisabled] = useState<boolean>(true);
   const [countdown, setCountdown] = useState<number>(120); // Initial countdown value in seconds
-  const [focusedInput, setFocusedInput] = useState<number>(0);
+  const [ focousedInput , setFocusedInput] = useState<number>(0);
+
+
 
   const inputRefs = [
     useRef<HTMLInputElement>(null),
@@ -29,6 +36,7 @@ const OtpPage: FC<OtpPageProps> = ({ userData }) => {
     useRef<HTMLInputElement>(null),
     useRef<HTMLInputElement>(null),
   ];
+
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -53,6 +61,8 @@ const OtpPage: FC<OtpPageProps> = ({ userData }) => {
     setOtp4("");
   }, [error]);
 
+
+
   const handleOtpChange = (index: number, value: string) => {
     // Update local state with entered OTP based on index
     switch (index) {
@@ -76,27 +86,37 @@ const OtpPage: FC<OtpPageProps> = ({ userData }) => {
     }
   };
 
+
+  // handle the resend of otp
   const handleToResendOtp = async () => {
     setCountdown(120);
     setResendDisabled(true);
     console.log("called the resend button");
   };
 
+
+
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
 
+    //  Joining the otp from each coloumn 
     const totalOtp = parseInt("" + otp1 + otp2 + otp3 + otp4);
 
+    // based on path calling the action
     const pathLocater =  location.pathname.includes("/company");
     let status 
     if(pathLocater){
-      
+
       status = await dispatch(companySignUp({ ...userData, otp: totalOtp }));
     }else{
+
       status = await dispatch(userSignUp({ ...userData, otp: totalOtp }));
+      
     }
 
-    console.log(status, "status from th handleSubmit");
+
+    // if the the response is okay or containing email , it means success 
+    console.log(status, "status from th handleSubmit" ,"<<<> Focoused Input" , focousedInput);
     if (status?.payload?.email) {
       navigate("/");
     }
@@ -104,13 +124,19 @@ const OtpPage: FC<OtpPageProps> = ({ userData }) => {
 
   return (
     <div className="relative flex min-h-screen flex-col shadow-md justify-center overflow-hidden bg-gray-50 py-12">
+    
+    
       {error && (
         <div className="bg-red-500 z-[999] text-center mb-2 text-white text-sm py-2 px-5 rounded-md mt-3">
           {error}
         </div>
       )}
+
+
       <div className="relative bg-white px-6 pt-10 pb-9 shadow-xl mx-auto w-full max-w-lg rounded-2xl">
         <div className="mx-auto flex w-full max-w-md flex-col space-y-16">
+
+
           <div className="flex flex-col items-center justify-center text-center space-y-2">
             <div className="font-semibold text-3xl">
               <p>Email Verification</p>
@@ -175,6 +201,8 @@ const OtpPage: FC<OtpPageProps> = ({ userData }) => {
               </div>
             </form>
           </div>
+
+
         </div>
       </div>
     </div>
