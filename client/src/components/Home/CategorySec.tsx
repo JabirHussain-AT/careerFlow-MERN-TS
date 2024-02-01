@@ -22,7 +22,7 @@ const CategorySec: React.FC = () => {
         </div>
         {/* It category section */}
         <div className="w-full bg-white ">
-          <div className="w-40 rounded h-32 ml-5 border hover:bg-blue-500 group  border-black">
+          <div className="w-40 rounded h-32 ml-8 border hover:bg-blue-500 group  border-black">
             <img className="h-12 p-1" src={designLogo} alt="" />
             <h4 className=" font-bold px-2">Engineering </h4>
             <p className="text-gray-500 font-serif py-3 px-2 text-sm group-hover:text-white">

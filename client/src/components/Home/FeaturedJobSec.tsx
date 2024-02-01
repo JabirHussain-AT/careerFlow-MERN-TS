@@ -5,7 +5,7 @@ import React from "react";
 
 const FeaturedJobSec: React.FC = () => {
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-auto bg-white">
       <div className="flex justify-between items-center py-5 px-4 bg-white">
         <h3 className="font-bold font-sans text-3xl">
           Featured <span className="text-blue-500"> Jobs </span>
