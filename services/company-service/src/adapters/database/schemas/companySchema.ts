@@ -8,7 +8,7 @@ const CompanySchema: Schema = new Schema(
     companyLogo: { type: String },
     name: { type: String},
     address : {type : Object },
-    linkedIn: { type: String , unique: true },
+    linkedIn: { type: String },
     approved: { type: Boolean, default: false },
     phone: { type: Number },
     locations: { type: String },

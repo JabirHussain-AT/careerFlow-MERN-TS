@@ -5,6 +5,7 @@ export const createNewUser = async (
   userCredentials: ICompanyData
 ): Promise<ICompanyData | boolean> => {
   try {
+    console.log(userCredentials,'-----------------')
     const newUser = await companyCollection.create(userCredentials);
     return newUser as ICompanyData; // Assuming userCollection.create returns a single document
   } catch (err: any) {

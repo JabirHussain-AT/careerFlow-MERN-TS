@@ -3,7 +3,7 @@ import { sendOtp } from "../../util/externalServices/nodemailer/sendOtp";
 export const sendPass_useCase = (dependencies : any) : any =>{
     const {
         repositories : {
-                userRepo : {createNewUser},
+                companyRepo : {createNewUser},
         }
     } = dependencies ;  
 

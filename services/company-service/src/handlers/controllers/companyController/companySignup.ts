@@ -16,7 +16,6 @@ export = (dependencies: any): any => {
     next: NextFunction
   ) => {
     try {
-      console.log(req.body, "<<<<<<>>>>>>");
       const userCredentials = req.body;
 
       if (!userCredentials.otp && userCredentials.password) {
@@ -74,6 +73,13 @@ export = (dependencies: any): any => {
         );
       }
 
+
+
+      console.log('========================')
+      console.log(otpVerified)
+      console.log('========================')
+
+
       if (!otpVerified && userCredentials.otp) {
         return next(ErrorResponse.forbidden("otp is invalied !"));
       } else {
@@ -93,10 +99,12 @@ export = (dependencies: any): any => {
     try {
       if (!userCredentials.password) {
         userCredentials.password = await generatePassword(8);
+        console.log(userCredentials.password ,' THIS IS THE PASS')
         await sendPass_useCase(dependencies).interactor(
           userCredentials.password,
           userCredentials.email
-        );
+          );
+          console.log(userCredentials.password ,' THIS IS THE PASS 2')
       }
 
       userCredentials.password = await hashPassword(userCredentials?.password);

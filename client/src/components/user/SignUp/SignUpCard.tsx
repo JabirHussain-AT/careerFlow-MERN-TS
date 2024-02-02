@@ -95,11 +95,11 @@ const SignUpCard: React.FC<{
 
         if (!pathLocater) {
 
-          userData =  userSignUp(userValues);
+          userData =  dispatch(userSignUp(userValues));
 
         } else {
-          
-          userData =  companySignUp(userValues);
+         
+          userData =  dispatch(companySignUp(userValues));
 
         }
       } catch (error) {
