@@ -1,7 +1,7 @@
-import comapanySignupController from "./companySignup";
+import {companySignupController} from "./companySignup";
 
 export default (dependencies: any) => {
   return {
-    comapanySignupController: comapanySignupController(dependencies),
+    companySignupController: companySignupController(dependencies),
   };
 };

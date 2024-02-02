@@ -2,16 +2,18 @@ import express,{Request , Response} from 'express'
 import { companyController } from '../../handlers/controllers'
 
 
-export default (dependencies : any) : any =>{
+export default (dependencies : any) : any => {
     const router = express.Router()
 
     const {
-    comapanySignupController
+        companySignupController
     } = companyController(dependencies)
 
-//company-signup
-console.log('iam here in croutes')
-    router.post('/sign-up',comapanySignupController)
+    console.log('companySignupController type:', typeof companySignupController);
+
+    //company-signup
+    console.log('I am here in croutes')
+    router.post('/sign-up', companySignupController)
 
     return router
 }

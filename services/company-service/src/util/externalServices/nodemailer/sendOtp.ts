@@ -1,5 +1,5 @@
 import nodemailer from "nodemailer";
-import { EMAIL, PASSWORD } from "../../../config/envConfig/config";
+import { EMAIL, PASSWORD } from "../../../config/envChecker/config";
 
 export const sendOtp = (email: string, content: number | string): boolean => {
   //set the transporter

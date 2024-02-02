@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken'
 import { ObjectId } from 'mongoose'
-import {JWt_SECRET} from '../../../config/envConfig/config'
+import {JWt_SECRET} from '../../../config/envChecker/config'
 
 
 export const generateToken = (id: ObjectId): any => {

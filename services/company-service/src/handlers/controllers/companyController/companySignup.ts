@@ -1,15 +1,20 @@
 import { Request, Response, NextFunction } from "express";
 
-export default (dependencies: any): any => {
+ export const companySignupController = (dependencies: any): any => {
   const {
-    usecases: { login_useCase },
+    usecases: { signUp_useCase },
   } = dependencies;
 
-  const loginUser = async (req: Request, res: Response, next: NextFunction) => {
+  const signUpUser = async (req: Request, res: Response, next: NextFunction) => {
     try {
+      // Your controller logic here
+      res.json({success:true})
     } catch (err: any) {
-      console.log(err, "err in the company signup controller");
+      console.log(err, "Error in the company signup controller");
+      res.status(500).json({ error: "Internal Server Error" });
     }
-    return loginUser;
   };
+
+  return signUpUser;
 };
+

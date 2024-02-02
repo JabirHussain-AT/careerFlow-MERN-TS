@@ -11,7 +11,7 @@ import errHandler from './util/errorHandlers/errorHandler'
 
 
 const app : Express = express()
-const PORT : number = Number(process.env.PORT) || 3002
+const PORT : number = Number(process.env.PORT) || 3003
 
 app.use(express.json())
 app.use(cookieParser())
