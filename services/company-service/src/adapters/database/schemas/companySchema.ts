@@ -5,10 +5,10 @@ import bcrypt from "bcrypt";
 const CompanySchema: Schema = new Schema(
   {
     email: { type: String, required: true, unique: true },
-    companyLogo: { type: String, required: true },
-    name: { type: String, required: true },
+    companyLogo: { type: String },
+    name: { type: String},
     address : {type : Object },
-    linkedIn: { type: String, required: true, unique: true },
+    linkedIn: { type: String , unique: true },
     approved: { type: Boolean, default: false },
     phone: { type: Number },
     locations: { type: String },

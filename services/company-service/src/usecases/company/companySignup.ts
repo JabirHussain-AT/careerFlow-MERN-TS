@@ -1,7 +1,7 @@
 export const signUp_useCase = (dependencies : any) : any =>{
     const {
         repositories : {
-                userRepo : {createNewUser},
+                companyRepo : {createNewUser},
         }
     } = dependencies ;  
     console.log('from the signUP use cases in use cases-company ')

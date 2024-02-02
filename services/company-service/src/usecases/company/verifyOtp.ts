@@ -2,7 +2,7 @@ export const verifyOtp_useCase = (dependencies : any) =>{
 
     const {
         repositories :{
-            userRepo : {verifyOtp}
+            companyRepo : {verifyOtp}
         }
     } = dependencies
 
