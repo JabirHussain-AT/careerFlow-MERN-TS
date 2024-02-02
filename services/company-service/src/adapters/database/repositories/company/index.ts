@@ -2,6 +2,6 @@ import {
     createNewUser,
  } from "./companyRepo"; 
 
-export  {
+export default {
     createNewUser,
 }
