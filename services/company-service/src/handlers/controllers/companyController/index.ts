@@ -1,4 +1,4 @@
-import {companySignupController} from "./companySignup";
+import companySignupController from "./companySignup";
 
 export default (dependencies: any) => {
   return {
