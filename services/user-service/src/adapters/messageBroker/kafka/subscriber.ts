@@ -1,14 +1,14 @@
 
-import userExistConsumer from "./cosnumers/userExistConsumer";
+import companyDetailSave from "./cosnumers/companyDetailSave";
 export interface ISubscriber {
-    userExist: (data: any) => Promise<void>;
+    companyDetailSave: (data: any) => Promise<void>;
     // Add other methods as needed
 }
 
-export interface IUserSubscriber extends Pick<ISubscriber, 'userExist'> { }
+export interface IUserSubscriber extends Pick<ISubscriber,'companyDetailSave'>{ }
 
 export const createSubscriber = (): IUserSubscriber => {
     return {
-            userExist : userExistConsumer
+        companyDetailSave: companyDetailSave
     };
 };

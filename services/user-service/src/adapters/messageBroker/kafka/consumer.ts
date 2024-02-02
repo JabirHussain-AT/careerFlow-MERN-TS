@@ -15,16 +15,22 @@ export const runConsumer = async () => {
     await consumer.run({
       eachMessage: async ({ message }) => {
         const { key, value } = message;
-
+        console.log(`Received message with key: ${key}, value: ${value}`);
+        
         const subscriberMethod = String(key) as keyof IUserSubscriber;
+        console.log(`Calling subscriber method: ${subscriberMethod}`);
+        
         const subscriberData = JSON.parse(String(value));
-
+      
         try {
           await subscriber[subscriberMethod](subscriberData);
+          console.log(`Successfully processed message`);
         } catch (error: any) {
+          console.error(`Error processing message: ${error?.message}`);
           throw new Error(error?.message);
         }
       },
+      
     });
   } catch (error: any) {
     throw new Error("Kafka Consume Error : " + error?.message);

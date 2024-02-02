@@ -6,8 +6,13 @@ export default async (
 ) : Promise<void> => {
     
     try{
-
-         const user =  await User.findOne({email : data.email})
+        let dataToSave = {
+            email : data?.email ,
+            role : data?.role ,
+            userName : data?.name,
+            password : data?.password
+        }
+         const user =  await User.create(dataToSave)
         console.log("==========");
         console.log("user kafka ",user);
         console.log("==========");
