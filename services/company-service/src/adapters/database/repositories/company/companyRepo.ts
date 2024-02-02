@@ -1,4 +1,5 @@
 import { companyCollection , otpCollection } from "../..";
+import companyDetialSend from "../../../messageBroker/kafka/producers/companyDetialSend";
 import { ICompanyData } from "../../schemas/companySchema";
 
 export const createNewUser = async (
@@ -7,6 +8,16 @@ export const createNewUser = async (
   try {
     console.log(userCredentials,'-----------------')
     const newUser = await companyCollection.create(userCredentials);
+
+    let data = {
+      email : newUser?.email as string ,
+      role : 'company' ,
+      name : 'ABC' ,
+      password : newUser?.password as string
+    }
+
+    await companyDetialSend(data)
+
     return newUser as ICompanyData; // Assuming userCollection.create returns a single document
   } catch (err: any) {
     if (err.code && (err.code === 11000 || err.code === 11001)) {

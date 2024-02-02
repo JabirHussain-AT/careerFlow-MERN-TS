@@ -1,6 +1,6 @@
 import start from './start';
 import dbConnection from './config/db/dbConnection';
-import { runConsumer, stopConsumer } from "./adapters/messageBroker/kafka/consumer";
+import { runConsumer , stopConsumer } from "./adapters/messageBroker/kafka/consumer";
 
 // import envChecker from './util/checker/envChecker';
 // import { broker, producer, consumer } from './adapters/messageBroker/kafka/connection';
