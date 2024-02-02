@@ -1,18 +1,18 @@
 import React from "react";
 import { useFormik } from "formik";
-import GoogleButton from "../Login/GoogleButton";
-import { LoginFormProps } from "../../interface/IUserLogin";
-import { FormData } from "../../interface/IUserLogin";
-import { validationSchema } from "../../validation/LoginFormValdiation";
+import GoogleButton from "./GoogleButton";
+import { LoginFormProps } from "../../../interface/IUserLogin";
+import { FormData } from "../../../interface/IUserLogin";
+import { validationSchema } from "../../../validation/LoginFormValdiation";
 import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch } from "../../redux/store";
+import { AppDispatch } from "../../../redux/store";
 import { useNavigate } from "react-router-dom";
-import { userLogin } from "../../redux/actions/userActions";
-import { IUserSelector } from "../../interface/IUserSlice";
+import { userLogin } from "../../../redux/actions/userActions";
+import { IUserSelector } from "../../../interface/IUserSlice";
 
 import { jwtDecode } from "jwt-decode";
 import { GoogleLogin } from "@react-oauth/google";
-import { CustomJwtPayload, UserValues, userDataByGoogle } from "../helper/interfaces";
+import { CustomJwtPayload, UserValues, userDataByGoogle } from "../../helper/interfaces";
 
 const LoginForm: React.FC<LoginFormProps> = ({ textToshow, submitLink }) => {
   const { user, loading, error } = useSelector(

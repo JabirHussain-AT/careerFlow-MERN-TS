@@ -1,5 +1,5 @@
-import LoginForm from "../../components/Login/LoginForm";
-import NavBar from "../../components/Login/NavBar";
+import LoginForm from "../../components/user/Login/LoginForm";
+import NavBar from "../../components/user/Login/NavBar";
 
 const Login: React.FC = () => {
   return (

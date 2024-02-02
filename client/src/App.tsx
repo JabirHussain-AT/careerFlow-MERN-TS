@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Login from "./pages/user/Login";
 import Signup from "./pages/user/Signup";
+import CompanySignup from "./pages/company/CompanySignup"
 import { useSelector } from "react-redux";
 import { IUserSelector } from "./interface/IUserSlice";
 import Home from "./pages/user/Home";
@@ -26,6 +27,7 @@ function App() {
               <Route path="/login" element={<Login />} />
             </>
           )}
+          <Route path='/company/signup' element={ < CompanySignup />} />
         </Routes>
       </>
     </Router>

@@ -1,5 +1,5 @@
 import React from 'react'
-import Logo from "../../assets/CareerFlow-Logo.png";
+import Logo from "../../../assets/CareerFlow-Logo.png";
 
 
 const NavBar : React.FC = () => {

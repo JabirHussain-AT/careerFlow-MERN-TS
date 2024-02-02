@@ -2,20 +2,34 @@ import React, { useState } from "react";
 import { GoogleLogin } from "@react-oauth/google";
 import { useFormik } from "formik";
 import { IoMdEye, IoMdEyeOff } from "react-icons/io";
-import { signUpValidationSchema } from "../../validation/SignupFormValidation";
+import { signUpValidationSchema } from "../../../validation/SignupFormValidation";
 import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch } from "../../redux/store";
+import { AppDispatch } from "../../../redux/store";
 import OtpPage from "./OtpPage";
-import { CustomJwtPayload, SignUpFormValues, UserValues } from "../helper/interfaces";
-import { userSignUp } from "../../redux/actions/userActions";
-import { IUserSelector } from "../../interface/IUserSlice";
+import {
+  CustomJwtPayload,
+  SignUpFormValues,
+  UserValues,
+} from "../../helper/interfaces";
+import { userSignUp } from "../../../redux/actions/userActions";
+import { IUserSelector } from "../../../interface/IUserSlice";
 import { jwtDecode } from "jwt-decode";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import { companySignUp } from "../../../redux/actions/companyActions";
 
-const SignUpCard: React.FC = () => {
+
+
+
+const SignUpCard: React.FC<{
+  text: string;
+  namePlaceholder: string;
+}> = (props) => {
+
+  
+  const location = useLocation();
   const dispatch = useDispatch<AppDispatch>();
-  const { user,error } = useSelector((state: IUserSelector) => state.user);
-  const navigate = useNavigate()
+  const { error } = useSelector((state: IUserSelector) => state.user);
+  const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [stepFirst, setStepFirst] = useState<boolean>(false);
   const [userTempData, setUserTempData] = useState<SignUpFormValues>({
@@ -26,6 +40,9 @@ const SignUpCard: React.FC = () => {
     terms: false,
   });
 
+
+
+
   const formik = useFormik<SignUpFormValues>({
     initialValues: {
       userName: "",
@@ -34,79 +51,108 @@ const SignUpCard: React.FC = () => {
       confirmPassword: "",
       terms: false,
     },
+
+
     validationSchema: signUpValidationSchema,
     onSubmit: async (values) => {
-      const userData = await dispatch(userSignUp(values));
-      console.log(userData, "---------- response to check");
+
+      let userData;
+      const pathLocater = location.pathname.includes("/company");
+
+      if (!pathLocater) {
+
+        userData = await dispatch(userSignUp(values));
+
+      } else {
+
+        userData = await dispatch(companySignUp(values));
+      }
+
       if (userData?.payload?.success) {
+
         setStepFirst(!stepFirst);
       }
       setUserTempData(values);
     },
   });
 
-  const googleSignIn = async (response: string | any, status: boolean)=> {
+
+
+  const googleSignIn = async (response: string | any, status: boolean) => {
+
     if (status) {
       try {
-        let credentials : CustomJwtPayload = jwtDecode(response.credential);
-  
+        let credentials: CustomJwtPayload = jwtDecode(response.credential);
+
         let userValues: UserValues = {
           userName: credentials?.name,
           email: credentials?.email,
           profilePic: credentials?.picture,
         };
-  
-        const userData = await dispatch(userSignUp(userValues));
 
-        if(userData){
-          console.log(userData,'<<<<<<>>>>>>>>',user)
-          setTimeout(()=>{
-            navigate('/')
-          },3000)
+        const pathLocater = location.pathname.includes("/company");
+        let userData;
+
+        if (!pathLocater) {
+
+          userData =  userSignUp(userValues);
+
+        } else {
+          
+          userData =  companySignUp(userValues);
+
         }
-         
       } catch (error) {
-        console.error('Error processing Google Sign In:', error);
+        console.error("Error processing Google Sign In:", error);
       }
     }
+
   };
-  
+
   return (
     <>
       {stepFirst ? (
         <OtpPage userData={userTempData} />
       ) : (
+
         <div className=" bg-white w-4/5 rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
-          <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
-            <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
-              Create an account
+          <div className="p-6 space-y-4 md:space-y-6  sm:p-8">
+            <h1 className=" text-center text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
+              {props.text}
             </h1>
+
+
             {/* <GoogleButton text={'continue with gooogle'}/> */}
             <div className="flex justify-center items-start">
-
-            <GoogleLogin
-              text='signup_with'
-              onSuccess={(credentialResponse) => {
-                googleSignIn(credentialResponse,true)
-              }}
-              onError={() => {
-                googleSignIn('err',false)
-                console.log("Login Failed");
-              }}
+              <GoogleLogin
+                text="signup_with"
+                onSuccess={(credentialResponse) => {
+                  googleSignIn(credentialResponse, true);
+                }}
+                onError={() => {
+                  googleSignIn("err", false);
+                  console.log("Login Failed");
+                }}
               />
             </div>
+
+
 
             <div className="my-4 flex items-center  justify-center border-t border-neutral-300">
               <p className="mx-4 mb-0 text-center font-semibold text-gray-500 dark:text-white">
                 OR
               </p>
             </div>
+
+
             {error && (
               <div className="bg-red-500 z-[999] text-center mb-2 text-white text-sm py-2 px-3 rounded-md mt-3">
                 {error}
-              
               </div>
             )}
+
+
+
             <form
               className="space-y-4 md:space-y-6"
               onSubmit={formik.handleSubmit}
@@ -116,7 +162,7 @@ const SignUpCard: React.FC = () => {
                   htmlFor="username"
                   className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                 >
-                  User name
+                  {props.namePlaceholder}
                 </label>
                 <input
                   type="text"
@@ -127,7 +173,7 @@ const SignUpCard: React.FC = () => {
                     formik.errors.userName &&
                     "border-red-500"
                   }`}
-                  placeholder="Your User Name"
+                  placeholder={props.namePlaceholder}
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                   value={formik.values.userName}
@@ -144,7 +190,7 @@ const SignUpCard: React.FC = () => {
                   htmlFor="email"
                   className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                 >
-                  Your email
+                  Email
                 </label>
                 <input
                   type="email"
@@ -287,6 +333,8 @@ const SignUpCard: React.FC = () => {
                 </a>
               </p>
             </form>
+
+
           </div>
         </div>
       )}
