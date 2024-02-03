@@ -35,8 +35,8 @@ export const companyForm = createAsyncThunk('company/Form' ,async (userCredentia
                console.log('======================================')
 
 
-          // const {data} = await axios.post(`${AuthCompanyBaseUrl}/updateForm`,userCredentials,config)
-          // return data
+          const {data} = await axios.post(`${AuthCompanyBaseUrl}/updateForm`,userCredentials,config)
+          return data
 
      }catch(err : any ){
           const axiosError = err as AxiosError<ApiError> ;
