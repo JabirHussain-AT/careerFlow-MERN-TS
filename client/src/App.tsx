@@ -1,10 +1,11 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Login from "./pages/user/Login";
 import Signup from "./pages/user/Signup";
-import CompanySignup from "./pages/company/CompanySignup"
+import CompanySignup from "./pages/company/Signup/CompanySignup"
 import { useSelector } from "react-redux";
 import { IUserSelector } from "./interface/IUserSlice";
 import Home from "./pages/user/Home";
+import CompanyForm from "./pages/company/Home/CompanyForm";
 
 function App() {
   const { user } = useSelector((state: IUserSelector) => state.user);
@@ -13,10 +14,12 @@ function App() {
     <Router>
       <>
         <Routes>
+        <Route path="/" element={< CompanyForm />} />
+
           {/* Use a single Route component */}
           {user?.email ? (
             <>
-              <Route path="/" element={<Home />} />
+              <Route path="/" element={< CompanyForm />} />
               <Route path="/signup" element={<Home />} />
               <Route path="/login" element={<Home />} />
             </>

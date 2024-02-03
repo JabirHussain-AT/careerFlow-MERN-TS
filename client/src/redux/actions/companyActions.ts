@@ -1,6 +1,7 @@
 import { createAsyncThunk, } from "@reduxjs/toolkit";
 import axios, { AxiosError } from "axios";
 import { IUserLoginData , ILoginForm} from "../../interface/IUserLogin";
+import {ICompanyForm} from '../../interface/ICompanySignup'
 import { AuthCompanyBaseUrl } from "../../config/constants";
 import { ApiError, config, handleError } from "../../config/configuration";
 
@@ -20,6 +21,22 @@ export const companyLogin = createAsyncThunk('company/Login' ,async (userCredent
      try{
           const {data} = await axios.post(`${AuthCompanyBaseUrl}/login`,userCredentials,config)
           return data
+
+     }catch(err : any ){
+          const axiosError = err as AxiosError<ApiError> ;
+          return handleError(axiosError,rejectWithValue)
+     }
+})
+export const companyForm = createAsyncThunk('company/Form' ,async (userCredentials : ICompanyForm  ,{rejectWithValue}) =>{
+     try{
+
+               console.log('======================================')
+               console.log('the data over here', userCredentials)
+               console.log('======================================')
+
+
+          // const {data} = await axios.post(`${AuthCompanyBaseUrl}/updateForm`,userCredentials,config)
+          // return data
 
      }catch(err : any ){
           const axiosError = err as AxiosError<ApiError> ;
