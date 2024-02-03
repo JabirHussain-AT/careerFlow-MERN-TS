@@ -20,4 +20,5 @@ export = (dependencies: any): any => {
         res.status(500).json({ error: "Internal Server Error" });
     }
   }
+  return updateFormData
 };
