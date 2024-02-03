@@ -15,3 +15,4 @@ export interface IUserSelector {
   loading: boolean,
   error: null | string
 }
+

@@ -1,6 +1,6 @@
 import React from "react";
-import NavBar from "../../components/user/Login/NavBar";
-import SignUpCard from "../../components/user/SignUp/SignUpCard";
+import NavBar from "../../../components/user/Login/NavBar";
+import SignUpCard from "../../../components/user/SignUp/SignUpCard";
 
 const CompanySignup :React.FC = () => {
   return (
