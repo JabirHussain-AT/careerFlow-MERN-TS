@@ -17,6 +17,7 @@ export const companySignUp = createAsyncThunk('compnay/SignUp' , async (companyC
      }
   })
 
+
 export const companyLogin = createAsyncThunk('company/Login' ,async (userCredentials : ILoginForm ,{rejectWithValue}) =>{
      try{
           const {data} = await axios.post(`${AuthCompanyBaseUrl}/login`,userCredentials,config)
@@ -27,6 +28,9 @@ export const companyLogin = createAsyncThunk('company/Login' ,async (userCredent
           return handleError(axiosError,rejectWithValue)
      }
 })
+
+
+
 export const companyForm = createAsyncThunk('company/Form' ,async (userCredentials : ICompanyForm  ,{rejectWithValue}) =>{
      try{
 
@@ -43,6 +47,9 @@ export const companyForm = createAsyncThunk('company/Form' ,async (userCredentia
           return handleError(axiosError,rejectWithValue)
      }
 })
+
+
+
 
 
 

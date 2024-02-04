@@ -25,5 +25,16 @@ export const userLogin = createAsyncThunk('user/userLogin' ,async (userCredentia
           return handleError(axiosError,rejectWithValue)
      }
 })
+export const isUserExist = createAsyncThunk('user/isUserExist' ,async (userCredentials : any ,{rejectWithValue}) =>{
+     try{
+          console.log('<<<<<<<<>>>>>>>>>>>>>>>>>>>==========================================================',userCredentials)
+          const {data} = await axios.post(`${AuthBaseUrl}/exist`,userCredentials,config)
+          return data
+
+     }catch(err : any ){
+          const axiosError = err as AxiosError<ApiError> ;
+          return handleError(axiosError,rejectWithValue)
+     }
+})
 
 

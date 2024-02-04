@@ -11,7 +11,7 @@ import {
   SignUpFormValues,
   UserValues,
 } from "../../helper/interfaces";
-import { userSignUp } from "../../../redux/actions/userActions";
+import { isUserExist, userSignUp } from "../../../redux/actions/userActions";
 import { IUserSelector } from "../../../interface/IUserSlice";
 import { jwtDecode } from "jwt-decode";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -57,6 +57,7 @@ const SignUpCard: React.FC<{
     onSubmit: async (values) => {
 
       let userData;
+      let userExist;
       const pathLocater = location.pathname.includes("/company");
 
       if (!pathLocater) {
@@ -64,7 +65,8 @@ const SignUpCard: React.FC<{
         userData = await dispatch(userSignUp(values));
 
       } else {
-
+        let temp = values.email
+        userExist = await dispatch(isUserExist(temp))
         userData = await dispatch(companySignUp(values));
       }
 

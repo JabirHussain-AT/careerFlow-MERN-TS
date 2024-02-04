@@ -16,6 +16,8 @@ export = (dependencies: any): any => {
       const companyCredentials = req.body;
 
       delete companyCredentials.email;
+      companyCredentials.stage = 'completed' ;
+
       await updateFormData_useCase(dependencies).interactor(
         email,
         companyCredentials

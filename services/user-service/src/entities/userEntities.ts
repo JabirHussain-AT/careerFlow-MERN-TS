@@ -18,4 +18,6 @@ export interface IUser extends Document {
     languages?:string[] | null,
     education?:object[] | null ,
     experiance : object [ ] | null 
+    stage:string ,
+    approved : boolean
 }

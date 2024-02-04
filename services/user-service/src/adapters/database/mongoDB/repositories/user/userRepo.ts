@@ -2,6 +2,10 @@ import { otpCollection, userCollection } from "../..";
 import mongoose, { startSession } from "mongoose";
 import { IUserData, IUserDoc } from "../../schemas/userSchema";
 
+
+
+
+
 export const createNewUser = async (
   userCredentials: IUserData
 ): Promise<IUserData | boolean> => {
@@ -21,6 +25,8 @@ export const createNewUser = async (
   }
 };
 
+
+
 export const userExistCheck = async (
   userCredentials: IUserData
 ): Promise<IUserData | boolean | IUserDoc> => {
@@ -36,6 +42,9 @@ export const userExistCheck = async (
     console.log(err, "======  err happened in userRepo userExistCheck");
   }
 };
+
+
+
 
 export const saveOtp = async (otp: number, email: string) => {
   try {
@@ -91,5 +100,17 @@ export const loginVerify = async(email : string , password : string) =>{
     }
   }catch(err : any){
     console.log(err, "====== err occured in the verify otp repo");
+  }
+}
+export const userExistorNot = async(email : string ) =>{
+  try{
+    let isUserExist  = await userCollection.findOne({email : email})
+    if(isUserExist == null){
+      return false 
+    }else if(isUserExist){
+       return true
+    }
+  }catch(err : any){
+    console.log(err, "====== err occured in the userExistorNot");
   }
 }
