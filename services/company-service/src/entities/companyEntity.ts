@@ -2,6 +2,7 @@ import { Document, ObjectId } from "mongoose";
 
 export interface ICompany extends Document {
   _id: ObjectId;
+  registrationId : String | null ;
   email: String | null;
   address : Object | null ;
   companyLogo: String | null;
@@ -13,6 +14,6 @@ export interface ICompany extends Document {
   websiteLink: String | null;
   password: String | null;
   description: String | null;
-  techStack: String[] | null;
   stage: string | null
+  totalEmployees : Number | null
 }

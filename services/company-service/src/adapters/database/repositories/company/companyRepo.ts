@@ -89,3 +89,12 @@ export const verifyOtp = async (otp: number, email: string) => {
 //     console.log(err, "====== err occured in the verify otp repo");
 //   }
 // }
+
+export const updateFormData = async ( email : string , companyCredentials : any ) => {
+  try{
+    let company = await companyCollection.findOneAndUpdate({email : email},companyCredentials , {upsert : true , new : true})
+     return company ?? false
+  }catch(err : any){
+    console.log(err , '================== in the updateFormData catch ')
+  }
+}

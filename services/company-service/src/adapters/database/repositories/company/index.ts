@@ -1,12 +1,14 @@
 import { 
     createNewUser,
     saveOtp,
-    verifyOtp
+    verifyOtp ,
+    updateFormData
  } from "./companyRepo"; 
 
 export default {
     createNewUser,
     saveOtp ,
-    verifyOtp
+    verifyOtp ,
+    updateFormData
 
 }

@@ -14,6 +14,7 @@ import * as Yup from 'yup';
     return true;
   }),
   linkedIn: Yup.string().url('Invalid URL').required('Required'),
+  websiteLink: Yup.string().url('Invalid URL').required('Required'),
 });
 
 export default companySchema
