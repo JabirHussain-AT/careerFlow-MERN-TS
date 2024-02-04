@@ -105,6 +105,7 @@ export const loginVerify = async(email : string , password : string) =>{
 export const userExistorNot = async(email : string ) =>{
   try{
     let isUserExist  = await userCollection.findOne({email : email})
+    console.log(email,'this is the email')
     if(isUserExist == null){
       return false 
     }else if(isUserExist){

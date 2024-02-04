@@ -21,8 +21,9 @@ console.log(process.env.FRONT_END_URL)
 app.use(cors({
   origin: process.env.FRONT_END_URL,
   methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
-  credentials: true
+  credentials: 'true'
 }));
+
 
 app.use(session({
     secret : String(process.env.SESSION_SECRET),

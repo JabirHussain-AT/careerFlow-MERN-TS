@@ -18,11 +18,12 @@ export = (dependencies: any): any => {
       delete companyCredentials.email;
       companyCredentials.stage = 'completed' ;
 
-      await updateFormData_useCase(dependencies).interactor(
+      const company = await updateFormData_useCase(dependencies).interactor(
         email,
         companyCredentials
       );
       res.json({
+        company : company ,
         success: true,
         message: "updated successfully from the company service",
       });

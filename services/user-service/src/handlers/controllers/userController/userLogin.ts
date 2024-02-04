@@ -30,6 +30,7 @@ export = (dependencies: any): any => {
         userCredentials.password,
         isUserExist.password
       );
+      console.log(userVerify,'atheloooo')
       if (userVerify || userCredentials?.googleAuth) {
         const token = generateToken(isUserExist?.id);
         res.cookie("user_jwt", token, {

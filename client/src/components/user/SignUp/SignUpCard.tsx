@@ -63,17 +63,26 @@ const SignUpCard: React.FC<{
       if (!pathLocater) {
 
         userData = await dispatch(userSignUp(values));
-
-      } else {
-        let temp = values.email
-        userExist = await dispatch(isUserExist(temp))
-        userData = await dispatch(companySignUp(values));
-      }
-
-      if (userData?.payload?.success) {
-
         setStepFirst(!stepFirst);
+      } else {
+        let temp = {email : values.email}
+        userExist = await dispatch(isUserExist(temp))
+        console.log(userExist,'yiuuyuiuu')
       }
+      if (userExist?.payload?.sucess) {
+        userData = await dispatch(companySignUp(values));
+        setStepFirst(!stepFirst);
+      }else{
+        setUserTempData({
+          userName: "",
+          email: "",
+          password: "",
+          confirmPassword: "",
+          terms: false,
+        })
+        console.log(error,'<<<<<<<<>>>>>>> this is error')
+      }
+
       setUserTempData(values);
     },
   });

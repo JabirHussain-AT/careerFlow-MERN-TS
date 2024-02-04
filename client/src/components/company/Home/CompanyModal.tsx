@@ -71,6 +71,8 @@ const CompanyModal: React.FC<CompanyModalProps> = ({
           if (res?.payload?.success) {
             navigate("/dashboard");
           }
+
+          
         } else if (file instanceof File) {
           console.log(file, "<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>ittt");
           const formData = new FormData();

@@ -8,6 +8,8 @@ export interface UserState {
     id: number;
     username: string;
     email: string;
+    approved ?: boolean | null
+    stage ?: string | null
   }
 
 export interface IUserSelector {

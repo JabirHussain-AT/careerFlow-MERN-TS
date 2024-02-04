@@ -7,7 +7,7 @@ export const userExist_useCase = (dependencies: any): any => {
   
   if(!userExistorNot) throw new Error('repository is required  !')
   const interactor = async (email : string )=>{
-       console.log('hey '),email
+       console.log('hey ',email)
       return await userExistorNot(email)
    }
    return {interactor}

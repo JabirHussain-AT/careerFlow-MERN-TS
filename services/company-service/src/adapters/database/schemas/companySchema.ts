@@ -26,19 +26,6 @@ const CompanySchema: Schema = new Schema(
   }
 );
 
-CompanySchema.pre("save", function (next) {
-  const company = this;
-
-  if (!company.isModified("password") || !company.password) return next();
-
-  bcrypt.hash(company?.password as string, 10, (err: any, hash: string) => {
-    if (err) return next(err);
-
-    company.password = hash;
-    next();
-  });
-});
-
 const Company = mongoose.model<ICompany>("Company", CompanySchema);
 
 export interface ICompanyData extends ICompany {

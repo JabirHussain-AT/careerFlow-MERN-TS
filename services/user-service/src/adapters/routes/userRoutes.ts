@@ -14,7 +14,7 @@ export = (dependencies : any) : any =>{
 //user-signup
     router.post('/sign-up',userSignupController)
     router.post('/logIn',userLoginController)
-    router.post('/exist',userExistCheckController)
+    router.post('/exists',userExistCheckController)
 
     return router
 }

@@ -3,7 +3,7 @@ import { userSignUp, userLogin } from "../../actions/userActions";
 import { IUserLoginData } from "../../../interface/IUserLogin";
 import { persistReducer } from "redux-persist";
 import { persistConfig } from "../../../config/constants";
-import { companyLogin, companySignUp } from "../../actions/companyActions";
+import { companyForm, companyLogin, companySignUp } from "../../actions/companyActions";
 
 const userSlice = createSlice({
   name: "userSlice",
@@ -71,7 +71,21 @@ const userSlice = createSlice({
       .addCase(companyLogin.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload as string;
-      });
+      })
+      .addCase(companyForm.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(companyForm.fulfilled, (state, action) => {
+        state.loading = false;
+        state.user = action.payload.company as any;
+        state.error = null;
+      })
+      .addCase(companyForm.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload as string;
+      })
+     
   },
 });
 const persistedUserReducer = persistReducer(persistConfig, userSlice.reducer);

@@ -6,6 +6,7 @@ import { useSelector } from "react-redux";
 import { IUserSelector } from "./interface/IUserSlice";
 import Home from "./pages/user/Home";
 import CompanyForm from "./pages/company/Home/CompanyForm";
+import Dashboard from "./pages/company/Home/Dashboard";
 
 function App() {
   const { user } = useSelector((state: IUserSelector) => state.user);
@@ -31,6 +32,7 @@ function App() {
             </>
           )}
           <Route path='/company/signup' element={ < CompanySignup />} />
+          <Route path='/dashboard' element={ < Dashboard />} />
         </Routes>
       </>
     </Router>

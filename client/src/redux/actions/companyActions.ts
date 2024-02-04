@@ -33,13 +33,13 @@ export const companyLogin = createAsyncThunk('company/Login' ,async (userCredent
 
 export const companyForm = createAsyncThunk('company/Form' ,async (userCredentials : ICompanyForm  ,{rejectWithValue}) =>{
      try{
-
-               console.log('======================================')
-               console.log('the data over here', userCredentials)
-               console.log('======================================')
-
-
+          
+          
           const {data} = await axios.post(`${AuthCompanyBaseUrl}/updateForm`,userCredentials,config)
+          
+                         console.log('======================================')
+                         console.log('the data over here',data)
+                         console.log('======================================')
           return data
 
      }catch(err : any ){
