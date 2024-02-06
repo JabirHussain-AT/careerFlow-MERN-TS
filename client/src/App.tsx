@@ -10,6 +10,8 @@ import Home from "./pages/user/Home";
 import CompanyForm from "./pages/company/Home/CompanyForm";
 import Dashboard from "./pages/company/Home/Dashboard";
 import AdminDashboard from "./pages/admin/AdminDashborad";
+import AdminApproval from "./pages/admin/AdminApprovel"
+import Sidebar from "./components/admin/Sidebar";
 
 interface ProtectedRouteProps {
   element: ReactNode;
@@ -45,14 +47,14 @@ function App() {
         {user !== null && user.role ? (
           // Common Routes
           <>
-            <Route path='/' element={<>{user?.role === 'company' ? <Navigate to={'/dashboard'} /> : user?.role === "admin" ? <Navigate to={'/admin/dashboard'} /> : <Home />}</>} />
-            <Route path='/signup' element={<>{user?.role === 'company' ? <Navigate to={'/dashboard'} /> : user?.role === "admin" ? <Navigate to={'/admin/dashboard'} /> : <Navigate to={'/'}  />}</>} />
-            <Route path='/login' element={<>{user?.role === 'company' ? <Navigate to={'/dashboard'} /> : user?.role === "admin" ? <Navigate to={'/admin/dashboard'} /> :<Navigate to={'/'}  />} </>} />
-            <Route path='/dashboard' element={<>{user?.role === 'company' ? <Navigate to={'/dashboard'} /> : <CompanyForm />}</>} />
-            <Route path='/company/signup' element={<>{user?.role === 'company' ? <Navigate to={'/dashboard'} /> : <CompanySignup />}</>} />
+            <Route path='/' element={<>{user?.role === 'company' ? <Navigate to={'/company/dashboard'} /> : user?.role === "admin" ? <Navigate to={'/admin/dashboard'} /> : <Home />}</>} />
+            <Route path='/signup' element={<>{user?.role === 'company' ? <Navigate to={'/company/dashboard'} /> : user?.role === "admin" ? <Navigate to={'/admin/dashboard'} /> : <Navigate to={'/'}  />}</>} />
+            <Route path='/login' element={<>{user?.role === 'company' ? <Navigate to={'/company/dashboard'} /> : user?.role === "admin" ? <Navigate to={'/admin/dashboard'} /> :<Navigate to={'/'}  />} </>} />
+            <Route path='/company/dashboard' element={<>{user?.role === 'company' ? <Navigate to={'/company/dashboard'} /> : <CompanyForm />}</>} />
+            <Route path='/company/signup' element={<>{user?.role === 'company' ? <Navigate to={'/company/dashboard'} /> : <CompanySignup />}</>} />
 
             {/* Company Routes */}
-            <Route path='/dashboard' element={<>{companyProtectedRoute({ element: <Dashboard /> })}</>} />
+            <Route path='/company/dashboard' element={<>{companyProtectedRoute({ element: <Dashboard /> })}</>} />
             <Route path='/company/signup' element={<>{companyProtectedRoute({ element: <CompanySignup /> })}</>} />
 
             {/* User Routes */}
@@ -61,8 +63,13 @@ function App() {
             <Route path='/login' element={<>{userProtectedRoute({ element: <Login /> })}</>} />
 
             {/* Admin Routes */}
-            <Route path='/admin/dashboard' element={<>{adminProtectedRoute({ element: < AdminDashboard /> })}</>} />
-            <Route path='/login' element={<>{adminProtectedRoute({ element: <Login /> })}</>} />
+            <Route path= 'admin' element={<>{adminProtectedRoute({element:<Sidebar/>})}</>}>
+              <Route path="dashboard" element={<>{adminProtectedRoute({element:<AdminDashboard/>})}</>}/>
+              <Route path="company-approval" element={<>{adminProtectedRoute({element:<AdminApproval/>})}</>}/>
+            </Route>
+            {/* <Route path='/admin/dashboard' element={<>{adminProtectedRoute({ element: < AdminDashboard /> })}</>} />
+            <Route path='/admin/company-approvel' element={<>{adminProtectedRoute({ element: <  AdminApproval /> })}</>} />
+            <Route path='/login' element={<>{adminProtectedRoute({ element: <Login /> })}</>} /> */}
           </>
         ) : (
           // Redirect to Login when user is null

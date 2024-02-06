@@ -14,6 +14,8 @@ const CompanyForm: React.FC = () => {
     setIsModalOpen(true);
   };
 
+  console.log('okay')
+
   useEffect(()=>{
     const { user } = useSelector((state: IUserSelector) => state.user);
     if(user?.role) navigate('/dashboard')

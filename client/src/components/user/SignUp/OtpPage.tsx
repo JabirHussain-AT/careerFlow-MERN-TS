@@ -117,9 +117,12 @@ const OtpPage: FC<OtpPageProps> = ({ userData }) => {
 
     // if the the response is okay or containing email , it means success 
     console.log(status, "status from th handleSubmit" ,"<<<> Focoused Input" , focousedInput);
-    if (status?.payload?.email) {
+    if (status?.payload?.email && pathLocater) {
+      navigate("/company/dashboard");
+    }else if(status?.payload?.email ){
       navigate("/");
     }
+
   };
 
   return (
