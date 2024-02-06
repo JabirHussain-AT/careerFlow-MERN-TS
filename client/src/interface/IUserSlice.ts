@@ -10,6 +10,7 @@ export interface UserState {
     email: string;
     approved ?: boolean | null
     stage ?: string | null
+    role?: string | null
   }
 
 export interface IUserSelector {

@@ -8,7 +8,7 @@ const verifyUserAuth = (req : Request , res : Response , next : NextFunction ) =
         return res.status(401).json({success : false , message : 'current user is not authenticated !'})
     }
     jwt.verify(token,secret,(err : any , user : any )=>{
-        if(err)return res.status(401).json({success : false , message : 'In valied token !'})
+        if(err)return res.status(401).json({success : false , message : 'Invalied token !'})
         else  next()
     })
 }

@@ -6,7 +6,7 @@ const Signup = () => {
   return (
     <>
       <NavBar />
-      <section className="relative bg-gray-50 dark:bg-gray-900 overflow-hidden">
+      <section className="relative bg-gray-50 dark:bg-gray-900 ">
         <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0 relative z-10">
           <SignUpCard 
            namePlaceholder={'User Name'}

@@ -12,7 +12,14 @@ const userSlice = createSlice({
     error: null as string | null,
     loading: false as boolean,
   },
-  reducers: {},
+  reducers: {
+    makeErrorDisable: (state) => {
+      state.error = null ;
+    },
+    logout : (state) =>{
+      state.user = null ;
+    }
+  },
   extraReducers(builder) {
     builder
       .addCase(userSignUp.pending, (state) => {
@@ -88,6 +95,8 @@ const userSlice = createSlice({
      
   },
 });
+
+export const { makeErrorDisable , logout } = userSlice.actions
 const persistedUserReducer = persistReducer(persistConfig, userSlice.reducer);
 
 export default persistedUserReducer;

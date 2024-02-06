@@ -1,14 +1,23 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import NavBar from "../../../components/user/Login/NavBar";
 import Img1 from "../../../assets/company1.png";
 import CompanyModal from "../../../components/company/Home/CompanyModal";
+import { IUserSelector } from "../../../interface/IUserSlice";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const CompanyForm: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const navigate = useNavigate()
 
   const handleContinueClick = () => {
     setIsModalOpen(true);
   };
+
+  useEffect(()=>{
+    const { user } = useSelector((state: IUserSelector) => state.user);
+    if(user?.role) navigate('/dashboard')
+  },[])
 
   return (
     <>

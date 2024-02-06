@@ -193,15 +193,15 @@ const LoginForm: React.FC<LoginFormProps> = ({ textToshow, submitLink }) => {
                     Register
                   </a>
                 </p>
-                <p className="text-sm font-semibold">
+                {/* <p className="text-sm font-semibold">
                   {textToshow}{" "}
                   <a
-                    href="#!"
+                   onClick={() => navigate("/company/signup ")}
                     className="text-blue-700 hover:text-primary-600 focus:text-primary-600 active:text-primary-700"
                   >
                     Click here
                   </a>
-                </p>
+                </p> */}
               </div>
             </form>
           </div>

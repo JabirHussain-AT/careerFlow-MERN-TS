@@ -1,25 +1,21 @@
-import express,{Request , Response} from 'express'
-import { companyController } from '../../handlers/controllers'
+import express, { Request, Response } from "express";
+import { companyController } from "../../handlers/controllers";
+import verifyToken from "../../util/middlewares/authChecker";
 
+export default (dependencies: any): any => {
+  const router = express.Router();
 
-export default (dependencies : any) : any => {
-    const router = express.Router()
-
-    const {
-        companySignupController ,
-        formUpdateController
-    } = companyController(dependencies)
-
-    console.log('companySignupController type:', typeof companySignupController);
+  const { companySignupController, formUpdateController } =
+    companyController(dependencies);
 
     //company-signup
-    console.log('I am here in croutes')
-
-
-    router.post('/sign-up', companySignupController)
-
+    router.post("/sign-up", companySignupController);
+    
     // company updating-form data
-    router.post('/updateForm',formUpdateController)
+    router.post("/updateForm", formUpdateController);
 
-    return router
-}
+    // middleware 
+    router.use(verifyToken);
+
+  return router;
+};

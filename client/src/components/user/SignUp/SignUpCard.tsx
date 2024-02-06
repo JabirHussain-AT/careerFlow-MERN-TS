@@ -14,18 +14,13 @@ import {
 import { isUserExist, userSignUp } from "../../../redux/actions/userActions";
 import { IUserSelector } from "../../../interface/IUserSlice";
 import { jwtDecode } from "jwt-decode";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate ,Link } from "react-router-dom";
 import { companySignUp } from "../../../redux/actions/companyActions";
-
-
-
 
 const SignUpCard: React.FC<{
   text: string;
   namePlaceholder: string;
 }> = (props) => {
-
-  
   const location = useLocation();
   const dispatch = useDispatch<AppDispatch>();
   const { error } = useSelector((state: IUserSelector) => state.user);
@@ -40,9 +35,6 @@ const SignUpCard: React.FC<{
     terms: false,
   });
 
-
-
-
   const formik = useFormik<SignUpFormValues>({
     initialValues: {
       userName: "",
@@ -52,45 +44,39 @@ const SignUpCard: React.FC<{
       terms: false,
     },
 
-
     validationSchema: signUpValidationSchema,
     onSubmit: async (values) => {
-
       let userData;
       let userExist;
       const pathLocater = location.pathname.includes("/company");
 
       if (!pathLocater) {
-
         userData = await dispatch(userSignUp(values));
         setStepFirst(!stepFirst);
       } else {
-        let temp = {email : values.email}
-        userExist = await dispatch(isUserExist(temp))
-        console.log(userExist,'yiuuyuiuu')
+        let temp = { email: values.email };
+        userExist = await dispatch(isUserExist(temp));
+        console.log(userExist, "yiuuyuiuu");
       }
       if (userExist?.payload?.sucess) {
         userData = await dispatch(companySignUp(values));
         setStepFirst(!stepFirst);
-      }else{
+      } else {
         setUserTempData({
           userName: "",
           email: "",
           password: "",
           confirmPassword: "",
           terms: false,
-        })
-        console.log(error,'<<<<<<<<>>>>>>> this is error')
+        });
+        console.log(error, "<<<<<<<<>>>>>>> this is error");
       }
 
       setUserTempData(values);
     },
   });
 
-
-
   const googleSignIn = async (response: string | any, status: boolean) => {
-
     if (status) {
       try {
         let credentials: CustomJwtPayload = jwtDecode(response.credential);
@@ -105,19 +91,15 @@ const SignUpCard: React.FC<{
         let userData;
 
         if (!pathLocater) {
-
-          userData =  dispatch(userSignUp(userValues));
-
+          userData = dispatch(userSignUp(userValues));
+          console.log();
         } else {
-         
-          userData =  dispatch(companySignUp(userValues));
-
+          userData = dispatch(companySignUp(userValues));
         }
       } catch (error) {
         console.error("Error processing Google Sign In:", error);
       }
     }
-
   };
 
   return (
@@ -125,13 +107,11 @@ const SignUpCard: React.FC<{
       {stepFirst ? (
         <OtpPage userData={userTempData} />
       ) : (
-
         <div className=" bg-white w-4/5 rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
           <div className="p-6 space-y-4 md:space-y-6  sm:p-8">
             <h1 className=" text-center text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
               {props.text}
             </h1>
-
 
             {/* <GoogleButton text={'continue with gooogle'}/> */}
             <div className="flex justify-center items-start">
@@ -147,22 +127,17 @@ const SignUpCard: React.FC<{
               />
             </div>
 
-
-
             <div className="my-4 flex items-center  justify-center border-t border-neutral-300">
               <p className="mx-4 mb-0 text-center font-semibold text-gray-500 dark:text-white">
                 OR
               </p>
             </div>
 
-
             {error && (
               <div className="bg-red-500 z-[999] text-center mb-2 text-white text-sm py-2 px-3 rounded-md mt-3">
                 {error}
               </div>
             )}
-
-
 
             <form
               className="space-y-4 md:space-y-6"
@@ -336,16 +311,14 @@ const SignUpCard: React.FC<{
 
               <p className="text-sm font-light text-gray-500 dark:text-gray-400">
                 Already have an account?{" "}
-                <a
-                  href="#"
+                <Link
+                  to="/login" // Replace "/login" with the path to your login page
                   className="font-medium text-primary-600 hover:underline dark:text-primary-500"
                 >
                   Login here
-                </a>
+                </Link>
               </p>
             </form>
-
-
           </div>
         </div>
       )}
