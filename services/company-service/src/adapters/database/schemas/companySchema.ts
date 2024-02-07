@@ -19,6 +19,7 @@ const CompanySchema: Schema = new Schema(
     founded: { type: String },
     websiteLink: { type: String },
     stage: { type: String, default: "pending" },
+    status: { type: String, default: "pending" },
     password: { type: String, required: true },
     vision: { type: String },
   },

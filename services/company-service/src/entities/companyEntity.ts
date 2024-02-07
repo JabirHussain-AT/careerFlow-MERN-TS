@@ -15,5 +15,6 @@ export interface ICompany extends Document {
   password: String | null;
   description: String | null;
   stage: string | null
+  status: string | null
   totalEmployees : Number | null
 }

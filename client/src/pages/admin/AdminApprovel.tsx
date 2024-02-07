@@ -1,38 +1,49 @@
-import React, { useState } from "react";
+import React, { useState ,useEffect } from "react";
 import { FaArrowAltCircleRight, FaCheck, FaTimes } from "react-icons/fa";
+import  {fetchCompanies} from '../../redux/actions/adminActions'
 
 const AdminApprovel = () => {
-  // Sample data
-  const companies = [
-    {
-      id: 1,
-      companyName: "ABC Inc.",
-      websiteLink: "https://www.abc.com",
-      status: "Approved",
-    },
-    {
-      id: 2,
-      companyName: "XYZ Corporation",
-      websiteLink: "https://www.xyzcorp.com",
-      status: "Rejected",
-    },
-    {
-      id: 3,
-      companyName: "EP Corporation",
-      websiteLink: "https://www.Epcorp.com",
-      status: "Pending",
-    },
-    // Add more sample data as needed
-  ];
+
+  const [companies , setCompanies ] = useState([])
+  useEffect( ()=>{
+       fetchCompanies().then((data)=>{
+        setCompanies(data)
+      }).catch((err)=>{
+        console.error(err , 'error from te fetching company')
+      })
+      
+  },[])
+  // // Sample data
+  // const companies = [
+  //   {
+  //     id: 1,
+  //     companyName: "ABC Inc.",
+  //     websiteLink: "https://www.abc.com",
+  //     status: "Approved",
+  //   },
+  //   {
+  //     id: 2,
+  //     companyName: "XYZ Corporation",
+  //     websiteLink: "https://www.xyzcorp.com",
+  //     status: "Rejected",
+  //   },
+  //   {
+  //     id: 3,
+  //     companyName: "EP Corporation",
+  //     websiteLink: "https://www.Epcorp.com",
+  //     status: "Pending",
+  //   },
+  //   // Add more sample data as needed
+  // ];
 
   const [filter, setFilter] = useState("all");
 
   const filteredCompanies = companies.filter((company) => {
-    if (filter === "all") {
-      return true;
-    } else {
-      return company.status === filter;
-    }
+    // if (filter === "all") {
+    //   return true;
+    // } else {
+    //   return company.status === filter;
+    // }
   });
 
   return (
