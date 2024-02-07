@@ -20,6 +20,7 @@ interface ProtectedRouteProps {
 function App() {
   const { user, error } = useSelector((state: IUserSelector) => state.user);
   const dispatch = useDispatch();
+  console.log('user === > ',user)
 
   useEffect(() => {
     if (error) {
@@ -50,13 +51,14 @@ function App() {
             <Route path='/' element={<>{user?.role === 'company' ? <Navigate to={'/company/dashboard'} /> : user?.role === "admin" ? <Navigate to={'/admin/dashboard'} /> : <Home />}</>} />
             <Route path='/signup' element={<>{user?.role === 'company' ? <Navigate to={'/company/dashboard'} /> : user?.role === "admin" ? <Navigate to={'/admin/dashboard'} /> : <Navigate to={'/'}  />}</>} />
             <Route path='/login' element={<>{user?.role === 'company' ? <Navigate to={'/company/dashboard'} /> : user?.role === "admin" ? <Navigate to={'/admin/dashboard'} /> :<Navigate to={'/'}  />} </>} />
-            <Route path='/company/dashboard' element={<>{user?.role === 'company' ? <Navigate to={'/company/dashboard'} /> : <CompanyForm />}</>} />
+            <Route path='/company/dashboard' element={<>{user?.role === 'company' && user?.stage === 'pending'  ? < CompanyForm /> : < Dashboard />  }</>} />
             <Route path='/company/signup' element={<>{user?.role === 'company' ? <Navigate to={'/company/dashboard'} /> : <CompanySignup />}</>} />
 
             {/* Company Routes */}
+            
+            <Route path='/company/updateForm' element={<>{companyProtectedRoute({ element: < CompanyForm /> })}</>} />
             <Route path='/company/dashboard' element={<>{companyProtectedRoute({ element: <Dashboard /> })}</>} />
             <Route path='/company/signup' element={<>{companyProtectedRoute({ element: <CompanySignup /> })}</>} />
-
             {/* User Routes */}
             <Route path='/' element={<>{userProtectedRoute({ element: <Home /> })}</>} />
             <Route path='/signup' element={<>{userProtectedRoute({ element: <Signup /> })}</>} />

@@ -8,18 +8,22 @@ import { useNavigate } from "react-router-dom";
 
 const CompanyForm: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const { user } = useSelector((state: IUserSelector) => state.user);
   const navigate = useNavigate()
 
+  useEffect(()=>{
+    if(user?.role && user?.stage === 'completed') {
+      navigate('/company/dashboard')
+    } 
+  },[])
+  
   const handleContinueClick = () => {
     setIsModalOpen(true);
   };
 
   console.log('okay')
 
-  useEffect(()=>{
-    const { user } = useSelector((state: IUserSelector) => state.user);
-    if(user?.role) navigate('/dashboard')
-  },[])
+
 
   return (
     <>

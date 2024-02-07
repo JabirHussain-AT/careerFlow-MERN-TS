@@ -6,7 +6,7 @@ export interface ICompany extends Document {
   email: String | null;
   address : Object | null ;
   companyLogo: String | null;
-  name: String | null;
+  userName: String | null;
   linkedIn: String | null;
   locations: String[] | null;
   headOffice: String | null;

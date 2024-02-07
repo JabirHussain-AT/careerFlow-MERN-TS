@@ -5,7 +5,6 @@ import { useSelector } from "react-redux";
 
 const Dashboard: React.FC = () => {
   const { user } = useSelector((state: IUserSelector) => state.user);
-
   return (
     <>
       <NavBar /> 

@@ -6,8 +6,9 @@ const CompanySchema: Schema = new Schema(
   {
     email: { type: String, required: true, unique: true },
     registrationId:{type : String },
+    role : { type : String , default :'company' },
     logo: { type: String },
-    name: { type: String},
+    userName: { type: String},
     address : {type : Object },
     linkedIn: { type: String },
     totalEmployees : { type : Number} ,
@@ -31,6 +32,7 @@ const Company = mongoose.model<ICompany>("Company", CompanySchema);
 export interface ICompanyData extends ICompany {
   createdAt?: Date;
   updatedAt?: Date;
+  userName: string ;
 }
 
 export default Company;

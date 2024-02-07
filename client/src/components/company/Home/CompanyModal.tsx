@@ -69,7 +69,7 @@ const CompanyModal: React.FC<CompanyModalProps> = ({
 
           toast.success("Company form submitted successfully!");
           if (res?.payload?.success) {
-            navigate("/dashboard");
+            navigate("/company/dashboard");
           }
 
           
@@ -97,7 +97,7 @@ const CompanyModal: React.FC<CompanyModalProps> = ({
 
           toast.success("Company form submitted successfully!");
           if (res?.payload?.success) {
-            navigate("/dashboard");
+            navigate("/company/dashboard");
           }
         } else {
           // If no logo, just dispatch the action with other form values
@@ -105,7 +105,7 @@ const CompanyModal: React.FC<CompanyModalProps> = ({
 
           toast.success("Company form submitted successfully!");
           if (res?.payload?.success) {
-            navigate("/dashboard");
+            navigate("/company/dashboard");
           }
         }
 

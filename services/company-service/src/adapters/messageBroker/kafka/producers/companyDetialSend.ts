@@ -1,6 +1,6 @@
 import { producer } from "../index";
 
-export default async (data: { email: string; role: string; name: string, password : string }) => {
+export default async (data: { email: string; role: string; userName: string | any, password : string }) => {
   try {
     await producer.connect();
 

@@ -12,7 +12,7 @@ export const createNewUser = async (
     let data = {
       email : newUser?.email as string ,
       role : 'company' ,
-      name : 'ABC' ,
+      userName : newUser.userName  ,
       password : newUser?.password as string
     }
 
