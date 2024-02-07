@@ -4,8 +4,7 @@ import {IUser} from '../../../../entities/userEntities'
 const userSchema : Schema = new Schema({
     userName : {
         type : String,
-        required : true ,
-        
+        required : true , 
     },
     email : {
         type : String ,
@@ -49,7 +48,7 @@ export interface IUserData extends IUser{
 }
 export interface IUserDoc {
     _id : ObjectId ,
-    name : string ,
+    userName : string ,
     email : string, 
     role : string ,
     password : string, 

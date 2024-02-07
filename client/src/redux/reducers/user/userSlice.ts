@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { userSignUp, userLogin } from "../../actions/userActions";
+import { userSignUp, userLogin ,isUserExist } from "../../actions/userActions";
 import { IUserLoginData } from "../../../interface/IUserLogin";
 import { persistReducer } from "redux-persist";
 import { persistConfig } from "../../../config/constants";
@@ -35,6 +35,21 @@ const userSlice = createSlice({
         state.loading = false;
         state.error = action.payload as string;
       })
+      // user Exist
+      .addCase(isUserExist.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(isUserExist.fulfilled, (state, action) => {
+        state.loading = false;
+        state.user = action.payload as IUserLoginData;
+        state.error = null;
+      })
+      .addCase(isUserExist.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload as string;
+      })
+      // 
 
       .addCase(userLogin.pending, (state) => {
         state.loading = true;

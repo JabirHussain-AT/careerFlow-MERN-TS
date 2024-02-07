@@ -94,7 +94,12 @@ const SignUpCard: React.FC<{
           userData = dispatch(userSignUp(userValues));
           console.log();
         } else {
+          
+        let temp = { email: userValues.email};
+        let  userExist = await dispatch(isUserExist(temp));
+        if (userExist?.payload?.sucess) {
           userData = dispatch(companySignUp(userValues));
+        }
         }
       } catch (error) {
         console.error("Error processing Google Sign In:", error);

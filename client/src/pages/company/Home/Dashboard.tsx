@@ -8,7 +8,7 @@ const Dashboard: React.FC = () => {
   return (
     <>
       <NavBar /> 
-      {!user?.approved && user?.stage === 'completed' ? 
+      {!user?.approved && user?.stage === 'completed' && user?.approved === false ? 
       <div className="max-w-md mx-auto mt-10 bg-white p-8 border rounded shadow">
         <h1 className="text-2xl font-bold mb-4">Thank you for submitting</h1>
         <p className="text-gray-600 mb-4">

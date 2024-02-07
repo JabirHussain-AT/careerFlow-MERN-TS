@@ -12,7 +12,7 @@ const CompanyForm: React.FC = () => {
   const navigate = useNavigate()
 
   useEffect(()=>{
-    if(user?.role && user?.stage === 'completed') {
+    if(user?.role && user?.stage === 'completed' && user?.approved === true) {
       navigate('/company/dashboard')
     } 
   },[])

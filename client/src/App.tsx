@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes, Navigate  } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { IUserSelector } from "./interface/IUserSlice";
 import { useEffect, ReactNode } from "react";
@@ -23,12 +23,14 @@ function App() {
   console.log('user === > ',user)
 
   useEffect(() => {
+    
     if (error) {
       setTimeout(() => {
         dispatch(makeErrorDisable());
       }, 5000);
     }
-  }, [error, dispatch]);
+  }, [error, dispatch ]);
+
 
   const userProtectedRoute = ({ element }: ProtectedRouteProps): JSX.Element => {
     return user?.role === 'user' ? <>{element}</> : <Navigate to='/login' />;
@@ -76,9 +78,10 @@ function App() {
         ) : (
           // Redirect to Login when user is null
           <>
+          < Route path='/login' element={< Login />} />
           <Route path='/signup' element={< Signup />} />
           <Route path='/company/signup' element={< CompanySignup />} />
-          <Route path='*' element={<Login />} />
+          <Route path='*' element={ < Navigate to={'/login'} />} />
           </>
         )}
       </Routes>

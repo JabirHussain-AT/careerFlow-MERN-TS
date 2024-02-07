@@ -9,9 +9,9 @@ export default async (
         let dataToSave = {
             email : data?.email ,
             role : data?.role ,
-            userName : data?.name,
+            userName : data?.userName,
             password : data?.password,
-            stage : 'completed' ,
+            stage : 'pending' ,
             approved : false 
         }
          const user =  await User.create(dataToSave)
