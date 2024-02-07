@@ -6,7 +6,7 @@ export const runConsumer = async () => {
     await consumer.connect().then(()=> console.log('connected kafka'))
 
     await consumer.subscribe({
-      topic: "to-user",
+      topic: "to-company",
       fromBeginning: true,
     });
 

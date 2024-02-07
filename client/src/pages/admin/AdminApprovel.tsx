@@ -13,6 +13,10 @@ const AdminApprovel = () => {
       })
       
   },[])
+
+  console.log('<<<<<<<<<<<<<<<<companies>>>>>>>>>>>>>>>>')
+  console.log(companies)
+  console.log('<<<<<<<<<<<<<<<<companies>>>>>>>>>>>>>>>>')
   // // Sample data
   // const companies = [
   //   {

@@ -1,5 +1,5 @@
 
-import  companyDetailSave from "./cosnumers/companyDetailSave";
+import  companyDetailSave from "./cosnumers/fetchingCompanies";
 export interface ISubscriber {
      companyDetailSave: (data: any) => Promise<void>;
     // Add other methods as needed

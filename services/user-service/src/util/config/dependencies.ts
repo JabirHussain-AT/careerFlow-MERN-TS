@@ -1,4 +1,4 @@
-import { usecases } from "../../usecases";
+import { usecases,adminUseCases } from "../../usecases";
 import { userRepo } from "../../adapters/database/mongoDB/repositories";
 
 const repositories : any  = {
@@ -7,5 +7,6 @@ const repositories : any  = {
 
 export = {
     usecases ,
+    adminUseCases,
     repositories
 }
