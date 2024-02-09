@@ -18,15 +18,16 @@ export = (dependencies: any): any => {
 
 
     try {
-      const { companyId , status  } = req.body
+      const { companyId , status  , email } = req.body
       let reason  = ''
+      let intro = ' Your application for the registration evaluvated successfully '
 
       if(req.body?.reason !== undefined ){
          reason = req.body?.reason 
       } 
 
       const data = await updateCompanyApprovel_useCase(dependencies).interactor(companyId , status , reason);
-      await sendStatus_useCase(dependencies).interactor( reason )
+      await sendStatus_useCase(dependencies).interactor( email , intro , reason  )
 
       res.json({
         data : data ,
