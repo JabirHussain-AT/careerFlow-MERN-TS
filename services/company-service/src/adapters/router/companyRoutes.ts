@@ -5,7 +5,12 @@ import verifyToken from "../../util/middlewares/authChecker";
 export default (dependencies: any): any => {
   const router = express.Router();
 
-  const { companySignupController, formUpdateController } =
+  const { 
+    companySignupController, 
+    formUpdateController  ,
+    fetchCompaniesController ,
+    updateCompanyApprovelController
+   } =
     companyController(dependencies);
 
     //company-signup
@@ -15,7 +20,10 @@ export default (dependencies: any): any => {
     router.post("/updateForm", formUpdateController);
 
     // middleware 
-    router.use(verifyToken);
+    // router.use(verifyToken);
+
+    router.get("/fetch-companies" , fetchCompaniesController)
+    router.post("/approve-companyStatus" , updateCompanyApprovelController)
 
   return router;
 };

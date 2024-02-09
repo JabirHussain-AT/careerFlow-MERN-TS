@@ -1,3 +1,4 @@
+import company from ".";
 import { companyCollection , otpCollection } from "../..";
 import companyDetialSend from "../../../messageBroker/kafka/producers/companyDetialSend";
 import updateStage from "../../../messageBroker/kafka/producers/updateStages";
@@ -106,3 +107,37 @@ export const updateFormData = async ( email : string , companyCredentials : any 
     console.log(err , '================== in the updateFormData catch ')
   }
 }
+
+
+
+export const fetchCompanies = async ( email : string , companyCredentials : any ) => {
+  try{
+
+
+    let company = await companyCollection.find().select('-password')
+     return company ?? false
+
+  }catch(err : any){
+
+    console.log(err , '================== in the updateFormData catch ')
+
+  }
+}
+export const updateApprovel = async ( companyId , status) => {
+  try{
+
+    let value = status === true ? 'approved' : 'rejected'
+    let company = await companyCollection.findOneAndUpdate({_id:companyId} , {approved : status , status : value },{upsert : true , new : true}).select('-password')
+
+
+    console.log('--------------------------------------')
+    console.log(company ,'<<>>><><><><><><<><')
+    console.log('--------------------------------------')
+
+    
+     return company ?? false
+  }catch(err : any){
+    console.log(err , '================== in the updateFormData catch ')
+  }
+}
+
