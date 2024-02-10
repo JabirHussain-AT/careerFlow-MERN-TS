@@ -12,7 +12,7 @@ const CompanyForm: React.FC = () => {
   const navigate = useNavigate()
 
   useEffect(()=>{
-    if(user?.role && user?.stage === 'completed' && user?.approved === true) {
+    if(user?.role && user?.stage === 'completed' ) {
       navigate('/company/dashboard')
     } 
   },[])
@@ -24,7 +24,6 @@ const CompanyForm: React.FC = () => {
 
   return (
     <>
-      <NavBar />
       <div className="bg-white w-full h-5/6 flex flex-col sm:flex-row justify-between items-center">
         <div className="sm:ml-24 sm:mt-18 text-center sm:text-left">
           <h2 className="text-3xl font-mono font-semibold py-8">

@@ -12,8 +12,7 @@ const Dashboard: React.FC = () => {
     setIsModalOpen(true);
   }; 
   return (
-    <>
-      <NavBar /> 
+    <> 
       {!user?.approved && user?.stage === 'completed' && user?.approved === false && user?.status !== 'approved'  ? 
       <div className="max-w-md mx-auto mt-10 bg-white p-8 border rounded shadow">
         <h1 className="text-2xl font-bold mb-4">Thank you for submitting</h1>
@@ -52,7 +51,7 @@ const Dashboard: React.FC = () => {
       </div>
       :
       <div>
-        Helllooooooo
+        helloooo
       </div>
 }
     </>
