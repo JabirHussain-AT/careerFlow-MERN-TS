@@ -2,6 +2,7 @@ import company from ".";
 import { companyCollection , otpCollection } from "../..";
 import companyDetialSend from "../../../messageBroker/kafka/producers/companyDetialSend";
 import updateStage from "../../../messageBroker/kafka/producers/updateStages";
+import updateStatus from "../../../messageBroker/kafka/producers/updateStatus";
 import { ICompanyData } from "../../schemas/companySchema";
 
 export const createNewUser = async (
@@ -128,13 +129,17 @@ export const updateApprovel = async ( companyId , status) => {
 
     let value = status === true ? 'approved' : 'rejected'
     let company = await companyCollection.findOneAndUpdate({_id:companyId} , {approved : status , status : value },{upsert : true , new : true}).select('-password')
-
+    let companyEmail = company?.email ?? false
+    let data = {
+      status : value ,
+      email : companyEmail as string
+    }
 
     console.log('--------------------------------------')
     console.log(company ,'<<>>><><><><><><<><')
     console.log('--------------------------------------')
 
-    
+     updateStatus(data)
      return company ?? false
   }catch(err : any){
     console.log(err , '================== in the updateFormData catch ')

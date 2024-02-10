@@ -21,9 +21,6 @@ const CompanyForm: React.FC = () => {
     setIsModalOpen(true);
   };
 
-  console.log('okay')
-
-
 
   return (
     <>

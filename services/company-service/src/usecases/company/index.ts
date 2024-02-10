@@ -5,6 +5,7 @@ import { verifyOtp_useCase } from "./verifyOtp";
 import { updateFormData_useCase } from "./updateFormData";
 import { fetchCompanies_useCase } from "./fetchingCompanies";
 import { updateCompanyApprovel_useCase } from './updateApprovel'
+import { sendStatus_useCase } from './sendStatus_useCase'
 
 export default  {
   signUp_useCase,
@@ -13,5 +14,6 @@ export default  {
   verifyOtp_useCase ,
   updateFormData_useCase ,
   fetchCompanies_useCase ,
-  updateCompanyApprovel_useCase
+  updateCompanyApprovel_useCase,
+  sendStatus_useCase
 }

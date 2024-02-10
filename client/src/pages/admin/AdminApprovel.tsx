@@ -16,6 +16,7 @@ const AdminApprovel = () => {
   const [selectedCompany, setSelectedCompany] = useState(null);
   const dispatch = useDispatch<AppDispatch>();
 
+
   useEffect(() => {
     fetchCompanies()
       .then((data) => {
@@ -75,6 +76,7 @@ const AdminApprovel = () => {
     setModalVisible(false);
   };
 
+
   const filteredCompanies: any = companies.filter((company: any) => {
     if (filter === "all") {
       return true;
@@ -82,6 +84,7 @@ const AdminApprovel = () => {
       return company.status === filter;
     }
   });
+  
 
   return (
     <div className="container mx-auto mt-8 p-8">

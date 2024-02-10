@@ -7,7 +7,7 @@ export interface IUser extends Document {
     password : string, 
     phone?: string | null,
     profilePic?: string | null ,
-    status?:boolean ,
+    status?:string ,
     skills?:string[] | null,
     socialLinks?:{
         link?:string | null ;

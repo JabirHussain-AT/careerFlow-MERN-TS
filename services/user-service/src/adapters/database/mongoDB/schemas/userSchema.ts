@@ -29,7 +29,7 @@ const userSchema : Schema = new Schema({
         socialMedia : { type : String }
     }],
     dob : { type : Date || String},
-    status : { type : Boolean },
+    status : { type : String },
     jobStatus : { type : String },
     about : { type : String },
     languages : [{ type :String }],
@@ -54,7 +54,7 @@ export interface IUserDoc {
     password : string, 
     phone?: number | null,
     profilePic?: string | null ,
-    status?:boolean ,
+    status?:string ,
     skills?:string[] | null,
     socialLinks?:{
         link?:string | null ;
