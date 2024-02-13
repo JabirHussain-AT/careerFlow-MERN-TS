@@ -24,6 +24,7 @@ export default (dependencies: any): any => {
 
     router.get("/fetch-companies" , fetchCompaniesController)
     router.post("/approve-companyStatus" , updateCompanyApprovelController)
+    // router.post('/job-submit' , fetchCompaniesController )
 
   return router;
 };

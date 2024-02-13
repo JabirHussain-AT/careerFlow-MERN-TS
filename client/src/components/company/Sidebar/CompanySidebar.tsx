@@ -22,13 +22,13 @@ const CompanySidebar: React.FC = () => {
 
   return (
     <>
-      <div className="w-full h-12 bg-white shadow-md">
+      <div className="w-full h-12 bg-white shadow-lg  ">
         <div className="flex justify-start items-center">
           <img className="w-32 p-2" src={Logo} alt="Logo" />
         </div>
       </div>
       <div className="flex">
-        <div className="lg:w-64 h-screen bg-white shadow-lg rounded text-black lg:flex-shrink-0">
+        <div className="lg:w-64 h-screen bg-white  rounded text-black lg:flex-shrink-0">
           <ul className="text-black font-sans px-2 font-semibold lg:flex-col lg:w-full">
             <NavLink
               to={"/company/dashboard"}
