@@ -7,9 +7,16 @@ import Dropdown from "@/components/common/Dropdown";
 import { FaPlus, FaTrash } from "react-icons/fa";
 import { BsDot } from "react-icons/bs";
 import DatePicker from "react-datepicker";
+import {  addingJob } from '../../../redux/actions/companyActions'
 import "react-datepicker/dist/react-datepicker.css";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch } from "@/redux/store";
+import { IUserSelector } from "@/interface/IUserSlice";
 
 const CompanyJobsForm: React.FC = () => {
+
+  const dispatch = useDispatch<AppDispatch>();
+  const { user  } = useSelector((state: IUserSelector) => state.user);
   const [selectedJobType, setSelectedJobType] = useState<string>("");
   const [selectedCategory, setSelectedCategory] = useState<string>("");
 
@@ -117,10 +124,18 @@ const CompanyJobsForm: React.FC = () => {
 
   //
 
-  const handleSubmit = (values: any) => {
+  const handleSubmit = async (values: any) => {
     setRequirmentError(true);
     values.requirements = requirements;
+    values.companyId = user?._id 
+    values.companyEmail = user?.email
     console.log("Form data:", values);
+    const res = await dispatch(addingJob(values))
+    if(res.payload.success ){
+        console.log('------------')
+        console.log('success the adding job front end')
+        console.log('------------')
+    }
   };
 
   return (
