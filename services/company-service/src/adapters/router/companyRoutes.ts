@@ -9,22 +9,29 @@ export default (dependencies: any): any => {
     companySignupController, 
     formUpdateController  ,
     fetchCompaniesController ,
-    updateCompanyApprovelController
+    updateCompanyApprovelController ,
+    addJobController
    } =
     companyController(dependencies);
 
     //company-signup
     router.post("/sign-up", companySignupController);
+
+
     
     // company updating-form data
     router.post("/updateForm", formUpdateController);
 
+
+
+    router.post('/add-job' , addJobController )
+
+    
     // middleware 
-    // router.use(verifyToken);
+    router.use(verifyToken);
 
     router.get("/fetch-companies" , fetchCompaniesController)
     router.post("/approve-companyStatus" , updateCompanyApprovelController)
-    // router.post('/job-submit' , fetchCompaniesController )
 
   return router;
 };

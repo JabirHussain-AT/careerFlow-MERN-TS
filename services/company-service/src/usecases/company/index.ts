@@ -6,6 +6,7 @@ import { updateFormData_useCase } from "./updateFormData";
 import { fetchCompanies_useCase } from "./fetchingCompanies";
 import { updateCompanyApprovel_useCase } from './updateApprovel'
 import { sendStatus_useCase } from './sendStatus_useCase'
+import { addJob_useCase } from './addJob'
 
 export default  {
   signUp_useCase,
@@ -15,5 +16,6 @@ export default  {
   updateFormData_useCase ,
   fetchCompanies_useCase ,
   updateCompanyApprovel_useCase,
-  sendStatus_useCase
+  sendStatus_useCase,
+  addJob_useCase
 }

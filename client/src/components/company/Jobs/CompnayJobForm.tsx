@@ -325,7 +325,7 @@ const CompanyJobsForm: React.FC = () => {
                   <label htmlFor="requirements">
                     Skills <br />
                     <div className="w-full flex justify-start flex-wrap">
-                      {requirements?.length > 0 && (
+                      {skills?.length > 0 && (
                         <div className="bg-yellow-50 rounded-md font-serif">
                           {skills.map((elem, index) => (
                             <div className=" flex" key={index}>

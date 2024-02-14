@@ -1,7 +1,7 @@
 import { createAsyncThunk, } from "@reduxjs/toolkit";
 import axios, { AxiosError } from "axios";
 import { IUserLoginData , ILoginForm} from "../../interface/IUserLogin";
-import {ICompanyForm} from '../../interface/ICompanySignup'
+import {IAddingJobs, ICompanyForm} from '../../interface/ICompanySignup'
 import { AuthCompanyBaseUrl } from "../../config/constants";
 import { ApiError, config, handleError } from "../../config/configuration";
 
@@ -36,6 +36,22 @@ export const companyForm = createAsyncThunk('company/Form' ,async (userCredentia
           
           
           const {data} = await axios.post(`${AuthCompanyBaseUrl}/updateForm`,userCredentials,config)
+          
+                         console.log('======================================')
+                         console.log('the data over here',data)
+                         console.log('======================================')
+          return data
+
+     }catch(err : any ){
+          const axiosError = err as AxiosError<ApiError> ;
+          return handleError(axiosError,rejectWithValue)
+     }
+})
+export const addingJob = createAsyncThunk('company/add-jobs' ,async (detials : IAddingJobs  ,{rejectWithValue}) =>{
+     try{
+          
+          
+          const {data} = await axios.post(`${AuthCompanyBaseUrl}/add-job`,detials,config)
           
                          console.log('======================================')
                          console.log('the data over here',data)

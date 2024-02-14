@@ -1,5 +1,5 @@
 import company from ".";
-import { companyCollection , otpCollection } from "../..";
+import { companyCollection , otpCollection , jobCollection } from "../..";
 import companyDetialSend from "../../../messageBroker/kafka/producers/companyDetialSend";
 import updateStage from "../../../messageBroker/kafka/producers/updateStages";
 import updateStatus from "../../../messageBroker/kafka/producers/updateStatus";
@@ -21,7 +21,7 @@ export const createNewUser = async (
 
     await companyDetialSend(data)
 
-    return newUser as ICompanyData; // Assuming userCollection.create returns a single document
+    return newUser as ICompanyData; 
   } catch (err: any) {
     if (err.code && (err.code === 11000 || err.code === 11001)) {
       // Duplicate key error (unique constraint violation)
@@ -143,6 +143,21 @@ export const updateApprovel = async ( companyId , status) => {
      return company ?? false
   }catch(err : any){
     console.log(err , '================== in the updateFormData catch ')
+  }
+}
+
+export const addJobInCompany = async (companyData) => {
+  try{
+    console.log('reached add jobs --------------------')
+    
+
+    console.log('--------------------------------------')
+    console.log('addjobs' ,'<<>>><><><><><><<><')
+    console.log('--------------------------------------')
+    return true
+  }
+  catch(err : any){
+    console.log(err , '================== in the add jobs catch ')
   }
 }
 

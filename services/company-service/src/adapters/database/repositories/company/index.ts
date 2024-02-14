@@ -5,6 +5,7 @@ import {
     updateFormData ,
     fetchCompanies ,
     updateApprovel ,
+    addJobInCompany
  } from "./companyRepo"; 
 
 export default {
@@ -13,6 +14,7 @@ export default {
     verifyOtp ,
     updateFormData,
     fetchCompanies ,
-    updateApprovel
+    updateApprovel,
+    addJobInCompany
 
 }
