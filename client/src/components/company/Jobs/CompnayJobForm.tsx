@@ -13,7 +13,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch } from "@/redux/store";
 import { IUserSelector } from "@/interface/IUserSlice";
 
-const CompanyJobsForm: React.FC = () => {
+const CompanyJobsForm: React.FC = ({initialValues}) => {
 
   const dispatch = useDispatch<AppDispatch>();
   const { user  } = useSelector((state: IUserSelector) => state.user);
@@ -147,7 +147,7 @@ const CompanyJobsForm: React.FC = () => {
         <div className="lg:w-5/6 mx-auto">
           <Formik
             onSubmit={handleSubmit}
-            initialValues={{
+            initialValues={initialValues || {
               selectedJobType: "",
               selectedCategory: "",
               jobTitle: "",
