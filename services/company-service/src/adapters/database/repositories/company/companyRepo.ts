@@ -9,6 +9,8 @@ export const createNewUser = async (
   userCredentials: ICompanyData
 ): Promise<ICompanyData | boolean> => {
   try {
+
+    
     console.log(userCredentials,'-----------------')
     const newUser = await companyCollection.create(userCredentials);
 
@@ -21,7 +23,9 @@ export const createNewUser = async (
 
     await companyDetialSend(data)
 
-    return newUser as ICompanyData; 
+    return newUser as ICompanyData ;
+    
+    
   } catch (err: any) {
     if (err.code && (err.code === 11000 || err.code === 11001)) {
       // Duplicate key error (unique constraint violation)
@@ -148,13 +152,8 @@ export const updateApprovel = async ( companyId , status) => {
 
 export const addJobInCompany = async (companyData) => {
   try{
-    console.log('reached add jobs --------------------')
-    
-
-    console.log('--------------------------------------')
-    console.log('addjobs' ,'<<>>><><><><><><<><')
-    console.log('--------------------------------------')
-    return true
+     const job = await jobCollection.create(companyData)
+     return true
   }
   catch(err : any){
     console.log(err , '================== in the add jobs catch ')

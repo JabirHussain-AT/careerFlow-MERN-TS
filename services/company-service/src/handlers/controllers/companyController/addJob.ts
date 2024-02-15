@@ -12,11 +12,23 @@ export = (dependencies: any): any => {
     next: NextFunction
   ) => {
     try {
-        console.log(req.body,'-----------------------')
-        const data = addJob_useCase(dependencies).interactor({
-            name : 'jabir',
-            age : '2888'
-        })
+
+        const jobData = {
+          category : req.body.selectedCategory ,
+          salary : req.body.salary ,
+          jobDescription : req.body.jobDescription ,
+          jobTitle : req.body.jobTitle ,
+          requirements : req.body.requirements ,
+          skills : req.body.skills ,
+          jobType : req.body.selectedJobType ,
+          companyId : req.body.companyId  ,
+          vacancy : req.body.vacancy ,
+          jobExpiry : req.body.jobExpiry
+        }
+
+
+
+        const data = addJob_useCase(dependencies).interactor(jobData)
       if(data){
         res.json({success:true})
       }

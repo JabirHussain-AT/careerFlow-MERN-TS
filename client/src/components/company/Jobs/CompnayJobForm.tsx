@@ -128,7 +128,7 @@ const CompanyJobsForm: React.FC = () => {
     setRequirmentError(true);
     values.requirements = requirements;
     values.companyId = user?._id 
-    values.companyEmail = user?.email
+    values.companyEmails = user?.email
     console.log("Form data:", values);
     const res = await dispatch(addingJob(values))
     if(res.payload.success ){
