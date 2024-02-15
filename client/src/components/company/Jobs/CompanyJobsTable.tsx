@@ -40,6 +40,11 @@ const CompanyJobsTable: React.FC<CompanyJobsTableProps> = ({
   } | null>(null);
   const [editingJob, setEditingJob] = useState<{
     _id: string;
+    requirements : string[] ;
+    skills : string[];
+    jobExpiry : any ;
+    jobDescription : string ;
+    createdAt : string 
     jobTitle: string;
     category: string;
     vacancy: number;
@@ -82,6 +87,7 @@ const CompanyJobsTable: React.FC<CompanyJobsTableProps> = ({
   };
 
   const handleEditJob = (jobId: string | null) => {
+
     const job = jobs.find((j) => j._id === jobId);
     if (job) {
       setEditingJob(job);
@@ -188,7 +194,9 @@ const CompanyJobsTable: React.FC<CompanyJobsTableProps> = ({
         <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50">
           <div className="bg-white p-8 rounded-md">
             {/* Edit Job Form */}
-            < CompanyEditForm Values={selectedJob} />
+       
+            < CompanyEditForm Values={editingJob} />
+            
             {/* Save and Cancel buttons */}
             <div className="mt-4">
               <button

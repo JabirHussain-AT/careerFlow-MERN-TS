@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState , useEffect } from "react";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -16,13 +16,13 @@ import { IUserSelector } from "@/interface/IUserSlice";
 
 interface CompanyJobsFormProps {
     Values: {
-      selectedJobType?: string | null | undefined;
-      selectedCategory?: string | null | undefined;
+      jobType: string | null | undefined;
+      category?: string | null | undefined;
       jobTitle: string | null;
       createdAt?: string | null;  
       jobDescription: string | null;
-      requirements?: string[] | null | undefined;
-      skills?: string[] | null | undefined;
+      requirements?: any[] ;
+      skills?: string[] ;
       salary?: string | null | undefined;
       jobExpiry?: any;
       vacancy: string | number | null;
@@ -34,12 +34,14 @@ interface CompanyJobsFormProps {
 
 const CompanyEditForm: React.FC<CompanyJobsFormProps> = ({ Values } ) => {
 
+  console.log(Values,'this is the value ')
+
   const dispatch = useDispatch<AppDispatch>();
   const { user  } = useSelector((state: IUserSelector) => state.user);
   const [selectedJobType, setSelectedJobType] = useState<string>("");
   const [selectedCategory, setSelectedCategory] = useState<string>("");
 
-  const [requirements, setRequirements] = useState<string[]>([]);
+  const [requirements, setRequirements] = useState<any[]>([]);
   const [requirementsInput, setRequirementsInput] = useState<string>("");
 
   const [skills, setSkills] = useState<string[]>([]);
@@ -51,6 +53,15 @@ const CompanyEditForm: React.FC<CompanyJobsFormProps> = ({ Values } ) => {
     useState<boolean>(false);
   const [duplicationErrorSkills, setDuplicationErrorSkills] =
     useState<boolean>(false);
+
+
+    useEffect(() => {
+      setRequirements(Values?.requirements ? [...Values.requirements] : []);
+      setSkills(Values?.skills ? [...Values.skills] : []);
+      setSelectedCategory(Values?.category || "");
+      setSelectedJobType(Values?.jobType || "");
+    }, [Values]);
+    
 
   // Job type
   const handleJobTypeChange = (
@@ -144,29 +155,42 @@ const CompanyEditForm: React.FC<CompanyJobsFormProps> = ({ Values } ) => {
   //
 
   const handleSubmit = async (values: any) => {
+
+    console.log('its coming here' , requirements)
     setRequirmentError(true);
     values.requirements = requirements;
     values.companyId = user?._id 
     values.companyEmails = user?.email
     console.log("Form data:", values);
-    const res = await dispatch(addingJob(values))
-    if(res.payload.success ){
-        console.log('------------')
-        console.log('success the adding job front end')
-        console.log('------------')
-    }
+    // const res = await dispatch(addingJob(values))
+    // if(res.payload.success ){
+    //     console.log('------------')
+    //     console.log('success the adding job front end')
+    //     console.log('------------')
+    // }
   };
 
   return (
     <div className="w-full">
       <h2 className="text-md font-mono px-5 py-3 font-bold underline">
-        Post A Job
+        Edit The Job
       </h2>
       <div className="w-full text-black">
         <div className="lg:w-5/6 mx-auto">
           <Formik
             onSubmit={handleSubmit}
-            initialValues={  Values }
+            initialValues={ {
+              selectedJobType: Values?.jobType,
+              selectedCategory:  Values?.category ,
+              jobTitle: Values?.jobTitle,
+              jobDescription: Values?.jobDescription,
+              requirements: [...Values?.requirements],
+              skills: Values?.skills,
+              salary: Values?.salary,
+              jobExpiry:Values?.jobExpiry,
+              vacancy: Values?.vacancy,
+            } }
+
             validationSchema={validationSchema}
           >
             {({ values, setFieldValue, setFieldError }) => (
