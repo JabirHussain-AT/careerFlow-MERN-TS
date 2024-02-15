@@ -27,16 +27,16 @@ const CompanySidebar: React.FC = () => {
       {/* <div className="w-full h-12 bg-white shadow-lg  ">
         
       </div> */}
-      <div className="flex overflow-y-auto ">
+      <div className="flex  overflow-y-auto  ">
         <div
           className={`${
-            open ? "lg:w-64" : "lg:w-20"
-          } h-screen bg-sky-950  rounded text-black duration-300 lg:flex-shrink-0`}
+            open ? "lg:w-64  " : "lg:w-20 max-w-20 fixed "
+          } h-screen bg-sky-950 rounded text-black   duration-300 lg:flex-shrink-0`}
         >
           <div className={`${ open ? "w-full bg-white" : ""} duration-300 flex justify-start items-center`}>
             <img className={`${ open ? "w-28 mx-auto" : "w-28" } bg-white rounded-md p-2`} src={Logo} alt="Logo" />
           </div>
-          <div className="flex justify-end relative -right-5 p-2">
+          <div className="flex justify-end  relative -right-5 p-2">
             <BsArrowLeftCircle
               onClick={() => setOpen(!open)}
               className={`${
@@ -108,7 +108,7 @@ const CompanySidebar: React.FC = () => {
             </ul>
           </div>
         </div>
-        <div className="w-full bg-gray-100">
+        <div className={`w-full ${open ? ' ' : 'ml-20'} bg-gray-100}`}>
           <Outlet />
         </div>
       </div>

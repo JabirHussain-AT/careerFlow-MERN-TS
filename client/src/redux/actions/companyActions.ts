@@ -64,9 +64,9 @@ export const addingJob = createAsyncThunk('company/add-jobs' ,async (detials : I
      }
 })
 
-export const fetchComJobs = async () => {
+export const fetchComJobs = async (id : string | any) => {
      try {
-       const { data } = await axios.get(`${AuthCompanyBaseUrl}/fetch-ComJobs`, config);
+       const { data } = await axios.get(`${AuthCompanyBaseUrl}/fetch-ComJobs/${id}`, config);
        return data;
      } catch (err: any) {
         console.error(err, '=== error from fetching  jobs based on companies')

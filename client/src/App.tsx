@@ -16,6 +16,7 @@ import CompanySidebar from "./components/company/Sidebar/CompanySidebar";
 import CompanyJobs from "./pages/company/Home/CompanyJobs";
 import CompanyJobsForm from "./pages/company/Home/CompanyJobs";
 import AddJobs from "./pages/company/Home/AddJobs";
+import { EditJobs } from "./pages/company/Home/EditJobs";
 
 interface ProtectedRouteProps {
   element: ReactNode;
@@ -69,6 +70,7 @@ function App() {
               <Route path="dashboard" element={<>{companyProtectedRoute({element:< CompanyDashBoard />})}</>}/>
               <Route path="jobs" element={<>{companyProtectedRoute({element:< CompanyJobs />})}</>}/>
               <Route path="add-jobs" element={<>{companyProtectedRoute({element:< AddJobs />})}</>}/>
+              <Route path="edit-job/:jobId" element={<>{companyProtectedRoute({element:< EditJobs />})}</>}/>
             </Route>
             
             {/* User Routes */}

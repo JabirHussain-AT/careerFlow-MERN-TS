@@ -160,3 +160,25 @@ export const addJobInCompany = async (companyData) => {
   }
 }
 
+
+export const editJobInCompany = async (job) => {
+  try{
+     const udpdatedData = await jobCollection.findOneAndUpdate({_id : job?._id},{job},{new : true , upsert : true })
+     console.log('><><<><><<><><<><   :  ; ', udpdatedData )
+     return true
+  }
+  catch(err : any){
+    console.log(err , '================== in the edit  jobs catch ')
+  }
+}
+
+export const fetchComJobInCompany = async (companyId) => {
+  try{
+     const result = await jobCollection.find({companyId : companyId})
+     return result
+  }
+  catch(err : any){
+    console.log(err , '================== in the edit  jobs catch ')
+  }
+}
+
