@@ -15,6 +15,7 @@ import Sidebar from "./components/admin/Sidebar";
 import CompanySidebar from "./components/company/Sidebar/CompanySidebar";
 import CompanyJobs from "./pages/company/Home/CompanyJobs";
 import CompanyJobsForm from "./pages/company/Home/CompanyJobs";
+import ShowJobs from './pages/user/ShowJobs'
 import AddJobs from "./pages/company/Home/AddJobs";
 import { EditJobs } from "./pages/company/Home/EditJobs";
 
@@ -74,7 +75,8 @@ function App() {
             </Route>
             
             {/* User Routes */}
-            <Route path='/' element={<>{userProtectedRoute({ element: <Home /> })}</>} />
+            <Route path='/' element={<>{userProtectedRoute({ element: <Home /> })}</>} />X
+            <Route path='/showJobs' element={<>{userProtectedRoute({ element: < ShowJobs /> })}</>} />X
             <Route path='/signup' element={<>{userProtectedRoute({ element: <Signup /> })}</>} />
             <Route path='/login' element={<>{userProtectedRoute({ element: <Login /> })}</>} />
 
