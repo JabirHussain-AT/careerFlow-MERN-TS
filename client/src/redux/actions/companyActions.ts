@@ -47,6 +47,9 @@ export const companyForm = createAsyncThunk('company/Form' ,async (userCredentia
           return handleError(axiosError,rejectWithValue)
      }
 })
+
+
+
 export const addingJob = createAsyncThunk('company/add-jobs' ,async (detials : IAddingJobs  ,{rejectWithValue}) =>{
      try{
           
@@ -63,10 +66,11 @@ export const addingJob = createAsyncThunk('company/add-jobs' ,async (detials : I
           return handleError(axiosError,rejectWithValue)
      }
 })
+
+
+
 export const updatingJob = createAsyncThunk('company/updating-jobs' ,async (detials : IAddingJobs  ,{rejectWithValue}) =>{
      try{
-          
-          
           
           const {data} = await axios.post(`${AuthCompanyBaseUrl}/updating-job`,detials,config)
           console.log('======================================')
@@ -80,6 +84,9 @@ export const updatingJob = createAsyncThunk('company/updating-jobs' ,async (deti
      }
 })
 
+
+
+
 export const fetchComJobs = async (id : string | any) => {
      try {
        const { data } = await axios.get(`${AuthCompanyBaseUrl}/fetch-ComJobs/${id}`, config);
@@ -89,6 +96,17 @@ export const fetchComJobs = async (id : string | any) => {
      }
 
 }
+
+export const changeStatusOfJob = async ( id : string , value : boolean ) =>{
+     try{
+          console.log(id)
+          const { data } = await axios.get(`${AuthCompanyBaseUrl}/changestatus/job/${id}/${value}`)
+          return data 
+     }
+        catch ( err : any){
+          console.error('error happened in the changeStatusOgJob',err)
+        }  
+     }
 
 
 

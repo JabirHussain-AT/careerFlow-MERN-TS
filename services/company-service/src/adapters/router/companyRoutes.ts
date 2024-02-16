@@ -12,7 +12,8 @@ export default (dependencies: any): any => {
     updateCompanyApprovelController ,
     addJobController ,
     editJobController , 
-    fetchComJobController 
+    fetchComJobController ,
+    changeStatusController
 
    } =
     companyController(dependencies);
@@ -30,6 +31,7 @@ export default (dependencies: any): any => {
     router.post('/add-job' , addJobController )
     router.post('/updating-job',editJobController)
     router.get('/fetch-ComJobs/:id',fetchComJobController)
+    router.get('/changestatus/job/:id/:value',changeStatusController)
 
     
     // middleware 

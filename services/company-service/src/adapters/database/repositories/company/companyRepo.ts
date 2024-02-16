@@ -163,7 +163,7 @@ export const addJobInCompany = async (companyData) => {
 
 export const editJobInCompany = async (jobData , jobId ) => {
   try{
-     const udpdatedData = await jobCollection.findOneAndUpdate({_id : jobId },{  $set: jobData },{ new : true , upsert : true })
+     const udpdatedData = await jobCollection.findOneAndUpdate({_id : jobId },{  $set: jobData },{ new : true  })
     //  console.log('><><<><><<><><<><   :  ; ', udpdatedData )
      return udpdatedData
   }
@@ -182,3 +182,12 @@ export const fetchComJobInCompany = async (companyId) => {
   }
 }
 
+export const changeJobStatus = async  ( jobId , value) =>{
+  try{
+      const result = await jobCollection.findOneAndUpdate({_id: jobId }, { status : value},{new : true })
+      return result
+
+  }catch(error ) {
+    console.log(error , 'error happened in the change status of jobs repo' )
+  }
+}

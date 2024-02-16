@@ -32,6 +32,7 @@ const JobsSchema: Schema = new Schema(
       jobExpiry: { type: Date || String },
       vacancy: { type: Number },
       jobType : { type : String },
+      status : { type : Boolean , default : true } ,
       companyId: { type: Schema.Types.ObjectId },
     },
     {

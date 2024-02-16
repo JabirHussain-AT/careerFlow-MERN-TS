@@ -8,7 +8,8 @@ import { updateCompanyApprovel_useCase } from './updateApprovel'
 import { sendStatus_useCase } from './sendStatus_useCase'
 import { addJob_useCase } from './addJob'
 import { editJob_useCase } from "./editJob"; 
-import { fetchComJobs_useCase } from "./fetchComJobs"; 
+import { fetchComJobs_useCase } from "./fetchComJobs";
+import { changeStatus_useCase } from './changeStatusJob' 
 
 export default  {
   signUp_useCase,
@@ -21,5 +22,6 @@ export default  {
   sendStatus_useCase,
   addJob_useCase ,
   editJob_useCase ,
-  fetchComJobs_useCase
+  fetchComJobs_useCase ,
+  changeStatus_useCase
 }

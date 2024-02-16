@@ -1,9 +1,16 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { userSignUp, userLogin ,isUserExist } from "../../actions/userActions";
+import { userSignUp, userLogin, isUserExist } from "../../actions/userActions";
 import { IUserLoginData } from "../../../interface/IUserLogin";
 import { persistReducer } from "redux-persist";
 import { persistConfig } from "../../../config/constants";
-import { companyForm, companyLogin, companySignUp  , updatingJob ,addingJob} from "../../actions/companyActions";
+import {
+  companyForm,
+  companyLogin,
+  companySignUp,
+  updatingJob,
+  addingJob,
+  changeStatusOfJob
+} from "../../actions/companyActions";
 
 const userSlice = createSlice({
   name: "userSlice",
@@ -14,11 +21,11 @@ const userSlice = createSlice({
   },
   reducers: {
     makeErrorDisable: (state) => {
-      state.error = null ;
+      state.error = null;
     },
-    logout : (state) =>{
-      state.user = null ;
-    }
+    logout: (state) => {
+      state.user = null;
+    },
   },
   extraReducers(builder) {
     builder
@@ -48,7 +55,7 @@ const userSlice = createSlice({
         state.loading = false;
         state.error = action.payload as string;
       })
-      // 
+      //
 
       .addCase(userLogin.pending, (state) => {
         state.loading = true;
@@ -129,12 +136,11 @@ const userSlice = createSlice({
       .addCase(addingJob.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload as string;
-      })
-     
+      });
   },
 });
 
-export const { makeErrorDisable , logout } = userSlice.actions
+export const { makeErrorDisable, logout } = userSlice.actions;
 const persistedUserReducer = persistReducer(persistConfig, userSlice.reducer);
 
 export default persistedUserReducer;

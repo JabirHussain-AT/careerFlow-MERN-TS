@@ -1,44 +1,47 @@
-import React, { useState , useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Formik, Field, Form, ErrorMessage } from "formik";
+import { useNavigate } from 'react-router-dom'
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import validationSchema from "../../../validation/jobAddingValidation"; // Replace with the correct path
-import Dropdown from "@/components/common/Dropdown";
 import { FaPlus, FaTrash } from "react-icons/fa";
 import { BsDot } from "react-icons/bs";
-import DatePicker from "react-datepicker";
-import {  updatingJob } from '../../../redux/actions/companyActions'
-import "react-datepicker/dist/react-datepicker.css";
+import { updatingJob } from "../../../redux/actions/companyActions";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch } from "@/redux/store";
 import { IUserSelector } from "@/interface/IUserSlice";
-
+import { toast } from "react-toastify";
+import DatePicker from "react-datepicker";
+import validationSchema from "../../../validation/jobAddingValidation"; // Replace with the correct path
+import Dropdown from "@/components/common/Dropdown";
+import "react-datepicker/dist/react-datepicker.css";
+import "react-toastify/dist/ReactToastify.css";
 
 interface CompanyJobsFormProps {
-    Values: {
-      jobType: string | null | undefined;
-      category?: string | null | undefined;
-      jobTitle: string | null;
-      createdAt?: string | null;  
-      jobDescription: string | null;
-      requirements?: any[] ;
-      skills?: string[] ;
-      salary?: string | null | undefined;
-      jobExpiry?: any;
-      vacancy: string | number | null;
-      noOfApplications?: number | null; 
-      _id?:string 
-    };
-  }
-  
-  
+  Values: {
+    jobType: string | null | undefined;
+    category?: string | null | undefined;
+    jobTitle: string | null;
+    createdAt?: string | null;
+    jobDescription: string | null;
+    requirements?: any[];
+    skills?: string[];
+    salary?: string | null | undefined;
+    status : boolean
+    jobExpiry?: any;
+    vacancy: string | number | null;
+    noOfApplications?: number | null;
+    _id?: string;
+  };
+}
 
-const CompanyEditForm: React.FC<CompanyJobsFormProps> = ({ Values } ) => {
+const CompanyEditForm: React.FC<CompanyJobsFormProps> = ({ Values }) => {
 
-  console.log(Values,'this is the value ')
 
   const dispatch = useDispatch<AppDispatch>();
-  const { user  } = useSelector((state: IUserSelector) => state.user);
+  const navigate = useNavigate()
+  const { user, error, loading } = useSelector(
+    (state: IUserSelector) => state.user
+  );
   const [selectedJobType, setSelectedJobType] = useState<string>("");
   const [selectedCategory, setSelectedCategory] = useState<string>("");
 
@@ -55,14 +58,12 @@ const CompanyEditForm: React.FC<CompanyJobsFormProps> = ({ Values } ) => {
   const [duplicationErrorSkills, setDuplicationErrorSkills] =
     useState<boolean>(false);
 
-
-    useEffect(() => {
-      setRequirements(Values?.requirements ? [...Values.requirements] : []);
-      setSkills(Values?.skills ? [...Values.skills] : []);
-      setSelectedCategory(Values?.category || "");
-      setSelectedJobType(Values?.jobType || "");
-    }, [Values]);
-    
+  useEffect(() => {
+    setRequirements(Values?.requirements ? [...Values.requirements] : []);
+    setSkills(Values?.skills ? [...Values.skills] : []);
+    setSelectedCategory(Values?.category || "");
+    setSelectedJobType(Values?.jobType || "");
+  }, [Values]);
 
   // Job type
   const handleJobTypeChange = (
@@ -156,19 +157,35 @@ const CompanyEditForm: React.FC<CompanyJobsFormProps> = ({ Values } ) => {
   //
 
   const handleSubmit = async (values: any) => {
+    try {
+      setRequirmentError(true);
+      values.requirements = requirements;
+      values.companyId = user?._id;
+      values.companyEmails = user?.email;
+      values.jobId = Values?._id;
+      console.log("Form data:", values);
 
-    console.log('its coming here' , requirements)
-    setRequirmentError(true);
-    values.requirements = requirements;
-    values.companyId = user?._id 
-    values.companyEmails = user?.email
-    values.jobId = Values?._id
-    console.log("Form data:", values);
-    const res = await dispatch(updatingJob(values))
-    if(res.payload.success ){
-        console.log('------------')
-        console.log('success the updating job front end')
-        console.log('------------')
+      const res = await dispatch(updatingJob(values));
+      if (res.payload.success) {
+        
+        // console.log("------------");
+        // console.log("success the updating job front end");
+        // console.log("------------");
+        toast.success("Job updaing successfully!");
+        setTimeout(() => {
+          window.location.reload();
+        }, 2000); 
+
+      }else{
+
+        console.log("Error adding job:", res.payload.error);
+        // console.log("------------");
+        // console.log("------------");
+
+      }
+    } catch (error) {
+      console.error("An unexpected error occurred:", error);
+      toast.error("An unexpected error occurred. Please try again later.");
     }
   };
 
@@ -181,18 +198,19 @@ const CompanyEditForm: React.FC<CompanyJobsFormProps> = ({ Values } ) => {
         <div className="lg:w-5/6 mx-auto">
           <Formik
             onSubmit={handleSubmit}
-            initialValues={ {
+            initialValues={{
               selectedJobType: Values?.jobType,
-              selectedCategory:  Values?.category ,
+              selectedCategory: Values?.category,
               jobTitle: Values?.jobTitle,
               jobDescription: Values?.jobDescription,
-              requirements: Values?.requirements ? [...Values.requirements] : [],
+              requirements: Values?.requirements
+                ? [...Values.requirements]
+                : [],
               skills: Values?.skills,
               salary: Values?.salary,
-              jobExpiry:Values?.jobExpiry,
+              jobExpiry: Values?.jobExpiry,
               vacancy: Values?.vacancy,
-            } }
-
+            }}
             validationSchema={validationSchema}
           >
             {({ values, setFieldValue, setFieldError }) => (

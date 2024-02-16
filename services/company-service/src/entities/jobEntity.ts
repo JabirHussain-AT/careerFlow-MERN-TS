@@ -24,6 +24,7 @@ export interface IJobs extends Document {
     skills: String[] | null;
     jobExpiry: String | null;
     jobType: String | null;
+    status : Boolean | null 
     vacancy: Number | null;
     companyId: ObjectId | null;
   }

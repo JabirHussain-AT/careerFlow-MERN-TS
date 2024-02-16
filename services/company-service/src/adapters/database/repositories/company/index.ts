@@ -7,7 +7,8 @@ import {
     updateApprovel ,
     addJobInCompany ,
     fetchComJobInCompany ,
-    editJobInCompany
+    editJobInCompany ,
+    changeJobStatus
  } from "./companyRepo"; 
 
 export default {
@@ -19,6 +20,7 @@ export default {
     updateApprovel,
     addJobInCompany ,
     fetchComJobInCompany ,
-    editJobInCompany
+    editJobInCompany ,
+    changeJobStatus
 
 }

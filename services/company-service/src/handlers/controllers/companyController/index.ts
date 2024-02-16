@@ -5,6 +5,7 @@ import updateCompanyApprovelController from './updateApprovel'
 import addJobController from "./addJob";
 import editJobController from "./editJob"
 import fetchComJobController from './fetchComJobs'
+import changeStatusController from './changeStautsJobController'
 
 export default (dependencies: any) => {
   return {
@@ -14,6 +15,7 @@ export default (dependencies: any) => {
     updateCompanyApprovelController : updateCompanyApprovelController(dependencies),
     addJobController:addJobController(dependencies) ,
     editJobController : editJobController(dependencies) ,
-    fetchComJobController : fetchComJobController(dependencies)
+    fetchComJobController : fetchComJobController(dependencies) ,
+    changeStatusController : changeStatusController(dependencies)
   };
 };
