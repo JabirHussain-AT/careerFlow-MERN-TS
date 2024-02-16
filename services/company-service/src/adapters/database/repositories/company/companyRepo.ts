@@ -161,11 +161,11 @@ export const addJobInCompany = async (companyData) => {
 }
 
 
-export const editJobInCompany = async (job) => {
+export const editJobInCompany = async (jobData , jobId ) => {
   try{
-     const udpdatedData = await jobCollection.findOneAndUpdate({_id : job?._id},{job},{new : true , upsert : true })
-     console.log('><><<><><<><><<><   :  ; ', udpdatedData )
-     return true
+     const udpdatedData = await jobCollection.findOneAndUpdate({_id : jobId },{  $set: jobData },{ new : true , upsert : true })
+    //  console.log('><><<><><<><><<><   :  ; ', udpdatedData )
+     return udpdatedData
   }
   catch(err : any){
     console.log(err , '================== in the edit  jobs catch ')

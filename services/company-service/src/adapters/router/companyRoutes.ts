@@ -28,7 +28,7 @@ export default (dependencies: any): any => {
 
 
     router.post('/add-job' , addJobController )
-    router.post('/edit-job',editJobController)
+    router.post('/updating-job',editJobController)
     router.get('/fetch-ComJobs/:id',fetchComJobController)
 
     

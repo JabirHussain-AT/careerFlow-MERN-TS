@@ -67,11 +67,11 @@ export const updatingJob = createAsyncThunk('company/updating-jobs' ,async (deti
      try{
           
           
-          const {data} = await axios.post(`${AuthCompanyBaseUrl}/updating-job`,detials,config)
           
-                         console.log('======================================')
-                         console.log('the data over here in updating job   ',data)
-                         console.log('======================================')
+          const {data} = await axios.post(`${AuthCompanyBaseUrl}/updating-job`,detials,config)
+          console.log('======================================')
+          console.log('the data over here in updating job   ',data)
+          console.log('======================================')
           return data
 
      }catch(err : any ){

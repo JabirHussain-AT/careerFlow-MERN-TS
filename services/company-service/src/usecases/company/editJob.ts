@@ -8,9 +8,9 @@ export const editJob_useCase = (dependencies : any) : any =>{
 
     if(!editJobInCompany) throw new Error('repository is required !')
     
-    const interactor = (companyData : any )=>{
+    const interactor = (jobData : any , jobId : string | Object )=>{
         console.log('in interactor edit   job in company use case')
-        return editJobInCompany(companyData)
+        return editJobInCompany(jobData , jobId)
     }
     return {interactor}
 }

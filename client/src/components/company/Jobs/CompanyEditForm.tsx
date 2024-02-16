@@ -27,6 +27,7 @@ interface CompanyJobsFormProps {
       jobExpiry?: any;
       vacancy: string | number | null;
       noOfApplications?: number | null; 
+      _id?:string 
     };
   }
   
@@ -161,6 +162,7 @@ const CompanyEditForm: React.FC<CompanyJobsFormProps> = ({ Values } ) => {
     values.requirements = requirements;
     values.companyId = user?._id 
     values.companyEmails = user?.email
+    values.jobId = Values?._id
     console.log("Form data:", values);
     const res = await dispatch(updatingJob(values))
     if(res.payload.success ){
