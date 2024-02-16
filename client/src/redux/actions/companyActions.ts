@@ -63,6 +63,22 @@ export const addingJob = createAsyncThunk('company/add-jobs' ,async (detials : I
           return handleError(axiosError,rejectWithValue)
      }
 })
+export const updatingJob = createAsyncThunk('company/updating-jobs' ,async (detials : IAddingJobs  ,{rejectWithValue}) =>{
+     try{
+          
+          
+          const {data} = await axios.post(`${AuthCompanyBaseUrl}/updating-job`,detials,config)
+          
+                         console.log('======================================')
+                         console.log('the data over here in updating job   ',data)
+                         console.log('======================================')
+          return data
+
+     }catch(err : any ){
+          const axiosError = err as AxiosError<ApiError> ;
+          return handleError(axiosError,rejectWithValue)
+     }
+})
 
 export const fetchComJobs = async (id : string | any) => {
      try {

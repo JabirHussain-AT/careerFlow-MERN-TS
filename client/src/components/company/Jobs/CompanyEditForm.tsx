@@ -7,7 +7,7 @@ import Dropdown from "@/components/common/Dropdown";
 import { FaPlus, FaTrash } from "react-icons/fa";
 import { BsDot } from "react-icons/bs";
 import DatePicker from "react-datepicker";
-import {  addingJob } from '../../../redux/actions/companyActions'
+import {  updatingJob } from '../../../redux/actions/companyActions'
 import "react-datepicker/dist/react-datepicker.css";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch } from "@/redux/store";
@@ -162,12 +162,12 @@ const CompanyEditForm: React.FC<CompanyJobsFormProps> = ({ Values } ) => {
     values.companyId = user?._id 
     values.companyEmails = user?.email
     console.log("Form data:", values);
-    // const res = await dispatch(addingJob(values))
-    // if(res.payload.success ){
-    //     console.log('------------')
-    //     console.log('success the adding job front end')
-    //     console.log('------------')
-    // }
+    const res = await dispatch(updatingJob(values))
+    if(res.payload.success ){
+        console.log('------------')
+        console.log('success the updating job front end')
+        console.log('------------')
+    }
   };
 
   return (
@@ -184,7 +184,7 @@ const CompanyEditForm: React.FC<CompanyJobsFormProps> = ({ Values } ) => {
               selectedCategory:  Values?.category ,
               jobTitle: Values?.jobTitle,
               jobDescription: Values?.jobDescription,
-              requirements: [...Values?.requirements],
+              requirements: Values?.requirements ? [...Values.requirements] : [],
               skills: Values?.skills,
               salary: Values?.salary,
               jobExpiry:Values?.jobExpiry,

@@ -3,7 +3,7 @@ import { userSignUp, userLogin ,isUserExist } from "../../actions/userActions";
 import { IUserLoginData } from "../../../interface/IUserLogin";
 import { persistReducer } from "redux-persist";
 import { persistConfig } from "../../../config/constants";
-import { companyForm, companyLogin, companySignUp } from "../../actions/companyActions";
+import { companyForm, companyLogin, companySignUp  , updatingJob ,addingJob} from "../../actions/companyActions";
 
 const userSlice = createSlice({
   name: "userSlice",
@@ -103,6 +103,30 @@ const userSlice = createSlice({
         state.error = null;
       })
       .addCase(companyForm.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload as string;
+      })
+      .addCase(updatingJob.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(updatingJob.fulfilled, (state, action) => {
+        state.loading = false;
+        state.error = null;
+      })
+      .addCase(updatingJob.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload as string;
+      })
+      .addCase(addingJob.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(addingJob.fulfilled, (state, action) => {
+        state.loading = false;
+        state.error = null;
+      })
+      .addCase(addingJob.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload as string;
       })

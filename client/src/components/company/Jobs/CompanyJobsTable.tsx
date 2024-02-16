@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import JobDetailsModal from "../../../components/company/Jobs/JobDetailsModal";
+import { FaArrowLeft} from 'react-icons/fa'
 import { fetchComJobs } from "@/redux/actions/companyActions";
 import { useSelector } from "react-redux";
 import { IUserSelector } from "@/interface/IUserSlice";
@@ -44,6 +45,7 @@ const CompanyJobsTable: React.FC<CompanyJobsTableProps> = ({
     skills : string[];
     jobExpiry : any ;
     jobDescription : string ;
+    jobtype : string 
     createdAt : string 
     jobTitle: string;
     category: string;
@@ -199,17 +201,18 @@ const CompanyJobsTable: React.FC<CompanyJobsTableProps> = ({
             
             {/* Save and Cancel buttons */}
             <div className="mt-4">
-              <button
+              {/* <button
                 className="bg-blue-500 hover:bg-blue-700 px-3 py-2 rounded-md mr-2 text-white"
                 onClick={handleSaveEdit}
               >
                 Save
-              </button>
+              </button> */}
               <button
-                className="bg-gray-500 hover:bg-gray-700 px-3 py-2 rounded-md text-white"
+                className=" flex justify-center items-center gap-2 bg-gray-500 text-sm hover:bg-gray-700 px-3 py-2 rounded-md text-white"
                 onClick={closeModal}
-              >
-                Cancel
+                >
+                  < FaArrowLeft />
+                Back to Jobs
               </button>
             </div>
           </div>
