@@ -8,7 +8,8 @@ import {
     addJobInCompany ,
     fetchComJobInCompany ,
     editJobInCompany ,
-    changeJobStatus
+    changeJobStatus ,
+    fetchJobs
  } from "./companyRepo"; 
 
 export default {
@@ -21,6 +22,7 @@ export default {
     addJobInCompany ,
     fetchComJobInCompany ,
     editJobInCompany ,
-    changeJobStatus
+    changeJobStatus ,
+    fetchJobs
 
 }

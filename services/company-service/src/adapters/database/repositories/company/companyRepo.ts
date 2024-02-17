@@ -191,3 +191,12 @@ export const changeJobStatus = async  ( jobId , value) =>{
     console.log(error , 'error happened in the change status of jobs repo' )
   }
 }
+export const fetchJobs = async  ( ) =>{
+  try{
+      const result = await jobCollection.find()
+      return result
+
+  }catch(error ) {
+    console.log(error , 'error happened in the fetching jobs in  repo' )
+  }
+}
