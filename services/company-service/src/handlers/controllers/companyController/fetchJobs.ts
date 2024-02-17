@@ -12,7 +12,7 @@ export = (dependencies: any): any => {
     next: NextFunction
   ) => {
     try {
-       const data = fetchJobs_useCase(dependencies).interactor()
+       const data = await fetchJobs_useCase(dependencies).interactor()
       if(data){
         res.json({success:true ,data : data , message : 'sucessfully fetched jobs '})
       }

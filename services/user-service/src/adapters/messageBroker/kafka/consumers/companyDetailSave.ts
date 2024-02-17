@@ -7,6 +7,7 @@ export default async (
     
     try{
         let dataToSave = {
+            _id : data?._id ,
             email : data?.email ,
             role : data?.role ,
             userName : data?.userName,

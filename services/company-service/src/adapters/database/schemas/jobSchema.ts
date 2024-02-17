@@ -33,7 +33,7 @@ const JobsSchema: Schema = new Schema(
       vacancy: { type: Number },
       jobType : { type : String },
       status : { type : Boolean , default : true } ,
-      companyId: { type: Schema.Types.ObjectId },
+      companyId: { type: Schema.Types.ObjectId, ref: 'Company', alias: '_id' },
     },
     {
       timestamps: true,

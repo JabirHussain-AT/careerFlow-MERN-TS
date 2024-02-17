@@ -4,6 +4,7 @@ import companyDetialSend from "../../../messageBroker/kafka/producers/companyDet
 import updateStage from "../../../messageBroker/kafka/producers/updateStages";
 import updateStatus from "../../../messageBroker/kafka/producers/updateStatus";
 import { ICompanyData } from "../../schemas/companySchema";
+import Jobs from "../../schemas/jobSchema";
 
 export const createNewUser = async (
   userCredentials: ICompanyData
@@ -15,6 +16,7 @@ export const createNewUser = async (
     const newUser = await companyCollection.create(userCredentials);
 
     let data = {
+      _id : newUser?._id ,
       email : newUser?.email as string ,
       role : 'company' ,
       userName : newUser.userName  ,
@@ -193,7 +195,9 @@ export const changeJobStatus = async  ( jobId , value) =>{
 }
 export const fetchJobs = async  ( ) =>{
   try{
-      const result = await jobCollection.find()
+      const result =  await Jobs.find({}).populate('companyId');
+
+      console.log('^^^^^^&&&&&&&&&&&&',result)
       return result
 
   }catch(error ) {
