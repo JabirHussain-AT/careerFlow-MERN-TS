@@ -17,8 +17,9 @@ const NavBar : React.FC = () => {
        // this is navbar
     <div className="flex justify-between mx-auto bg-white shadow-lg w-full h-12">
     <div className="flex justify-between">
-      <div className="h-8">
-        <img className="h-11 px-5 mx-auto" src={`${Logo}`} alt="Logo" />
+      <div className="h-8 flex ">
+        <img className="h-11 pl-2 mx-auto" src={`${Logo}`} alt="Logo" />
+        <h1 className="font-bold  mt-3 font-mono text-md text-black">career<span className="text-blue-500 ">Flow</span> </h1>
       </div>
       <div className=" font-semibold font-sans gap-16 flex px-5 py-2 justify-between items-center">
         <h6>Find Jobs</h6>

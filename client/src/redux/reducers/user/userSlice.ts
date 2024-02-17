@@ -9,7 +9,6 @@ import {
   companySignUp,
   updatingJob,
   addingJob,
-  changeStatusOfJob
 } from "../../actions/companyActions";
 
 const userSlice = createSlice({
