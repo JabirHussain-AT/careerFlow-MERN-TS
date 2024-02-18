@@ -36,8 +36,9 @@ const userSchema : Schema = new Schema({
     education : [{ type : String }],
     experiance : [{ type : String }],
     approved : { type : Boolean},
-    stage : { type :  String }
-
+    stage : { type :  String },
+    profileVerification : { type : Boolean } ,
+    savedJobs : [{type : String}]
 })
 
 export default mongoose.model<IUser>("Users", userSchema);
@@ -67,4 +68,5 @@ export interface IUserDoc {
     experiance : object [ ] | null 
     approved : boolean | null 
     stage : string | null
+    savedJobs : string []
 }

@@ -18,6 +18,8 @@ import CompanyJobsForm from "./pages/company/Home/CompanyJobs";
 import ShowJobs from './pages/user/ShowJobs'
 import AddJobs from "./pages/company/Home/AddJobs";
 import { EditJobs } from "./pages/company/Home/EditJobs";
+import Profile from "./pages/user/Profile";
+import AdminUsers from "./pages/admin/AdminUsers";
 
 interface ProtectedRouteProps {
   element: ReactNode;
@@ -75,8 +77,9 @@ function App() {
             </Route>
             
             {/* User Routes */}
-            <Route path='/' element={<>{userProtectedRoute({ element: <Home /> })}</>} />X
-            <Route path='/showJobs' element={<>{userProtectedRoute({ element: < ShowJobs /> })}</>} />X
+            <Route path='/' element={<>{userProtectedRoute({ element: <Home /> })}</>} />
+            <Route path='/showJobs' element={<>{userProtectedRoute({ element: < ShowJobs /> })}</>} />
+            <Route path='/profile' element={<>{userProtectedRoute({ element: < Profile /> })}</>} />
             <Route path='/signup' element={<>{userProtectedRoute({ element: <Signup /> })}</>} />
             <Route path='/login' element={<>{userProtectedRoute({ element: <Login /> })}</>} />
 
@@ -84,6 +87,7 @@ function App() {
             <Route path= 'admin' element={<>{adminProtectedRoute({element:<Sidebar/>})}</>}>
               <Route path="dashboard" element={<>{adminProtectedRoute({element:<AdminDashboard/>})}</>}/>
               <Route path="company-approval" element={<>{adminProtectedRoute({element:<AdminApproval/>})}</>}/>
+              <Route path="users" element={<>{adminProtectedRoute({element:< AdminUsers />})}</>}/>
             </Route>
 
 

@@ -20,4 +20,6 @@ export interface IUser extends Document {
     experiance : object [ ] | null 
     stage:string ,
     approved : boolean
+    profileVerification  : boolean 
+    savedJobs  :  string[]
 }
