@@ -1,6 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios, { AxiosError } from "axios";
-import { AuthCompanyBaseUrl } from "../../config/constants";
+import { AuthCompanyBaseUrl ,AuthBaseAdminUrl } from "../../config/constants";
 import { ApiError, config, handleError } from "../../config/configuration";
 import { IApproveCompanyAccount } from '../../interface/ICompanyApprovelModal'
 
@@ -24,3 +24,13 @@ export const approveCompanyAccount = createAsyncThunk('compnay/approveStatus' , 
        return handleError(axiosError, rejectWithValue);
   }
 })
+
+
+export const fetchUsers = async () => {
+  try {
+    const { data } = await axios.get(`${AuthBaseAdminUrl}/fetchUsers`, config);
+    return data;
+  } catch (err: any) {
+    console.log(err,'err in the fetchUsers catch')
+  }
+};

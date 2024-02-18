@@ -1,11 +1,11 @@
 import NavBar from "@/components/user/Home/NavBar";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import IUserDoc from '../../interface/'
+import {IUserDoc} from '../../interface/IUserDoc'
 
 
 const Profile: React.FC = () => {
-  const [userData, setUserData] = useState<IUserDoc | null>(null);
+  const [userData, setUserData] = useState<any | null>(null);
 
   useEffect(() => {
     // Fetch user data from your backend or database

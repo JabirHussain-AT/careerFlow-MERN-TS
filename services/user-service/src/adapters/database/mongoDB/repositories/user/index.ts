@@ -4,7 +4,8 @@ import {
     saveOtp,
     verifyOtp,
     loginVerify ,
-    userExistorNot
+    userExistorNot ,
+    fetchUsers
  } from "./userRepo"; 
 
 export = {
@@ -13,5 +14,6 @@ export = {
     saveOtp,
     verifyOtp,
     loginVerify,
-    userExistorNot
+    userExistorNot,
+    fetchUsers
 }

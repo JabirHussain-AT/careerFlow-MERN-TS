@@ -5,6 +5,7 @@ import { verifyOtp_useCase } from "./verifyOtp";
 import { login_useCase } from "./login";
 import { sendPass_useCase } from "./sendPassword";
 import { userExist_useCase } from "./userExist"; 
+import { fetchUsers_useCase } from "./fetchUsers";
 
 export = {
   signUp_useCase,
@@ -13,5 +14,6 @@ export = {
   verifyOtp_useCase,
   login_useCase,
   userExist_useCase,
-  sendPass_useCase
+  sendPass_useCase,
+  fetchUsers_useCase
 }

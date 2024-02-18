@@ -20,6 +20,7 @@ import AddJobs from "./pages/company/Home/AddJobs";
 import { EditJobs } from "./pages/company/Home/EditJobs";
 import Profile from "./pages/user/Profile";
 import AdminUsers from "./pages/admin/AdminUsers";
+import JobDetialPage from "./pages/user/JobDetialPage";
 
 interface ProtectedRouteProps {
   element: ReactNode;
@@ -79,6 +80,7 @@ function App() {
             {/* User Routes */}
             <Route path='/' element={<>{userProtectedRoute({ element: <Home /> })}</>} />
             <Route path='/showJobs' element={<>{userProtectedRoute({ element: < ShowJobs /> })}</>} />
+            <Route path='/job/:id' element={<>{userProtectedRoute({ element: < JobDetialPage /> })}</>} />
             <Route path='/profile' element={<>{userProtectedRoute({ element: < Profile /> })}</>} />
             <Route path='/signup' element={<>{userProtectedRoute({ element: <Signup /> })}</>} />
             <Route path='/login' element={<>{userProtectedRoute({ element: <Login /> })}</>} />

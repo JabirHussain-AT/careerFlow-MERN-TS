@@ -28,4 +28,6 @@ export interface IUserDoc{
     dob: string | number | null;
     _id?: string;
     savedJobs : string []
+    status : string | boolean
+    role : string
 }

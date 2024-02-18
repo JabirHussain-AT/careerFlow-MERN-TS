@@ -115,3 +115,18 @@ export const userExistorNot = async(email : string ) =>{
     console.log(err, "====== err occured in the userExistorNot");
   }
 }
+
+
+export const fetchUsers = async(email : string ) =>{
+  try{
+    let users = await userCollection.find()
+    console.log('this is the email')
+    if(users == null){
+      return false 
+    }else if(users){
+       return users
+    }
+  }catch(err : any){
+    console.log(err, "====== err occured in the userExistorNot");
+  }
+}
