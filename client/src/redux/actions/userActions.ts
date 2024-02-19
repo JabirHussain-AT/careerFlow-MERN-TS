@@ -37,9 +37,9 @@ export const isUserExist = createAsyncThunk('user/isUserExist' ,async (userCrede
      }
 })
 
-export const fetchJob = async () => {
+export const fetchJob = async ( jobId : any ) => {
      try {
-       const { data } = await axios.get(`${AuthCompanyBaseUrl}/fetchJob`, config);
+       const { data } = await axios.get(`${AuthCompanyBaseUrl}/fetchJob/${jobId}`, config);
        return data;
      } catch (err: any) {}
    };

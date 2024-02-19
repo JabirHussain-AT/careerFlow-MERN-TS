@@ -3,7 +3,7 @@ export interface IJob{
         jobType: string | null | undefined;
         category?: string | null | undefined;
         jobTitle: string | null;
-        createdAt?: string | null;
+        createdAt?: string | undefined ;
         jobDescription: string | null;
         companyId : {
                 userName : string ,
@@ -13,7 +13,7 @@ export interface IJob{
         skills?: string[];
         salary?: string | null | undefined;
         status : boolean
-        jobExpiry?: any;
+        jobExpiry?: any | undefined;
         vacancy: string | number | null;
         noOfApplications?: number | null;
         _id?: string;

@@ -13,6 +13,7 @@ const ShowJobs: React.FC = () => {
   const navigate = useNavigate()
 
   useEffect(() => {
+
     const fetchJobsData = async () => {
       try {
         const jobsData = await fetchJobs();
@@ -23,6 +24,7 @@ const ShowJobs: React.FC = () => {
     };
 
     fetchJobsData();
+
   }, []);
 
   const handleJobDetials = ( jobId : string | undefined ) =>{

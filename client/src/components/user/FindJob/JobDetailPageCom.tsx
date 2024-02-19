@@ -2,13 +2,20 @@ import React from "react";
 import NavBar from "@/components/user/Home/NavBar";
 import { BsSave2 } from "react-icons/bs";
 import Footer from "@/components/common/Footer";
-import { IJob } from "../../interface/IJob";
+import { IJob } from "../../../interface/IJob";
+import { format, parseISO } from "date-fns";
 
 interface JobDetailPageProps {
   job: IJob;
 }
 
 const JobDetailPageCom: React.FC<JobDetailPageProps> = ({ job }) => {
+  const formattedCreatedAt = format(
+    parseISO(job.createdAt ? job.createdAt : ""),
+    "MMMM d, yyyy"
+  );
+  const formattedJobExpiry = format(parseISO(job.jobExpiry), "MMMM d, yyyy");
+
   return (
     <>
       <NavBar />
@@ -18,11 +25,7 @@ const JobDetailPageCom: React.FC<JobDetailPageProps> = ({ job }) => {
         </h1>
         <div className="flex flex-col md:flex-row ml-5">
           <div className="w-full md:w-1/2 gap-6 flex items-center h-auto">
-            <img
-              className="w-10"
-              src={job.companyId.logo}
-              alt="logo"
-            />
+            <img className="w-10" src={job.companyId.logo} alt="logo" />
             <div className="flex flex-col">
               <div>
                 <h1 className="font-sans font-semibold text-lg md:text-xl">
@@ -34,7 +37,6 @@ const JobDetailPageCom: React.FC<JobDetailPageProps> = ({ job }) => {
                     from {job.companyId.userName}
                   </p>
                   <p className="bg-green-600 text-sm ml-3 px-4 rounded text-white">
-                    {" "}
                     {job.jobType}
                   </p>
                 </div>
@@ -92,9 +94,10 @@ const JobDetailPageCom: React.FC<JobDetailPageProps> = ({ job }) => {
               </h1>
               <div className="w-full mx-5">
                 <ul className="ml-6 list-disc">
-                  {job.requirements && job.requirements.map((requirement, index) => (
-                    <li key={index}>{requirement}</li>
-                  ))}
+                  {job.requirements &&
+                    job.requirements.map((requirement, index) => (
+                      <li key={index}>{requirement}</li>
+                    ))}
                 </ul>
               </div>
             </div>
@@ -105,10 +108,10 @@ const JobDetailPageCom: React.FC<JobDetailPageProps> = ({ job }) => {
                 </h1>
                 <div className="text-start mx-3">
                   <p className="font-mono text-sm md:text-base">
-                    Job Posted Date: <span>{job.createdAt}</span>
+                    Job Posted Date: <span>{formattedCreatedAt}</span>
                   </p>
                   <p className="font-mono text-sm md:text-base">
-                    Job Expiry Date: <span>{job.jobExpiry}</span>
+                    Job Expiry Date: <span>{formattedJobExpiry}</span>
                   </p>
                   <p className="font-mono text-sm md:text-base">
                     No of Vacancies: <span>{job.vacancy}</span>
@@ -137,9 +140,10 @@ const JobDetailPageCom: React.FC<JobDetailPageProps> = ({ job }) => {
               </h1>
               <div className="w-full mx-5">
                 <ul className="ml-6 list-disc">
-                  {job.skills && job.skills.map((skill, index) => (
-                    <li key={index}>{skill}</li>
-                  ))}
+                  {job.skills &&
+                    job.skills.map((skill, index) => (
+                      <li key={index}>{skill}</li>
+                    ))}
                 </ul>
               </div>
             </div>

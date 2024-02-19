@@ -5,13 +5,13 @@ import { fetchJob } from '../../redux/actions/userActions'
 import JobDetailPageCom from "../../components/user/FindJob/JobDetailPageCom";
 
 const JobDetailsContainer: React.FC = () => {
-  const { jobId } = useParams<{ jobId: string }>();
+  const  { id }  = useParams<{ id: string }>();
   const [job, setJob] = useState<IJob | null>(null);
 
   useEffect(() => {
     const fetchJobData = async () => {
       try {
-        const jobData = await fetchJob();
+        const jobData = await fetchJob(id);
         setJob(jobData.data);
       } catch (error) {
         console.error("Error fetching job data === :", error);
