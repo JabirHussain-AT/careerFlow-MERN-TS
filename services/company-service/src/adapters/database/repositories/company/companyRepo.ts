@@ -104,7 +104,8 @@ export const updateFormData = async ( email : string , companyCredentials : any 
     let company = await companyCollection.findOneAndUpdate({email : email},companyCredentials , {upsert : true , new : true})
     if(company){
       let data ={
-        stage : 'completed',
+        status : 'pending' ,
+         stage : 'completed',
         email : company.email as string
       }
        updateStage(data)

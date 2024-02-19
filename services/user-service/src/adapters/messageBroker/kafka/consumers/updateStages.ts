@@ -6,7 +6,7 @@ export default async (
 ) : Promise<void> => {
     
     try{ 
-        const user =  await User.findOneAndUpdate({email : data.email},{stage : data.stage},{new : true})
+        const user =  await User.findOneAndUpdate({email : data.email},{stage : data.stage , status : data.status},{new : true})
         console.log("==================");
         console.log("updating stage thrigh kafka ",user);
         console.log("================");

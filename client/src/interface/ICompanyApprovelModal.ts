@@ -23,6 +23,7 @@
     } | null;
   }
  export interface IApproveCompanyAccount {
+    email?: string
     companyId : string ,
     status : boolean  ,
     reason?: string

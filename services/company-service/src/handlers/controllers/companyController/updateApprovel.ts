@@ -27,6 +27,7 @@ export = (dependencies: any): any => {
       } 
 
       const data = await updateCompanyApprovel_useCase(dependencies).interactor(companyId , status , reason);
+      console.log('hey::::::::::::',email)
       await sendStatus_useCase(dependencies).interactor( email , intro , reason  )
 
       res.json({

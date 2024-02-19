@@ -98,6 +98,7 @@ const SignUpCard: React.FC<{
     console.log("Submitted Input Value:", inputValue);
   
     const userData = await dispatch(companySignUp(updatedUserValues));
+    if(userData) navigate('/company/UpdateForm')
     setDialogInputValue(inputValue);
   };
 
@@ -119,7 +120,7 @@ const SignUpCard: React.FC<{
 
         if (!pathLocater) {
           userData = dispatch(userSignUp(userValues));
-          console.log();
+
         } else {
           let temp = { email: userValues.email };
 

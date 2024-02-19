@@ -81,8 +81,8 @@ const CompanyJobsTable: React.FC<CompanyJobsTableProps> = ({
     };
 
     fetchData();
-  }, []);
-  console.log(jobs, "shfhsfhskhfhsh");
+  }, [editingJob]);
+
 
   const handleMoreDetails = (jobId: string) => {
     setDropdownJobId(jobId);
@@ -125,13 +125,19 @@ const CompanyJobsTable: React.FC<CompanyJobsTableProps> = ({
     }
   };
 
-  const handleSaveEdit = () => {
+  const handleSaveEdit = (values : any) => {
+    const updated =     jobs.filter((job)=>{
+        return job._id === values.jobId ? values : job
+      })
+
+      setJobs(updated)
+
     if (editingJob) {
-      // Perform any validation or other checks if needed
       onEditJob && onEditJob(editingJob._id, editingJob);
       setEditingJob(null);
     }
   };
+
 
   const closeModal = () => {
     setSelectedJob(null);
@@ -263,11 +269,12 @@ const CompanyJobsTable: React.FC<CompanyJobsTableProps> = ({
 
       {/* Edit Job Section */}
       {editingJob && (
-        <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50">
+        <div className=" absolute top-20 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50">
           <div className="bg-white p-8 rounded-md">
             {/* Edit Job Form */}
 
-            <CompanyEditForm Values={editingJob} />
+            {/* <CompanyEditForm Values={editingJob} /> */}
+            <CompanyEditForm Values={editingJob} onClose={closeModal} onSave={(values : any ) => handleSaveEdit(values)} />
 
             {/* Save and Cancel buttons */}
             <div className="mt-4">

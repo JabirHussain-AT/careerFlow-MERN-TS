@@ -31,10 +31,12 @@ interface CompanyJobsFormProps {
     vacancy: string | number | null;
     noOfApplications?: number | null;
     _id?: string;
-  };
+  },
+  onClose : Function ,
+  onSave : Function
 }
 
-const CompanyEditForm: React.FC<CompanyJobsFormProps> = ({ Values }) => {
+const CompanyEditForm: React.FC<CompanyJobsFormProps> = ({ Values , onClose , onSave } ) => {
 
 
   const dispatch = useDispatch<AppDispatch>();
@@ -164,16 +166,18 @@ const CompanyEditForm: React.FC<CompanyJobsFormProps> = ({ Values }) => {
       values.companyEmails = user?.email;
       values.jobId = Values?._id;
       console.log("Form data:", values);
-
+      
       const res = await dispatch(updatingJob(values));
-      if (res.payload.success) {
+      if (res.payload.success === true) {
         
         // console.log("------------");
         // console.log("success the updating job front end");
         // console.log("------------");
         toast.success("Job updaing successfully!");
         setTimeout(() => {
-          window.location.reload();
+          // window.location.reload();
+          onSave(values)
+          onClose()
         }, 2000); 
 
       }else{
@@ -190,7 +194,7 @@ const CompanyEditForm: React.FC<CompanyJobsFormProps> = ({ Values }) => {
   };
 
   return (
-    <div className="w-full">
+    <div className="w-full0 ">
       <h2 className="text-md font-mono px-5 py-3 font-bold underline">
         Edit The Job
       </h2>

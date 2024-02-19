@@ -23,9 +23,8 @@ interface JobDetailsModalProps {
 }
 
 const JobDetailsModal: React.FC<JobDetailsModalProps> = ({ job, onClose }) => {
-  console.log(job,'[][][][[][][]]')
   return (
-    <div className="fixed inset-0  flex items-center justify-center bg-black bg-opacity-50">
+    <div className="fixed inset-0 overflow-auto  scrollbar flex items-center justify-center bg-black bg-opacity-50">
       <div className="bg-white  p-6 rounded-md shadow-md w-full max-w-md transform transition-transform">
         <span className="absolute top-0 right-0 cursor-pointer p-2" onClick={onClose}>
           &times;

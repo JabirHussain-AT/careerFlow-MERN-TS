@@ -17,6 +17,7 @@ export = (dependencies: any): any => {
 
       delete companyCredentials.email;
       companyCredentials.stage = 'completed' ;
+      companyCredentials.status = 'pending' ;
 
       const company = await updateFormData_useCase(dependencies).interactor(
         email,
