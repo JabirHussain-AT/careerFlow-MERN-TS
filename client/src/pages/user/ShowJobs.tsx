@@ -1,16 +1,16 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect  } from "react";
+import   {useNavigate} from 'react-router-dom'
 import { IJob } from "../../interface/IJob";
 import BannerFindJob from "../../components/user/FindJob/BannerFindJob";
 import { BsSave } from "react-icons/bs";
 import SearchBar from "@/components/user/FindJob/SearchBar";
 import NavBar from "@/components/user/Home/NavBar";
-import Google from "../../assets/googleIcon.png";
 import Footer from "@/components/common/Footer";
 import { fetchJobs } from "../../redux/actions/companyActions";
 
 const ShowJobs: React.FC = () => {
   const [jobs, setJobs] = useState<IJob[]>([]);
-  console.log(jobs, "}}}}}}}}}}}}}}}}}}}}}}}}");
+  const navigate = useNavigate()
 
   useEffect(() => {
     const fetchJobsData = async () => {
@@ -24,6 +24,10 @@ const ShowJobs: React.FC = () => {
 
     fetchJobsData();
   }, []);
+
+  const handleJobDetials = ( jobId : string | undefined ) =>{
+    navigate(`/job/${jobId}`)
+  }
 
   return (
     <div>
@@ -44,7 +48,7 @@ const ShowJobs: React.FC = () => {
           </div>
           <div className="flex flex-wrap gap-5 mx-5">
             {jobs.map((job) => (
-              <div key={job._id} className="w-full md:w-60 h-auto bg-gradient-to-r  from-yellow-100 rounded-md to-white my-5 p-3">
+              <div key={job._id} className="w-full md:w-60 h-auto bg-gradient-to-r  from-yellow-100 rounded-md to-white my-5 p-3" onClick={()=>{handleJobDetials(job._id)}}>
                 <div className="text-start font-semibold">
                   <h3 className="font-sans text-lg mb-2">{job.jobTitle}</h3>
                   <div className="flex gap-4">

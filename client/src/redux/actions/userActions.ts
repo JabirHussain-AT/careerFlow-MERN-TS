@@ -1,7 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios, { AxiosError } from "axios";
 import { IUserLoginData , ILoginForm} from "../../interface/IUserLogin";
-import { AuthBaseUrl } from "../../config/constants";
+import { AuthBaseUrl  , AuthCompanyBaseUrl} from "../../config/constants";
 import { ApiError, config, handleError } from "../../config/configuration";
 
 //signup process
@@ -37,4 +37,10 @@ export const isUserExist = createAsyncThunk('user/isUserExist' ,async (userCrede
      }
 })
 
-
+export const fetchJob = async () => {
+     try {
+       const { data } = await axios.get(`${AuthCompanyBaseUrl}/fetchJob`, config);
+       return data;
+     } catch (err: any) {}
+   };
+   
