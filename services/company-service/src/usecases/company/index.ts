@@ -11,6 +11,7 @@ import { editJob_useCase } from "./editJob";
 import { fetchComJobs_useCase } from "./fetchComJobs";
 import { changeStatus_useCase } from './changeStatusJob' 
 import { fetchJobs_useCase } from "./fetchJobs"; 
+import { fetchJob_useCase } from "./fetchJob"; 
 
 export default  {
   signUp_useCase,
@@ -25,5 +26,6 @@ export default  {
   editJob_useCase ,
   fetchComJobs_useCase ,
   changeStatus_useCase ,
-  fetchJobs_useCase
+  fetchJobs_useCase ,
+  fetchJob_useCase
 }

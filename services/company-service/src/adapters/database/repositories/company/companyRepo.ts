@@ -174,6 +174,7 @@ export const editJobInCompany = async (jobData , jobId ) => {
   }
 }
 
+
 export const fetchComJobInCompany = async (companyId) => {
   try{
      const result = await jobCollection.find({companyId : companyId})
@@ -184,6 +185,7 @@ export const fetchComJobInCompany = async (companyId) => {
   }
 }
 
+
 export const changeJobStatus = async  ( jobId , value) =>{
   try{
       const result = await jobCollection.findOneAndUpdate({_id: jobId }, { status : value},{new : true })
@@ -193,11 +195,30 @@ export const changeJobStatus = async  ( jobId , value) =>{
     console.log(error , 'error happened in the change status of jobs repo' )
   }
 }
+
+
+
 export const fetchJobs = async  ( ) =>{
   try{
       const result =  await Jobs.find({}).populate('companyId');
 
       console.log('^^^^^^&&&&&&&&&&&&',result)
+      return result
+
+  }catch(error ) {
+    console.log(error , 'error happened in the fetching jobs in  repo' )
+  }
+}
+
+
+export const fetchJob = async  (jobId ) =>{
+  try{
+      const result =  await Jobs.findOne({_id : jobId}).populate('companyId');
+      
+      console.log('===============')
+      console.log( result )
+      console.log('===============')
+
       return result
 
   }catch(error ) {
