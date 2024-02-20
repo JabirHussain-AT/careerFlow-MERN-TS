@@ -21,6 +21,7 @@ import { EditJobs } from "./pages/company/Home/EditJobs";
 import Profile from "./pages/user/Profile";
 import AdminUsers from "./pages/admin/AdminUsers";
 import JobDetialPage from "./pages/user/JobDetialPage";
+import AdminCategories from "./pages/admin/AdminCategories";
 
 interface ProtectedRouteProps {
   element: ReactNode;
@@ -90,6 +91,7 @@ function App() {
               <Route path="dashboard" element={<>{adminProtectedRoute({element:<AdminDashboard/>})}</>}/>
               <Route path="company-approval" element={<>{adminProtectedRoute({element:<AdminApproval/>})}</>}/>
               <Route path="users" element={<>{adminProtectedRoute({element:< AdminUsers />})}</>}/>
+              <Route path="categories" element={<>{adminProtectedRoute({element:< AdminCategories />})}</>}/>
             </Route>
 
 

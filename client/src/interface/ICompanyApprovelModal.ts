@@ -29,3 +29,8 @@
     reason?: string
    }
    
+  export interface ICategory {
+    category : string ,
+    logo ?: string
+    
+  } 

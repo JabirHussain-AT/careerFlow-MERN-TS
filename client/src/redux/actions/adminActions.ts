@@ -2,7 +2,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios, { AxiosError } from "axios";
 import { AuthCompanyBaseUrl ,AuthBaseAdminUrl } from "../../config/constants";
 import { ApiError, config, handleError } from "../../config/configuration";
-import { IApproveCompanyAccount } from '../../interface/ICompanyApprovelModal'
+import { IApproveCompanyAccount , ICategory } from '../../interface/ICompanyApprovelModal'
 
 // fetching companies
 export const fetchCompanies = async () => {
@@ -34,3 +34,16 @@ export const fetchUsers = async () => {
     console.log(err,'err in the fetchUsers catch')
   }
 };
+
+
+
+export const addCategories = createAsyncThunk('compnay/addCategories' , async ( category : ICategory ,{rejectWithValue})=>{
+  try{
+       
+       const {data} = await axios.post(`${AuthCompanyBaseUrl}/add-Category`, category ,config)
+       return data 
+  }catch(err : any){
+   const axiosError = err as AxiosError<ApiError>;
+       return handleError(axiosError, rejectWithValue);
+  }
+} )

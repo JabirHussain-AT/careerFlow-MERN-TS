@@ -173,7 +173,7 @@ const CompanyEditForm: React.FC<CompanyJobsFormProps> = ({ Values , onClose , on
         // console.log("------------");
         // console.log("success the updating job front end");
         // console.log("------------");
-        toast.success("Job updaing successfully!");
+        toast.success("Job updating successfully!");
         setTimeout(() => {
           // window.location.reload();
           onSave(values)

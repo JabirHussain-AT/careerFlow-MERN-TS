@@ -5,6 +5,8 @@ import updateStage from "../../../messageBroker/kafka/producers/updateStages";
 import updateStatus from "../../../messageBroker/kafka/producers/updateStatus";
 import { ICompanyData } from "../../schemas/companySchema";
 import Jobs from "../../schemas/jobSchema";
+import Category from '../../schemas/categorySchema'
+
 
 export const createNewUser = async (
   userCredentials: ICompanyData
@@ -226,3 +228,19 @@ export const fetchJob = async  (jobId ) =>{
     console.log(error , 'error happened in the fetching jobs in  repo' )
   }
 }
+export const addCategory = async  (category ) =>{
+  try{
+      const result =  await Category.create({category:category});
+      
+      console.log('===============')
+      console.log( result )
+      console.log('===============')
+
+      return result
+
+  }catch(error ) {
+    console.log(error , 'error happened in the adding category in  repo' )
+  }
+}
+
+
