@@ -10,6 +10,7 @@ import { fetchJobs } from "../../redux/actions/companyActions";
 
 const ShowJobs: React.FC = () => {
   const [jobs, setJobs] = useState<IJob[]>([]);
+  const [filteredJobs, setFilteredJobs] = useState<IJob[]>([]);
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -18,6 +19,7 @@ const ShowJobs: React.FC = () => {
       try {
         const jobsData = await fetchJobs();
         setJobs(jobsData.data);
+        setFilteredJobs(jobsData.data)
       } catch (error) {
         console.error("Error fetching jobs:", error);
       }
@@ -26,6 +28,16 @@ const ShowJobs: React.FC = () => {
     fetchJobsData();
 
   }, []);
+
+  const handleSearch = (query: string) => {
+    // Use filter to find jobs that match the search query
+    const filtered = jobs.filter((job) =>
+      job.jobTitle!.toLowerCase().includes(query.toLowerCase())
+    );
+    setFilteredJobs(filtered);
+  };
+
+
 
   const handleJobDetials = ( jobId : string | undefined ) =>{
     navigate(`/job/${jobId}`)
@@ -36,7 +48,7 @@ const ShowJobs: React.FC = () => {
       <NavBar />
       <div className="w-full bg-green-200 h-auto">
         {/* Search bar */}
-        <SearchBar />
+        <SearchBar onSearch={handleSearch} />
 
         {/* Banner */}
         <BannerFindJob />
@@ -49,7 +61,7 @@ const ShowJobs: React.FC = () => {
             </h2>
           </div>
           <div className="flex flex-wrap gap-5 mx-5">
-            {jobs.map((job) => (
+            {filteredJobs.map((job) => (
               <div key={job._id} className="w-full md:w-60 h-auto bg-gradient-to-r  from-yellow-100 rounded-md to-white my-5 p-3" onClick={()=>{handleJobDetials(job._id)}}>
                 <div className="text-start font-semibold">
                   <h3 className="font-sans text-lg mb-2">{job.jobTitle}</h3>

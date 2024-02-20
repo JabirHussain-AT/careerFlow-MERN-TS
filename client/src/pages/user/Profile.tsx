@@ -2,6 +2,7 @@ import NavBar from "@/components/user/Home/NavBar";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import {IUserDoc} from '../../interface/IUserDoc'
+import Footer from "@/components/common/Footer";
 
 
 const Profile: React.FC = () => {
@@ -251,6 +252,7 @@ const Profile: React.FC = () => {
           {/* Add more buttons as needed */}
         </div>
       </div>
+        < Footer />
     </>
   );
 };

@@ -1,25 +1,26 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { addCategories } from '@/redux/actions/adminActions'; 
+import { fetchCategories } from '@/redux/actions/adminActions'; 
 
 const AdminCategories: React.FC = () => {
-  const [categories, setCategories] = useState<string[]>([]);
+  const [categories, setCategories] = useState<any[]>([]);
+  const [adding, setAdding] = useState<boolean>(false);
   const dispatch = useDispatch()
   const [newCategory, setNewCategory] = useState('');
 
   // Mock API call to fetch categories
-  const fetchCategories = () => {
-    // Assuming fetchData is an async function that fetches categories from an API
-    // const data = await fetchData();
-    // setCategories(data);
-    const mockData = ['Category 1', 'Category 2', 'Category 3'];
-    setCategories(mockData);
+  const fetchCategory = async () => {
+
+    const data = await fetchCategories()
+    console.log('???????????????????',data)
+    setCategories(data.data);
   };
 
   // Fetch categories when the component mounts
   useEffect(() => {
-    fetchCategories();
-  }, []);
+    fetchCategory();
+  }, [newCategory]);
 
   const handleAddCategory = async () => {
     if (newCategory.trim() !== '') {
@@ -28,8 +29,10 @@ const AdminCategories: React.FC = () => {
   
         // Handle successful response if needed
         console.log('Category added successfully:', result);
-        setCategories([...categories, newCategory]);
+        // setCategories([...categories, newCategory]);
+        setAdding(true)
         setNewCategory('');
+        setAdding(false)
       } catch (error) {
         // Handle error if needed
         console.error('Error adding category:', error);
@@ -46,8 +49,8 @@ const AdminCategories: React.FC = () => {
         <div className="bg-white p-4 rounded shadow">
           <h2 className="text-2xl font-bold mb-4">Categories</h2>
           <ul className="list-disc pl-4">
-            {categories.map((category, index) => (
-              <li key={index} className="mb-2">{category}</li>
+            {categories.map((Category, index) => (
+              <li key={index} className="mb-2">{Category.category}</li>
             ))}
           </ul>
         </div>

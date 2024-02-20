@@ -228,6 +228,8 @@ export const fetchJob = async  (jobId ) =>{
     console.log(error , 'error happened in the fetching jobs in  repo' )
   }
 }
+
+
 export const addCategory = async  (category ) =>{
   try{
       const result =  await Category.create({category:category});
@@ -240,6 +242,22 @@ export const addCategory = async  (category ) =>{
 
   }catch(error ) {
     console.log(error , 'error happened in the adding category in  repo' )
+  }
+}
+
+
+export const fetchCategories = async  ( ) =>{
+  try{
+      const result =  await Category.find()
+      
+      console.log('===============')
+      console.log( result )
+      console.log('===============')
+
+      return result
+
+  }catch(error ) {
+    console.log(error , 'error happened in the fetching categories in company  repo' )
   }
 }
 

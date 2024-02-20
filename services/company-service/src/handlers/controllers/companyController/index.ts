@@ -9,6 +9,7 @@ import changeStatusController from './changeController'
 import fetchJobsController from "./fetchJobs";
 import fetchJobController from "./fetchJob"
 import addCategoryController from './addCategory'
+import fetchCategoriesController from './fetchCategories'
 
 export default (dependencies: any) => {
   return {
@@ -22,6 +23,7 @@ export default (dependencies: any) => {
     changeStatusController : changeStatusController(dependencies), 
     fetchJobsController : fetchJobsController(dependencies) ,
     fetchJobController : fetchJobController(dependencies) ,
-    addCategoryController : addCategoryController(dependencies)
+    addCategoryController : addCategoryController(dependencies) ,
+    fetchCategoriesController : fetchCategoriesController(dependencies )
   };
 };
