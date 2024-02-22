@@ -3,10 +3,12 @@ import { FaCheck, FaBan, FaArrowAltCircleRight } from "react-icons/fa";
 import AlertBox from "@/components/common/AlertBox";
 import { fetchUsers } from "../../redux/actions/adminActions";
 import { IUserDoc } from "@/interface/IUserDoc";
+import MoreInfoModalUsers from "@/components/admin/compnayUsers.tsx/MoreInfoModalUsers";
 
 const AdminUsers = () => {
   const [users, setUsers] = useState<IUserDoc[]>([]);
   const [filter, setFilter] = useState("user");
+  const [isOpen, setIsOpen] = useState<boolean>(false);
 
   useEffect(() => {
     fetchUsers()
@@ -24,6 +26,18 @@ const AdminUsers = () => {
     );
   };
 
+  // Modal settings
+
+  const handleModalOpen = () => {
+    setIsOpen(true);
+  };
+
+  const handleModalClose = () => {
+    setIsOpen(false);
+  };
+
+  //
+
   const handleBlock = (userId: any) => {
     console.log(`Block user with ID ${userId}`);
     // Add your logic here to block the user
@@ -38,13 +52,13 @@ const AdminUsers = () => {
 
   const filteredUsers = users.filter((user) => {
     if (filter === "user") {
-        return user.role === filter;
-    } else if( filter === 'admin'){
-        return user.role === filter;
-    }else if( filter !== 'all'){
-         return user.role === 'company'
-    }else{
-        return true
+      return user.role === filter;
+    } else if (filter === "admin") {
+      return user.role === filter;
+    } else if (filter !== "all") {
+      return user.role === "company";
+    } else {
+      return true;
     }
   });
 
@@ -93,11 +107,17 @@ const AdminUsers = () => {
                 </td>
                 <td className="py-2 px-2">{user.role}</td>
                 <td className="py-2 flex justify-center mt-2 text-gray-600 cursor-pointer">
-                  <FaArrowAltCircleRight />
+                  <FaArrowAltCircleRight onClick={handleModalOpen} />
                 </td>
+
+                  <MoreInfoModalUsers clsssName="w-screen"
+                    isOpen={isOpen}
+                    closeModal={handleModalClose}
+                    user={user}
+                  />
                 <td className="text-black">
                   <div className="flex justify-center mt-1">
-                    {user.status === "active" && (
+                    {user.status === "approved" && (
                       <AlertBox
                         button={
                           <FaBan className="text-red-500 cursor-pointer mx-2" />
@@ -106,12 +126,10 @@ const AdminUsers = () => {
                         onConfirm={() => handleBlock(user._id)}
                       />
                     )}
-                    {user.status === "blocked" && (
+                    {user.status === "rejected" && (
                       <AlertBox
                         button={
-                          <FaCheck
-                            className="text-green-500 cursor-pointer mx-2"
-                          />
+                          <FaCheck className="text-green-500 cursor-pointer mx-2" />
                         }
                         ques={"Are you sure you want to unblock this user?"}
                         onConfirm={() => handleUnblock(user._id)}

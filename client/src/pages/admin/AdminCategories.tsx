@@ -25,7 +25,7 @@ const AdminCategories: React.FC = () => {
   const handleAddCategory = async () => {
     if (newCategory.trim() !== '') {
       try {
-        const result = await dispatch(addCategories({ category: newCategory })).unwrap();
+        const result = await addCategories({category: newCategory})
   
         // Handle successful response if needed
         console.log('Category added successfully:', result);

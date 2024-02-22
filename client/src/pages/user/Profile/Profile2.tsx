@@ -1,11 +1,11 @@
 import NavBar from "@/components/user/Home/NavBar";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import {IUserDoc} from '../../interface/IUserDoc'
+import {IUserDoc} from '../../../interface/IUserDoc'
 import Footer from "@/components/common/Footer";
 
 
-const Profile: React.FC = () => {
+const Profile2: React.FC = () => {
   const [userData, setUserData] = useState<any | null>(null);
 
   useEffect(() => {
@@ -257,4 +257,4 @@ const Profile: React.FC = () => {
   );
 };
 
-export default Profile;
+export default Profile2;

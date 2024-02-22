@@ -48,7 +48,7 @@ export default (dependencies: any): any => {
 
     
     // middleware 
-    // router.use(verifyToken);
+    router.use(verifyToken);
     router.get("/fetch-companies" , fetchCompaniesController)
     router.get("/fetchCategories" , fetchCategoriesController)
     router.post("/approve-companyStatus" , updateCompanyApprovelController)

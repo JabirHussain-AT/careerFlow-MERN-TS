@@ -14,14 +14,15 @@ import AdminApproval from "./pages/admin/AdminApprovel"
 import Sidebar from "./components/admin/Sidebar";
 import CompanySidebar from "./components/company/Sidebar/CompanySidebar";
 import CompanyJobs from "./pages/company/Home/CompanyJobs";
-import CompanyJobsForm from "./pages/company/Home/CompanyJobs";
+// import CompanyJobsForm from "./pages/company/Home/CompanyJobs";
 import ShowJobs from './pages/user/ShowJobs'
 import AddJobs from "./pages/company/Home/AddJobs";
 import { EditJobs } from "./pages/company/Home/EditJobs";
-import Profile from "./pages/user/Profile";
+import Profile from "./pages/user/Profile/Profile";
 import AdminUsers from "./pages/admin/AdminUsers";
 import JobDetialPage from "./pages/user/JobDetialPage";
 import AdminCategories from "./pages/admin/AdminCategories";
+import ViewProfile from "./pages/user/Profile/ViewProfile";
 
 interface ProtectedRouteProps {
   element: ReactNode;
@@ -82,7 +83,10 @@ function App() {
             <Route path='/' element={<>{userProtectedRoute({ element: <Home /> })}</>} />
             <Route path='/showJobs' element={<>{userProtectedRoute({ element: < ShowJobs /> })}</>} />
             <Route path='/job/:id' element={<>{userProtectedRoute({ element: < JobDetialPage /> })}</>} />
-            <Route path='/profile' element={<>{userProtectedRoute({ element: < Profile /> })}</>} />
+            <Route path='profile' element={<>{userProtectedRoute({ element: < Profile /> })}</>}>
+              <Route path="view" element={<>{userProtectedRoute({element:< ViewProfile />})}</>}/>
+              
+            </Route>
             <Route path='/signup' element={<>{userProtectedRoute({ element: <Signup /> })}</>} />
             <Route path='/login' element={<>{userProtectedRoute({ element: <Login /> })}</>} />
 
