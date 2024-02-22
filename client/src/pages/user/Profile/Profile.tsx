@@ -11,9 +11,9 @@ const Profile: React.FC = () => {
   return (
     <div>
       <NavBar />
-      <div className=" min-h-screen  h-auto w-full bg-green-200">
+      <div className=" h-full w-full bg-green-200  ">
         <div className="flex justify-center items-center">
-          <div className="w-11/12 bg-white shadow-lg h-48 m-5 rounded-lg flex justify-between items-center">
+          <div className=" w-11/12 bg-white shadow-lg h-48 m-5 rounded-lg flex justify-between items-center">
             <div className="flex w-full items-center">
               <img
                 src="https://www.kasandbox.org/programming-images/avatars/old-spice-man-blue.png"
@@ -73,10 +73,13 @@ const Profile: React.FC = () => {
             </div>
           </div>
         </div>
-        <div className="w-full ">
-          <div className="flex justify-evenly items-start h-auto w-full">
-            <ProfileSideBar />
-            <div className="w-[68%] rounded-md shadow-lg bg-white ">
+        <div className="w-full h-auto  ">
+            <div className="h-auto m-3">
+
+            <ProfileSideBar   />
+            </div>
+          <div className="flex justify-center rounded-xl items-start h-full w-full">
+            <div className="w-11/12 h-full  rounded-l shadow-lg bg-white ">
               < Outlet />
             </div>
           </div>
