@@ -37,8 +37,8 @@ const ProfileSideBar = () => {
           <NavLink
             to={"/profile/view"}
             className={({ isActive }) => {
-                    return `items-center py-4 hover:bg-gray-700 p-2 rounded h-full ${
-                        isActive ? "bg-gray-400 flex w-30 h-20 mx-2 my-2":""
+                    return `items-center flex py-4 hover:bg-gray-700 p-2 rounded h-full ${
+                        isActive ? "bg-white flex w-30 text-black w-30 font-bold h-20 mx-2 my-2":""
                     }`}
             }
           ><div className=" px-2 py-6 flex">
@@ -48,7 +48,11 @@ const ProfileSideBar = () => {
           </NavLink>
           <NavLink
             to={"/profile/dashboard"}
-            className="flex items-center justify-center h-5 hover:bg-gray-700rounded"
+            className={({ isActive }) => {
+              return `items-center flex py-4 hover:bg-gray-700 p-2 rounded h-full ${
+                  isActive ? "bg-white flex w-30 text-black font-bold h-20 mx-2 my-2":""
+              }`}
+      }
           >
             <FaHome className="w-5" />
             <p className="hover:text-blue-5">Dashboard</p>

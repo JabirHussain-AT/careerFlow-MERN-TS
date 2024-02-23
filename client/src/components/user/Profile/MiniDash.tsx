@@ -7,7 +7,7 @@ const MiniDash: React.FC = () => {
   const noInterviewsScheduled = 0;
 
   return (
-    <div className="bg-gradient-to-b from-gray-200 to-orange-100 text-white p-5 w-full rounded-lg flex items-center justify-between">
+    <div className="bg-gradient-to-b from-gray-200 to-orange-100 text-white p-5 w-full rounded-lg gap-2  md:gap-0  flex items-center justify-between">
       {" "}
       {/* No Applications */}
       <div className="bg-blue-600 h-24 w-32 p-4 rounded shadow-md text-start">

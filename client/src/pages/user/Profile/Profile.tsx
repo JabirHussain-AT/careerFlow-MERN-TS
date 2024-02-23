@@ -1,6 +1,6 @@
 import NavBar from "@/components/user/Home/NavBar";
-import {  Outlet } from 'react-router-dom'
-import MiniDash from '../../../components/user/Profile/MiniDash'
+import { Outlet } from "react-router-dom";
+import MiniDash from "../../../components/user/Profile/MiniDash";
 import React from "react";
 import { FaLocationArrow, FaLockOpen } from "react-icons/fa";
 import { MdWork, MdEmail, MdOutlinePhoneAndroid } from "react-icons/md";
@@ -12,27 +12,29 @@ const Profile: React.FC = () => {
     <div>
       <NavBar />
       <div className=" h-full w-full bg-green-200  ">
-        <div className="flex justify-center items-center">
-          <div className=" w-11/12 bg-white shadow-lg h-48 m-5 rounded-lg flex justify-between items-center">
-            <div className="flex w-full items-center">
-              <img
-                src="https://www.kasandbox.org/programming-images/avatars/old-spice-man-blue.png"
-                className="rounded-full h-32 mx-8 my-16 border-black border"
-                alt=""
-              />
-              <div className="ms-10 w-full">
+        <div className="flex  justify-center items-center">
+          <div className=" w-full ms-10 md:ms-0 h-full md:w-11/12 bg-white  flex-col md:flex-row shadow-lg md:h-48 m-5 rounded-lg flex justify-between items-center">
+            <div className="flex flex-col md:flex-row w-full items-center">
+              <div className=" w-40 flex justify-center items-center    md:w-1/6 ">
+                <img
+                  src="https://www.kasandbox.org/programming-images/avatars/old-spice-man-blue.png"
+                  className="rounded-full  w-full md:w-auto md:h-32 mx-8 my-16 border-black border"
+                  alt=""
+                />
+              </div>
+              <div className="m-4 md:ms-10 md:m-4   md:w-5/6">
                 <div className="flex flex-col gap-2">
                   <div>
                     <h1 className="font-bold font-sans text-2xl">
                       JABIR HUSSAIN A T
                     </h1>
-                    <p className="text-sm text-gray-600">
+                    <p className="text-xs md:text-sm text-gray-600">
                       Profile Last Updated on 12/04/2023
                     </p>
                   </div>
                   <div className="w-full h-[0.2px] bg-black"></div>
                 </div>
-                <div className="w-full mt-1 flex justify-around gap-3">
+                <div className="w-4/5 mt-1 flex justify-around gap-3">
                   <div className="w-full flex flex-col border-e-[1px] border-black text-sans text-gray-500 text-sm">
                     <div className="flex items-center justify-start gap-4 mb-2">
                       <FaLocationArrow />
@@ -60,8 +62,8 @@ const Profile: React.FC = () => {
                         +91 8943839386
                       </div>
                       <div className="flex items-center justify-start gap-4 mb-2 ms-5">
-                        <BiCalendar className="text-sm" />
-                        12-10-2024 - D O B
+                        <BiCalendar className="text-xs md:text-sm" />
+                        12-10-2024 -DOB
                       </div>
                     </div>
                   </div>
@@ -74,13 +76,12 @@ const Profile: React.FC = () => {
           </div>
         </div>
         <div className="w-full h-auto  ">
-            <div className="h-auto m-3">
-
-            <ProfileSideBar   />
-            </div>
+          <div className="h-auto m-3">
+            <ProfileSideBar />
+          </div>
           <div className="flex justify-center rounded-xl items-start h-full w-full">
             <div className="w-11/12 h-full  rounded-l shadow-lg bg-white ">
-              < Outlet />
+              <Outlet />
             </div>
           </div>
         </div>

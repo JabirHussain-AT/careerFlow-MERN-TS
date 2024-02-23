@@ -32,7 +32,7 @@ const NavBar : React.FC = () => {
     {/* //right side buttons */}
     <div className="flex items-center">
         <h5 className=" px-5 py-3  font-bold text-blue-700 cursor-pointer " onClick={handleLogout}>Logout</h5>
-        <button className="bg-blue-700 text-white py-1 rounded-md px-4 gap-4 mr-5"  onClick={() => navigate('/profile')} > Profile</button>
+        <button className="bg-blue-700 text-white py-1 rounded-md px-4 gap-4 mr-5"  onClick={() => navigate('/profile/view')} > Profile</button>
     </div>
   </div>
   )
