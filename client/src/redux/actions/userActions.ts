@@ -52,7 +52,7 @@ export const fetchJob = async ( jobId : any ) => {
    export const submitUserAboutMe = createAsyncThunk('user/userAboutMe ' ,async (userAboutMe : any ,{rejectWithValue}) =>{
      try{
           console.log('User about me :: <<<<<<<<>>>>>>>>>>>>>>>>>>>==========================================================',userAboutMe)
-          const {data} = await axios.post(`${AuthBaseUrl}/exists`,userAboutMe,config)
+          const {data} = await axios.post(`${AuthBaseUrl}/update-profile`,userAboutMe,config)
           return data
 
      }catch(err : any ){
@@ -66,7 +66,7 @@ export const fetchJob = async ( jobId : any ) => {
    export const submitUserSkills = createAsyncThunk('user/userSkills ' ,async (userSkills : any ,{rejectWithValue}) =>{
      try{
           console.log('User skills :: <<<<<<<<>>>>>>>>>>>>>>>>>>>==========================================================',userSkills)
-          const {data} = await axios.post(`${AuthBaseUrl}/exists`,userSkills,config)
+          const {data} = await axios.post(`${AuthBaseUrl}/update-profile`,userSkills,config)
           return data
 
      }catch(err : any ){
@@ -82,7 +82,7 @@ export const fetchJob = async ( jobId : any ) => {
    export const submitUserExperiance = createAsyncThunk('user/userExperiance ' ,async (userExperiances : any ,{rejectWithValue}) =>{
      try{
           console.log('User Experiances :: <<<<<<<<>>>>>>>>>>>>>>>>>>>==========================================================',userExperiances)
-          const {data} = await axios.post(`${AuthBaseUrl}/exists`,userExperiances,config)
+          const {data} = await axios.post(`${AuthBaseUrl}/update-profile`,userExperiances,config)
           return data
 
      }catch(err : any ){
@@ -97,7 +97,7 @@ export const fetchJob = async ( jobId : any ) => {
    export const submitUserEducations = createAsyncThunk('user/userEducations ' ,async (userEducations : any ,{rejectWithValue}) =>{
      try{
           console.log('User Educations  :: <<<<<<<<>>>>>>>>>>>>>>>>>>>==========================================================',userEducations)
-          const {data} = await axios.post(`${AuthBaseUrl}/exists`,userEducations,config)
+          const {data} = await axios.post(`${AuthBaseUrl}/update-profile`,userEducations,config)
           return data
 
      }catch(err : any ){

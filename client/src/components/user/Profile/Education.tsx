@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { FiEdit } from 'react-icons/fi';
 import { RxCross2 } from "react-icons/rx";
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { AppDispatch } from '@/redux/store'; 
 import ModalBox from '@/components/common/ModalBox';
 import { submitUserEducations } from '@/redux/actions/userActions';
+import { IUserSelector } from '@/interface/IUserSlice';
 
 interface EducationData {
   degree: string;
@@ -16,6 +17,7 @@ interface EducationData {
 const Education: React.FC = () => {
 
   const dispatch = useDispatch<AppDispatch>()
+  const { user } = useSelector((state: IUserSelector) => state.user);
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [educations, setEducations] = useState<EducationData[]>([]);
   const [currentEducation, setCurrentEducation] = useState<EducationData>({
@@ -93,6 +95,7 @@ const Education: React.FC = () => {
       setEducations((prev) => { 
         let updatedEducations =  [...prev, currentEducation]
         let dataToSend = {
+          userId : user?._id ,
           education :  updatedEducations
         }
         dispatch(submitUserEducations( dataToSend ))

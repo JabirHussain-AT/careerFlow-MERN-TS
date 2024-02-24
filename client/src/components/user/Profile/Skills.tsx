@@ -3,12 +3,14 @@ import { RxCross2 } from "react-icons/rx";
 import { FiEdit } from "react-icons/fi";
 import ModalBox from "@/components/common/ModalBox";
 import { submitUserSkills } from "@/redux/actions/userActions";
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { AppDispatch } from "@/redux/store";
+import { IUserSelector } from "@/interface/IUserSlice";
 
 const Skills: React.FC = () => {
 
   const dispatch = useDispatch<AppDispatch>()
+  const { user } = useSelector((state: IUserSelector) => state.user);
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [newSkill, setNewSkill] = useState<string>("");
   const [skills, setSkills] = useState<string[]>([]);
@@ -51,6 +53,7 @@ const Skills: React.FC = () => {
     setSkills((prevSkills) => {
         const updatedSkills = [...prevSkills, newSkill];
         let dataToSend = {
+          userId : user?._id ,
           skills : updatedSkills 
         }
         dispatch(submitUserSkills( dataToSend ))

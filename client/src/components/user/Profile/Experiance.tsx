@@ -3,8 +3,9 @@ import { FiEdit } from "react-icons/fi";
 import ModalBox from "@/components/common/ModalBox";
 import { RxCross2 } from "react-icons/rx";
 import  { submitUserExperiance } from "@/redux/actions/userActions"
-import  { useDispatch } from "react-redux"
+import  { useDispatch, useSelector } from "react-redux"
 import { AppDispatch } from "@/redux/store";  
+import { IUserSelector } from "@/interface/IUserSlice";
 
 interface ExperienceData {
   jobPosition: string;
@@ -15,6 +16,7 @@ interface ExperienceData {
 
 const Experience: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>()
+  const { user } = useSelector((state: IUserSelector) => state.user);
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [experiences, setExperiences] = useState<ExperienceData[]>([]);
   const [currentExperience, setCurrentExperience] = useState<ExperienceData>({
@@ -103,6 +105,7 @@ const Experience: React.FC = () => {
         
         let data = [...prev, currentExperience]
         let dataToSend = {
+          userId : user?._id ,
           experience : data 
         }
         dispatch(submitUserExperiance( dataToSend ))

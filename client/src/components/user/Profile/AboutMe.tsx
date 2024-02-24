@@ -2,11 +2,14 @@ import React, { useState } from "react";
 import { FiEdit } from "react-icons/fi";
 import ModalBox from "@/components/common/ModalBox";
 import {  submitUserAboutMe}  from "@/redux/actions/userActions"
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch } from "@/redux/store";
+import { IUserSelector } from "@/interface/IUserSlice";
 
 const 
 AboutMe: React.FC = () => {
+
+  const { user } = useSelector((state: IUserSelector) => state.user);
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const dispatch = useDispatch<AppDispatch>()
   const [aboutMeContent, setAboutMeContent] = useState<string>(
@@ -44,6 +47,7 @@ AboutMe: React.FC = () => {
 
     // Handle submission logic here
     let dataToSubmit = {
+      userId : user?._id ,
       about : aboutMeContent
     }
     dispatch(submitUserAboutMe(dataToSubmit))
