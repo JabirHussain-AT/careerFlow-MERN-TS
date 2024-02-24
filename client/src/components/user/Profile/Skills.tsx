@@ -48,27 +48,32 @@ const Skills: React.FC = () => {
 
   const handleSubmit = () => {
 
-
-    if (!validationError && newSkill.trim()) {
-    setSkills((prevSkills) => {
+    if (!validationError && (newSkill.trim()  )) { 
+      setSkills((prevSkills) => {
         const updatedSkills = [...prevSkills, newSkill];
         let dataToSend = {
           userId : user?._id ,
-          skills : updatedSkills 
+          skills : updatedSkills ?? []
         }
         dispatch(submitUserSkills( dataToSend ))
         return updatedSkills;
       });
       handleCloseModal();
     } else {
-      console.error("Validation error: Please correct the skill input");
+      console.error(validationError,+ "Validation error: Please correct the skill input");
     }
   };
-
+  
   const handleRemoveSkill = (index: number) => {
     const updatedSkills = [...skills];
     updatedSkills.splice(index, 1);
-    setSkills(updatedSkills);
+    setSkills(()=>{
+      
+      console.log('calling .....' ,updatedSkills)
+      handleSubmit()
+      return  updatedSkills
+    });
+   
   };
 
   return (

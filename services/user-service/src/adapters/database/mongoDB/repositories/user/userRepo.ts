@@ -136,7 +136,7 @@ export const fetchUsers = async(email : string ) =>{
 
 export const userProfileUpdate = async(userId : string , updateField : string , updateValue : any) =>{
   try{
-     let data = userCollection.findOneAndUpdate({_id : userId } , {updateField : updateValue},{new : true})
+     let data = userCollection.findOneAndUpdate({_id : userId } , { [updateField] : updateValue},{new : true})
      if(data){
       return data
      }else{
