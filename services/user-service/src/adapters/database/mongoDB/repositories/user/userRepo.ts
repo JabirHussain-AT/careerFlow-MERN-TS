@@ -130,3 +130,22 @@ export const fetchUsers = async(email : string ) =>{
     console.log(err, "====== err occured in the userExistorNot");
   }
 }
+
+
+
+
+export const userProfileUpdate = async(userId : string , updateField : string , updateValue : any) =>{
+  try{
+     let data = userCollection.findOneAndUpdate({_id : userId } , {updateField : updateValue},{new : true})
+     if(data){
+      return data
+     }else{
+      return false
+     }
+      
+  }catch(err : any){
+    console.log(err, "====== err occured in the userExistorNot");
+  }
+}
+
+

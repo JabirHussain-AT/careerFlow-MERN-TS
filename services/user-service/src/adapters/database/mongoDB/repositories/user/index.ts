@@ -5,7 +5,8 @@ import {
     verifyOtp,
     loginVerify ,
     userExistorNot ,
-    fetchUsers
+    fetchUsers , 
+    userProfileUpdate
  } from "./userRepo"; 
 
 export = {
@@ -15,5 +16,6 @@ export = {
     verifyOtp,
     loginVerify,
     userExistorNot,
-    fetchUsers
+    fetchUsers ,
+    userProfileUpdate
 }

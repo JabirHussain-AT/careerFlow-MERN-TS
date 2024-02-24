@@ -9,7 +9,8 @@ export = (dependencies : any) : any =>{
     const {
     userSignupController,
     userLoginController,
-    userExistCheckController
+    userExistCheckController ,
+    userProfileUpdateController
     } = userController(dependencies)
 
 
@@ -18,9 +19,11 @@ export = (dependencies : any) : any =>{
     router.post('/sign-up',userSignupController)
     router.post('/logIn',userLoginController)
     router.post('/exists',userExistCheckController)
+
+    router.post('/update-profile',userProfileUpdateController)
     
 // middleware passing
-   router.use(verifyToken)
+//    router.use(verifyToken)
 
     return router
 }
