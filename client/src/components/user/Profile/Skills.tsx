@@ -2,8 +2,13 @@ import React, { useState } from "react";
 import { RxCross2 } from "react-icons/rx";
 import { FiEdit } from "react-icons/fi";
 import ModalBox from "@/components/common/ModalBox";
+import { submitUserSkills } from "@/redux/actions/userActions";
+import { useDispatch } from 'react-redux'
+import { AppDispatch } from "@/redux/store";
 
 const Skills: React.FC = () => {
+
+  const dispatch = useDispatch<AppDispatch>()
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [newSkill, setNewSkill] = useState<string>("");
   const [skills, setSkills] = useState<string[]>([]);
@@ -40,9 +45,17 @@ const Skills: React.FC = () => {
   };
 
   const handleSubmit = () => {
-    // Check validation before submission
+
+
     if (!validationError && newSkill.trim()) {
-      setSkills((prevSkills) => [...prevSkills, newSkill]);
+    setSkills((prevSkills) => {
+        const updatedSkills = [...prevSkills, newSkill];
+        let dataToSend = {
+          skills : updatedSkills 
+        }
+        dispatch(submitUserSkills( dataToSend ))
+        return updatedSkills;
+      });
       handleCloseModal();
     } else {
       console.error("Validation error: Please correct the skill input");
@@ -81,8 +94,8 @@ const Skills: React.FC = () => {
             ))
           ) : (
             <div className="text-gray-500 w-full mt-4 text-center">
-            No skills added
-          </div>
+              No skills added
+            </div>
           )}
         </div>
       </div>

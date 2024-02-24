@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import { FiEdit } from "react-icons/fi";
 import ModalBox from "@/components/common/ModalBox";
 import { RxCross2 } from "react-icons/rx";
+import  { submitUserExperiance } from "@/redux/actions/userActions"
+import  { useDispatch } from "react-redux"
+import { AppDispatch } from "@/redux/store";  
 
 interface ExperienceData {
   jobPosition: string;
@@ -11,6 +14,7 @@ interface ExperienceData {
 }
 
 const Experience: React.FC = () => {
+  const dispatch = useDispatch<AppDispatch>()
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [experiences, setExperiences] = useState<ExperienceData[]>([]);
   const [currentExperience, setCurrentExperience] = useState<ExperienceData>({
@@ -95,7 +99,16 @@ const Experience: React.FC = () => {
       setValidationErrors(errors);
       console.error("Validation error: Please correct the input fields");
     } else {
-      setExperiences((prev) => [...prev, currentExperience]);
+      setExperiences((prev) => {
+        
+        let data = [...prev, currentExperience]
+        let dataToSend = {
+          experience : data 
+        }
+        dispatch(submitUserExperiance( dataToSend ))
+        return data 
+      });
+      console.log(experiences , 'this is the experiances , check ')
       handleCloseModal();
     }
   };
@@ -127,7 +140,10 @@ const Experience: React.FC = () => {
       setValidationErrors(errors);
       console.error("Validation error: Please correct the input fields");
     } else {
-      setExperiences((prev) => [...prev, currentExperience]);
+      setExperiences((prev) => {
+        const newData = [...prev, currentExperience]
+        return newData
+      });
       setCurrentExperience({
         jobPosition: "",
         company: "",

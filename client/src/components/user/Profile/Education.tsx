@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
 import { FiEdit } from 'react-icons/fi';
 import { RxCross2 } from "react-icons/rx";
+import { useDispatch } from 'react-redux'
+import { AppDispatch } from '@/redux/store'; 
 import ModalBox from '@/components/common/ModalBox';
+import { submitUserEducations } from '@/redux/actions/userActions';
 
 interface EducationData {
   degree: string;
@@ -11,6 +14,8 @@ interface EducationData {
 }
 
 const Education: React.FC = () => {
+
+  const dispatch = useDispatch<AppDispatch>()
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [educations, setEducations] = useState<EducationData[]>([]);
   const [currentEducation, setCurrentEducation] = useState<EducationData>({
@@ -85,7 +90,14 @@ const Education: React.FC = () => {
       setValidationErrors(errors);
       console.error('Validation error: Please correct the input fields');
     } else {
-      setEducations((prev) => [...prev, currentEducation]);
+      setEducations((prev) => { 
+        let updatedEducations =  [...prev, currentEducation]
+        let dataToSend = {
+          education :  updatedEducations
+        }
+        dispatch(submitUserEducations( dataToSend ))
+        return updatedEducations
+      });
       handleCloseModal();
     }
   };

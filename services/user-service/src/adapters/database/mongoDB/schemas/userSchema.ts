@@ -30,6 +30,7 @@ const userSchema : Schema = new Schema({
     }],
     dob : { type : Date || String},
     status : { type : String },
+    aboutMe : { type : String } ,
     jobStatus : { type : String },
     about : { type : String },
     languages : [{ type :String }],

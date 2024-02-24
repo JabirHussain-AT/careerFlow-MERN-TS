@@ -44,3 +44,64 @@ export const fetchJob = async ( jobId : any ) => {
      } catch (err: any) {}
    };
    
+
+
+
+   //from here its mostly profile page data submissions actions 
+
+   export const submitUserAboutMe = createAsyncThunk('user/userAboutMe ' ,async (userAboutMe : any ,{rejectWithValue}) =>{
+     try{
+          console.log('User about me :: <<<<<<<<>>>>>>>>>>>>>>>>>>>==========================================================',userAboutMe)
+          const {data} = await axios.post(`${AuthBaseUrl}/exists`,userAboutMe,config)
+          return data
+
+     }catch(err : any ){
+          const axiosError = err as AxiosError<ApiError> ;
+          return handleError(axiosError,rejectWithValue)
+     }
+})
+
+
+
+   export const submitUserSkills = createAsyncThunk('user/userSkills ' ,async (userSkills : any ,{rejectWithValue}) =>{
+     try{
+          console.log('User skills :: <<<<<<<<>>>>>>>>>>>>>>>>>>>==========================================================',userSkills)
+          const {data} = await axios.post(`${AuthBaseUrl}/exists`,userSkills,config)
+          return data
+
+     }catch(err : any ){
+          const axiosError = err as AxiosError<ApiError> ;
+          return handleError(axiosError,rejectWithValue)
+     }
+})
+
+
+
+
+
+   export const submitUserExperiance = createAsyncThunk('user/userExperiance ' ,async (userExperiances : any ,{rejectWithValue}) =>{
+     try{
+          console.log('User Experiances :: <<<<<<<<>>>>>>>>>>>>>>>>>>>==========================================================',userExperiances)
+          const {data} = await axios.post(`${AuthBaseUrl}/exists`,userExperiances,config)
+          return data
+
+     }catch(err : any ){
+          const axiosError = err as AxiosError<ApiError> ;
+          return handleError(axiosError,rejectWithValue)
+     }
+})
+
+
+
+
+   export const submitUserEducations = createAsyncThunk('user/userEducations ' ,async (userEducations : any ,{rejectWithValue}) =>{
+     try{
+          console.log('User Educations  :: <<<<<<<<>>>>>>>>>>>>>>>>>>>==========================================================',userEducations)
+          const {data} = await axios.post(`${AuthBaseUrl}/exists`,userEducations,config)
+          return data
+
+     }catch(err : any ){
+          const axiosError = err as AxiosError<ApiError> ;
+          return handleError(axiosError,rejectWithValue)
+     }
+})
