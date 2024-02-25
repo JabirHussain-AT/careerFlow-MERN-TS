@@ -3,13 +3,12 @@ import { RxCross2 } from "react-icons/rx";
 import { FiEdit } from "react-icons/fi";
 import ModalBox from "@/components/common/ModalBox";
 import { submitUserSkills } from "@/redux/actions/userActions";
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch } from "@/redux/store";
 import { IUserSelector } from "@/interface/IUserSlice";
 
 const Skills: React.FC = () => {
-
-  const dispatch = useDispatch<AppDispatch>()
+  const dispatch = useDispatch<AppDispatch>();
   const { user } = useSelector((state: IUserSelector) => state.user);
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [newSkill, setNewSkill] = useState<string>("");
@@ -46,36 +45,49 @@ const Skills: React.FC = () => {
     setNewSkill(skillValue);
   };
 
-  const handleSubmit = () => {
+  const handleSkillSubmission = (updatedSkills: string[]) => {
+    let dataToSend = {
+      userId: user?._id,
+      skills: updatedSkills ?? [],
+    };
+    dispatch(submitUserSkills(dataToSend));
+  };
 
-    if (!validationError && (newSkill.trim()  )) { 
+  const handleSubmit = () => {
+    if (!validationError && newSkill.trim()) {
       setSkills((prevSkills) => {
         const updatedSkills = [...prevSkills, newSkill];
-        let dataToSend = {
-          userId : user?._id ,
-          skills : updatedSkills ?? []
-        }
-        dispatch(submitUserSkills( dataToSend ))
+        handleSkillSubmission(updatedSkills);
         return updatedSkills;
       });
       handleCloseModal();
     } else {
-      console.error(validationError,+ "Validation error: Please correct the skill input");
+      console.error(
+        validationError,
+        "Validation error: Please correct the skill input"
+      );
     }
   };
-  
+
+
   const handleRemoveSkill = (index: number) => {
     const updatedSkills = [...skills];
     updatedSkills.splice(index, 1);
-    setSkills(()=>{
-      
-      console.log('calling .....' ,updatedSkills)
-      handleSubmit()
-      return  updatedSkills
+  
+    setSkills(() => {
+      if (updatedSkills.length === 0) {
+        handleSkillSubmission([]);
+      } else {
+        console.log("calling .....", updatedSkills);
+        handleSkillSubmission(updatedSkills);
+      }
+
+      return updatedSkills;
     });
-   
   };
 
+
+  
   return (
     <div className="w-full md:w-10/12 mx-auto mt-5 border p-5">
       <div className="flex justify-between items-center font-semibold text-gray-700">
