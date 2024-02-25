@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState , useEffect } from "react";
 import { FiEdit } from "react-icons/fi";
 import ModalBox from "@/components/common/ModalBox";
 import { RxCross2 } from "react-icons/rx";
@@ -27,6 +27,11 @@ const Experience: React.FC = () => {
   });
   const [isPresent, setIsPresent] = useState<boolean>(false);
   const [validationErrors, setValidationErrors] = useState<string[]>([]);
+  useEffect(() => {
+    // This effect will be triggered whenever 'experiences' changes
+    handleSubmit();
+  }, [experiences]);
+  
 
   const handleOpenModal = () => {
     setIsOpen(true);
@@ -47,8 +52,23 @@ const Experience: React.FC = () => {
   const handleRemoveExperience = (index: number) => {
     const updatedExperience = [...experiences];
     updatedExperience.splice(index, 1);
+  
     setExperiences(updatedExperience);
+  
+    if (updatedExperience.length === 0) {
+      // If all experiences are removed, submit an empty array
+      let dataToSend = {
+        userId: user?._id,
+        experiance: [],
+      };
+      dispatch(submitUserExperiance(dataToSend));
+    } else {
+      // If there are remaining experiences, trigger handleSubmit
+      handleClose();
+    }
   };
+  
+  
 
   const handleJobPositionChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setCurrentExperience((prev) => ({ ...prev, jobPosition: e.target.value }));
@@ -73,89 +93,120 @@ const Experience: React.FC = () => {
       toDate: e.target.checked ? "Present" : "",
     }));
   };
+  
 
   const handleSubmit = () => {
+    console.log('calling = > ');
     const errors: string[] = [];
 
     if (!currentExperience.jobPosition.trim()) {
       errors.push("Job Position is required");
     }
-
+  
     if (!currentExperience.company.trim()) {
       errors.push("Company is required");
     }
-
+  
     if (!currentExperience.fromDate.trim()) {
       errors.push("From Date is required");
     }
-
+  
     if (!isPresent && !currentExperience.toDate.trim()) {
       errors.push("To Date is required");
     }
-
+  
     if (!isPresent && currentExperience.fromDate > currentExperience.toDate) {
       errors.push("From Date must be before To Date");
     }
-
+  
     if (errors.length > 0) {
       setValidationErrors(errors);
       console.error("Validation error: Please correct the input fields");
     } else {
       setExperiences((prev) => {
-        
-        let data = [...prev, currentExperience]
+        let data = [...prev, currentExperience];
         let dataToSend = {
-          userId : user?._id ,
-          experience : data 
-        }
-        dispatch(submitUserExperiance( dataToSend ))
-        return data 
+          userId: user?._id,
+          experiance: data,
+        };
+        dispatch(submitUserExperiance(dataToSend));
+        return data;
       });
-      console.log(experiences , 'this is the experiances , check ')
+      console.log(experiences, 'this is the experiences, check ');
       handleCloseModal();
     }
   };
-
+  
+  const handleClose = () => {
+    
+    if(experiences.length < 1 && !currentExperience.jobPosition.trim()){
+      let dataToSend = {
+        userId: user?._id,
+        experiance: [],
+      };
+      return dispatch(submitUserExperiance(dataToSend)); 
+    }
+  
+      setExperiences((prev) => {
+        let data = [...prev];
+        let dataToSend = {
+          userId: user?._id,
+          experiance: data,
+        };
+        dispatch(submitUserExperiance(dataToSend));
+        return data;
+      });
+      console.log(experiences, 'this is the experiences, check ');
+      handleCloseModal();
+  };
+  
   const handleSaveAndAdd = () => {
     const errors: string[] = [];
-
+  
     if (!currentExperience.jobPosition.trim()) {
       errors.push("Job Position is required");
     }
-
+  
     if (!currentExperience.company.trim()) {
       errors.push("Company is required");
     }
-
+  
     if (!currentExperience.fromDate.trim()) {
       errors.push("From Date is required");
     }
-
+  
     if (!isPresent && !currentExperience.toDate.trim()) {
       errors.push("To Date is required");
     }
-
+  
     if (!isPresent && currentExperience.fromDate > currentExperience.toDate) {
       errors.push("From Date must be before To Date");
     }
-
+  
     if (errors.length > 0) {
       setValidationErrors(errors);
       console.error("Validation error: Please correct the input fields");
     } else {
       setExperiences((prev) => {
-        const newData = [...prev, currentExperience]
-        return newData
+        const newData = [...prev, currentExperience];
+        let dataToSend = {
+          userId: user?._id,
+          experiance: newData.length > 0 ? newData : [], // Submit an empty array if length is 0
+        };
+        dispatch(submitUserExperiance(dataToSend));
+        setCurrentExperience({
+          jobPosition: "",
+          company: "",
+          fromDate: "",
+          toDate: "",
+        });
+        setIsPresent(false);
+        return newData;
       });
-      setCurrentExperience({
-        jobPosition: "",
-        company: "",
-        fromDate: "",
-        toDate: "",
-      });
-      setIsPresent(false);
     }
   };
+  
+  
 
   return (
     <div className="w-full md:w-10/12 mx-auto mt-5 border p-5">

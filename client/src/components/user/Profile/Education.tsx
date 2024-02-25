@@ -8,7 +8,7 @@ import { submitUserEducations } from '@/redux/actions/userActions';
 import { IUserSelector } from '@/interface/IUserSlice';
 
 interface EducationData {
-  degree: string;
+  scheme: string;
   institution: string;
   startDate: string;
   endDate: string;
@@ -21,7 +21,7 @@ const Education: React.FC = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [educations, setEducations] = useState<EducationData[]>([]);
   const [currentEducation, setCurrentEducation] = useState<EducationData>({
-    degree: '',
+    scheme: '',
     institution: '',
     startDate: '',
     endDate: '',
@@ -35,7 +35,7 @@ const Education: React.FC = () => {
   const handleCloseModal = () => {
     setIsOpen(false);
     setCurrentEducation({
-      degree: '',
+      scheme: '',
       institution: '',
       startDate: '',
       endDate: '',
@@ -47,10 +47,11 @@ const Education: React.FC = () => {
     const updatedEducations = [...educations];
     updatedEducations.splice(index, 1);
     setEducations(updatedEducations);
+    handleClose(); // Call handleClose here
   };
 
-  const handleDegreeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setCurrentEducation((prev) => ({ ...prev, degree: e.target.value }));
+  const handleSchemeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setCurrentEducation((prev) => ({ ...prev, scheme: e.target.value }));
   };
 
   const handleInstitutionChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -68,7 +69,7 @@ const Education: React.FC = () => {
   const handleSubmit = () => {
     const errors: string[] = [];
 
-    if (!currentEducation.degree.trim()) {
+    if (!currentEducation.scheme.trim()) {
       errors.push('Degree is required');
     }
 
@@ -105,6 +106,28 @@ const Education: React.FC = () => {
     }
   };
 
+  
+  const handleClose  = () => {
+    if(educations.length < 1 && !currentEducation.scheme.trim()){
+      let dataToSend = {
+        userId: user?._id,
+        education : [],
+      };
+      return dispatch(submitUserEducations(dataToSend)); 
+    }
+
+    setEducations((prev) => { 
+      let updatedEducations =  [...prev]
+      let dataToSend = {
+        userId : user?._id ,
+        education :  updatedEducations
+      }
+      dispatch(submitUserEducations( dataToSend ))
+      return updatedEducations
+    });
+    handleCloseModal();
+  };
+
   return (
     <div className="w-full md:w-10/12 mx-auto mb-5 mt-5 border p-5">
       <div className="flex justify-between items-center font-semibold text-gray-700">
@@ -118,7 +141,7 @@ const Education: React.FC = () => {
               <li key={index} className="ml-10 m-6">
                 <div className="flex flex-col md:flex-row justify-between items-start md:items-center">
                   <div className="mb-2 md:mb-0 md:mr-4">
-                    <p className="font-semibold text-md font-sans">{edu.degree}</p>
+                    <p className="font-semibold text-md font-sans">{edu.scheme}</p>
                     <p className="font-semibold text-sm">{edu.institution}</p>
                   </div>
                   <div className="flex items-center">
@@ -147,10 +170,10 @@ const Education: React.FC = () => {
           <div className="flex justify-center items-center mb-3">
             <input
               type="text"
-              placeholder="Degree"
+              placeholder="Scheme"
               className="w-11/12 md:w-2/3 p-1 border-2 rounded-lg h-auto"
-              value={currentEducation.degree}
-              onChange={handleDegreeChange}
+              value={currentEducation.scheme}
+              onChange={handleSchemeChange}
             />
           </div>
           <div className="flex justify-center items-center mb-3">

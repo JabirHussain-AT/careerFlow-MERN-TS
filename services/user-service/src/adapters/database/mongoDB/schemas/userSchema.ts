@@ -34,8 +34,19 @@ const userSchema : Schema = new Schema({
     jobStatus : { type : String },
     about : { type : String },
     languages : [{ type :String }],
-    education : [{ type : String }],
-    experiance : [{ type : String }],
+    education : [{
+        scheme : { type : String }  , 
+        institution : { type : String }  , 
+        startDate  : { type : String }  , 
+        endDate  : { type : String }  , 
+     }],
+    experiance : [{
+        jobPosition : { type : String },
+        company: { type : String },
+        fromDate : { type :  String  } ,
+        toDate: { type:  String }
+
+    }],
     approved : { type : Boolean},
     stage : { type :  String },
     profileVerification : { type : Boolean } ,
