@@ -27,10 +27,10 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
             onChange={(e) => setSearchQuery(e.target.value)}
           />
           <div className="flex gap-3 w-auto">
-            <div className="flex bg-gray-300 px-3 gap-2 font-sans items-center">
-              <BsSliders />
-              <button className="rounded-sm font-serif">Filter</button>
-            </div>
+              {/* <div className="flex bg-gray-300 px-3 gap-2 font-sans items-center">
+                  <BsSliders />
+                <button className="rounded-sm font-serif">Filter</button>
+              </div>  */}
             <button
               className="bg-blue-600 hover:bg-blue-700 text-white font-serif px-5 py-1 w-28"
               onClick={handleSearch}

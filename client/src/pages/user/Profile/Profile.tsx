@@ -1,31 +1,82 @@
 import NavBar from "@/components/user/Home/NavBar";
 import { Outlet } from "react-router-dom";
 import MiniDash from "../../../components/user/Profile/MiniDash";
-import React from "react";
+import React ,{ useState } from "react";
 import { FaLocationArrow, FaLockOpen ,FaEdit } from "react-icons/fa";
 import { FiEdit } from "react-icons/fi";
 import { MdWork, MdEmail, MdOutlinePhoneAndroid } from "react-icons/md";
 import { BiCalendar } from "react-icons/bi";
 import ProfileSideBar from "@/components/user/Profile/ProfileSideBar";
+import  {submitUserProfilePic } from  '@/redux/actions/userActions'
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch } from "@/redux/store";
+import { IUserSelector } from "@/interface/IUserSlice";
 
 const Profile: React.FC = () => {
+
+  const [profilePic, setProfilePic] = useState('');
+  const dispatch = useDispatch<AppDispatch>()
+  const { user } = useSelector((state: IUserSelector) => state.user);
+
+  const handleProfilePicChange = async (e : any ) => {
+    const file = e.target.files[0];
+
+    if (file) {
+      try {
+        const imageUrl = file ;
+        const formData = new FormData();
+        formData.append("file", imageUrl);
+        formData.append("upload_preset", "wx0iwu8u");
+        // Upload image to Cloudinary
+        const cloudinaryResponse = await fetch(
+          "https://api.cloudinary.com/v1_1/dato7wx0r/upload",
+          {
+            method: "post",
+            body: formData,
+          }
+        );
+
+        const cloudinaryData = await cloudinaryResponse.json();
+
+        setProfilePic(cloudinaryData.url);
+        let dataTosend = {
+          userId : user._id ,
+          profilePic : cloudinaryData.url
+        }
+        const data = await dispatch(submitUserProfilePic(dataTosend))
+      } catch (error : any) {
+        // Handle errors if needed.
+        console.error('Error uploading file:', error.message);
+      }
+    }
+  };
+
   return (
     <div>
       <NavBar />
       <div className=" h-full w-full bg-green-200  ">
         <div className="flex  justify-center items-center">
-          <div className=" w-full ms-10 md:ms-0 h-full md:w-11/12 bg-white  flex-col md:flex-row shadow-lg md:h-48 m-5 rounded-lg flex justify-between items-center">
-            <div className="flex flex-col md:flex-row w-full items-center">
-              <div className=" w-40 flex justify-center items-center    md:w-2/6 ">
+          <div className=" w-full  ms-10 md:ms-0 h-full md:w-11/12 bg-white  flex-col md:flex-row shadow-lg md:h-48 m-5 rounded-lg flex justify-between items-center">
+            <div className="flex justify-center md:flex-row md:w-3/12 w-full items-center">
+            <div className="md:w-2/6 flex ms-12  justify-center items-center">
+              <label htmlFor="profilePicInput" className="relative flex    items-center justify-center">
                 <img
-                  src="https://www.kasandbox.org/programming-images/avatars/old-spice-man-blue.png"
-                  className="rounded-full  absolute w-full md:w-auto md:h-32 mx-8 my-16 border-black border"
+                  src={profilePic || 'https://www.kasandbox.org/programming-images/avatars/old-spice-man-blue.png'}
+                  className="rounded-full w-auto  md:w-auto md:h-32 mx-12 border-black border"
                   alt=""
                 />
-                <div className="p-5 ">
-
-                <FiEdit className="w-7 bg-gray-50 hover text-blue-800 border-gray-500   rounded-full relative top-8 left-14  h-6" />
-                </div>
+                  <div className="-p-3 relative -left-24 flex justify-start">
+                    <FiEdit className="w-7 bg-gray-50 hover text-blue-800 border-gray-500 rounded-full relative top-4   left-10 h-6" />
+                  </div>
+              </label>
+              <input
+                id="profilePicInput"
+                type="file"
+                accept="image/*"
+                style={{ display: 'none' }}
+                onChange={handleProfilePicChange}
+              />
+            </div>
               </div>
               <div className="m-4 md:ms-10 md:m-4   md:w-5/6">
                 <div className="flex flex-col gap-2">
@@ -91,7 +142,6 @@ const Profile: React.FC = () => {
           </div>
         </div>
       </div>
-    </div>
   );
 };
 

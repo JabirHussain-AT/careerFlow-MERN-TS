@@ -105,3 +105,15 @@ export const fetchJob = async ( jobId : any ) => {
           return handleError(axiosError,rejectWithValue)
      }
 })
+
+   export const submitUserProfilePic = createAsyncThunk('user/userProfilePic ' ,async (userProfilePic : any ,{rejectWithValue}) =>{
+     try{
+          console.log('User Educations  :: <<<<<<<<>>>>>>>>>>>>>>>>>>>==========================================================',userProfilePic)
+          const {data} = await axios.post(`${AuthBaseUrl}/update-profile`,userProfilePic,config)
+          return data
+
+     }catch(err : any ){
+          const axiosError = err as AxiosError<ApiError> ;
+          return handleError(axiosError,rejectWithValue)
+     }
+})

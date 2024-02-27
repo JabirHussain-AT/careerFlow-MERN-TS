@@ -49,6 +49,8 @@ const userSchema : Schema = new Schema({
     }],
     approved : { type : Boolean},
     stage : { type :  String },
+    profilePic : { type : String } ,
+    resume : { type : String } ,
     profileVerification : { type : Boolean } ,
     savedJobs : [{type : String}]
 })

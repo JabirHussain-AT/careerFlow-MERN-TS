@@ -24,6 +24,7 @@ import JobDetialPage from "./pages/user/JobDetialPage";
 import AdminCategories from "./pages/admin/AdminCategories";
 import ViewProfile from "./pages/user/Profile/ViewProfile";
 import UserDashboard from "./pages/user/Profile/UserDashboard";
+import BrowseJob from "./pages/user/BrowseJob";
 
 interface ProtectedRouteProps {
   element: ReactNode;
@@ -82,7 +83,8 @@ function App() {
             
             {/* User Routes */}
             <Route path='/' element={<>{userProtectedRoute({ element: <Home /> })}</>} />
-            <Route path='/showJobs' element={<>{userProtectedRoute({ element: < ShowJobs /> })}</>} />
+            <Route path='/showJobs' element={<>{userProtectedRoute({ element: < BrowseJob /> })}</>} />
+            {/* <Route path='/showJobs' element={<>{userProtectedRoute({ element: < ShowJobs /> })}</>} /> */}
             <Route path='/job/:id' element={<>{userProtectedRoute({ element: < JobDetialPage /> })}</>} />
             <Route path='profile' element={<>{userProtectedRoute({ element: < Profile /> })}</>}>
               <Route path="view" element={<>{userProtectedRoute({element:< ViewProfile />})}</>}/>
