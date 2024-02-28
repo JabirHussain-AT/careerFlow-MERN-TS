@@ -117,14 +117,16 @@ export const fetchJob = async ( jobId : any ) => {
           return handleError(axiosError,rejectWithValue)
      }
 })
+
+
    export const fetchJobsMain  = createAsyncThunk('user/fetchJobsMain ' ,async ( jobDocs : any ,{rejectWithValue}) =>{
      try{
           console.log('User Jobs Looking  :: <<<<<<<<>>>>>>>>>>>>>>>>>>>==========================================================',jobDocs)
-          const {data} = await axios.post(`${AuthCompanyBaseUrl}/find-jobs-data,jobDocs,config)
+          const { data } = await axios.post(`${AuthCompanyBaseUrl}/find-jobs-data`, jobDocs, config);
           return data
 
      }catch(err : any ){
           const axiosError = err as AxiosError<ApiError> ;
           return handleError(axiosError,rejectWithValue)
      }
-})
+  })

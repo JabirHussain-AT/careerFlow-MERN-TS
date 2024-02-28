@@ -12,7 +12,8 @@ import {
     fetchJobs ,
     fetchJob ,
     addCategory ,
-    fetchCategories
+    fetchCategories ,
+    findJobs
  } from "./companyRepo"; 
 
 export default {
@@ -29,6 +30,7 @@ export default {
     fetchJobs ,
     fetchJob ,
     addCategory ,
-    fetchCategories
+    fetchCategories ,
+    findJobs
 
 }

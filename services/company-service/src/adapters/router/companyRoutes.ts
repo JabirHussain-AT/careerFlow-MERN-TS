@@ -17,7 +17,8 @@ export default (dependencies: any): any => {
     fetchJobsController ,
     fetchJobController , 
     addCategoryController ,
-    fetchCategoriesController
+    fetchCategoriesController ,
+    findJobsController
 
    } =
     companyController(dependencies);
@@ -45,6 +46,8 @@ export default (dependencies: any): any => {
     router.get('/fetchJob/:jobId',fetchJobController)
 
     router.post('/add-Category',addCategoryController)
+
+    router.post('/find-jobs-data' , findJobsController)
 
     
     // middleware 
