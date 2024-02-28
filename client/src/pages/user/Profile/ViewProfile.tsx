@@ -44,14 +44,18 @@ const ViewProfile: React.FC = () => {
   };
 
   const openResume = () => {
-    // Download the uploaded resume
+    // Download the uploaded resume  // or for opening 
     if (resumeUrl) {
+
+// to download === >  
       // const link = document.createElement("a");
       // link.href = resumeUrl;
       // link.download = "resume.pdf"; // You can customize the downloaded file name here
       // document.body.appendChild(link);
       // link.click();
       // document.body.removeChild(link);
+
+
       if (resumeUrl) {
         window.open(resumeUrl, '_blank');
       }
