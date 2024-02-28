@@ -2,6 +2,8 @@ export interface IJob{
     
         jobType: string | null | undefined;
         category?: string | null | undefined;
+        applicants ?: any;
+        logo ?: string ;
         jobTitle: string | null;
         createdAt?: string | undefined ;
         jobDescription: string | null;

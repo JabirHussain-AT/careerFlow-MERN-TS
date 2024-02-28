@@ -36,9 +36,9 @@ const BrowseJob: React.FC = () => {
           })
         );
         console.log(result )
-        // if (result && result.data) {
-        //   setFilteredData(result.data);
-        // }
+        if (result && result.payload?.data) {
+          setFilteredData(result.payload?.data);
+        }
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -178,7 +178,7 @@ const BrowseJob: React.FC = () => {
         />
         <div className="w-3/5">
           {/* Content of the main section */}
-          <AllJobs />
+          <AllJobs filteredData={filteredData} />
         </div>
       </div>
     </div>

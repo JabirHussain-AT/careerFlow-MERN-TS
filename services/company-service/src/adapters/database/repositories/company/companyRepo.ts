@@ -259,16 +259,16 @@ export const fetchCategories = async () => {
 export const findJobs = async (data: {
   page?: number;
   categories?: string[];
-  salary?:  any ;
+  salary?: any;
   jobType?: string;
   search?: string;
 }): Promise<IJobs[] | boolean> => {
   try {
-    let  skip
-    if(data && data.page){
-      skip = Number(data?.page! - 1) * 10 ;
-    }else{
-      skip = 0
+    let skip;
+    if (data && data.page) {
+      skip = Number(data?.page! - 1) * 10;
+    } else {
+      skip = 0;
     }
     delete data.page;
 
@@ -280,20 +280,35 @@ export const findJobs = async (data: {
       data.salary = { $gte: Number(3), $lte: Number(10) };
     }
 
-
     let category = data.categories;
     let jobType = data.jobType;
     let search = data.search;
 
     // building conditions to query object for better understanding  ;;;
     const query: any = {};
-    if (category) query.category = { $in: category };
-    if (jobType) query.jobType = jobType;
-    if (search) query.$text = { $search: search };
+    if (category && category.length > 0) query.category = { $in: category };
+    if (jobType && jobType.length > 0) query.jobType = { $in: jobType };
+    if (search) {
+      query.jobTitle = { $regex: new RegExp(`.*${search}.*`, "i") };
+    }
+    
 
-
-    // applying the query 
-    const result = await Jobs.find({status:true , ... query}).skip(skip).limit(10).exec();
+    let result = []
+    if (Object.keys(query).length > 0) {
+      // applying the query
+      console.log(query, "------------------this query");
+      result = await Jobs.find({ status: true, ...query })
+        .populate("companyId")
+        .skip(0)
+        .limit(10)
+        .exec();
+    } else {
+      result = await Jobs.find({ status: true })
+        .populate("companyId")
+        .skip(0)
+        .limit(10)
+        .exec();
+    }
 
     return result;
   } catch (error) {

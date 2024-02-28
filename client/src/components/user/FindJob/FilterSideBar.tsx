@@ -47,7 +47,7 @@ const FilterSideBar: React.FC<FilterSidebarProps> = ({
         </div>
         {sectionVisibility.employmentTypes && (
           <div className="ml-2">
-            {["Full Time", "Part Time", "Remote"].map((type) => (
+            {["Full time", "Part Time", "Remote"].map((type) => (
               <label key={type} className="flex items-center mb-2">
                 <input
                   type="checkbox"
