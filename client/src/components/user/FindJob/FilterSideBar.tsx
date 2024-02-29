@@ -8,6 +8,7 @@ interface FilterSidebarProps {
   employmentTypes: string[];
   categories: string[];
   salaryRange: string;
+  page : number ;
   sectionVisibility: any;
   handleEmploymentTypeChange: (type: string) => void;
   handleCategoryChange: (category: string) => void;
@@ -23,6 +24,7 @@ const FilterSideBar: React.FC<FilterSidebarProps> = ({
   categories,
   salaryRange,
   sectionVisibility,
+  page ,
   handleEmploymentTypeChange,
   handleCategoryChange,
   handleSalaryRangeChange,
@@ -177,7 +179,7 @@ const FilterSideBar: React.FC<FilterSidebarProps> = ({
       <div className="flex w-full duration-300 justify-center">
         {(employmentTypes?.length > 0 ||
           categories?.length > 0 ||
-          salaryRange?.length > 0) && (
+          salaryRange?.length > 0 || page > 1)  && (
           <div
             onClick={clearFilters}
             className="flex duration-300 bg-blue-200 my-2 px-4 rounded py-1 hover:bg-blue-700 hover:text-white font-serif"

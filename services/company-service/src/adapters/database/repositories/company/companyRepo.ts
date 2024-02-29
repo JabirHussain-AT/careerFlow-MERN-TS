@@ -331,7 +331,19 @@ export const findJobs = async (data: {
         .exec();
     }
 
-    return result;
+
+    //getting all the filter counts from the database
+    const count = await Jobs.find({
+      status: true,
+      ...query,
+     }).countDocuments();
+   
+
+     return [
+      result ,
+      count 
+
+     ] as any
   } catch (error) {
     console.log(error, 'Error occurred in the findJobs function');
     return false;

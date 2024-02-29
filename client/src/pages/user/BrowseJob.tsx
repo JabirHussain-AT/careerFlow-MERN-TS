@@ -9,19 +9,23 @@ import FilterSidebar from "@/components/user/FindJob/FilterSideBar";
 import { fetchJobsMain } from "@/redux/actions/userActions";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/redux/store";
+import Footer from "@/components/common/Footer";
+import Pagination from "@/components/common/Pagination";
 
 const BrowseJob: React.FC = () => {
   const [filteredData, setFilteredData] = useState([]);
   const [employmentTypes, setEmploymentTypes] = useState<string[]>([]);
   const [categories, setCategories] = useState<string[]>([]);
   const [salaryRange, setSalaryRange] = useState("");
+  const [page, setPage] = useState(1);
   const [sectionVisibility, setSectionVisibility] = useState({
     employmentTypes: true,
     categories: true,
     salaryRange: true,
   });
+  const [totalJobs , setTotalJobs ] = useState<number>(0)
   const [searchQuery, setSearchQuery] = useState("");
-  const [searchParams ,  setSearchParams ] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
   const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
@@ -33,11 +37,13 @@ const BrowseJob: React.FC = () => {
             jobType: employmentTypes,
             salary: salaryRange,
             search: searchQuery,
+            page: page,
           })
         );
-        console.log(result )
+        // console.log(result);
         if (result && result.payload?.data) {
-          setFilteredData(result.payload?.data);
+          setFilteredData(result.payload?.data[0]);
+          setTotalJobs(result?.payload.data[1])
         }
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -45,13 +51,14 @@ const BrowseJob: React.FC = () => {
     };
 
     fetchData();
-  }, [categories, employmentTypes, salaryRange, searchQuery]);
+  }, [categories, employmentTypes, salaryRange, searchQuery , page ]);
 
   useEffect(() => {
     const typeOfEmploymentParam = searchParams.get("typeOfEmployment");
     const categoriesParam = searchParams.get("category");
     const salaryRangeParam = searchParams.get("salaryRange");
-    const searchParam  = searchParams.get("search");
+    const searchParam = searchParams.get("search");
+    const pageParam = searchParams.get("page");
 
     if (typeOfEmploymentParam) {
       setEmploymentTypes(typeOfEmploymentParam.split(","));
@@ -65,13 +72,14 @@ const BrowseJob: React.FC = () => {
       setSalaryRange(salaryRangeParam);
     }
 
+
     if (searchParam) {
       setSearchQuery(searchParam);
     }
   }, [searchParams]);
 
-  //for clearing filters 
-  
+  //for clearing filters
+
   const clearFilters = () => {
     const params = new URLSearchParams();
 
@@ -79,6 +87,7 @@ const BrowseJob: React.FC = () => {
     params.delete("category");
     params.delete("salaryRange");
     params.delete("search");
+    params.delete("page")
 
     setSearchParams(params);
 
@@ -86,8 +95,8 @@ const BrowseJob: React.FC = () => {
     setCategories([]);
     setSalaryRange("");
     setSearchQuery("");
+    setPage(1)
   };
-
 
   const handleSearch = (query: string) => {
     setSearchQuery(query);
@@ -152,6 +161,11 @@ const BrowseJob: React.FC = () => {
     );
   };
 
+  const handlePageChange = (newPage: number) => {
+    setPage(newPage);
+    updateURLParams({ page: newPage.toString() });
+  };
+
   const getRangeValue = (salaryRangeLabel: string) => {
     switch (salaryRangeLabel) {
       case "Below 3 LPA":
@@ -186,6 +200,7 @@ const BrowseJob: React.FC = () => {
         <FilterSidebar
           employmentTypes={employmentTypes}
           categories={categories}
+          page={page}
           salaryRange={salaryRange}
           sectionVisibility={sectionVisibility}
           handleEmploymentTypeChange={handleEmploymentTypeChange}
@@ -201,6 +216,12 @@ const BrowseJob: React.FC = () => {
           <AllJobs filteredData={filteredData} />
         </div>
       </div>
+      {/* pagination */}
+    { ( totalJobs > 10 ) &&
+        <Pagination currentPage={page} onPageChange={handlePageChange} totalPages={Math.ceil(totalJobs / 10)} />
+    }
+      {/* footer */}
+      <Footer />  
     </div>
   );
 };
