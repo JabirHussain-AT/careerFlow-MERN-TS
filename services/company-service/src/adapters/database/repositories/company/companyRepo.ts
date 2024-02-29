@@ -140,6 +140,7 @@ export const updateApprovel = async (companyId, status) => {
       .select("-password");
     let companyEmail = company?.email ?? false;
     let data = {
+      approved :  status ,
       status: value,
       email: companyEmail as string,
     };

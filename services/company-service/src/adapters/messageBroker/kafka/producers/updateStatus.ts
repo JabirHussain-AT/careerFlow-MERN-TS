@@ -1,6 +1,6 @@
 import { producer } from "../index";
 
-export default async (data: { status: string; email : string}) => {
+export default async (data: {approved : boolean , status: string; email : string}) => {
   try {
     await producer.connect();
 

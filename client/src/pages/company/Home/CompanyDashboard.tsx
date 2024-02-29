@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { logout } from "@/redux/reducers/user/userSlice";
 import { IUserSelector } from "@/interface/IUserSlice";
 import CompanyModal from "@/components/company/Home/CompanyModal";
+import CompanySidebar from "@/components/company/Sidebar/CompanySidebar";
 
 const Dashboard: React.FC = () => {
   const { user } = useSelector((state: IUserSelector) => state.user);
@@ -82,7 +83,9 @@ const Dashboard: React.FC = () => {
           )}
         </div>
       ) : (
-          ''
+        <div>
+         
+        </div>
       )}
     </>
   );
