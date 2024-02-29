@@ -257,66 +257,83 @@ export const fetchCategories = async () => {
   }
 };
 
+
+
 export const findJobs = async (data: {
   page?: number;
   categories?: string[];
-  salary?: any;
+  salary?: string;
   jobType?: string;
   search?: string;
 }): Promise<IJobs[] | boolean> => {
   try {
-    let skip;
+    let skip = 0;
     if (data && data.page) {
-      skip = Number(data?.page! - 1) * 10;
+      skip = Number(data.page - 1) * 10;
     } else {
       skip = 0;
     }
     delete data.page;
 
-    if (data?.salary === "Below 3 LPA") {
-      data.salary = { $lte: Number(3) };
-    } else if (data.salary === "More than 10 LPA") {
-      data.salary = { $gte: Number(10) };
-    } else {
-      data.salary = { $gte: Number(3), $lte: Number(10) };
-    }
-
     let category = data.categories;
     let jobType = data.jobType;
     let search = data.search;
-
-    // building conditions to query object for better understanding  ;;;
+    let salaryRange = data.salary;
+    let fromSalary = 0;
+    let toSalary = 0;
     const query: any = {};
+
+    // Setting salary range
+    if (data && data.salary) {
+      if (data.salary === 'Below 3 LPA') {
+        fromSalary = 0;
+        toSalary = 300000 / 12;
+      } else if (data.salary === '3-10 LPA') {
+        fromSalary = 300000 / 12;
+        toSalary = 1000000 / 12;
+      } else {
+        fromSalary = 1000000 / 12;
+        // No specific upper limit for 'More than 10 LPA'
+      }
+    }
+
+    // Building conditions for the query object
+    query.status = true;
+
     if (category && category.length > 0) query.category = { $in: category };
     if (jobType && jobType.length > 0) query.jobType = { $in: jobType };
-    if (search) {
-      query.jobTitle = { $regex: new RegExp(`.*${search}.*`, "i") };
+    if (search !== '') {
+      query.jobTitle = { $regex: new RegExp(`.*${search}.*`, 'i') };
     }
-    
 
-    let result = []
+    // Using fromSalary and toSalary directly in the query
+    if (fromSalary > 0) {
+      query.fromSalary = { $gte: fromSalary };
+    }
+
+    if (toSalary > 0) {
+      query.toSalary = { $lte: toSalary };
+    }
+
+    let result = [];
     if (Object.keys(query).length > 0) {
-      // applying the query
-      console.log(query, "------------------this query");
-      result = await Jobs.find({ status: true, ...query })
-        .populate("companyId")
-        .skip(0)
+      // Applying the query
+      result = await Jobs.find(query)
+        .populate('companyId')
+        .skip(skip)
         .limit(10)
         .exec();
     } else {
       result = await Jobs.find({ status: true })
-        .populate("companyId")
-        .skip(0)
+        .populate('companyId')
+        .skip(skip)
         .limit(10)
         .exec();
     }
 
     return result;
   } catch (error) {
-    console.log(
-      error,
-      "error happened in the fetching categories in company  repo"
-    );
+    console.log(error, 'Error occurred in the findJobs function');
     return false;
   }
 };

@@ -17,7 +17,8 @@ export interface IJobs extends Document {
       };
     }[];
     category: String | null;
-    salary: Number | null;
+    toSalary : Number | null , 
+    fromSalary : Number | null , 
     jobDescription: String | null;
     jobTitle: String | null;
     requirments: String[] | null;

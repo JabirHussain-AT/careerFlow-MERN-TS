@@ -1,6 +1,7 @@
 // FilterSidebar.tsx
 import React from "react";
 import { BiArrowToBottom } from "react-icons/bi";
+import { MdOutlineDeleteSweep } from "react-icons/md";
 import { Range } from "react-range";
 
 interface FilterSidebarProps {
@@ -14,6 +15,7 @@ interface FilterSidebarProps {
   toggleSectionVisibility: (section: string) => void;
   getRangeValue: (salaryRangeLabel: string) => number;
   getSalaryRangeLabel: (value: number) => string;
+  clearFilters: () => void;
 }
 
 const FilterSideBar: React.FC<FilterSidebarProps> = ({
@@ -27,6 +29,7 @@ const FilterSideBar: React.FC<FilterSidebarProps> = ({
   toggleSectionVisibility,
   getRangeValue,
   getSalaryRangeLabel,
+  clearFilters,
 }) => {
   return (
     <div className="w-1/3 bg-white m border-e-4 rounded-sm p-5 flex flex-col">
@@ -127,8 +130,7 @@ const FilterSideBar: React.FC<FilterSidebarProps> = ({
                     height: "6px",
                     width: "100%",
                     borderRadius: "5px",
-                    background:
-                      "linear-gradient(to right, #007BFF, #00C2FF)",
+                    background: "linear-gradient(to right, #007BFF, #00C2FF)",
                   }}
                 >
                   {children}
@@ -169,6 +171,21 @@ const FilterSideBar: React.FC<FilterSidebarProps> = ({
                 {salaryRange}
               </span>
             </div>
+          </div>
+        )}
+      </div>
+      <div className="flex w-full duration-300 justify-center">
+        {(employmentTypes?.length > 0 ||
+          categories?.length > 0 ||
+          salaryRange?.length > 0) && (
+          <div
+            onClick={clearFilters}
+            className="flex duration-300 bg-blue-200 my-2 px-4 rounded py-1 hover:bg-blue-700 hover:text-white font-serif"
+          >
+            <button className="">Clear Filter </button>
+            <span>
+              <MdOutlineDeleteSweep className="text-2xl" />
+            </span>
           </div>
         )}
       </div>

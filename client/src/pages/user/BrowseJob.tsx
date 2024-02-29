@@ -21,7 +21,7 @@ const BrowseJob: React.FC = () => {
     salaryRange: true,
   });
   const [searchQuery, setSearchQuery] = useState("");
-  const [searchParams] = useSearchParams();
+  const [searchParams ,  setSearchParams ] = useSearchParams();
   const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
@@ -51,7 +51,7 @@ const BrowseJob: React.FC = () => {
     const typeOfEmploymentParam = searchParams.get("typeOfEmployment");
     const categoriesParam = searchParams.get("category");
     const salaryRangeParam = searchParams.get("salaryRange");
-    const searchParam = searchParams.get("search");
+    const searchParam  = searchParams.get("search");
 
     if (typeOfEmploymentParam) {
       setEmploymentTypes(typeOfEmploymentParam.split(","));
@@ -69,6 +69,25 @@ const BrowseJob: React.FC = () => {
       setSearchQuery(searchParam);
     }
   }, [searchParams]);
+
+  //for clearing filters 
+  
+  const clearFilters = () => {
+    const params = new URLSearchParams();
+
+    params.delete("typeOfEmployment");
+    params.delete("category");
+    params.delete("salaryRange");
+    params.delete("search");
+
+    setSearchParams(params);
+
+    setEmploymentTypes([]);
+    setCategories([]);
+    setSalaryRange("");
+    setSearchQuery("");
+  };
+
 
   const handleSearch = (query: string) => {
     setSearchQuery(query);
@@ -175,6 +194,7 @@ const BrowseJob: React.FC = () => {
           toggleSectionVisibility={toggleSectionVisibility}
           getRangeValue={getRangeValue}
           getSalaryRangeLabel={getSalaryRangeLabel}
+          clearFilters={clearFilters}
         />
         <div className="w-3/5">
           {/* Content of the main section */}
