@@ -37,6 +37,8 @@ export const isUserExist = createAsyncThunk('user/isUserExist' ,async (userCrede
      }
 })
 
+
+
 export const fetchJob = async ( jobId : any ) => {
      try {
        const { data } = await axios.get(`${AuthCompanyBaseUrl}/fetchJob/${jobId}`, config);
@@ -45,14 +47,12 @@ export const fetchJob = async ( jobId : any ) => {
    };
    
 
-
-
    //from here its mostly profile page data submissions actions 
 
-   export const submitUserAboutMe = createAsyncThunk('user/userAboutMe ' ,async (userAboutMe : any ,{rejectWithValue}) =>{
+   export const fetchUser = createAsyncThunk('user/fetchUser ' ,async (userId : any ,{rejectWithValue}) =>{
      try{
-          console.log('User about me :: <<<<<<<<>>>>>>>>>>>>>>>>>>>==========================================================',userAboutMe)
-          const {data} = await axios.post(`${AuthBaseUrl}/update-profile`,userAboutMe,config)
+          console.log('User :: <<<<<<<<>>>>>>>>>>>>>>>>>>>==========================================================',userId)
+          const {data} = await axios.get(`${AuthBaseUrl}/fetchUser/${userId}`,config)
           return data
 
      }catch(err : any ){
@@ -62,54 +62,24 @@ export const fetchJob = async ( jobId : any ) => {
 })
 
 
-
-   export const submitUserSkills = createAsyncThunk('user/userSkills ' ,async (userSkills : any ,{rejectWithValue}) =>{
-     try{
-          console.log('User skills :: <<<<<<<<>>>>>>>>>>>>>>>>>>>==========================================================',userSkills)
-          const {data} = await axios.post(`${AuthBaseUrl}/update-profile`,userSkills,config)
-          return data
-
-     }catch(err : any ){
-          const axiosError = err as AxiosError<ApiError> ;
-          return handleError(axiosError,rejectWithValue)
-     }
-})
-
-
-
-
-
-   export const submitUserExperiance = createAsyncThunk('user/userExperiance ' ,async (userExperiances : any ,{rejectWithValue}) =>{
-     try{
-          console.log('User Experiances :: <<<<<<<<>>>>>>>>>>>>>>>>>>>==========================================================',userExperiances)
-          const {data} = await axios.post(`${AuthBaseUrl}/update-profile`,userExperiances,config)
-          return data
-
-     }catch(err : any ){
-          const axiosError = err as AxiosError<ApiError> ;
-          return handleError(axiosError,rejectWithValue)
-     }
-})
-
-
-
-
-   export const submitUserEducations = createAsyncThunk('user/userEducations ' ,async (userEducations : any ,{rejectWithValue}) =>{
-     try{
-          console.log('User Educations  :: <<<<<<<<>>>>>>>>>>>>>>>>>>>==========================================================',userEducations)
-          const {data} = await axios.post(`${AuthBaseUrl}/update-profile`,userEducations,config)
-          return data
-
-     }catch(err : any ){
-          const axiosError = err as AxiosError<ApiError> ;
-          return handleError(axiosError,rejectWithValue)
-     }
-})
 
    export const submitUserProfilePic = createAsyncThunk('user/userProfilePic ' ,async (userProfilePic : any ,{rejectWithValue}) =>{
      try{
           console.log('User Educations  :: <<<<<<<<>>>>>>>>>>>>>>>>>>>==========================================================',userProfilePic)
           const {data} = await axios.post(`${AuthBaseUrl}/update-profile`,userProfilePic,config)
+          return data
+
+     }catch(err : any ){
+          const axiosError = err as AxiosError<ApiError> ;
+          return handleError(axiosError,rejectWithValue)
+     }
+})
+
+
+   export const submitViewProfileUpdations = createAsyncThunk('user/userProfileUpdations ' ,async (dataToStore : any ,{rejectWithValue}) =>{
+     try{
+          console.log('User Educations  :: <<<<<<<<>>>>>>>>>>>>>>>>>>>==========================================================',dataToStore)
+          const {data} = await axios.post(`${AuthBaseUrl}/update-profile`,dataToStore,config)
           return data
 
      }catch(err : any ){

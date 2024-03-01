@@ -13,7 +13,17 @@ export interface UserState {
     role?: string | null 
     status ?: string | null
     phoneNumber ?: string
-    resume ?: string
+    socialMediaLinks : any
+    position : string 
+    profilePic ?: string | null
+    location : string  
+    updatedAt ?: any 
+    dob  ?:any 
+    resume ?: string 
+    education ?: string [] | any
+    experiance ?: any
+    skills ?: string | any
+    about ?: string 
   }
 
 export interface IUserSelector {

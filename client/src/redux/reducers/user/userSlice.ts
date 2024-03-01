@@ -1,5 +1,14 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { userSignUp, userLogin, isUserExist } from "../../actions/userActions";
+import {
+  userSignUp,
+  userLogin,
+  isUserExist,
+  submitBasicDetials,
+  fetchUser,
+  submitUserProfilePic,
+  submitViewProfileUpdations,
+  
+} from "../../actions/userActions";
 import { IUserLoginData } from "../../../interface/IUserLogin";
 import { persistReducer } from "redux-persist";
 import { persistConfig } from "../../../config/constants";
@@ -135,7 +144,111 @@ const userSlice = createSlice({
       .addCase(addingJob.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload as string;
+      })
+      .addCase(submitBasicDetials.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(submitBasicDetials.fulfilled, (state, action) => {
+        state.loading = false;
+        state.user = action.payload.data as IUserLoginData;
+        state.error = null;
+      })
+      .addCase(submitBasicDetials.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload as string;
+      })
+      .addCase(fetchUser.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(fetchUser.fulfilled, (state, action) => {
+        state.loading = false;
+        state.user = action.payload.data as IUserLoginData;
+        state.error = null;
+      })
+      .addCase(fetchUser.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload as string;
+      })
+      // .addCase(submitUserExperiance.pending, (state) => {
+      //   state.loading = true;
+      //   state.error = null;
+      // })
+      // .addCase(submitUserExperiance.fulfilled, (state, action) => {
+      //   state.loading = false;
+      //   state.user = action.payload.data as IUserLoginData
+      //   state.error = null;
+      // })
+      // .addCase(submitUserExperiance.rejected, (state, action) => {
+      //   state.loading = false;
+      //   state.error = action.payload as string;
+      // })
+      .addCase(submitViewProfileUpdations.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(submitViewProfileUpdations.fulfilled, (state, action) => {
+        state.loading = false;
+        state.user = action.payload.data as IUserLoginData;
+        state.error = null;
+      })
+      .addCase(submitViewProfileUpdations.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload as string;
+      })
+      .addCase(submitUserProfilePic.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(submitUserProfilePic.fulfilled, (state, action) => {
+        state.loading = false;
+        state.user = action.payload.data as IUserLoginData;
+        state.error = null;
+      })
+      .addCase(submitUserProfilePic.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload as string;
       });
+    // .addCase(submitUserEducations.pending, (state) => {
+    //   state.loading = true;
+    //   state.error = null;
+    // })
+    // .addCase(submitUserEducations.fulfilled, (state, action) => {
+    //   state.loading = false;
+    //   state.user = action.payload.data as IUserLoginData
+    //   state.error = null;
+    // })
+    // .addCase(submitUserEducations.rejected, (state, action) => {
+    //   state.loading = false;
+    //   state.error = action.payload as string;
+    // })
+    // .addCase(submitUserSkills.pending, (state) => {
+    //   state.loading = true;
+    //   state.error = null;
+    // })
+    // .addCase(submitUserSkills.fulfilled, (state, action) => {
+    //   state.loading = false;
+    //   state.user = action.payload.data as IUserLoginData
+    //   state.error = null;
+    // })
+    // .addCase(submitUserSkills.rejected, (state, action) => {
+    //   state.loading = false;
+    //   state.error = action.payload as string;
+    // })
+    // .addCase(submitUserAboutMe.pending, (state) => {
+    //   state.loading = true;
+    //   state.error = null;
+    // })
+    // .addCase(submitUserAboutMe.fulfilled, (state, action) => {
+    //   state.loading = false;
+    //   state.user = action.payload.data as IUserLoginData
+    //   state.error = null;
+    // })
+    // .addCase(submitUserAboutMe.rejected, (state, action) => {
+    //   state.loading = false;
+    //   state.error = action.payload as string;
+    // });
   },
 });
 

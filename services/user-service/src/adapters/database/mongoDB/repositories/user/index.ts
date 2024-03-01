@@ -7,7 +7,8 @@ import {
     userExistorNot ,
     fetchUsers , 
     userProfileUpdate,
-    userBasicDetialsUpdate
+    userBasicDetialsUpdate ,
+    fetchUser
  } from "./userRepo"; 
 
 export = {
@@ -19,5 +20,6 @@ export = {
     userExistorNot,
     fetchUsers ,
     userProfileUpdate ,
-    userBasicDetialsUpdate
+    userBasicDetialsUpdate ,
+    fetchUser
 }

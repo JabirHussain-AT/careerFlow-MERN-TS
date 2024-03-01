@@ -4,7 +4,7 @@ import { RxCross2 } from "react-icons/rx";
 import { useDispatch, useSelector } from 'react-redux'
 import { AppDispatch } from '@/redux/store'; 
 import ModalBox from '@/components/common/ModalBox';
-import { submitUserEducations } from '@/redux/actions/userActions';
+import { submitViewProfileUpdations } from '@/redux/actions/userActions';
 import { IUserSelector } from '@/interface/IUserSlice';
 
 interface EducationData {
@@ -19,7 +19,7 @@ const Education: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>()
   const { user } = useSelector((state: IUserSelector) => state.user);
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const [educations, setEducations] = useState<EducationData[]>([]);
+  const [educations, setEducations] = useState<EducationData[]>(user?.education);
   const [currentEducation, setCurrentEducation] = useState<EducationData>({
     scheme: '',
     institution: '',
@@ -99,7 +99,7 @@ const Education: React.FC = () => {
           userId : user?._id ,
           education :  updatedEducations
         }
-        dispatch(submitUserEducations( dataToSend ))
+        dispatch(submitViewProfileUpdations( dataToSend ))
         return updatedEducations
       });
       handleCloseModal();
@@ -113,7 +113,7 @@ const Education: React.FC = () => {
         userId: user?._id,
         education : [],
       };
-      return dispatch(submitUserEducations(dataToSend)); 
+      return dispatch(submitViewProfileUpdations(dataToSend)); 
     }
 
     setEducations((prev) => { 
@@ -122,7 +122,7 @@ const Education: React.FC = () => {
         userId : user?._id ,
         education :  updatedEducations
       }
-      dispatch(submitUserEducations( dataToSend ))
+      dispatch(submitViewProfileUpdations( dataToSend ))
       return updatedEducations
     });
     handleCloseModal();

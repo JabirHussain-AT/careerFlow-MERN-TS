@@ -11,7 +11,8 @@ export = (dependencies : any) : any =>{
     userLoginController,
     userExistCheckController ,
     userProfileUpdateController ,
-    updateBasicDetialsController
+    updateBasicDetialsController ,
+    fetchUserDataController
     } = userController(dependencies)
 
 
@@ -20,6 +21,7 @@ export = (dependencies : any) : any =>{
     router.post('/sign-up',userSignupController)
     router.post('/logIn',userLoginController)
     router.post('/exists',userExistCheckController)
+    router.get('/fetchUser/:id',fetchUserDataController)
 
     router.post('/update-profile',userProfileUpdateController)
     router.post('/updateBasicDetials',updateBasicDetialsController)

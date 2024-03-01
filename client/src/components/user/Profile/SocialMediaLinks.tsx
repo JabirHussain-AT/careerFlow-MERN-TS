@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { FiEdit } from "react-icons/fi";
 import ModalBox from "@/components/common/ModalBox"; // Replace with the correct path
-// import { submitUserSocialLinks } from "@/redux/actions/userActions";
+import { submitViewProfileUpdations } from "@/redux/actions/userActions";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch } from "@/redux/store";
 import { IUserSelector } from "@/interface/IUserSlice";
@@ -15,7 +15,7 @@ const SocialMediaLinks: React.FC = () => {
   const { user } = useSelector((state: IUserSelector) => state.user);
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const dispatch = useDispatch<AppDispatch>();
-  const [socialLinks, setSocialLinks] = useState<SocialLink[]>([]);
+  const [socialLinks, setSocialLinks] = useState<SocialLink[]>(user?.socialMediaLinks);
   const [validationError, setValidationError] = useState<string | null>(null);
   const [modalLink, setModalLink] = useState<string>("");
   const [modalSocialMedia, setModalSocialMedia] = useState<string>("");
@@ -42,10 +42,10 @@ const SocialMediaLinks: React.FC = () => {
   const handleSubmit = () => {
     let dataToSubmit = {
       userId: user?._id,
-      socialLinks: socialLinks.filter((link) => link.link && link.socialMedia),
+      socialMediaLinks: socialLinks.filter((link) => link.link && link.socialMedia),
     };
 
-    // dispatch(submitUserSocialLinks(dataToSubmit));
+    dispatch(submitViewProfileUpdations(dataToSubmit));
     console.log("Submitted:", dataToSubmit);
     handleCloseModal();
   };

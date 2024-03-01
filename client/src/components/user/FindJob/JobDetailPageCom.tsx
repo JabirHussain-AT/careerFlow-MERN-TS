@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import NavBar from "@/components/user/Home/NavBar";
 import { BsSave2 } from "react-icons/bs";
 import Footer from "@/components/common/Footer";
@@ -6,12 +6,36 @@ import { IJob } from "../../../interface/IJob";
 import { format, parseISO } from "date-fns";
 import ModalBox from "@/components/common/ModalBox";
 import ApplicationForm from "@/components/company/Jobs/JobApplyForm";
+import { useDispatch, useSelector } from "react-redux";
+import { IUserSelector } from "@/interface/IUserSlice"; 
+import { fetchUser }  from '@/redux/actions/userActions'
+import { AppDispatch } from "@/redux/store";
 
 interface JobDetailPageProps {
   job: IJob;
 }
 
 const JobDetailPageCom: React.FC<JobDetailPageProps> = ({ job }) => {
+  const { user } = useSelector((state: IUserSelector) => state.user);
+  const dispatch = useDispatch<AppDispatch>();
+  const [isLoading, setIsLoading] = useState(false); // Add missing state
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setIsLoading(true);
+        const response = await dispatch(fetchUser(user?._id));
+        console.log("User data fetched:", response);
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchData(); // Call the fetchData function
+  }, [dispatch, user?._id]);
+
   const formattedCreatedAt = format(
     parseISO(job.createdAt ? job.createdAt : ""),
     "MMMM d, yyyy"
@@ -25,7 +49,7 @@ const JobDetailPageCom: React.FC<JobDetailPageProps> = ({ job }) => {
   const handleModal = () => {
     setModalOpen(true);
   };
-  const handleSubmit = (values : any) => {
+  const handleSubmit = (values: any) => {
     // Handle form submission here
     console.log(values);
   };
@@ -169,7 +193,7 @@ const JobDetailPageCom: React.FC<JobDetailPageProps> = ({ job }) => {
       </div>
       {/* its the application modal stariting from here  */}
       <ModalBox isOpen={isModalOpen} onClose={() => handleModalClose()}>
-      <ApplicationForm handleSubmit={handleSubmit} handleModalClose={handleModalClose} />      </ModalBox>
+      <ApplicationForm userData={user} handleSubmit={handleSubmit} handleModalClose={handleModalClose} />      </ModalBox>
       <Footer />
     </>
   );

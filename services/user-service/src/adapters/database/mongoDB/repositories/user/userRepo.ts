@@ -141,21 +141,47 @@ export const userProfileUpdate = async (
 
 export const userBasicDetialsUpdate = async (
   userId: string,
-  dataToUplodad: any
+  dataToUpload: any
 ) => {
-  delete dataToUplodad._id
+  delete dataToUpload._id
   try {
     let data = await userCollection.findOneAndUpdate(
       { _id: userId },
-      { ...dataToUplodad }
-      );
-      console.log('it reached on userRepo user Basic detials update',data)
+      { $set: dataToUpload },
+      {
+        projection: { password: 0 },
+        returnDocument: 'after', 
+      }
+    );
+    
     if (data) {
       return data;
     } else {
       return false;
     }
   } catch (err: any) {
-    console.log(err, "====== err occured in the userExistorNot");
+    console.log(err, "====== err occured in the updating user basic info ");
   }
 };
+
+
+export const fetchUser = async (
+  userId: string,
+) => {
+
+  try {
+    let data = await userCollection.findOne(
+      { _id: userId },
+      { projection: { password: 0 } }
+    );
+    
+    if (data) {
+      return data;
+    } else {
+      return false;
+    }
+  } catch (err: any) {
+    console.log(err, "====== err occured in the fetching user repo");
+  }
+};
+

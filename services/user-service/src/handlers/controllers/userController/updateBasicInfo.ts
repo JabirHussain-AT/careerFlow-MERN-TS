@@ -12,8 +12,9 @@ export = (dependencies: any): any => {
     next: NextFunction
   ) => {
     try {
-      console.log(req.body, " FROM badic detials  update");
+      
       let userId = req.body._id;
+      
       let dataToUpdate = {
         location : req.body.location ,
         position : req.body.position ,

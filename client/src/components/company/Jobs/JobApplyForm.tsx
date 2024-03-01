@@ -1,10 +1,12 @@
 import React from "react";
-import { Formik, Field, Form, ErrorMessage, FormikHelpers } from "formik";
+import { Formik, Field, Form, ErrorMessage, FieldProps } from "formik";
 import { ApplicationSchema } from "@/validation/jobApplicationSchema";
 import { useSelector } from "react-redux";
 import { IUserSelector } from "@/interface/IUserSlice";
+import axios from "axios";
 
 interface ApplicationFormProps {
+  userData: any;
   handleSubmit: (values: FormData) => void;
   handleModalClose: () => void;
 }
@@ -13,12 +15,13 @@ interface FormData {
   fullName: string;
   email: string;
   phoneNumber: string;
-  resume: any;
+  resume: string | File;
   takeResumeFromProfile: boolean;
-  takeResumeOption?: string; // Added for radio button option
+  takeResumeOption?: string;
 }
 
 const ApplicationForm: React.FC<ApplicationFormProps> = ({
+  userData,
   handleSubmit,
   handleModalClose,
 }) => {
@@ -30,18 +33,37 @@ const ApplicationForm: React.FC<ApplicationFormProps> = ({
         fullName: user?.userName || "",
         email: user?.email || "",
         phoneNumber: user?.phoneNumber || "",
-        resume: user?.resume,
+        resume: user?.resume || "",
         takeResumeFromProfile: false,
-        takeResumeOption: "yes", // Default value for radio button
+        takeResumeOption: user?.resume ? "yes" : "no",
       }}
       validationSchema={ApplicationSchema}
       onSubmit={async (values: FormData, actions) => {
+        if (values.takeResumeOption === "no" && values.resume instanceof File) {
+          try {
+            // Upload the new resume to Cloudinary
+            const formData = new FormData();
+            formData.append("file", values.resume);
+            formData.append("upload_preset", "wx0iwu8u"); // Replace with your Cloudinary upload preset
+            const cloudinaryResponse = await axios.post(
+              "https://api.cloudinary.com/v1_1/dato7wx0r/upload",
+              formData
+            );
+
+            // Update values.resume with the Cloudinary URL
+            values.resume = cloudinaryResponse.data.secure_url;
+          } catch (error) {
+            console.error("Error uploading resume to Cloudinary:", error);
+            // Handle error, set values.resume to a default URL or handle accordingly
+          }
+        }
+
         await handleSubmit(values);
         handleModalClose();
         actions.setSubmitting(false);
       }}
     >
-      {({ values, isSubmitting }) => (
+      {({ values, isSubmitting, setFieldValue }) => (
         <Form>
           <div className="w-full h-[500px] overflow-auto">
             <div className="w-full border-b-2 border-black p-2 h-3/12">
@@ -50,7 +72,7 @@ const ApplicationForm: React.FC<ApplicationFormProps> = ({
               </h1>
             </div>
             <div className="w-full h-9/12 p-4">
-              <div className="mb-4 ">
+              <div className="mb-4">
                 <div className="flex w-full">
                   <label
                     className="w-3/12 font-semibold font-sans text-md "
@@ -132,7 +154,17 @@ const ApplicationForm: React.FC<ApplicationFormProps> = ({
                 {values?.takeResumeOption === "no" && (
                   <div className="mb-4">
                     <label htmlFor="resume">Upload your resume</label>
-                    <Field type="file" name="resume" />
+                    <Field
+                      name="resume"
+                      render={({ field }: FieldProps) => (
+                        <input
+                          type="file"
+                          onChange={(e: any) =>
+                            setFieldValue("resume", e.currentTarget.files[0])
+                          }
+                        />
+                      )}
+                    />
                     <ErrorMessage
                       name="resume"
                       component="div"

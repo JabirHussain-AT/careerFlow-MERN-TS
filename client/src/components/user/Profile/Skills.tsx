@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { RxCross2 } from "react-icons/rx";
 import { FiEdit } from "react-icons/fi";
 import ModalBox from "@/components/common/ModalBox";
-import { submitUserSkills } from "@/redux/actions/userActions";
+import { submitViewProfileUpdations } from "@/redux/actions/userActions";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch } from "@/redux/store";
 import { IUserSelector } from "@/interface/IUserSlice";
@@ -12,7 +12,7 @@ const Skills: React.FC = () => {
   const { user } = useSelector((state: IUserSelector) => state.user);
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [newSkill, setNewSkill] = useState<string>("");
-  const [skills, setSkills] = useState<string[]>([]);
+  const [skills, setSkills] = useState<string[]>(user?.skills);
   const [validationError, setValidationError] = useState<string | null>(null);
 
   const handleOpenModal = () => {
@@ -50,7 +50,7 @@ const Skills: React.FC = () => {
       userId: user?._id,
       skills: updatedSkills ?? [],
     };
-    dispatch(submitUserSkills(dataToSend));
+    dispatch(submitViewProfileUpdations(dataToSend));
   };
 
   const handleSubmit = () => {

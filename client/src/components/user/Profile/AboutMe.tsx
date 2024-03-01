@@ -1,19 +1,17 @@
 import React, { useState } from "react";
 import { FiEdit } from "react-icons/fi";
 import ModalBox from "@/components/common/ModalBox";
-import {  submitUserAboutMe}  from "@/redux/actions/userActions"
+import { submitViewProfileUpdations } from "@/redux/actions/userActions";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch } from "@/redux/store";
 import { IUserSelector } from "@/interface/IUserSlice";
 
-const 
-AboutMe: React.FC = () => {
-
+const AboutMe: React.FC = () => {
   const { user } = useSelector((state: IUserSelector) => state.user);
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const dispatch = useDispatch<AppDispatch>()
+  const dispatch = useDispatch<AppDispatch>();
   const [aboutMeContent, setAboutMeContent] = useState<string>(
-    "Lorem Ipsum is simply dummy text of the printing and typesetting industry..."
+    user?.about!
   );
   const [validationError, setValidationError] = useState<string | null>(null);
 
@@ -47,10 +45,10 @@ AboutMe: React.FC = () => {
 
     // Handle submission logic here
     let dataToSubmit = {
-      userId : user?._id ,
-      about : aboutMeContent
-    }
-    dispatch(submitUserAboutMe(dataToSubmit))
+      userId: user?._id,
+      about: aboutMeContent,
+    };
+    dispatch(submitViewProfileUpdations(dataToSubmit));
     console.log("Submitted:", aboutMeContent);
     handleCloseModal();
   };
@@ -62,27 +60,35 @@ AboutMe: React.FC = () => {
         <FiEdit onClick={handleOpenModal} className="text-md text-blue-600" />
       </div>
       <div id="aboutme-content" className="text-sm text-sans text-pretty mt-3">
-        <p className="leading-7">{aboutMeContent}</p>
+        <p className="leading-7">{ user?.about }</p>
       </div>
       <ModalBox isOpen={isOpen} onClose={handleCloseModal}>
         <div className="w-full">
-          <h2 className="text-md text-start mx-6 my-2 text-gray-900 font-semibold font-sans underline">About Me</h2>
+          <h2 className="text-md text-start mx-6 my-2 text-gray-900 font-semibold font-sans underline">
+            About Me
+          </h2>
           <div className="flex justify-center items-center">
             <textarea
-              maxLength={250}
+              maxLength={1000}
               minLength={1}
               required
-              className={`w-11/12 p-1 border-2 rounded-lg h-auto ${validationError ? "border-red-500" : ""}`}
+              className={`w-11/12 p-1 border-2 rounded-lg h-56 ${
+                validationError ? "border-red-500" : ""
+              }`}
               value={aboutMeContent}
               onChange={handleTextareaChange}
             />
           </div>
           {validationError && (
-            <div className="text-red-500 text-sm mx-6 mt-1">{validationError}</div>
+            <div className="text-red-500 text-sm mx-6 mt-1">
+              {validationError}
+            </div>
           )}
           <div className="flex justify-end m-5">
             <button
-              className={`bg-blue-900 rounded-lg px-3 py-2 font-sans text-md text-white ${validationError ? "cursor-not-allowed" : ""}`}
+              className={`bg-blue-900 rounded-lg px-3 py-2 font-sans text-md text-white ${
+                validationError ? "cursor-not-allowed" : ""
+              }`}
               onClick={handleSubmit}
               disabled={validationError !== null}
             >

@@ -8,6 +8,7 @@ import { userExist_useCase } from "./userExist";
 import { fetchUsers_useCase } from "./fetchUsers";
 import { userProfileUpdate_useCase } from './userProfileUpdate'
 import { updateBasicDetials_useCase } from './updateBasicDetials'
+import { fetchUser_useCase } from './fetchUser'
 
 export = {
   signUp_useCase,
@@ -19,5 +20,6 @@ export = {
   sendPass_useCase,
   fetchUsers_useCase ,
   userProfileUpdate_useCase ,
-  updateBasicDetials_useCase
+  updateBasicDetials_useCase ,
+  fetchUser_useCase
 }

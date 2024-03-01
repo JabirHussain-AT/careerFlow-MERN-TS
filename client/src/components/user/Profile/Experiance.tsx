@@ -2,7 +2,7 @@ import React, { useState , useEffect } from "react";
 import { FiEdit } from "react-icons/fi";
 import ModalBox from "@/components/common/ModalBox";
 import { RxCross2 } from "react-icons/rx";
-import  { submitUserExperiance } from "@/redux/actions/userActions"
+import  { submitViewProfileUpdations } from "@/redux/actions/userActions"
 import  { useDispatch, useSelector } from "react-redux"
 import { AppDispatch } from "@/redux/store";  
 import { IUserSelector } from "@/interface/IUserSlice";
@@ -18,7 +18,7 @@ const Experience: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>()
   const { user } = useSelector((state: IUserSelector) => state.user);
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const [experiences, setExperiences] = useState<ExperienceData[]>([]);
+  const [experiences, setExperiences] = useState<ExperienceData[]>(user?.experiance);
   const [currentExperience, setCurrentExperience] = useState<ExperienceData>({
     jobPosition: "",
     company: "",
@@ -61,7 +61,7 @@ const Experience: React.FC = () => {
         userId: user?._id,
         experiance: [],
       };
-      dispatch(submitUserExperiance(dataToSend));
+      dispatch(submitViewProfileUpdations(dataToSend));
     } else {
       // If there are remaining experiences, trigger handleSubmit
       handleClose();
@@ -129,7 +129,7 @@ const Experience: React.FC = () => {
           userId: user?._id,
           experiance: data,
         };
-        dispatch(submitUserExperiance(dataToSend));
+        dispatch(submitViewProfileUpdations(dataToSend));
         return data;
       });
       console.log(experiences, 'this is the experiences, check ');
@@ -144,7 +144,7 @@ const Experience: React.FC = () => {
         userId: user?._id,
         experiance: [],
       };
-      return dispatch(submitUserExperiance(dataToSend)); 
+      return dispatch(submitViewProfileUpdations(dataToSend)); 
     }
   
       setExperiences((prev) => {
@@ -153,7 +153,7 @@ const Experience: React.FC = () => {
           userId: user?._id,
           experiance: data,
         };
-        dispatch(submitUserExperiance(dataToSend));
+        dispatch(submitViewProfileUpdations(dataToSend));
         return data;
       });
       console.log(experiences, 'this is the experiences, check ');
@@ -193,7 +193,7 @@ const Experience: React.FC = () => {
           userId: user?._id,
           experiance: newData.length > 0 ? newData : [], // Submit an empty array if length is 0
         };
-        dispatch(submitUserExperiance(dataToSend));
+        dispatch(submitViewProfileUpdations(dataToSend));
         setCurrentExperience({
           jobPosition: "",
           company: "",
@@ -214,7 +214,7 @@ const Experience: React.FC = () => {
         <h1 className="underline">Experience</h1>
         <FiEdit className="text-md text-blue-600" onClick={handleOpenModal} />
       </div>
-      <div className="mt-4" about="experience showing">
+      <div className="mt-4 ms-10  " about="experience showing">
         {experiences && experiences.length > 0 ? (
           <ul className="list-disc">
             {experiences.map((exp, index) => (

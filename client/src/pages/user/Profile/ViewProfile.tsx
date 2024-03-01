@@ -1,23 +1,34 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { FiEdit } from "react-icons/fi";
 import Skills from "@/components/user/Profile/Skills";
-import Experiance from "@/components/user/Profile/Experiance";
+import Experience from "@/components/user/Profile/Experiance";
 import Education from "@/components/user/Profile/Education";
 import AboutMe from "@/components/user/Profile/AboutMe";
 import SocialMediaLinks from "@/components/user/Profile/SocialMediaLinks";
+import { IUserSelector, UserState } from "@/interface/IUserSlice";
+import { useSelector, useDispatch } from "react-redux";
+import { submitViewProfileUpdations } from "@/redux/actions/userActions";
+import { toast } from "react-toastify";
+import { AppDispatch } from "@/redux/store";
 
 const ViewProfile: React.FC = () => {
+  const [resumeVisible, setResumeVisible] = useState<boolean>(false);
   const [resume, setResume] = useState<File | null>(null);
   const [resumeUrl, setResumeUrl] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
+  const [showResume, setShowResume] = useState<boolean>(false);
+  const [isEditing, setIsEditing] = useState<boolean>(false);
+  const { user } = useSelector((state: IUserSelector) => state.user);
+  const dispatch = useDispatch<AppDispatch>();
 
-  const handleResumeUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleResumeUpload = async (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
     const selectedFile = event.target.files && event.target.files[0];
 
     if (selectedFile) {
       try {
-        setLoading(true);
-
+        toast.loading("Uploading resume...");
         const formData = new FormData();
         formData.append("file", selectedFile);
         formData.append("upload_preset", "wx0iwu8u");
@@ -32,34 +43,29 @@ const ViewProfile: React.FC = () => {
         );
 
         const cloudinaryData = await cloudinaryResponse.json();
-        console.log(cloudinaryData,'8888')
+        console.log(cloudinaryData, "8888");
         setResumeUrl(cloudinaryData.secure_url);
         setResume(selectedFile);
-        setLoading(false);
+        let dataToSubmit = {
+          userId: user?._id,
+          resume: cloudinaryData.secure_url,
+        };
+        dispatch(submitViewProfileUpdations(dataToSubmit));
+        toast.dismiss(); // Dismiss the loading toast
+        setResumeVisible(true);
       } catch (error: any) {
         console.error("Error uploading resume:", error.message);
-        setLoading(false);
+        toast.error("Error uploading resume");
       }
     }
   };
 
   const openResume = () => {
-    // Download the uploaded resume  // or for opening 
-    if (resumeUrl) {
+    setResumeVisible(true);
+  };
 
-// to download === >  
-      // const link = document.createElement("a");
-      // link.href = resumeUrl;
-      // link.download = "resume.pdf"; // You can customize the downloaded file name here
-      // document.body.appendChild(link);
-      // link.click();
-      // document.body.removeChild(link);
-
-
-      if (resumeUrl) {
-        window.open(resumeUrl, '_blank');
-      }
-    }
+  const toggleEditing = () => {
+    setIsEditing(!isEditing);
   };
 
   return (
@@ -75,39 +81,79 @@ const ViewProfile: React.FC = () => {
       <div className="w-full md:w-10/12 mx-auto mt-5 border p-5">
         <div className="flex justify-between items-center font-semibold text-gray-700">
           <h1 className="underline">Resume</h1>
-          <FiEdit className="text-md text-blue-600" />
+          <FiEdit
+            className="text-md text-blue-600 cursor-pointer"
+            onClick={toggleEditing}
+          />
         </div>
         <div className="flex flex-wrap mt-3">
-          {/* Resume Upload Input */}
-          <input
-            type="file"
-            accept=".pdf, .doc, .docx"
-            onChange={handleResumeUpload}
-            className="mt-2"
-          />
+          {isEditing && (
+            // Resume Upload Input
+            <input
+              type="file"
+              accept=".pdf, .doc, .docx"
+              onChange={handleResumeUpload}
+              className="mt-2"
+            />
+          )}
 
-          {/* Display uploaded resume name */}
-          {resume && (
+          {/* { !resumeVisible && user?.resume && (
+            // Display uploaded resume in iframe
+            <div className="mt-3 w-full md:w-full justify-end border p-3">
+              {!resumeVisible ? (
+                <iframe
+                  src={user?.resume}
+                  width="100%"
+                  height="600"
+                  title="Resume"
+                />
+              ) : (
+                <iframe
+                  src={user?.resume}
+                  width="10%"
+                  height="60"
+                  title="Resume"
+                />
+              )}
+              <button
+                className="mt-3 text-sm text-blue-500 cursor-pointer"
+                onClick={openResume}
+              >
+                View Resume
+              </button>
+            </div>
+          )} */}
+
+          {showResume ? (
+            <>
+              <iframe
+                src={user?.resume}
+                width="100%"
+                height="600"
+                title="Resume"
+              />
+            </>
+          ) : (
+            <></>
+          )}
+          <h1
+            className="cursor-pointer hover:text-white hover:scale-110 font-semibold text-sm bg-blue-600 text-white px-2 py-1  rounded-md mt-4"
+            onClick={() => setShowResume(!showResume)}
+          >
+            {showResume ? "Hide" : "show"} resume
+          </h1>
+
+          {!resumeVisible && !user?.resume === undefined && (
+            // Display message for no resume uploaded
             <p className="text-sm text-sans text-pretty mt-3">
-              Uploaded Resume: {resume.name}
+              No resume uploaded
             </p>
           )}
 
-          {/* Display uploaded resume URL */}
-          {resumeUrl && (
-            <div className="flex items-center mt-3">
-              <p className="text-sm text-sans text-pretty">Resume URL: {resumeUrl}</p>
-              <button
-                onClick={openResume}
-                className="ml-3 text-sm text-blue-500 cursor-pointer"
-              >
-                Download Resume
-              </button>
-            </div>
-          )}
-
           {/* Loading indicator */}
-          {loading && <p className="text-sm text-sans text-gray-500 mt-3">Uploading...</p>}
+          {loading && (
+            <p className="text-sm text-sans text-gray-500 mt-3">Uploading...</p>
+          )}
         </div>
       </div>
 
@@ -118,13 +164,13 @@ const ViewProfile: React.FC = () => {
       <Skills />
 
       {/* Experience Section */}
-      <Experiance />
+      <Experience />
 
       {/* Education Section */}
       <Education />
 
-      {/*  */}
-      < SocialMediaLinks />
+      {/* Social Media Links */}
+      <SocialMediaLinks />
     </div>
   );
 };
