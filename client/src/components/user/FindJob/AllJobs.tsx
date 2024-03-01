@@ -1,9 +1,12 @@
 import { IJob } from "@/interface/IJob";
 import React from "react";
+import { useNavigate} from 'react-router-dom'
+
 
 const AllJobs: React.FC<{ filteredData: IJob[] }> = ({ filteredData }) => {
   // Use filteredData.length instead of jobData.length to get the correct count
   const totalJobs = filteredData.length;
+  const navigate = useNavigate()
 
   return (
     <div className="mx-5 my-5">
@@ -56,8 +59,8 @@ const AllJobs: React.FC<{ filteredData: IJob[] }> = ({ filteredData }) => {
               </div>
               <div className="lg:w-3/12 flex items-center justify-end">
                 <div className="flex flex-col items-center">
-                  <button className="px-4 py-2 mt-2 bg-blue-700 text-white rounded-md hover:bg-blue-800">
-                    Apply
+                  <button onClick={()=>navigate(`/job/${job._id}`)} className="px-4 py-2 mt-2 bg-blue-700 text-white rounded-md hover:bg-blue-800">
+                    View Job
                   </button>
                   <p className="text-gray-500 text-sm mt-2">
                     {job.applicants.length} applications

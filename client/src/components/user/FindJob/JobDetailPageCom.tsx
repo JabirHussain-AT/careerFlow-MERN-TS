@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import NavBar from "@/components/user/Home/NavBar";
 import { BsSave2 } from "react-icons/bs";
 import Footer from "@/components/common/Footer";
 import { IJob } from "../../../interface/IJob";
 import { format, parseISO } from "date-fns";
+import ModalBox from "@/components/common/ModalBox";
+import ApplicationForm from "@/components/company/Jobs/JobApplyForm";
 
 interface JobDetailPageProps {
   job: IJob;
@@ -14,7 +16,19 @@ const JobDetailPageCom: React.FC<JobDetailPageProps> = ({ job }) => {
     parseISO(job.createdAt ? job.createdAt : ""),
     "MMMM d, yyyy"
   );
+  const [isModalOpen, setModalOpen] = useState<boolean>(false);
   const formattedJobExpiry = format(parseISO(job.jobExpiry), "MMMM d, yyyy");
+
+  const handleModalClose = () => {
+    setModalOpen(!isModalOpen);
+  };
+  const handleModal = () => {
+    setModalOpen(true);
+  };
+  const handleSubmit = (values : any) => {
+    // Handle form submission here
+    console.log(values);
+  };
 
   return (
     <>
@@ -48,7 +62,10 @@ const JobDetailPageCom: React.FC<JobDetailPageProps> = ({ job }) => {
               <BsSave2 className="bg-gray-300 " />
             </div>
             <div className="flex">
-              <button className="bg-blue-500 px-6 md:px-10 ml-2 text-white text-sm md:text-base font-sans rounded">
+              <button
+                onClick={() => handleModal()}
+                className="bg-blue-500 px-6 md:px-10 ml-2 text-white text-sm md:text-base font-sans rounded"
+              >
                 Apply Now
               </button>
             </div>
@@ -150,6 +167,9 @@ const JobDetailPageCom: React.FC<JobDetailPageProps> = ({ job }) => {
           </div>
         </div>
       </div>
+      {/* its the application modal stariting from here  */}
+      <ModalBox isOpen={isModalOpen} onClose={() => handleModalClose()}>
+      <ApplicationForm handleSubmit={handleSubmit} handleModalClose={handleModalClose} />      </ModalBox>
       <Footer />
     </>
   );

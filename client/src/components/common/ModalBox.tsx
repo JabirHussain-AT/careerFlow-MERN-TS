@@ -8,7 +8,7 @@ const ModalBox = ({
 }: {
   isOpen: boolean;
   onClose: () => void;
-  children: ReactNode;
+  children: ReactNode  ;
 }) => {
     if (!isOpen) return null
 
