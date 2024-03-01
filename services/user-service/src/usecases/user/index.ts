@@ -7,6 +7,7 @@ import { sendPass_useCase } from "./sendPassword";
 import { userExist_useCase } from "./userExist"; 
 import { fetchUsers_useCase } from "./fetchUsers";
 import { userProfileUpdate_useCase } from './userProfileUpdate'
+import { updateBasicDetials_useCase } from './updateBasicDetials'
 
 export = {
   signUp_useCase,
@@ -17,5 +18,6 @@ export = {
   userExist_useCase,
   sendPass_useCase,
   fetchUsers_useCase ,
-  userProfileUpdate_useCase
+  userProfileUpdate_useCase ,
+  updateBasicDetials_useCase
 }

@@ -10,7 +10,8 @@ export = (dependencies : any) : any =>{
     userSignupController,
     userLoginController,
     userExistCheckController ,
-    userProfileUpdateController
+    userProfileUpdateController ,
+    updateBasicDetialsController
     } = userController(dependencies)
 
 
@@ -21,6 +22,7 @@ export = (dependencies : any) : any =>{
     router.post('/exists',userExistCheckController)
 
     router.post('/update-profile',userProfileUpdateController)
+    router.post('/updateBasicDetials',updateBasicDetialsController)
     
 // middleware passing
 //    router.use(verifyToken)

@@ -2,10 +2,6 @@ import { otpCollection, userCollection } from "../..";
 import mongoose, { startSession } from "mongoose";
 import { IUserData, IUserDoc } from "../../schemas/userSchema";
 
-
-
-
-
 export const createNewUser = async (
   userCredentials: IUserData
 ): Promise<IUserData | boolean> => {
@@ -15,17 +11,15 @@ export const createNewUser = async (
   } catch (err: any) {
     if (err.code && (err.code === 11000 || err.code === 11001)) {
       // Duplicate key error (unique constraint violation)
-      console.error('Duplicate key violation:', err);
+      console.error("Duplicate key violation:", err);
       return false;
     } else {
       // Other errors
-      console.error('Error creating user:', err);
+      console.error("Error creating user:", err);
       return false;
     }
   }
 };
-
-
 
 export const userExistCheck = async (
   userCredentials: IUserData
@@ -43,16 +37,13 @@ export const userExistCheck = async (
   }
 };
 
-
-
-
 export const saveOtp = async (otp: number, email: string) => {
   try {
     console.log("save otp repo");
 
-    setTimeout(()=>{
-     otpCollection.findOneAndDelete({email : email})
-    },120*1000)
+    setTimeout(() => {
+      otpCollection.findOneAndDelete({ email: email });
+    }, 120 * 1000);
 
     await otpCollection
       .findOneAndUpdate(
@@ -71,8 +62,6 @@ export const saveOtp = async (otp: number, email: string) => {
   }
 };
 
-
-
 export const verifyOtp = async (otp: number, email: string) => {
   try {
     console.log("verify otp repo");
@@ -87,65 +76,86 @@ export const verifyOtp = async (otp: number, email: string) => {
   }
 };
 
-
-export const loginVerify = async(email : string , password : string) =>{
-  try{
-    let isUserExist  = await userCollection.findOne({email : email})
+export const loginVerify = async (email: string, password: string) => {
+  try {
+    let isUserExist = await userCollection.findOne({ email: email });
     // console.log(isUserExist,'<<<<<<<<<<<>...........')
-    if(isUserExist == null){
-      return false 
-    }else{
+    if (isUserExist == null) {
+      return false;
+    } else {
       // console.log("loginVerify repo");
-       return isUserExist
+      return isUserExist;
     }
-  }catch(err : any){
+  } catch (err: any) {
     console.log(err, "====== err occured in the verify otp repo");
   }
-}
-export const userExistorNot = async(email : string ) =>{
-  try{
-    let isUserExist  = await userCollection.findOne({email : email})
-    console.log(email,'this is the email')
-    if(isUserExist == null){
-      return false 
-    }else if(isUserExist){
-       return true
+};
+export const userExistorNot = async (email: string) => {
+  try {
+    let isUserExist = await userCollection.findOne({ email: email });
+    console.log(email, "this is the email");
+    if (isUserExist == null) {
+      return false;
+    } else if (isUserExist) {
+      return true;
     }
-  }catch(err : any){
+  } catch (err: any) {
     console.log(err, "====== err occured in the userExistorNot");
   }
-}
+};
 
-
-export const fetchUsers = async(email : string ) =>{
-  try{
-    let users = await userCollection.find()
-    console.log('this is the email')
-    if(users == null){
-      return false 
-    }else if(users){
-       return users
+export const fetchUsers = async (email: string) => {
+  try {
+    let users = await userCollection.find();
+    console.log("this is the email");
+    if (users == null) {
+      return false;
+    } else if (users) {
+      return users;
     }
-  }catch(err : any){
+  } catch (err: any) {
     console.log(err, "====== err occured in the userExistorNot");
   }
-}
+};
 
-
-
-
-export const userProfileUpdate = async(userId : string , updateField : string , updateValue : any) =>{
-  try{
-     let data = userCollection.findOneAndUpdate({_id : userId } , { [updateField] : updateValue},{new : true})
-     if(data){
-      return data
-     }else{
-      return false
-     }
-      
-  }catch(err : any){
+export const userProfileUpdate = async (
+  userId: string,
+  updateField: string,
+  updateValue: any
+) => {
+  try {
+    let data = await userCollection.findOneAndUpdate(
+      { _id: userId },
+      { [updateField]: updateValue },
+      { new: true }
+    );
+    if (data) {
+      return data;
+    } else {
+      return false;
+    }
+  } catch (err: any) {
     console.log(err, "====== err occured in the userExistorNot");
   }
-}
+};
 
-
+export const userBasicDetialsUpdate = async (
+  userId: string,
+  dataToUplodad: any
+) => {
+  delete dataToUplodad._id
+  try {
+    let data = await userCollection.findOneAndUpdate(
+      { _id: userId },
+      { ...dataToUplodad }
+      );
+      console.log('it reached on userRepo user Basic detials update',data)
+    if (data) {
+      return data;
+    } else {
+      return false;
+    }
+  } catch (err: any) {
+    console.log(err, "====== err occured in the userExistorNot");
+  }
+};

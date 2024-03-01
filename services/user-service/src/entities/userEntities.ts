@@ -5,7 +5,7 @@ export interface IUser extends Document {
     name : string ,
     email : string, 
     password : string, 
-    phone?: string | null,
+    phoneNumber?: string | null,
     profilePic?: string | null ,
     status?:string ,
     skills?:string[] | null,
@@ -22,4 +22,5 @@ export interface IUser extends Document {
     approved : boolean
     profileVerification  : boolean 
     savedJobs  :  string[]
+    basicInfoUpdated : boolean
 }

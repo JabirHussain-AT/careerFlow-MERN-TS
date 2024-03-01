@@ -20,7 +20,7 @@ const userSchema : Schema = new Schema({
           type : String ,
           required : true ,
     },
-    phone : {
+    phoneNumber : {
         type : Number 
     },
     skills : [{ type : String }],
@@ -51,8 +51,11 @@ const userSchema : Schema = new Schema({
     stage : { type :  String },
     profilePic : { type : String } ,
     resume : { type : String } ,
+    location : { type : String } ,
+    position : { type : String } ,
     profileVerification : { type : Boolean } ,
-    savedJobs : [{type : String}]
+    savedJobs : [{type : String}] ,
+    basicInfoUpdated : { type : Boolean , default : false}
 })
 
 export default mongoose.model<IUser>("Users", userSchema);
@@ -67,7 +70,7 @@ export interface IUserDoc {
     email : string, 
     role : string ,
     password : string, 
-    phone?: number | null,
+    phoneNumber?: number | null,
     profilePic?: string | null ,
     status?:string ,
     skills?:string[] | null,
@@ -76,6 +79,8 @@ export interface IUserDoc {
         socialMedia?:string | null ;
     }[];
     dob?:string| null,
+    location ?: string ,
+    position ?: string ,
     about?:string | null,
     languages?:string[] | null,
     education?:object[] | null ,
@@ -83,4 +88,5 @@ export interface IUserDoc {
     approved : boolean | null 
     stage : string | null
     savedJobs : string []
+    basicInfoUpdated : boolean 
 }

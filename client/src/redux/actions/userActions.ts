@@ -134,7 +134,7 @@ export const fetchJob = async ( jobId : any ) => {
    export const submitBasicDetials  = createAsyncThunk('user/submitbasicDetials ' ,async ( basicDetials : any ,{rejectWithValue}) =>{
      try{
           console.log('User updating profile :: <<<<<<<<>>>>>>>>>>>>>>>>>>>==========================================================',basicDetials)
-          const { data } = await axios.post(`${AuthCompanyBaseUrl}/updateBasicDetials`, basicDetials, config);
+          const { data } = await axios.post(`${AuthBaseUrl}/updateBasicDetials`, basicDetials, config);
           return data
 
      }catch(err : any ){
