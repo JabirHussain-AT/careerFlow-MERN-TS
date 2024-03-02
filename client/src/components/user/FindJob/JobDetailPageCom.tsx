@@ -7,8 +7,8 @@ import { format, parseISO } from "date-fns";
 import ModalBox from "@/components/common/ModalBox";
 import ApplicationForm from "@/components/company/Jobs/JobApplyForm";
 import { useDispatch, useSelector } from "react-redux";
-import { IUserSelector } from "@/interface/IUserSlice"; 
-import { fetchUser }  from '@/redux/actions/userActions'
+import { IUserSelector } from "@/interface/IUserSlice";
+import { createJobApply, fetchUser } from "@/redux/actions/userActions";
 import { AppDispatch } from "@/redux/store";
 
 interface JobDetailPageProps {
@@ -49,9 +49,17 @@ const JobDetailPageCom: React.FC<JobDetailPageProps> = ({ job }) => {
   const handleModal = () => {
     setModalOpen(true);
   };
-  const handleSubmit = (values: any) => {
-    // Handle form submission here
-    console.log(values);
+  const handleSubmit = async (values: any) => {
+    let dataToSend = {
+      applicantId: user?._id,
+      email: values?.email,
+      name: values?.fullName,
+      number: values?.phoneNumber,
+      resume: values?.resume,
+      jobId: job?._id,
+    };
+    const response = await dispatch(createJobApply(dataToSend));
+    console.log(response , 'this is the response from the job application ')
   };
 
   return (
@@ -193,7 +201,12 @@ const JobDetailPageCom: React.FC<JobDetailPageProps> = ({ job }) => {
       </div>
       {/* its the application modal stariting from here  */}
       <ModalBox isOpen={isModalOpen} onClose={() => handleModalClose()}>
-      <ApplicationForm userData={user} handleSubmit={handleSubmit} handleModalClose={handleModalClose} />      </ModalBox>
+        <ApplicationForm
+          userData={user}
+          handleSubmit={handleSubmit}
+          handleModalClose={handleModalClose}
+        />{" "}
+      </ModalBox>
       <Footer />
     </>
   );

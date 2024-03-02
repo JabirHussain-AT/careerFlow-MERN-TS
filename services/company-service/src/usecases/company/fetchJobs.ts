@@ -4,7 +4,7 @@ export const fetchJobs_useCase = (dependencies : any) : any =>{
                 companyRepo : {fetchJobs},
         }
     } = dependencies ;  
-    console.log('now at fetching job use case ')
+    // console.log('now at fetching job use case ')
 
     if(!fetchJobs) throw new Error('repository is required !')
     

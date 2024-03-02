@@ -7,6 +7,7 @@ import { ICompanyData } from "../../schemas/companySchema";
 import Jobs from "../../schemas/jobSchema";
 import Category from "../../schemas/categorySchema";
 import { IJobs } from "../../../../entities/jobEntity";
+import { ObjectId } from "mongoose";
 
 export const createNewUser = async (
   userCredentials: ICompanyData
@@ -205,7 +206,7 @@ export const fetchJobs = async () => {
   try {
     const result = await Jobs.find({}).populate("companyId");
 
-    console.log("^^^^^^&&&&&&&&&&&&", result);
+    // console.log("^^^^^^&&&&&&&&&&&&", result);
     return result;
   } catch (error) {
     console.log(error, "error happened in the fetching jobs in  repo");
@@ -216,9 +217,9 @@ export const fetchJob = async (jobId) => {
   try {
     const result = await Jobs.findOne({ _id: jobId }).populate("companyId");
 
-    console.log("===============");
-    console.log(result);
-    console.log("===============");
+    // console.log("===============");
+    // console.log(result);
+    // console.log("===============");
 
     return result;
   } catch (error) {
@@ -347,5 +348,33 @@ export const findJobs = async (data: {
   } catch (error) {
     console.log(error, 'Error occurred in the findJobs function');
     return false;
+  }
+};
+
+
+
+export const jobApply = async ( jobId : string  , jobDocs : {
+  applicantId : ObjectId ,
+  name : string , 
+  email : string ,
+  number : number  ,
+  resume : string 
+}) => {
+  try {
+   
+
+    console.log("===============");
+    console.log ( jobId ,jobDocs);
+    console.log("===============");
+
+    const data = await Jobs.findOneAndUpdate({_id : jobId },{$set:{applicants:{...jobDocs}}},{new : true})
+    console.log(data , '@@@@@@@@@')
+
+
+  } catch (error) {
+    console.log(
+      error,
+      "error happened in the fetching categories in company  repo"
+    );
   }
 };

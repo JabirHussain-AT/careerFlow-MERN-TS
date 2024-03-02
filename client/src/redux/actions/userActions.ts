@@ -51,7 +51,7 @@ export const fetchJob = async ( jobId : any ) => {
 
    export const fetchUser = createAsyncThunk('user/fetchUser ' ,async (userId : any ,{rejectWithValue}) =>{
      try{
-          console.log('User :: <<<<<<<<>>>>>>>>>>>>>>>>>>>==========================================================',userId)
+          // console.log('User :: <<<<<<<<>>>>>>>>>>>>>>>>>>>==========================================================',userId)
           const {data} = await axios.get(`${AuthBaseUrl}/fetchUser/${userId}`,config)
           return data
 
@@ -91,7 +91,7 @@ export const fetchJob = async ( jobId : any ) => {
 
    export const fetchJobsMain  = createAsyncThunk('user/fetchJobsMain ' ,async ( jobDocs : any ,{rejectWithValue}) =>{
      try{
-          console.log('User Jobs Looking  :: <<<<<<<<>>>>>>>>>>>>>>>>>>>==========================================================',jobDocs)
+          // console.log('User Jobs Looking  :: <<<<<<<<>>>>>>>>>>>>>>>>>>>==========================================================',jobDocs)
           const { data } = await axios.post(`${AuthCompanyBaseUrl}/find-jobs-data`, jobDocs, config);
           return data
 
@@ -103,8 +103,21 @@ export const fetchJob = async ( jobId : any ) => {
 
    export const submitBasicDetials  = createAsyncThunk('user/submitbasicDetials ' ,async ( basicDetials : any ,{rejectWithValue}) =>{
      try{
-          console.log('User updating profile :: <<<<<<<<>>>>>>>>>>>>>>>>>>>==========================================================',basicDetials)
+          // console.log('User updating profile :: <<<<<<<<>>>>>>>>>>>>>>>>>>>==========================================================',basicDetials)
           const { data } = await axios.post(`${AuthBaseUrl}/updateBasicDetials`, basicDetials, config);
+          return data
+
+     }catch(err : any ){
+          const axiosError = err as AxiosError<ApiError> ;
+          return handleError(axiosError,rejectWithValue)
+     }
+  })
+
+
+   export const createJobApply = createAsyncThunk('user/createJobApply ' ,async (  jobApplicationData : any ,{rejectWithValue}) =>{
+     try{
+          console.log('job application submitting :: <<<<<<<<>>>>>>>>>>>>>>>>>>>==========================================================',jobApplicationData)
+          const { data } = await axios.post(`${AuthCompanyBaseUrl}/applyJob`, jobApplicationData, config);
           return data
 
      }catch(err : any ){

@@ -6,10 +6,10 @@ const JobsSchema: Schema = new Schema(
       applicants: [
         {
           applicantId: { type: Schema.Types.ObjectId },
-          appliedDate: { type: Date },
+          appliedDate: { type: Date , default :  new Date() },
           description: { type: String },
           email: { type: String },
-          hiringStage: { type: String },
+          hiringStage: { type: String , default : 'Applyed' },
           linkedIn: { type: String },
           name: { type: String },
           number: { type: Number },

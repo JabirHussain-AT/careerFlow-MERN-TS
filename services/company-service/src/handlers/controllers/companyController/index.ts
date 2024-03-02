@@ -11,6 +11,7 @@ import fetchJobController from "./fetchJob"
 import addCategoryController from './addCategory'
 import fetchCategoriesController from './fetchCategories'
 import findJobsController from './findjobs'
+import jobApplyController from "./jobApply";
 
 export default (dependencies: any) => {
   return {
@@ -26,6 +27,7 @@ export default (dependencies: any) => {
     fetchJobController : fetchJobController(dependencies) ,
     addCategoryController : addCategoryController(dependencies) ,
     fetchCategoriesController : fetchCategoriesController(dependencies ) ,
-    findJobsController : findJobsController(dependencies)
+    findJobsController : findJobsController(dependencies) ,
+    jobApplyController : jobApplyController(dependencies)
   };
 };
