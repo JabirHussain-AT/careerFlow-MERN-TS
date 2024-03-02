@@ -19,7 +19,8 @@ export default (dependencies: any): any => {
     addCategoryController ,
     fetchCategoriesController ,
     findJobsController , 
-    jobApplyController
+    jobApplyController ,
+    getMyJobApplicationController
 
 
    } =
@@ -54,6 +55,7 @@ export default (dependencies: any): any => {
     
     // middleware 
     // router.use(verifyToken);
+    router.get('/getUserApplications/:userId' , getMyJobApplicationController)
     router.get("/fetch-companies" , fetchCompaniesController)
     router.get("/fetchCategories" , fetchCategoriesController)
     router.post("/approve-companyStatus" , updateCompanyApprovelController)

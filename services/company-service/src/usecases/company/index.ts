@@ -15,7 +15,8 @@ import { fetchJob_useCase } from "./fetchJob";
 import { addCategory_useCase } from './addCategory'
 import { fetchCategories_useCase } from './fetchCategories'
 import {  findJobs_useCase } from './findJobs'
-import { jobApply_useCase } from './jobApply'
+import { jobApply_useCase } from './jobApply' 
+import { getMyJobApplications_useCase } from './getMyJobApplications'
 
 export default  {
   signUp_useCase,
@@ -35,5 +36,6 @@ export default  {
   addCategory_useCase ,
   fetchCategories_useCase ,
   findJobs_useCase ,
-  jobApply_useCase
+  jobApply_useCase ,
+  getMyJobApplications_useCase
 }

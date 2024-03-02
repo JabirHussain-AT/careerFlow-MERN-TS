@@ -130,7 +130,7 @@ export const fetchJob = async ( jobId : any ) => {
    export const getUserApplications = createAsyncThunk('user/getUserApplications ' ,async (  userId  : any ,{rejectWithValue}) =>{
      try{
           console.log('It reached here ')
-          const { data } = await axios.get(`${AuthBaseUrl}/getMyApplications/${userId}` , config);
+          const { data } = await axios.get(`${AuthCompanyBaseUrl}/getUserApplications/${userId}` , config);
           return data
 
      }catch(err : any ){

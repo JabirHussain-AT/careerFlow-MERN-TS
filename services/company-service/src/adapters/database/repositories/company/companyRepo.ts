@@ -353,28 +353,60 @@ export const findJobs = async (data: {
 
 
 
-export const jobApply = async ( jobId : string  , jobDocs : {
-  applicantId : ObjectId ,
-  name : string , 
-  email : string ,
-  number : number  ,
-  resume : string 
+export const jobApply = async (jobId: string, jobDocs: {
+  applicantId: ObjectId;
+  name: string;
+  email: string;
+  number: number;
+  resume: string;
 }) => {
   try {
+    const data = await Jobs.findOneAndUpdate(
+      { _id: jobId },
+      {
+        $push: {
+          applicants: { $each: [jobDocs], $position: 0 } // Push to the beginning of the array
+        }
+      },
+      { new: true }
+    );
+
+    if (!data) {
+     return false
+    }else{
+      return data 
+    }
+  } catch (error) {
+    console.log(
+      error,
+      "error happened in the job apply company  repo"
+    );
+  }
+};
+
+
+export const getMyJobApplications = async ( userId : string ) => {
+  try {
    
+    const data = await Jobs.find(
+      { 'applicants.applicantId': userId },
+      { 'applicants.$': 1 }    
+    ).populate('companyId');
 
-    console.log("===============");
-    console.log ( jobId ,jobDocs);
-    console.log("===============");
-
-    const data = await Jobs.findOneAndUpdate({_id : jobId },{$set:{applicants:{...jobDocs}}},{new : true})
-    console.log(data , '@@@@@@@@@')
+    if(data){
+      return data
+    }else{
+      return false
+    }
 
 
   } catch (error) {
     console.log(
       error,
-      "error happened in the fetching categories in company  repo"
+      "error happened in the job apply company  repo"
     );
   }
 };
+
+
+
