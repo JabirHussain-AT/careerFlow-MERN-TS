@@ -37,25 +37,45 @@ const ProfileSideBar = () => {
           <NavLink
             to={"/profile/view"}
             className={({ isActive }) => {
-                    return `items-center flex py-4 hover:bg-gray-700 p-2 rounded h-full ${
-                        isActive ? "bg-white flex w-30 text-black w-30 font-bold h-20 mx-2 my-2":""
-                    }`}
-            }
-          ><div className=" px-2 py-6 flex">
-            <FaUser  className="mr-3 h-5 text-md" />
-            <p className="hover:text-blue-500">Profile</p>
-          </div>
+              return `items-center flex py-4 hover:bg-gray-700 p-2 rounded h-full ${
+                isActive
+                  ? "bg-white flex w-30 text-black w-30 font-bold h-20 mx-2 my-2"
+                  : ""
+              }`;
+            }}
+          >
+            <div className=" px-2 py-6 flex">
+              <FaUser className="mr-3 h-5 text-md" />
+              <p className="hover:text-blue-500">Profile</p>
+            </div>
           </NavLink>
           <NavLink
             to={"/profile/dashboard"}
             className={({ isActive }) => {
               return `items-center flex py-4 hover:bg-gray-700 p-2 rounded h-full ${
-                  isActive ? "bg-white flex w-30 text-black font-bold h-20 mx-2 my-2":""
-              }`}
-      }
+                isActive
+                  ? "bg-white flex w-30 text-black font-bold h-20 mx-2 my-2"
+                  : ""
+              }`;
+            }}
           >
             <FaHome className="w-5" />
             <p className="hover:text-blue-5">Dashboard</p>
+          </NavLink>
+
+          {/* my applications  */}
+          <NavLink
+            to={"/profile/my-applications"}
+            className={({ isActive }) => {
+              return `items-center flex py-4 hover:bg-gray-700 p-2 rounded h-full ${
+                isActive
+                  ? "bg-white flex w-30 text-black font-bold h-20 mx-2 my-2"
+                  : ""
+              } `;
+            }}
+          >
+            <FaUserTie className="h-5 w-5" />
+            My Applications
           </NavLink>
           <li className="flex items-center hover:bg-gray-700 p-2 rounded gap-2 h-full">
             <FaCog className="h-5 w-5" />
@@ -67,12 +87,6 @@ const ProfileSideBar = () => {
             <FaSave className="h-5 w-5" />
             <a href="/saved-jobs" className="hover:text-blue-500 gap-2">
               Saved Jobs
-            </a>
-          </li>
-          <li className="flex items-center hover:bg-gray-700 p-2 rounded gap-2 h-full">
-            <FaUserTie className="h-5 w-5" />
-            <a href="/my-applications" className="hover:text-blue-500 gap-2">
-              My Applications
             </a>
           </li>
           <li className="flex items-center hover:bg-gray-700 p-2 rounded gap-2 h-full">

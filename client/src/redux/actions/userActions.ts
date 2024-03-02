@@ -125,3 +125,16 @@ export const fetchJob = async ( jobId : any ) => {
           return handleError(axiosError,rejectWithValue)
      }
   })
+
+
+   export const getUserApplications = createAsyncThunk('user/getUserApplications ' ,async (  userId  : any ,{rejectWithValue}) =>{
+     try{
+          console.log('It reached here ')
+          const { data } = await axios.get(`${AuthBaseUrl}/getMyApplications/${userId}` , config);
+          return data
+
+     }catch(err : any ){
+          const axiosError = err as AxiosError<ApiError> ;
+          return handleError(axiosError,rejectWithValue)
+     }
+  })

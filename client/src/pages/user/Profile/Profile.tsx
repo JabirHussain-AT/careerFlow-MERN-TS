@@ -24,8 +24,8 @@ const Profile: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [location, setLocation] = useState("Not Available");
   const [jobTitle, setJobTitle] = useState("Not Available");
-  const { user } = useSelector((state: IUserSelector) => state.user);
   const dispatch = useDispatch<AppDispatch>() 
+  const { user } = useSelector((state: IUserSelector) => state.user);
 
 
   useEffect(() => {

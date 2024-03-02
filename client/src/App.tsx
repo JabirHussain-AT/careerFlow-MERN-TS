@@ -25,6 +25,7 @@ import AdminCategories from "./pages/admin/AdminCategories";
 import ViewProfile from "./pages/user/Profile/ViewProfile";
 import UserDashboard from "./pages/user/Profile/UserDashboard";
 import BrowseJob from "./pages/user/BrowseJob";
+import MyApplications from "./pages/user/Profile/MyApplications";
 
 interface ProtectedRouteProps {
   element: ReactNode;
@@ -89,9 +90,12 @@ function App() {
             <Route path='profile' element={<>{userProtectedRoute({ element: < Profile /> })}</>}>
               <Route path="view" element={<>{userProtectedRoute({element:< ViewProfile />})}</>}/>
               <Route path="dashboard" element={<>{userProtectedRoute({element:< UserDashboard />})}</>}/>
+              <Route path="my-applications" element={<>{userProtectedRoute({element:< MyApplications />})}</>}/>
             </Route>
             <Route path='/signup' element={<>{userProtectedRoute({ element: <Signup /> })}</>} />
             <Route path='/login' element={<>{userProtectedRoute({ element: <Login /> })}</>} />
+
+
 
             {/* Admin Routes */}
             <Route path= 'admin' element={<>{adminProtectedRoute({element:<Sidebar/>})}</>}>
