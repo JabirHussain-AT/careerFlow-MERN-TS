@@ -33,7 +33,16 @@ const Profile: React.FC = () => {
       try {
         setIsLoading(true);
         const response = await dispatch(fetchUser(user?._id));
-        console.log("User data fetched:", response);
+        // console.log("User data fetched:", response);
+        const userData = response.payload.data ;
+        setFormData({
+          phoneNumber: userData?.phoneNumber || "",
+          dob: userData?.dob || "",
+          location: userData?.location || "",
+          position: userData?.position || "",
+          _id: userData?._id || "",
+        });
+        
       } catch (error) {
         console.error("Error fetching user data:", error );
       } finally { 

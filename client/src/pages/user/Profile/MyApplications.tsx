@@ -1,4 +1,3 @@
-// Import necessary dependencies and actions
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { IUserSelector } from "@/interface/IUserSlice";
@@ -54,14 +53,14 @@ const MyApplications: React.FC = () => {
             key={application.id}
             className="bg-white border border-gray-300 p-6 rounded-md shadow-md transition-transform transform hover:scale-105"
           >
-            <div className="flex items-center justify-between mb-6">
+            <div className="flex items-center gap-4  justify-between mb-6">
               <div className="flex items-center gap-3">
                 <img
                   src={application?.companyId?.logo}
                   alt={`${application?.companyId?.userName} Logo`}
                   className="w-10 h-10 object-cover rounded-full"
                 />
-                <h1 className="font-serif font-semibold text-lg">
+                <h1 className="font-serif  font-semibold text-lg">
                   {application.companyId?.userName}
                 </h1>
               </div>
@@ -73,14 +72,17 @@ const MyApplications: React.FC = () => {
                 {application.applicants[0]?.hiringStage}
               </span>
             </div>
-            <h3 className="text-xl font-semibold mb-2">
+            <h3 className="text-md font-sans  font-semibold mb-2">
               {application?.jobTitle}
             </h3>
             <p className="text-sm text-gray-500 mb-2">
               {application?.companyId?.userName}
             </p>
             <p className="text-sm text-gray-500 mb-2">
-              Applied Date: {application.applicants[0]?.appliedDate}
+              Applied Date:{" "}
+              {new Date(
+                application.applicants[0]?.appliedDate
+              ).toLocaleDateString()}
             </p>
           </div>
         ))}

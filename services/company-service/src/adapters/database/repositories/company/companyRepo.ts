@@ -389,9 +389,10 @@ export const getMyJobApplications = async ( userId : string ) => {
   try {
    
     const data = await Jobs.find(
-      { 'applicants.applicantId': userId },
-      { 'applicants.$': 1 }    
+      { 'applicants.applicantId': userId ,  status: true },
+      { 'applicants.$': 1, jobTitle: 1 }    
     ).populate('companyId');
+    
 
     if(data){
       return data

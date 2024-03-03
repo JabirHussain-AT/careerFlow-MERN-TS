@@ -7,12 +7,15 @@ import AllJobs from "@/components/user/FindJob/AllJobs";
 import BannerFindJob from "@/components/user/FindJob/BannerFindJob";
 import FilterSidebar from "@/components/user/FindJob/FilterSideBar";
 import { fetchJobsMain } from "@/redux/actions/userActions";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch } from "@/redux/store";
 import Footer from "@/components/common/Footer";
 import Pagination from "@/components/common/Pagination";
+import { IUserSelector } from "@/interface/IUserSlice";
 
 const BrowseJob: React.FC = () => {
+
+  const { user, error } = useSelector((state: IUserSelector) => state.user);
   const [filteredData, setFilteredData] = useState([]);
   const [employmentTypes, setEmploymentTypes] = useState<string[]>([]);
   const [categories, setCategories] = useState<string[]>([]);
@@ -213,7 +216,7 @@ const BrowseJob: React.FC = () => {
         />
         <div className="w-3/5">
           {/* Content of the main section */}
-          <AllJobs filteredData={filteredData} />
+          <AllJobs filteredData={filteredData} userId={user?._id} />
         </div>
       </div>
       {/* pagination */}

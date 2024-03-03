@@ -39,6 +39,16 @@ const ApplicationForm: React.FC<ApplicationFormProps> = ({
       }}
       validationSchema={ApplicationSchema}
       onSubmit={async (values: FormData, actions) => {
+        if (
+          values.takeResumeOption === "no" &&
+          (!values.resume || values.resume === "")
+        ) {
+          // If resume is not provided and not taken from the profile
+          actions.setSubmitting(false);
+          actions.setFieldError("resume", "Please upload your resume.");
+          return;
+        }
+
         if (values.takeResumeOption === "no" && values.resume instanceof File) {
           try {
             // Upload the new resume to Cloudinary
@@ -139,21 +149,22 @@ const ApplicationForm: React.FC<ApplicationFormProps> = ({
                 <h2 className="my-1 py-2 text-lg font-bold font-sans">
                   Attach Resume
                 </h2>
-                <div className="mb-4">
-                  <p>Do you want to take the resume from your profile?</p>
-                  <label>
-                    <Field type="radio" name="takeResumeOption" value="yes" />
-                    Yes
-                  </label>
-                  <label className="ml-4">
-                    <Field type="radio" name="takeResumeOption" value="no" />
-                    No
-                  </label>
-                </div>
-
-                {values?.takeResumeOption === "no" && (
+                {user?.resume && (
                   <div className="mb-4">
-                    <label htmlFor="resume">Upload your resume</label>
+                    <p>Do you want to take the resume from your profile?</p>
+                    <label>
+                      <Field type="radio" name="takeResumeOption" value="yes" />
+                      Yes
+                    </label>
+                    <label className="ml-4">
+                      <Field type="radio" name="takeResumeOption" value="no" />
+                      No
+                    </label>
+                  </div>
+                )}
+                {(values?.takeResumeOption === "no" || !user?.resume) && (
+                  <div className="mb-4">
+                    <label htmlFor="resume">Upload your resume : </label>
                     <Field
                       name="resume"
                       render={({ field }: FieldProps) => (
