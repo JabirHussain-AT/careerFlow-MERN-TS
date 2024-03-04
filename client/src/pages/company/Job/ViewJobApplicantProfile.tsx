@@ -1,12 +1,13 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCaretDown } from "@fortawesome/free-solid-svg-icons";
-import React, { useState } from "react";
+
+import React, { useState , useEffect } from "react";
 import ViewApplicantDetialSideBar from "@/components/company/Jobs/ViewApplicantDetialSideBar";
 import ApplicantDetialsSection from "@/components/company/Jobs/ApplicantDetialsSection";
 
 const ApplicantDetailsSideBar: React.FC = () => {
+    
   const [selectedStatus, setSelectedStatus] = useState<string>("");
 
+  
   const statusOptions = [
     "In-Review",
     "Shortlisted",
