@@ -10,6 +10,7 @@ import { IUserSelector } from "@/interface/IUserSlice";
 import { format } from "date-fns";
 import CompanyEditForm from "./CompanyEditForm";
 import AlertBox from "../../common/AlertBox";
+import { useNavigate } from "react-router-dom";
 
 interface CompanyJobsTableProps {
   Ijobs?: {
@@ -69,6 +70,7 @@ const CompanyJobsTable: React.FC<CompanyJobsTableProps> = ({
     vacancy: number;
   } | null>(null);
   const [dropdownJobId, setDropdownJobId] = useState<string | null>(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -82,7 +84,6 @@ const CompanyJobsTable: React.FC<CompanyJobsTableProps> = ({
 
     fetchData();
   }, [editingJob]);
-
 
   const handleMoreDetails = (jobId: string) => {
     setDropdownJobId(jobId);
@@ -125,19 +126,18 @@ const CompanyJobsTable: React.FC<CompanyJobsTableProps> = ({
     }
   };
 
-  const handleSaveEdit = (values : any) => {
-    const updated =     jobs.filter((job)=>{
-        return job._id === values.jobId ? values : job
-      })
+  const handleSaveEdit = (values: any) => {
+    const updated = jobs.filter((job) => {
+      return job._id === values.jobId ? values : job;
+    });
 
-      setJobs(updated)
+    setJobs(updated);
 
     if (editingJob) {
       onEditJob && onEditJob(editingJob._id, editingJob);
       setEditingJob(null);
     }
   };
-
 
   const closeModal = () => {
     setSelectedJob(null);
@@ -184,15 +184,22 @@ const CompanyJobsTable: React.FC<CompanyJobsTableProps> = ({
                   <button
                     className={`${
                       job?.applicants.length > 0
-                        ? "hover:bg-blue-700  text-white  bg-blue-500"
+                        ? "hover:bg-blue-700 text-white bg-blue-500"
                         : "disabled bg-gray-300 text-black"
                     } px-3 py-2 rounded-md m-1`}
-                    // onClick={() => onViewApplicants(job._id)}
+
+                    onClick={() => {
+                      if (job?.applicants.length > 0) {
+                        navigate(`/company/job/viewApplicants/${job._id}`);
+                      }
+                    }}
+                    
                   >
                     {job?.applicants.length > 0
                       ? "View Applicants"
-                      : " No applicants"}
+                      : "No applicants"}
                   </button>
+
                   <button
                     className="bg-transparent px-4 py-2 hover:border-blue-500 hover:border m-2 border-black rounded-md font-sans border"
                     onClick={() => handleMoreDetails(job._id)}
@@ -228,9 +235,7 @@ const CompanyJobsTable: React.FC<CompanyJobsTableProps> = ({
                               </div>
                             }
                             ques="Are you sure you want to block this job?"
-                            onConfirm={() =>
-                              handleDropdownOptionClick("Block")
-                            }
+                            onConfirm={() => handleDropdownOptionClick("Block")}
                             onCancel={() => {}}
                             option={false} // Add this line to enable the reason input field
                             placeholder="Enter reason for blocking..."
@@ -274,7 +279,11 @@ const CompanyJobsTable: React.FC<CompanyJobsTableProps> = ({
             {/* Edit Job Form */}
 
             {/* <CompanyEditForm Values={editingJob} /> */}
-            <CompanyEditForm Values={editingJob} onClose={closeModal} onSave={(values : any ) => handleSaveEdit(values)} />
+            <CompanyEditForm
+              Values={editingJob}
+              onClose={closeModal}
+              onSave={(values: any) => handleSaveEdit(values)}
+            />
 
             {/* Save and Cancel buttons */}
             <div className="mt-4">

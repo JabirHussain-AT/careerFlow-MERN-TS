@@ -26,6 +26,10 @@ import ViewProfile from "./pages/user/Profile/ViewProfile";
 import UserDashboard from "./pages/user/Profile/UserDashboard";
 import BrowseJob from "./pages/user/BrowseJob";
 import MyApplications from "./pages/user/Profile/MyApplications";
+import ViewJobApplicants from "./pages/company/Job/ViewJobApplicants";
+import ViewJobApplicantProfile from "./pages/company/Job/ViewJobApplicantProfile";
+import ApplicantDetialProfile from "./components/company/Jobs/ApplicantDetialProfile";
+
 
 interface ProtectedRouteProps {
   element: ReactNode;
@@ -77,9 +81,22 @@ function App() {
             
             <Route path= 'company' element={<>{companyProtectedRoute({element:< CompanySidebar />})}</>}>
               <Route path="dashboard" element={<>{companyProtectedRoute({element:< CompanyDashBoard />})}</>}/>
-              <Route path="jobs" element={<>{companyProtectedRoute({element:< CompanyJobs />})}</>}/>
-              <Route path="add-jobs" element={<>{companyProtectedRoute({element:< AddJobs />})}</>}/>
-              <Route path="edit-job/:jobId" element={<>{companyProtectedRoute({element:< EditJobs />})}</>}/>
+              <Route path="jobs" element={<>{companyProtectedRoute({element:< CompanyJobs />})}</>} />  
+                <Route path="add-jobs" element={<>{companyProtectedRoute({element:< AddJobs />})}</>}/>
+                <Route path="edit-job/:jobId" element={<>{companyProtectedRoute({element:< EditJobs />})}</>}/>
+                <Route path="job/viewApplicants/:jobId" element={<>{companyProtectedRoute({element: <ViewJobApplicants />})}</>} />
+                <Route path="jobApplicant/viewProfile/:jobId/:userId" element={<>{companyProtectedRoute({element: <ViewJobApplicantProfile  />})}</>} >
+                       <Route path='profile' element={< ApplicantDetialProfile />} />
+                       {/* <Route path='resume' element={<ApplicantResume />} />
+                       <Route path='hiring-stage' element={<ApplicantHiringStage/>} />
+                       <Route path='interview-schedule' element={<ApplicantInterviewSchedule />} /> */}
+                </Route>
+                {/* <Route path='applicants/:id/:userId' element={ />} >
+                <Route path='profile' element={<ApplicantPersonalInfo />} />
+                <Route path='resume' element={<ApplicantResume />} />
+                <Route path='hiring-stage' element={<ApplicantHiringStage/>} />
+                <Route path='interview-schedule' element={<ApplicantInterviewSchedule />} />
+              </Route> */}
             </Route>
             
             {/* User Routes */}
