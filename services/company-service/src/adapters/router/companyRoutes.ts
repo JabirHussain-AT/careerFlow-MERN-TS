@@ -20,7 +20,8 @@ export default (dependencies: any): any => {
     fetchCategoriesController ,
     findJobsController , 
     jobApplyController ,
-    getMyJobApplicationController
+    getMyJobApplicationController ,
+    changeJobApplicationStatusController
 
 
    } =
@@ -60,6 +61,7 @@ export default (dependencies: any): any => {
     router.get("/fetchCategories" , fetchCategoriesController)
     router.post("/approve-companyStatus" , updateCompanyApprovelController)
     router.post("/applyjob" , jobApplyController)
+    router.post("/change-status/job-application",changeJobApplicationStatusController)
 
   return router;
 };

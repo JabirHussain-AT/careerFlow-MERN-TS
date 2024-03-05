@@ -13,6 +13,7 @@ import fetchCategoriesController from './fetchCategories'
 import findJobsController from './findjobs'
 import jobApplyController from "./jobApply";
 import getMyJobApplicationController from "./getMyJobApplication"
+import changeJobApplicationStatusController from './changeJobApplicationStatus'
 
 export default (dependencies: any) => {
   return {
@@ -30,6 +31,7 @@ export default (dependencies: any) => {
     fetchCategoriesController : fetchCategoriesController(dependencies ) ,
     findJobsController : findJobsController(dependencies) ,
     jobApplyController : jobApplyController(dependencies) ,
-    getMyJobApplicationController : getMyJobApplicationController(dependencies)
+    getMyJobApplicationController : getMyJobApplicationController(dependencies) ,
+    changeJobApplicationStatusController : changeJobApplicationStatusController(dependencies)
   };
 };

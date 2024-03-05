@@ -3,7 +3,7 @@ import { companyCollection, otpCollection, jobCollection } from "../..";
 import companyDetialSend from "../../../messageBroker/kafka/producers/companyDetialSend";
 import updateStage from "../../../messageBroker/kafka/producers/updateStages";
 import updateStatus from "../../../messageBroker/kafka/producers/updateStatus";
-import { ICompanyData } from "../../schemas/companySchema";
+import Company, { ICompanyData } from "../../schemas/companySchema";
 import Jobs from "../../schemas/jobSchema";
 import Category from "../../schemas/categorySchema";
 import { IJobs } from "../../../../entities/jobEntity";
@@ -141,7 +141,7 @@ export const updateApprovel = async (companyId, status) => {
       .select("-password");
     let companyEmail = company?.email ?? false;
     let data = {
-      approved :  status ,
+      approved: status,
       status: value,
       email: companyEmail as string,
     };
@@ -258,8 +258,6 @@ export const fetchCategories = async () => {
   }
 };
 
-
-
 export const findJobs = async (data: {
   page?: number;
   categories?: string[];
@@ -286,10 +284,10 @@ export const findJobs = async (data: {
 
     // Setting salary range
     if (data && data.salary) {
-      if (data.salary === 'Below 3 LPA') {
+      if (data.salary === "Below 3 LPA") {
         fromSalary = 0;
         toSalary = 300000 / 12;
-      } else if (data.salary === '3-10 LPA') {
+      } else if (data.salary === "3-10 LPA") {
         fromSalary = 300000 / 12;
         toSalary = 1000000 / 12;
       } else {
@@ -303,8 +301,8 @@ export const findJobs = async (data: {
 
     if (category && category.length > 0) query.category = { $in: category };
     if (jobType && jobType.length > 0) query.jobType = { $in: jobType };
-    if (search !== '') {
-      query.jobTitle = { $regex: new RegExp(`.*${search}.*`, 'i') };
+    if (search !== "") {
+      query.jobTitle = { $regex: new RegExp(`.*${search}.*`, "i") };
     }
 
     // Using fromSalary and toSalary directly in the query
@@ -320,94 +318,110 @@ export const findJobs = async (data: {
     if (Object.keys(query).length > 0) {
       // Applying the query
       result = await Jobs.find(query)
-        .populate('companyId')
+        .populate("companyId")
         .skip(skip)
         .limit(10)
         .exec();
     } else {
       result = await Jobs.find({ status: true })
-        .populate('companyId')
+        .populate("companyId")
         .skip(skip)
         .limit(10)
         .exec();
     }
 
-
     //getting all the filter counts from the database
     const count = await Jobs.find({
       status: true,
       ...query,
-     }).countDocuments();
-   
+    }).countDocuments();
 
-     return [
-      result ,
-      count 
-
-     ] as any
+    return [result, count] as any;
   } catch (error) {
-    console.log(error, 'Error occurred in the findJobs function');
+    console.log(error, "Error occurred in the findJobs function");
     return false;
   }
 };
 
-
-
-export const jobApply = async (jobId: string, jobDocs: {
-  applicantId: ObjectId;
-  name: string;
-  email: string;
-  number: number;
-  resume: string;
-}) => {
+export const jobApply = async (
+  jobId: string,
+  jobDocs: {
+    applicantId: ObjectId;
+    name: string;
+    email: string;
+    number: number;
+    resume: string;
+  }
+) => {
   try {
     const data = await Jobs.findOneAndUpdate(
       { _id: jobId },
       {
         $push: {
-          applicants: { $each: [jobDocs], $position: 0 } // Push to the beginning of the array
-        }
+          applicants: { $each: [jobDocs], $position: 0 }, // Push to the beginning of the array
+        },
       },
       { new: true }
     );
 
     if (!data) {
-     return false
-    }else{
-      return data 
+      return false;
+    } else {
+      return data;
     }
   } catch (error) {
-    console.log(
-      error,
-      "error happened in the job apply company  repo"
-    );
+    console.log(error, "error happened in the job apply company  repo");
   }
 };
 
-
-export const getMyJobApplications = async ( userId : string ) => {
+export const getMyJobApplications = async (userId: string) => {
   try {
-   
     const data = await Jobs.find(
-      { 'applicants.applicantId': userId ,  status: true },
-      { 'applicants.$': 1, jobTitle: 1 }    
-    ).populate('companyId');
-    
+      { "applicants.applicantId": userId, status: true },
+      { "applicants.$": 1, jobTitle: 1 }
+    ).populate("companyId");
 
-    if(data){
-      return data
-    }else{
-      return false
+    if (data) {
+      return data;
+    } else {
+      return false;
     }
-
-
   } catch (error) {
-    console.log(
-      error,
-      "error happened in the job apply company  repo"
-    );
+    console.log(error, "error happened in the job apply company  repo");
   }
 };
 
+export const changeJobApplicationStatus = async (
+  applicantId: string,
+  jobId: string,
+  value: string
+) => {
+  try {
+    console.log("its in the change job application status repo ");
+    const data = await Jobs.findOneAndUpdate(
+      {
+        _id: jobId,
+        "applicants.applicantId": applicantId,
+      },
+      {
+        $set: {
+          "applicants.$.hiringStage": value,
+        },
+      },
+      { new: true }
+    );
 
+    if (data) {
+      return data;
+    } else {
+      return false;
+    }
 
+    
+  } catch (error) {
+    console.log(
+      error,
+      "error happened in the job application change status - company  repo"
+    );
+  }
+};
