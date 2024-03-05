@@ -59,6 +59,7 @@ const userSchema: Schema = new Schema(
     resume: { type: String },
     location: { type: String },
     position: { type: String },
+    preferredJobs: [{type:String}] ,
     profileVerification: { type: Boolean },
     savedJobs: [{ type: String }],
     basicInfoUpdated: { type: Boolean, default: false },
