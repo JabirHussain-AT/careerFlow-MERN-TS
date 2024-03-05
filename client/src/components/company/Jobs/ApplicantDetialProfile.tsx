@@ -21,10 +21,6 @@ const ApplicantDetialProfile = () => {
 
         if (foundJob) {
           const applicantDataFetch = await getUser(applicantId);
-          console.log(
-            "🚀 ~ fetchData ~ applicantDataFetch:",
-            applicantDataFetch
-          );
           setApplicantData(applicantDataFetch.data);
         }
       } catch (error) {

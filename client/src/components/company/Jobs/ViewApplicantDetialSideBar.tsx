@@ -31,7 +31,7 @@ const ViewApplicantDetialSideBar: React.FC = () => {
         setApplicantData(()=>{
             return jobData.data?.applicants?.find((application : any )=>{
                     const data =  application.applicantId === applicantId ? application : null
-                    console.log("🚀 ~ returnjobData.data?.applicants?.filter ~ data:", data)
+                    // console.log("🚀 ~ returnjobData.data?.applicants?.filter ~ data:", data)
                     return  data
             })
         })
@@ -97,12 +97,12 @@ const ViewApplicantDetialSideBar: React.FC = () => {
           <h1 className="text-sm text-blue-400 font-semibold py-2">{applicantData && applicantData?.hiringStage || 'stage'}</h1>
         </div>
         <div>
-          <div className="flex gap-x-1">
-            <div className={`${applicantData?.hiringStage === 'applyed' || 'inreview' || 'shortlist' || 'interview' || 'accepted' ? 'bg-blue-600' : 'bg-gray-400 '} w-14 h-2 mt-2 ms-3`}></div>
-            <div className={`${applicantData?.hiringStage === 'inreview' || 'shortlist' || 'interview' || 'accepted' ? 'bg-blue-600' : 'bg-gray-400 '} w-14 h-2 mt-2`}></div>
-            <div className={`${applicantData?.hiringStage === 'shortlist' || 'interview' || 'accepted' ? 'bg-blue-600' : 'bg-gray-400 '} w-14 h-2 mt-2`}></div>
-            <div className={`${applicantData?.hiringStage === ('interview') || ('accepted') ? 'bg-blue-600' : 'bg-gray-400 '}  w-14 h-2 mt-2`}></div>
-            <div className={`${applicantData?.hiringStage === 'accepted' ? 'bg-blue-600' : 'bg-gray-400 '} w-14 h-2 mt-2 mb-4 me-3`}></div>
+        <div className="flex gap-x-1">
+            <div className={`${['Applyed', 'inreview','shortlisted','interview','accepted'].includes(applicantData?.hiringStage) ? 'bg-blue-600' : 'bg-gray-400'} w-14 h-2 mt-2 ms-3`}></div>
+            <div className={`${['inreview','shortlisted','interview','accepted'].includes(applicantData?.hiringStage) ? 'bg-blue-600' : 'bg-gray-400'} w-14 h-2 mt-2`}></div>
+            <div className={`${['shortlisted', 'interview','accepted'].includes(applicantData?.hiringStage) ? 'bg-blue-600' : 'bg-gray-400'} w-14 h-2 mt-2`}></div>
+            <div className={`${['interview', 'accepted',].includes(applicantData?.hiringStage) ? 'bg-blue-600' : 'bg-gray-400'}  w-14 h-2 mt-2`}></div>
+            <div className={`${applicantData?.hiringStage === 'accepted' ? 'bg-blue-600' : 'bg-gray-400'} w-14 h-2 mt-2 mb-4 me-3`}></div>
           </div>
         </div>
       </div>
