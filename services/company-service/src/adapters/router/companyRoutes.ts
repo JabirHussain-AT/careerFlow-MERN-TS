@@ -1,67 +1,56 @@
 import express, { Request, Response } from "express";
 import { companyController } from "../../handlers/controllers";
-import verifyToken from "../../util/middlewares/authChecker";
+import verifyUserAuth from "../../util/middlewares/authChecker";
+import verifyuserAuth from "../../util/middlewares/authCheck";
 
 export default (dependencies: any): any => {
   const router = express.Router();
 
-  const { 
-    companySignupController, 
-    formUpdateController  ,
-    fetchCompaniesController ,
-    updateCompanyApprovelController ,
-    addJobController ,
-    editJobController , 
-    fetchComJobController ,
-    changeStatusController ,
-    fetchJobsController ,
-    fetchJobController , 
-    addCategoryController ,
-    fetchCategoriesController ,
-    findJobsController , 
-    jobApplyController ,
-    getMyJobApplicationController ,
+  const {
+    companySignupController,
+    formUpdateController,
+    fetchCompaniesController,
+    updateCompanyApprovelController,
+    addJobController,
+    editJobController,
+    fetchComJobController,
+    changeStatusController,
+    fetchJobsController,
+    fetchJobController,
+    addCategoryController,
+    fetchCategoriesController,
+    findJobsController,
+    jobApplyController,
+    getMyJobApplicationController,
     changeJobApplicationStatusController
+  } = companyController(dependencies);
+
+  // company-signup
+  router.post("/sign-up", companySignupController);
+
+  // company updating-form data
+  router.post("/updateForm", formUpdateController);
+
+  router.post('/add-job', verifyUserAuth, addJobController);
+
+  router.post('/updating-job', verifyUserAuth, editJobController);
+
+  router.get('/fetch-ComJobs/:id', verifyUserAuth, fetchComJobController);
+
+  router.get('/changestatus/job/:id/:value', verifyUserAuth, changeStatusController);
+
+  router.get('/fetchJobs', verifyuserAuth,fetchJobsController);
+  router.post('/add-Category',verifyuserAuth, addCategoryController);
+  router.get('/fetchJob/:jobId',verifyuserAuth, fetchJobController);
 
 
-   } =
-    companyController(dependencies);
-
-    //company-signup
-    router.post("/sign-up", companySignupController);
-
-
-    
-    // company updating-form data
-    router.post("/updateForm", formUpdateController);
-
-
-
-    router.post('/add-job' , addJobController )
-
-    router.post('/updating-job',editJobController)
-
-    router.get('/fetch-ComJobs/:id',fetchComJobController)
-
-    router.get('/changestatus/job/:id/:value',changeStatusController)
-
-    router.get('/fetchJobs',fetchJobsController)
-
-    router.get('/fetchJob/:jobId',fetchJobController)
-
-    router.post('/add-Category',addCategoryController)
-
-    router.post('/find-jobs-data' , findJobsController)
-
-    
-    // middleware 
-    // router.use(verifyToken);
-    router.get('/getUserApplications/:userId' , getMyJobApplicationController)
-    router.get("/fetch-companies" , fetchCompaniesController)
-    router.get("/fetchCategories" , fetchCategoriesController)
-    router.post("/approve-companyStatus" , updateCompanyApprovelController)
-    router.post("/applyjob" , jobApplyController)
-    router.post("/change-status/job-application",changeJobApplicationStatusController)
+  router.post('/find-jobs-data', verifyuserAuth,findJobsController);
+  router.get('/getUserApplications/:userId',verifyuserAuth, getMyJobApplicationController);
+  router.get("/fetch-companies", verifyuserAuth, fetchCompaniesController);
+  router.get("/fetchCategories",verifyuserAuth, fetchCategoriesController);
+  router.post("/approve-companyStatus",verifyuserAuth, updateCompanyApprovelController);
+  router.post("/applyjob",verifyuserAuth, jobApplyController);
+  router.post("/change-status/job-application", verifyUserAuth, changeJobApplicationStatusController);
 
   return router;
 };

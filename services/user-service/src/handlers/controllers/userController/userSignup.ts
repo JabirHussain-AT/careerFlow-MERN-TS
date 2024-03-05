@@ -114,14 +114,29 @@ export = (dependencies: any): any => {
               return next(ErrorResponse.forbidden('User Already Exists ! try another one'))
             } else {
               // creating jwt token for furthor authentication
-              const token = generateToken(user?.id);
+          
+
+              
+
+              let payload = {
+                _id: String(user?.id),
+                email:user?.email!,
+                role: user?.role!,
+              };
+      
+              const token = generateToken(payload);
+      
+      
               res.cookie("user_jwt", token, {
                 httpOnly: true,
                 maxAge: 7 * 24 * 60 * 60 * 1000,
-                sameSite: false,
-              });
+              });  
+              
+      
+
               user.token = token;
               res.status(201).json(user);
+              
             }
           } catch (err: any) {
             console.log(err, "err occured while creating user ");

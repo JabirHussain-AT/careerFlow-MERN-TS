@@ -16,8 +16,6 @@ const PORT : number = Number(process.env.PORT) || 3003
 app.use(express.json())
 app.use(cookieParser())
 
-console.log(process.env.FRONT_END_URL)
-
 app.use(cors({
   origin: process.env.FRONT_END_URL,
   methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],

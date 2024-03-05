@@ -3,6 +3,6 @@ import { ObjectId } from 'mongoose'
 import {JWt_SECRET} from '../../../config/envConfig/config'
 
 
-export const generateToken = (id: ObjectId): any => {
-    return jwt.sign({ id },JWt_SECRET, { expiresIn: '20d' });
+export const generateToken = (payload): any => {
+    return jwt.sign(payload,JWt_SECRET, { expiresIn: '20d' });
 };

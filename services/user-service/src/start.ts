@@ -16,13 +16,14 @@ const PORT : number = Number(process.env.PORT) || 3002
 app.use(express.json())
 app.use(cookieParser())
 
-console.log(process.env.FRONT_END_URL)
+
 
 app.use(cors({
-  origin: process.env.FRONT_END_URL,
+  origin: process.env.FRONT_END_URL, // Replace with the actual origin of your frontend
   methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
-  credentials: 'true'
+  credentials: true,
 }));
+
 
 
 app.use(session({

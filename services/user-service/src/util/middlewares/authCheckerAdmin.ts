@@ -15,7 +15,7 @@ const verifyUserAuth = (req: Request, res: Response, next: NextFunction) => {
     } else {
       (req as any).decodedUser = decodedUser;
 
-      if (decodedUser.role !== 'user') {
+      if (decodedUser.role !== 'admin') {
         return res.status(403).json({ success: false, message: 'Insufficient privileges!' });
       }
       next();

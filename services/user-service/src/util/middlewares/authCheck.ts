@@ -2,8 +2,8 @@ import express, { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
 
 const verifyUserAuth = (req: Request, res: Response, next: NextFunction) => {
-  const token: string = req.cookies.user_jwt;
-  const secret: string = process.env.JWt_SECRET;
+  const token: string | undefined = req.cookies.user_jwt;
+  const secret: string = process.env.JWT_SECRET;
 
   if (!token) {
     return res.status(401).json({ success: false, message: 'Current user is not authenticated!' });
@@ -14,10 +14,6 @@ const verifyUserAuth = (req: Request, res: Response, next: NextFunction) => {
       return res.status(401).json({ success: false, message: 'Invalid token!' });
     } else {
       (req as any).decodedUser = decodedUser;
-
-      if (decodedUser.role !== 'user') {
-        return res.status(403).json({ success: false, message: 'Insufficient privileges!' });
-      }
       next();
     }
   });

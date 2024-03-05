@@ -31,12 +31,24 @@ export = (dependencies: any): any => {
         isUserExist.password
       );
       if (userVerify || userCredentials?.googleAuth) {
-        const token = generateToken(isUserExist?.id);
+
+        let payload = {
+          _id: String(isUserExist?.id),
+          email:isUserExist?.email!,
+          role: isUserExist?.role!,
+        };
+
+        const token = generateToken(payload);
+
+
         res.cookie("user_jwt", token, {
           httpOnly: true,
           maxAge: 7 * 24 * 60 * 60 * 1000,
-          sameSite: false,
-        });
+        });  
+        
+        
+       
+        isUserExist.token = token;
         res.status(201).json(isUserExist);
       } else {
         return next(ErrorResponse.forbidden("invalid credentials !"));

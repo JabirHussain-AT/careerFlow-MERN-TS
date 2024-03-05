@@ -1,33 +1,29 @@
-import express,{Request , Response} from 'express'
-import { userController } from '../../handlers/controllers'
-import verifyToken from '../../util/middlewares/authChecker'
+import express, { Request, Response } from 'express';
+import { userController } from '../../handlers/controllers';
+import verifyUserAuth from '../../util/middlewares/authChecker';
+import verifyuserAuth from '../../util/middlewares/authCheck';
 
+export = (dependencies: any): any => {
+  const router = express.Router();
 
-export = (dependencies : any) : any =>{
-    const router = express.Router()
-
-    const {
+  const {
     userSignupController,
     userLoginController,
-    userExistCheckController ,
-    userProfileUpdateController ,
-    updateBasicDetialsController ,
+    userExistCheckController,
+    userProfileUpdateController,
+    updateBasicDetialsController,
     fetchUserDataController
-    } = userController(dependencies)
+  } = userController(dependencies);
+
+  // user-signup
+  router.post('/sign-up', userSignupController);
+  router.post('/logIn', userLoginController);
+  router.post('/exists', userExistCheckController);
+  router.get('/fetchUser/:id',verifyuserAuth, fetchUserDataController);
+
+  router.post('/update-profile', verifyUserAuth, userProfileUpdateController);
+  router.post('/updateBasicDetials', verifyUserAuth, updateBasicDetialsController);
 
 
-    
-//user-signup
-    router.post('/sign-up',userSignupController)
-    router.post('/logIn',userLoginController)
-    router.post('/exists',userExistCheckController)
-    router.get('/fetchUser/:id',fetchUserDataController)
-
-    router.post('/update-profile',userProfileUpdateController)
-    router.post('/updateBasicDetials',updateBasicDetialsController)
-    
-// middleware passing
-//    router.use(verifyToken)
-
-    return router
-}
+  return router;
+};
