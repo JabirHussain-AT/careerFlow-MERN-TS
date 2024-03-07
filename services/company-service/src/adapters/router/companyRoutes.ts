@@ -55,7 +55,7 @@ export default (dependencies: any): any => {
   router.post("/applyjob",verifyuserAuth, jobApplyController);
   router.post("/change-status/job-application", verifyUserAuth, changeJobApplicationStatusController);
   router.get("/dashboard/get-jobs-applicants/:companyId",verifyUserAuth, getJobsAndApplicantsCount);
-  router.get("/dashboard/get-jobs-applicants/:filter/:companyId", getChartDataController);
+  router.get("/dashboard/get-jobs-applicants/:filter/:companyId",verifyUserAuth, getChartDataController);
 
   return router;
 };

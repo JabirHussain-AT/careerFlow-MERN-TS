@@ -10,31 +10,41 @@ import { IUserSelector } from "@/interface/IUserSlice";
 import {
   getTotalJobsAndApplicants,
   getChartData,
+  fetchComJobs
 } from "@/redux/actions/companyActions";
+import { IJob } from "@/interface/IJob";
 
 const CompanyDash: React.FC = () => {
   const { user } = useSelector((state: IUserSelector) => state.user);
   const [countData, setCountData] = useState<any>({});
+  const [chartData , setChartData ] = useState<any>([])
+  const [ companyJobs , setCompanyJobs ] = useState<IJob[]>([])
   const [filterType, setFilterType] = useState<string>("weekly");
+
+
+  const handleFilterChange =async (newFilterType: string) => {
+    setFilterType(newFilterType);
+     const data = await getChartData(user?._id , newFilterType)
+     setChartData(data.data)
+  };
+
 
   useEffect(() => {
     fetchData();
+    handleFilterChange(filterType)
   }, [user?._id, filterType]);
-
+  
   const fetchData = async () => {
     try {
       const data = await getTotalJobsAndApplicants(user?._id);
       setCountData(data.data[0]);
+      const jobsData = await fetchComJobs(user?._id)
+      setCompanyJobs(jobsData.data)
     } catch (error) {
       console.error("Error fetching data:", error);
     }
   };
 
-  const handleFilterChange =async (newFilterType: string) => {
-    setFilterType(newFilterType);
-     const data = await getChartData(user?._id , newFilterType)
-     console.log(data, ' data for the chart ')
-  };
 
   return (
     <div className="min-h-screen bg-gray-50 flex">
@@ -80,10 +90,10 @@ const CompanyDash: React.FC = () => {
         {/* LineChart */}
         <div className="flex mt-5 w-full">
           {/* <Charts filterType={filterType} fetchData={getChartData} /> */}
-          <Charts/>
+          <Charts chartData={chartData} filterType={filterType} />
         </div>
         <div>
-          <RecentJobs />
+          <RecentJobs jobsData={companyJobs} />
         </div>
       </div>
     </div>

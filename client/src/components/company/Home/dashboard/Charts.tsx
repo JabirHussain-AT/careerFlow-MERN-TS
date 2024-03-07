@@ -12,29 +12,43 @@ import {
   Area,
 } from "recharts";
 
-const Charts: React.FC = () => {
-  const lineChartData = [
-    { name: "Jan", uv: 400, pv: 2400 },
-    { name: "Feb", uv: 300, pv: 1398 },
-    { name: "Mar", uv: 200, pv: 9800 },
-    { name: "Feb", uv: 300, pv: 1398 },
-    { name: "Mar", uv: 200, pv: 9800 },
-    // Add more data points as needed
-  ];
+interface ChartDataItem {
+  _id: string;
+  jobsPosted: number;
+  applicationsDone: number;
+  // Add other properties as needed
+}
 
-  const barChartData = [
-    { name: "Category 1", value: 20 },
-    { name: "Category 2", value: 45 },
-    { name: "Category 3", value: 70 },
-    // Add more data points as needed
-  ];
+const Charts: React.FC<{ chartData: ChartDataItem[]; filterType: string }> = ({
+  chartData,
+  filterType,
+}) => {
+  let filter = "year";
+  if (filterType === "monthly") filter = "month";
+  else if (filterType === "weekly") filter = "week";
 
-  const areaChartData = [
-    { name: "Jan", uv: 300, pv: 800 },
-    { name: "Feb", uv: 200, pv: 1200 },
-    { name: "Mar", uv: 400, pv: 1800 },
-    // Add more data points as needed
-  ];
+  // Transform chartData for LineChart
+  const lineChartData = chartData?.map((dataItem) => ({
+    name: filterType === "monthly" ?  filter +'  '+dataItem._id : filter +' - '+ dataItem._id.toString(),
+    TotalJobs: dataItem.jobsPosted,
+    TotalApplications: dataItem.applicationsDone,
+    // Add other properties as needed
+  }));
+
+  // Transform chartData for BarChart
+  const barChartData = chartData?.map((dataItem) => ({
+    name: filterType === "monthly" ? filter +'  '+ dataItem._id :  filter +' -  '+dataItem._id.toString(),
+    NumberOfApplicants: dataItem.applicationsDone,
+    // Add other properties as needed
+  }));
+
+  // Assuming your data for the monthly area chart is available in your chartData array
+  const areaChartData = chartData?.map((dataItem) => ({
+    name: filterType === "monthly" ? filter +'  '+ dataItem._id : filter +'  '+ dataItem._id.toString(),
+    uv: dataItem.jobsPosted, // Change this property based on your actual data
+    pv: dataItem.applicationsDone, // Change this property based on your actual data
+    // Add other properties as needed
+  }));
 
   return (
     <div className="flex m-3 gap-3 w-full">
@@ -51,8 +65,8 @@ const Charts: React.FC = () => {
             <YAxis />
             <Tooltip />
             <CartesianGrid stroke="#f5f5f5" />
-            <Line type="monotone" dataKey="uv" stroke="#ff7300" />
-            <Line type="monotone" dataKey="pv" stroke="#387908" />
+            <Line type="monotone" dataKey="TotalJobs" stroke="#ff7300" />
+            <Line type="monotone" dataKey="TotalApplications" stroke="#387908" />
           </LineChart>
           <div className="w-full text-center p-3">
             <h1 className="font-bold text-lg">Jobs</h1>
@@ -65,8 +79,8 @@ const Charts: React.FC = () => {
       <div className="w-full sm:w-full md:w-1/3 lg:w-1/3 xl:w-1/3 mb-4">
         <div className="border rounded shadow-md w-full p-3 h-auto">
           <BarChart
-           width={260}
-           height={130}
+            width={260}
+            height={130}
             data={barChartData}
             margin={{ top: 5, right: 20, left: 10, bottom: 5 }}
           >
@@ -74,7 +88,7 @@ const Charts: React.FC = () => {
             <YAxis />
             <Tooltip />
             <CartesianGrid stroke="#f5f5f5" />
-            <Bar dataKey="value" fill="#8884d8" />
+            <Bar dataKey="NumberOfApplicants" fill="#8884d8" />
           </BarChart>
           <div className="w-full text-center p-3">
             <h1 className="font-bold text-lg">No. Of Applicants</h1>
@@ -87,8 +101,8 @@ const Charts: React.FC = () => {
       <div className="w-full sm:w-full md:w-1/3 lg:w-1/3 xl:w-1/3 mb-4">
         <div className="border rounded shadow-xl w-full p-3 h-auto">
           <AreaChart
-             width={260}
-             height={130}
+            width={260}
+            height={130}
             data={areaChartData}
             margin={{ top: 5, right: 20, left: 10, bottom: 5 }}
           >
