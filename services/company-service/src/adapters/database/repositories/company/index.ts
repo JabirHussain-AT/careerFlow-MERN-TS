@@ -12,6 +12,7 @@ import {
     fetchJobs ,
     fetchJob ,
     addCategory ,
+    getPreferedJobs ,
     fetchCategories ,
     findJobs,
     jobApply ,
@@ -36,6 +37,7 @@ export default {
     fetchCategories ,
     findJobs ,
     jobApply ,
+    getPreferedJobs ,
     getMyJobApplications ,
     changeJobApplicationStatus
 

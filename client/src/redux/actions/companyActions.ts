@@ -157,3 +157,12 @@ export const fetchJobs = async () => {
     return data;
   } catch (err: any) {}
 };
+
+export const getTotalJobsAndApplicants = async (Id : string)=>{
+  try {
+    const { data } = await axios.get(`${AuthCompanyBaseUrl}/dashboard/get-jobs-applicants/${Id}`, config);
+    return data;
+  } catch (err: any) {
+    console.log(err,'==> error happened in the get total jobs nad applicants ')
+  }
+}

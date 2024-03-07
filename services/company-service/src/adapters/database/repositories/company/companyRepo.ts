@@ -425,3 +425,32 @@ export const changeJobApplicationStatus = async (
     );
   }
 };
+
+
+
+export const getPreferedJobs = async (
+  preferedJobs: string,
+  page:   number 
+) => {
+  try {
+    
+    const data = await Jobs.find({
+      jobTitle : { $in:preferedJobs} 
+    }).limit( page * 10).populate("companyId")
+
+
+    if (data) {
+      return data;
+    } else {
+      return false;
+    }
+    
+  } catch (error) {
+    console.log(
+      error,
+      "error happened in the fetching prefered jobs - company  repo"
+    );
+  }
+};
+
+

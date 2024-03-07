@@ -6,6 +6,7 @@ import { logout } from "@/redux/reducers/user/userSlice";
 import { IUserSelector } from "@/interface/IUserSlice";
 import CompanyModal from "@/components/company/Home/CompanyModal";
 import CompanySidebar from "@/components/company/Sidebar/CompanySidebar";
+import CompanyDash from "@/components/company/Home/dashboard/CompanyDash";
 
 const Dashboard: React.FC = () => {
   const { user } = useSelector((state: IUserSelector) => state.user);
@@ -84,7 +85,7 @@ const Dashboard: React.FC = () => {
         </div>
       ) : (
         <div>
-         
+         <CompanyDash />
         </div>
       )}
     </>

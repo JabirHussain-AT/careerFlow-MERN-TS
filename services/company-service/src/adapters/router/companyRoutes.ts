@@ -22,6 +22,7 @@ export default (dependencies: any): any => {
     findJobsController,
     jobApplyController,
     getMyJobApplicationController,
+    preferedJobsController ,
     changeJobApplicationStatusController
   } = companyController(dependencies);
 
@@ -43,7 +44,7 @@ export default (dependencies: any): any => {
   router.post('/add-Category',verifyuserAuth, addCategoryController);
   router.get('/fetchJob/:jobId',verifyuserAuth, fetchJobController);
 
-
+  router.get('/getPrefferedJobs/:preferedJobs/:page',verifyuserAuth,preferedJobsController)
   router.post('/find-jobs-data', verifyuserAuth,findJobsController);
   router.get('/getUserApplications/:userId',verifyuserAuth, getMyJobApplicationController);
   router.get("/fetch-companies", verifyuserAuth, fetchCompaniesController);

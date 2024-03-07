@@ -125,7 +125,7 @@ const JobDetailPageCom: React.FC<JobDetailPageProps> = ({ job }) => {
                 <h2 className="font-semibold font-sans text-sm md:text-center">
                   Salary : 
                 </h2>
-                <p className="text-green-600 font-sans text-sm md:text-center">
+                <p className="text-green-600 font-sanots text-sm md:text-center">
                   {job.fromSalary} - {job.toSalary}
                 </p>
               </div>

@@ -140,6 +140,9 @@ export const submitViewProfileUpdations = createAsyncThunk(
   }
 );
 
+
+
+
 export const fetchJobsMain = createAsyncThunk(
   "user/fetchJobsMain ",
   async (jobDocs: any, { rejectWithValue }) => {
@@ -204,6 +207,24 @@ export const getUserApplications = createAsyncThunk(
       console.log("It reached here ");
       const { data } = await axios.get(
         `${AuthCompanyBaseUrl}/getUserApplications/${userId}`,
+        config
+      );
+      return data;
+    } catch (err: any) {
+      const axiosError = err as AxiosError<ApiError>;
+      return handleError(axiosError, rejectWithValue);
+    }
+  }
+);
+
+
+
+export const getPrefferedJobs = createAsyncThunk(
+  "user/getPrefferedJobs",
+  async ({ prefferedJobs, currentPage }: { prefferedJobs: any, currentPage: number }, { rejectWithValue }) => {
+    try {
+      const { data } = await axios.get(
+        `${AuthCompanyBaseUrl}/getPrefferedJobs/${prefferedJobs}/${currentPage}`,
         config
       );
       return data;

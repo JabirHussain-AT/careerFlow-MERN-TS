@@ -34,8 +34,8 @@ const CompanySidebar: React.FC = () => {
       <div className="flex  overflow-y-auto  ">
         <div
           className={`${
-            open ? "lg:w-64  " : "lg:w-20 max-w-20 fixed "
-          } h-screen bg-sky-950 rounded text-black   duration-300 lg:flex-shrink-0`}
+            open ? "lg:w-64  " : "lg:w-20 max-w-20 h-auto sticky "
+          } h-auto bg-sky-950 rounded text-black   duration-300 lg:flex-shrink-0`}
         >
           <div className={`${ open ? "w-full bg-white" : ""} duration-300 flex justify-start items-center`}>
             <img className={`${ open ? "w-28 mx-auto" : "w-28" } bg-white rounded-md p-2`} src={Logo} alt="Logo" />
