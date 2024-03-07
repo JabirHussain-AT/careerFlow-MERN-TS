@@ -20,6 +20,7 @@ import { jobApply_useCase } from './jobApply'
 import { getMyJobApplications_useCase } from './getMyJobApplications'
 import { changeJobApplicationStatus_useCase } from "./changeStatusJobApplicant";
 import { getJobAndApplicantsCount_useCase } from "./getJobsAndApplicants";
+import  { getChartData_useCase } from './getChartData'
 
 export default  {
   signUp_useCase,
@@ -41,6 +42,7 @@ export default  {
   fetchCategories_useCase ,
   findJobs_useCase ,
   jobApply_useCase ,
+  getChartData_useCase ,
   getMyJobApplications_useCase ,
   getJobAndApplicantsCount_useCase ,
   changeJobApplicationStatus_useCase

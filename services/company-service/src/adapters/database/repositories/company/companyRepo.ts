@@ -416,8 +416,6 @@ export const changeJobApplicationStatus = async (
     } else {
       return false;
     }
-
-    
   } catch (error) {
     console.log(
       error,
@@ -426,25 +424,19 @@ export const changeJobApplicationStatus = async (
   }
 };
 
-
-
-export const getPreferedJobs = async (
-  preferedJobs: string,
-  page:   number 
-) => {
+export const getPreferedJobs = async (preferedJobs: string, page: number) => {
   try {
-    
     const data = await Jobs.find({
-      jobTitle : { $in:preferedJobs} 
-    }).limit( page * 10).populate("companyId")
-
+      jobTitle: { $in: preferedJobs },
+    })
+      .limit(page * 10)
+      .populate("companyId");
 
     if (data) {
       return data;
     } else {
       return false;
     }
-    
   } catch (error) {
     console.log(
       error,
@@ -453,10 +445,57 @@ export const getPreferedJobs = async (
   }
 };
 
+export const getJobsAndApplicantsCount = async (companyId: string) => {
+  try {
+    const data = await Jobs.aggregate([
+      {
+        $match: {
+          companyId: new mongoose.Types.ObjectId(companyId),
+        },
+      },
+      {
+        $group: {
+          _id: null,
+          jobCount: { $sum: 1 },
+          totalApplicants: { $sum: { $size: "$applicants" } },
+          totalApplicantsInApplyedStage: {
+            $sum: {
+              $size: {
+                $filter: {
+                  input: "$applicants",
+                  as: "applicant",
+                  cond: { $eq: ["$$applicant.hiringStage", "Applyed"] },
+                },
+              },
+            },
+          },
+        },
+      },
+      {
+        $project: {
+          jobCount: 1,
+          totalApplicants: 1,
+          totalApplicantsInApplyedStage: 1,
+          _id: 0,
+        },
+      },
+    ]);
 
+    if (data) {
+      return data;
+    } else {
+      return false;
+    }
+  } catch (error) {
+    console.log(
+      error,
+      "error happened in the fetching preferred jobs - company repo"
+    );
+  }
+};
 
-  export const getJobsAndApplicantsCount = async (companyId: string) => {
-    try {
+export const getChartData = async (companyId: string, filter: string) => {
+  try {
 
       const data = await Jobs.aggregate([
         {
@@ -466,38 +505,23 @@ export const getPreferedJobs = async (
         },
         {
           $group: {
-            _id: null,
-            jobCount: { $sum: 1 },
-            totalApplicants: { $sum: { $size: '$applicants' } },
-            totalApplicantsInApplyedStage: {
-              $sum: {
-                $size: {
-                  $filter: {
-                    input: '$applicants',
-                    as: 'applicant',
-                    cond: { $eq: ['$$applicant.hiringStage', 'Applyed'] },
-                  },
-                },
-              },
-            },
-          },
-        },
-        {
-          $project: {
-            jobCount: 1,
-            totalApplicants: 1,
-            totalApplicantsInApplyedStage: 1,
-            _id: 0,
+            _id:filter,
+            jobsPosted: { $sum: 1 },
+            applicationsDone: { $sum:  { $size: "$applicants" }}, 
+  
           },
         },
       ]);
-      
-    if (data) {
-      return data;
-    } else {
-      return false;
-    }
+      if (data) {
+        return data;
+      } else {
+        return false;
+      }
+    
   } catch (error) {
-    console.log(error, 'error happened in the fetching preferred jobs - company repo');
+    console.log(
+      error,
+      "error happened in the fetching preferred jobs - company repo"
+    );
   }
 };

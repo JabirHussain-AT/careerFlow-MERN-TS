@@ -15,6 +15,7 @@ import jobApplyController from "./jobApply";
 import getMyJobApplicationController from "./getMyJobApplication"
 import preferedJobsController from './preferedJobs'
 import getJobsAndApplicantsCount from './getJobsAndApplicants'
+import getChartDataController from './getChartData'
 import changeJobApplicationStatusController from './changeJobApplicationStatus'
 
 export default (dependencies: any) => {
@@ -36,6 +37,7 @@ export default (dependencies: any) => {
     jobApplyController : jobApplyController(dependencies) ,
     getMyJobApplicationController : getMyJobApplicationController(dependencies) ,
     getJobsAndApplicantsCount : getJobsAndApplicantsCount(dependencies) , 
-    changeJobApplicationStatusController : changeJobApplicationStatusController(dependencies)
+    changeJobApplicationStatusController : changeJobApplicationStatusController(dependencies) ,
+    getChartDataController : getChartDataController(dependencies)
   };
 };
