@@ -166,3 +166,13 @@ export const getTotalJobsAndApplicants = async (Id : string)=>{
     console.log(err,'==> error happened in the get total jobs nad applicants ')
   }
 }
+
+
+export const getChartData = async (Id : string , filter : string)=>{
+  try {
+    const { data } = await axios.get(`${AuthCompanyBaseUrl}/dashboard/get-jobs-applicants/${filter}/${Id}`, config);
+    return data;
+  } catch (err: any) {
+    console.log(err,'==> error happened in the get total jobs nad applicants ')
+  }
+}
