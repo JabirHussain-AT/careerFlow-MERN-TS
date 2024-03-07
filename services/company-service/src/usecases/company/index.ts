@@ -19,6 +19,7 @@ import {  findJobs_useCase } from './findJobs'
 import { jobApply_useCase } from './jobApply' 
 import { getMyJobApplications_useCase } from './getMyJobApplications'
 import { changeJobApplicationStatus_useCase } from "./changeStatusJobApplicant";
+import { getJobAndApplicantsCount_useCase } from "./getJobsAndApplicants";
 
 export default  {
   signUp_useCase,
@@ -41,5 +42,6 @@ export default  {
   findJobs_useCase ,
   jobApply_useCase ,
   getMyJobApplications_useCase ,
+  getJobAndApplicantsCount_useCase ,
   changeJobApplicationStatus_useCase
 }

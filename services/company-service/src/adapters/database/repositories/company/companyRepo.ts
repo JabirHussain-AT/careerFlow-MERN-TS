@@ -7,7 +7,7 @@ import Company, { ICompanyData } from "../../schemas/companySchema";
 import Jobs from "../../schemas/jobSchema";
 import Category from "../../schemas/categorySchema";
 import { IJobs } from "../../../../entities/jobEntity";
-import { ObjectId } from "mongoose";
+import mongoose, { ObjectId } from "mongoose";
 
 export const createNewUser = async (
   userCredentials: ICompanyData
@@ -454,3 +454,50 @@ export const getPreferedJobs = async (
 };
 
 
+
+  export const getJobsAndApplicantsCount = async (companyId: string) => {
+    try {
+
+      const data = await Jobs.aggregate([
+        {
+          $match: {
+            companyId: new mongoose.Types.ObjectId(companyId),
+          },
+        },
+        {
+          $group: {
+            _id: null,
+            jobCount: { $sum: 1 },
+            totalApplicants: { $sum: { $size: '$applicants' } },
+            totalApplicantsInApplyedStage: {
+              $sum: {
+                $size: {
+                  $filter: {
+                    input: '$applicants',
+                    as: 'applicant',
+                    cond: { $eq: ['$$applicant.hiringStage', 'Applyed'] },
+                  },
+                },
+              },
+            },
+          },
+        },
+        {
+          $project: {
+            jobCount: 1,
+            totalApplicants: 1,
+            totalApplicantsInApplyedStage: 1,
+            _id: 0,
+          },
+        },
+      ]);
+      
+    if (data) {
+      return data;
+    } else {
+      return false;
+    }
+  } catch (error) {
+    console.log(error, 'error happened in the fetching preferred jobs - company repo');
+  }
+};

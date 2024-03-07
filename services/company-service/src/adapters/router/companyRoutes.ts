@@ -19,7 +19,8 @@ export default (dependencies: any): any => {
     fetchJobController,
     addCategoryController,
     fetchCategoriesController,
-    findJobsController,
+    findJobsController, 
+    getJobsAndApplicantsCount ,
     jobApplyController,
     getMyJobApplicationController,
     preferedJobsController ,
@@ -52,6 +53,7 @@ export default (dependencies: any): any => {
   router.post("/approve-companyStatus",verifyuserAuth, updateCompanyApprovelController);
   router.post("/applyjob",verifyuserAuth, jobApplyController);
   router.post("/change-status/job-application", verifyUserAuth, changeJobApplicationStatusController);
+  router.get("/dashboard/get-jobs-applicants/:companyId",verifyUserAuth, getJobsAndApplicantsCount);
 
   return router;
 };
