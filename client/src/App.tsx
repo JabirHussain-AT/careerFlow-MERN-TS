@@ -32,6 +32,8 @@ import ApplicantDetialProfile from "./components/company/Jobs/ApplicantDetialPro
 import ApplicantDetialsResume from "./components/company/Jobs/ApplicantDetialsResume";
 import ApplicantDetialsHiring from "./components/company/Jobs/ApplicantDetialsHiring";
 import ApplicantDetialsInteriewSchedule from "./components/company/Jobs/ApplicantDetialsInteriewSchedule";
+import MessageHome from "./pages/company/Messages/MessageHome";
+import Messages from "./pages/user/Messages";
 
 
 interface ProtectedRouteProps {
@@ -84,8 +86,9 @@ function App() {
             
             <Route path= 'company' element={<>{companyProtectedRoute({element:< CompanySidebar />})}</>}>
               <Route path="dashboard" element={<>{companyProtectedRoute({element:< CompanyDashBoard />})}</>}/>
-              <Route path="jobs" element={<>{companyProtectedRoute({element:< CompanyJobs />})}</>} />  
                 <Route path="add-jobs" element={<>{companyProtectedRoute({element:< AddJobs />})}</>}/>
+                <Route path="messages" element={<>{companyProtectedRoute({element:< MessageHome />})}</>} />  
+                <Route path="jobs" element={<>{companyProtectedRoute({element:< CompanyJobs />})}</>} />  
                 <Route path="edit-job/:jobId" element={<>{companyProtectedRoute({element:< EditJobs />})}</>}/>
                 <Route path="job/viewApplicants/:jobId" element={<>{companyProtectedRoute({element: <ViewJobApplicants />})}</>} />
                 <Route path="jobApplicant/viewProfile/:jobId/:applicantId" element={<>{companyProtectedRoute({element: <ViewJobApplicantProfile  />})}</>} >
@@ -99,6 +102,7 @@ function App() {
             {/* User Routes */}
             <Route path='/' element={<>{userProtectedRoute({ element: <Home /> })}</>} />
             <Route path='/showJobs' element={<>{userProtectedRoute({ element: < BrowseJob /> })}</>} />
+            <Route path='/messages' element={<>{userProtectedRoute({ element: < Messages /> })}</>} />
             {/* <Route path='/showJobs' element={<>{userProtectedRoute({ element: < ShowJobs /> })}</>} /> */}
             <Route path='/job/:id' element={<>{userProtectedRoute({ element: < JobDetialPage /> })}</>} />
             <Route path='profile' element={<>{userProtectedRoute({ element: < Profile /> })}</>}>

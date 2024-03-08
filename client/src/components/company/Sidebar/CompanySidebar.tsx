@@ -20,7 +20,6 @@ const CompanySidebar: React.FC = () => {
   const dispatch = useDispatch();
 
   const handleLogout = () => {
-    console.log("its here in logout");
     dispatch(logout());
   };
 
@@ -35,7 +34,7 @@ const CompanySidebar: React.FC = () => {
         <div
           className={`${
             open ? "lg:w-64  " : "lg:w-20 max-w-20 h-auto sticky "
-          } h-auto bg-sky-950 rounded text-black   duration-300 lg:flex-shrink-0`}
+          } min-h-screen max-h-max bg-sky-950 rounded text-black   duration-300 lg:flex-shrink-0`}
         >
           <div className={`${ open ? "w-full bg-white" : ""} duration-300 flex justify-start items-center`}>
             <img className={`${ open ? "w-28 mx-auto" : "w-28" } bg-white rounded-md p-2`} src={Logo} alt="Logo" />
@@ -112,15 +111,15 @@ const CompanySidebar: React.FC = () => {
             </ul>
           </div>
         </div>
-        <div className={`w-full ${open ? ' ' : 'ml-20'} bg-gray-100}`}>
+        <div className={`w-full ${open ? ' ' : ''} bg-gray-100}`}>
           <Outlet />
         </div>
       </div>
       :
       <div>
-         <div className={`w-full ${open ? ' ' : 'ml-20'} bg-gray-100}`}>
+         {/* <div className={`w-full ${open ? ' ' : 'ml-20'} bg-gray-100}`}>
           <Outlet />
-        </div>
+        </div> */}
       </div>
             }
       </div>

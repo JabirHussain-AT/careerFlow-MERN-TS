@@ -25,7 +25,7 @@ const NavBar : React.FC = () => {
       </div>
       <div className=" font-semibold font-sans gap-16 flex px-5 py-2 justify-between items-center">
       <h6 onClick={() => navigate('/showJobs')} className='cursor-pointer'>Find Jobs</h6>
-        <h6> Notification</h6>
+        <h6 onClick={() => navigate('/messages')} className='cursor-pointer' > Messages </h6>
         <h6> More </h6>
       </div>
     </div>

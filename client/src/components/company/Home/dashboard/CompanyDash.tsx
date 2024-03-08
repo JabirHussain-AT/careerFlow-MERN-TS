@@ -46,15 +46,30 @@ const CompanyDash: React.FC = () => {
   };
 
 
+  const getGreeting = () => {
+    const currentHour = new Date().getHours();
+    if (currentHour >= 5 && currentHour < 12) {
+      return "Good morning";
+    } else if (currentHour >= 12 && currentHour < 18) {
+      return "Good afternoon";
+    } else {
+      return "Good evening";
+    }
+  };
+
+  const greeting = getGreeting();
+
+
   return (
     <div className="min-h-screen bg-gray-50 flex">
       <div className="w-full">
         {/* main section */}
-        <div className="flex h-16 w-full rounded-md items-center justify-center">
-          <h1 className="text-center font-bold text-xl font-serif text-black">
-            Good Morning Car-Care
-          </h1>
-        </div>
+        <div className="flex items-center border-b-2 pb-3 justify-center m-2">
+            <span className="text-2xl mr-2">🌞</span>
+            <h1 className="text-2xl font-extrabold">
+              {greeting}, {user?.userName}!
+            </h1>
+          </div>
         {/*  cards */}
         <div className="flex gap-4 justify-start flex-wrap mt-4">
           <Cards

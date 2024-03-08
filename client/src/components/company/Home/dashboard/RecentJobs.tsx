@@ -1,5 +1,5 @@
 import React from 'react';
-import format from 'date-fns/format';
+import { formatDate } from 'date-fns';
 
 interface RecentJobsProps {
   jobsData: any[];
@@ -7,7 +7,7 @@ interface RecentJobsProps {
 
 const RecentJobs: React.FC<RecentJobsProps> = ({ jobsData }) => {
   // Reverse the order of jobsData and take the first 6 elements
-  const recentJobs = jobsData.reverse().slice(0, 6);
+  const recentJobs = jobsData.slice(0, 6).reverse();
 
   return (
     <div className="bg-gray-100 p-8 font-sans">
@@ -16,7 +16,7 @@ const RecentJobs: React.FC<RecentJobsProps> = ({ jobsData }) => {
         {recentJobs.map((job: any, index: number) => (
           <div key={index} className="bg-white shadow-md rounded-md p-6">
             <h3 className="text-lg font-semibold mb-4">{job.jobTitle}</h3>
-            <p className="text-gray-600 mb-4">Expiry: {format(new Date(job.jobExpiry), 'dd-MM-yyyy')}</p>
+            <p className="text-gray-600 mb-4">Expiry: {formatDate(new Date(job.jobExpiry), 'dd-MM-yyyy')}</p>
             <div className="flex items-center justify-between">
               <p className="text-gray-600">Applicants: {job.applicants.length}</p>
               <button className="text-blue-500 hover:underline focus:outline-none">

@@ -16,7 +16,6 @@ interface ChartDataItem {
   _id: string;
   jobsPosted: number;
   applicationsDone: number;
-  // Add other properties as needed
 }
 
 const Charts: React.FC<{ chartData: ChartDataItem[]; filterType: string }> = ({
@@ -27,37 +26,43 @@ const Charts: React.FC<{ chartData: ChartDataItem[]; filterType: string }> = ({
   if (filterType === "monthly") filter = "month";
   else if (filterType === "weekly") filter = "week";
 
-  // Transform chartData for LineChart
+ 
   const lineChartData = chartData?.map((dataItem) => ({
     name: filterType === "monthly" ?  filter +'  '+dataItem._id : filter +' - '+ dataItem._id.toString(),
     TotalJobs: dataItem.jobsPosted,
     TotalApplications: dataItem.applicationsDone,
-    // Add other properties as needed
+  
   }));
 
-  // Transform chartData for BarChart
+
+
+ 
+
+
+
+
   const barChartData = chartData?.map((dataItem) => ({
     name: filterType === "monthly" ? filter +'  '+ dataItem._id :  filter +' -  '+dataItem._id.toString(),
     NumberOfApplicants: dataItem.applicationsDone,
-    // Add other properties as needed
+
   }));
 
-  // Assuming your data for the monthly area chart is available in your chartData array
-  const areaChartData = chartData?.map((dataItem) => ({
-    name: filterType === "monthly" ? filter +'  '+ dataItem._id : filter +'  '+ dataItem._id.toString(),
-    uv: dataItem.jobsPosted, // Change this property based on your actual data
-    pv: dataItem.applicationsDone, // Change this property based on your actual data
-    // Add other properties as needed
-  }));
+  // // Assuming your data for the monthly area chart is available in your chartData array
+  // const areaChartData = chartData?.map((dataItem) => ({
+  //   name: filterType === "monthly" ? filter +'  '+ dataItem._id : filter +'  '+ dataItem._id.toString(),
+  //   uv: dataItem.jobsPosted, // Change this property based on your actual data
+  //   pv: dataItem.applicationsDone, // Change this property based on your actual data
+  //   // Add other properties as needed
+  // }));
 
   return (
     <div className="flex m-3 gap-3 w-full">
       {/* Line Chart */}
-      <div className="w-fullw-full sm:w-full md:w-1/3 lg:w-1/3 xl:w-1/3  mb-4   ">
+      <div className="w-full  sm:w-full md:w-1/2 lg:w-1/2 xl:w-1/2  mb-4   ">
         <div className="border rounded shadow-md p-3 h-auto">
           <LineChart
-            width={260}
-            height={130}
+            width={400}
+            height={200}
             data={lineChartData}
             margin={{ top: 5, right: 20, left: 10, bottom: 5 }}
           >
@@ -76,11 +81,11 @@ const Charts: React.FC<{ chartData: ChartDataItem[]; filterType: string }> = ({
       </div>
 
       {/* Bar Chart */}
-      <div className="w-full sm:w-full md:w-1/3 lg:w-1/3 xl:w-1/3 mb-4">
+      <div className="w-full sm:w-full md:w-1/2 lg:w-1/2 xl:w-1/2 mb-4">
         <div className="border rounded shadow-md w-full p-3 h-auto">
           <BarChart
-            width={260}
-            height={130}
+            width={400}
+            height={200}
             data={barChartData}
             margin={{ top: 5, right: 20, left: 10, bottom: 5 }}
           >
@@ -98,7 +103,7 @@ const Charts: React.FC<{ chartData: ChartDataItem[]; filterType: string }> = ({
       </div>
 
       {/* Area Chart */}
-      <div className="w-full sm:w-full md:w-1/3 lg:w-1/3 xl:w-1/3 mb-4">
+      {/* <div className="w-full sm:w-full md:w-1/3 lg:w-1/3 xl:w-1/3 mb-4">
         <div className="border rounded shadow-xl w-full p-3 h-auto">
           <AreaChart
             width={260}
@@ -118,7 +123,7 @@ const Charts: React.FC<{ chartData: ChartDataItem[]; filterType: string }> = ({
             <p>Additional information</p>
           </div>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };
