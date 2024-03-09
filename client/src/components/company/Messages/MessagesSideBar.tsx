@@ -4,9 +4,9 @@ import { IoIosAdd } from 'react-icons/io'
 const MessagesSideBar : React.FC  = () => {
   return (
     <>
-  <div className="w-4/12 min-h-screen flex justify-center ">
+  <div className="w-4/12 h-screen  flex justify-center ">
   {/* side bar showing recent messages */}
-  <div className="bg-white h-auto  border-2  w-4/5 rounded-xl ">
+  <div className="bg-white h-auto over  border-2  w-4/5 rounded-xl ">
     {/* head section */}
     <div className="flex items-center justify-between px-3 border-b border-black shadow-md">
       <div className="flex items-center justify-center gap-2">

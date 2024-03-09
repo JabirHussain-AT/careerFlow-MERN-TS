@@ -4,8 +4,8 @@ import React from "react";
 
 const MessageHome: React.FC = () => {
   return (
-    <div className="bg-white w-full min-h-screen mb-5">
-      <div className="w-full flex flex-wrap mt-10 rounded-lg border">
+    <div className="bg-white w-full overflow-hidden min-h-screen mb-5">
+      <div className="w-full flex flex-wrap  rounded-lg border">
         {/* Side bar showing messages pending */}
         <MessagesSideBar />
         {/* Main content */}

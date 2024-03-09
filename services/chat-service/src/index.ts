@@ -1,5 +1,5 @@
 import start from './start';
-import dbConnection from './config/db/dbConnection';
+import dbConnection from './config/dbConnection';
 import { runConsumer , stopConsumer } from "./adapters/messageBroker/kafka/consumer";
 
 // import envChecker from './util/checker/envChecker';
@@ -15,10 +15,10 @@ import { runConsumer , stopConsumer } from "./adapters/messageBroker/kafka/consu
         // await envChecker();
 
         
-        await runConsumer()
-        .catch((error: any) => {
-            console.info(error);
-        })
+        // await runConsumer()
+        // .catch((error: any) => {
+        //     console.info(error);
+        // })
 
         process.on('SIGTERM', async () => {
             console.info("SIGTERM received")
