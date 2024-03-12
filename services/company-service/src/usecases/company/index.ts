@@ -21,6 +21,7 @@ import { getMyJobApplications_useCase } from './getMyJobApplications'
 import { changeJobApplicationStatus_useCase } from "./changeStatusJobApplicant";
 import { getJobAndApplicantsCount_useCase } from "./getJobsAndApplicants";
 import  { getChartData_useCase } from './getChartData'
+import { getChatCompanyData_useCase } from './getChatCompanyData'
 
 export default  {
   signUp_useCase,
@@ -45,5 +46,6 @@ export default  {
   getChartData_useCase ,
   getMyJobApplications_useCase ,
   getJobAndApplicantsCount_useCase ,
+  getChatCompanyData_useCase ,
   changeJobApplicationStatus_useCase
 }

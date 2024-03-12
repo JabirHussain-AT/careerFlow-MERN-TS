@@ -157,6 +157,8 @@ export const updateApprovel = async (companyId, status) => {
   }
 };
 
+
+
 export const addJobInCompany = async (companyData) => {
   try {
     const job = await jobCollection.create(companyData);
@@ -525,3 +527,29 @@ export const getChartData = async (companyId: string, filter: string) => {
     );
   }
 };
+
+
+export const getChatCompanyData = async (companyDataContainer: any) => {
+  try {
+    const result = [];
+    let eachData = [];
+
+    for (let i = 0; i < companyDataContainer[0].length; i++) {
+      eachData = await companyCollection.findOne({
+        _id: companyDataContainer[0][i]?.roomCreater,
+      });
+      result.push(eachData);
+    }
+    if (result) {
+      return result;
+    } else {
+      return false;
+    }
+  } catch (err: any) {
+    console.log(
+      err,
+      "====== err occured in the fetching caht company  in user repo"
+    );
+  }
+};
+

@@ -1,4 +1,5 @@
 import dotenv from 'dotenv'
+import http from 'http'
 dotenv.config()
 import express , {Express, Request , Response} from 'express'
 import cors from 'cors'
@@ -7,6 +8,7 @@ import session from 'express-session'
 import { routes } from './adapters/routes'
 import dependencies from './utils/config/dependencies'
 import errHandler from './utils/errorHandlers/errorHandler'
+import connectSocketIo from './infra-socket/connection'
 
 
 
@@ -42,10 +44,14 @@ app.use((req: Request, res: Response) => {
   res.status(404).json({ success: false, status: 404, message: "Api Not found" });
 });
 
+const server = http.createServer(app)
+
 app.use(errHandler);
 
-app.listen( PORT, () => {
-  console.log(`chat-service is listening at the port ${PORT}`);
+server.listen( PORT, () => {
+  console.log(`chat service starte successfully at the port ${PORT}`);
 })
+
+connectSocketIo(server)
 
 export default app

@@ -4,6 +4,7 @@ import userExistCheckController from './userExist'
 import userProfileUpdateController from './userProfileUpdate'
 import updateBasicDetialsController from './updateBasicInfo'
 import fetchUserDataController from './fetchUser'
+import getChatUserDataController from './getChatUserData'
 
 
 export = (dependencies : any ) =>{
@@ -13,6 +14,7 @@ export = (dependencies : any ) =>{
         userExistCheckController : userExistCheckController(dependencies) ,
         userProfileUpdateController : userProfileUpdateController(dependencies) ,
         updateBasicDetialsController: updateBasicDetialsController(dependencies)  ,
-        fetchUserDataController : fetchUserDataController(dependencies)
+        fetchUserDataController : fetchUserDataController(dependencies) ,
+        getChatUserDataController : getChatUserDataController(dependencies)
     }
 }

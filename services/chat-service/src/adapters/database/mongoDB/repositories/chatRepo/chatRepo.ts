@@ -1,12 +1,60 @@
 import { ChatRoomCollection, ChatRoomDocument } from "../../schemas";
 
+export const createNewChatroom = async (roomDetails: {
+  roomCreater: string;
+  roomJoiner: string;
+}): Promise<boolean | ChatRoomDocument> => {
+  try {
+    const existingChatRoom = await ChatRoomCollection.findOne({
+      $or: [
+        {
+          roomCreater: roomDetails.roomCreater,
+          roomJoiner: roomDetails.roomJoiner,
+        },
+        {
+          roomCreater: roomDetails.roomJoiner,
+          roomJoiner: roomDetails.roomCreater,
+        },
+      ],
+    });
 
-export const findIsChatRoomExistingWithTwoSpecificUsers =
-    async (currentUserId: string, sellerId: string): Promise<boolean | ChatRoomDocument> => {
-        try {
-                console.log('hey its repo')
-        } catch (error) {
-            console.log(`an error happened during checking a room is existing with given two userId or not ${error}`);
-            return false;
-        }
+    if (existingChatRoom) {
+      console.log(`Chat room already exists with ID: ${existingChatRoom._id}`);
+      return existingChatRoom;
+    } else {
+      // Create a new chat room
+      const newChatRoom = new ChatRoomCollection({
+        roomCreater: roomDetails.roomCreater,
+        roomJoiner: roomDetails.roomJoiner,
+        lastMessage: "", // Optional, depending on your requirements
+      });
+
+      const savedChatRoom = await newChatRoom.save();
+      console.log(`New chat room created with ID: ${savedChatRoom._id}`);
+      return savedChatRoom;
     }
+  } catch (error) {
+    console.log(
+      `An error occurred during checking/creating a chat room: ${error}`
+    );
+    return false;
+  }
+};
+
+
+
+export const fetchChatUsers = async (companyId: string) => {
+  try {
+    const data = await ChatRoomCollection.find({
+      $or: [{ roomCreater: companyId }, { roomJoiner: companyId }],
+    });
+
+    if (data) {
+      return data;
+    }
+    return false;
+  } catch (error) {
+    console.log(`An error occurred during the fetching chat users : ${error}`);
+    return false;
+  }
+};

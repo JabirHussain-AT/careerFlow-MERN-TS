@@ -9,7 +9,8 @@ import { fetchUsers_useCase } from "./fetchUsers";
 import { userProfileUpdate_useCase } from './userProfileUpdate'
 import { updateBasicDetials_useCase } from './updateBasicDetials'
 import { fetchUser_useCase } from './fetchUser'
-
+import { getChatUserData_useCase } from './getChatUserData'
+ 
 export = {
   signUp_useCase,
   findUserByEmail_useCase,
@@ -17,6 +18,7 @@ export = {
   verifyOtp_useCase,
   login_useCase,
   userExist_useCase,
+  getChatUserData_useCase ,
   sendPass_useCase,
   fetchUsers_useCase ,
   userProfileUpdate_useCase ,

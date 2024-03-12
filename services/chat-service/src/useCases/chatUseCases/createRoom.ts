@@ -1,13 +1,13 @@
-export const createNewChatroom_usecase = ( dependencies: any) => {
-    // const {
-    //     repositories: {
-    //         chatRepo
-    //     }
-    // } = dependencies;
+export const creatNewRoom_useCase = ( dependencies: any) => {
+    const {
+        repositories: {
+            chatRepo : {createNewChatroom}
+        }
+    } = dependencies;
+        console.log('its reaching here in use case')
+    const interactor = async (roomDetials: {  roomCreater : string , roomJoiner : string  }) => {
 
-    const interactor = async (users: any) => {
-        // return await chatRepo.createANewChatroom(users)
-        return true
+        return await createNewChatroom(roomDetials)
     }
 
     return { interactor }

@@ -1,5 +1,7 @@
-import { createNewChatroom_usecase } from "./createRoom"
+import { creatNewRoom_useCase } from "./createRoom"
+import { fetchChatUsers_useCase } from './fetchChatUsers'
 
-export default {
-    createNewChatroom_usecase
+export = {
+    creatNewRoom_useCase ,
+    fetchChatUsers_useCase
 }

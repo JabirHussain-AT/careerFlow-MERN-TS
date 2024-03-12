@@ -13,10 +13,10 @@ interface Applicant {
 interface MessagesSideBarProps {
   applicants: any;
   onSelect: (applicantId: string) => void;
-  selectedApplicant: any ;
+  selectedApplicant: any
 }
 
-const MessagesSideBarUser: React.FC<MessagesSideBarProps> = ({
+const MessagesSideBar: React.FC<MessagesSideBarProps> = ({
   applicants,
   onSelect,
   selectedApplicant,
@@ -58,9 +58,9 @@ const MessagesSideBarUser: React.FC<MessagesSideBarProps> = ({
           <div className="">
             {applicants?.map((applicant : any) => (
               <div
-                key={applicant?._id}
+                key={applicant._id}
                 className={`flex gap-3 hover:bg-blue-100 m-2 rounded-md border ${
-                  selectedApplicant?._id! === applicant?._id
+                  selectedApplicant?._id === applicant?._id
                     ? 'bg-blue-100'
                     : ''
                 }`}
@@ -69,15 +69,15 @@ const MessagesSideBarUser: React.FC<MessagesSideBarProps> = ({
                 <div className="m-2 rounded-xl flex items-center justify-center bg-white ">
                   <img
                     className="w-9  rounded-xl border m-1"
-                    src={applicant.profilePic}
-                    alt="hey"
+                    src={applicant.logo}
+                    alt="DP"
                   />
                 </div>
                 <div className="w-auto flex flex-col justify-center items-center">
                   <h1 className="text-xs font-semibold font-sans">
                     {applicant?.userName}
                   </h1>
-                  <p className="text-xs font-extralight ">{applicant?.category}</p>
+                  <p className="text-xs font-extralight ">{applicant?.position}</p>
                 </div>
                 <div className="w-auto flex mt-3 justify-center items-start">
                   <p className="text-xs text-gray-500 font-semibold">
@@ -94,4 +94,4 @@ const MessagesSideBarUser: React.FC<MessagesSideBarProps> = ({
   );
 };
 
-export default MessagesSideBarUser;
+export default MessagesSideBar;

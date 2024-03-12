@@ -176,3 +176,20 @@ export const getChartData = async (Id : string , filter : string)=>{
     console.log(err,'==> error happened in the get total jobs nad applicants ')
   }
 }
+
+
+export const chatCompanyDetials = createAsyncThunk(
+  "user/chatUsersDetials",
+  async ( companyIdContainer : any , { rejectWithValue }) => {
+    try {
+      const { data } = await axios.post(
+        `${AuthCompanyBaseUrl}/get-chatCompanyDetials`,companyIdContainer,
+        config
+      );
+      return data;
+    } catch (err: any) {
+      const axiosError = err as AxiosError<ApiError>;
+      return handleError(axiosError, rejectWithValue);
+    }
+  }
+);

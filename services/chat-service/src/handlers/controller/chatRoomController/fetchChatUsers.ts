@@ -3,32 +3,32 @@ import { Request, Response, NextFunction } from "express";
 export = (dependencies: any): any => {
   const {
     usecases: { chatUseCases :{
-      creatNewRoom_useCase
+        fetchChatUsers_useCase 
     } },
   } = dependencies;
 
-  const createNewRoom = async (
+  const fetchChatUsers = async (
     req: Request,
     res: Response,
     next: NextFunction
   ) => {
     try {
      
-      const roomDetials = req.body 
-      const data  = await creatNewRoom_useCase(dependencies).interactor(roomDetials)
+      const companyId = req.params.companyId
+      const data  = await fetchChatUsers_useCase(dependencies).interactor(companyId)
   
       res.json({
         data : data , 
         success : true ,
-        message : 'room created or existing room taken fetched'
+        message : 'fetching chat users'
       })
 
     } catch (err: any) {
-      console.log(err, "error in the create new room chat service");
+      console.log(err, "error in the fetching chat users in chat service");
       res.status(500).json({ error: "Internal Server Error" });
       next();
     }
   };
 
-  return createNewRoom;
+  return fetchChatUsers;
 };

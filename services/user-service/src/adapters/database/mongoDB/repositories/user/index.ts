@@ -7,6 +7,7 @@ import {
     userExistorNot ,
     fetchUsers , 
     userProfileUpdate,
+    getChatUserData ,
     userBasicDetialsUpdate ,
     fetchUser
  } from "./userRepo"; 
@@ -19,6 +20,7 @@ export = {
     loginVerify,
     userExistorNot,
     fetchUsers ,
+    getChatUserData ,
     userProfileUpdate ,
     userBasicDetialsUpdate ,
     fetchUser

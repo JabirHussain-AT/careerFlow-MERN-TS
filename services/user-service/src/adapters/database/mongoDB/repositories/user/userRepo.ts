@@ -143,17 +143,17 @@ export const userBasicDetialsUpdate = async (
   userId: string,
   dataToUpload: any
 ) => {
-  delete dataToUpload._id
+  delete dataToUpload._id;
   try {
     let data = await userCollection.findOneAndUpdate(
       { _id: userId },
       { $set: dataToUpload },
       {
         projection: { password: 0 },
-        returnDocument: 'after', 
+        returnDocument: "after",
       }
     );
-    
+
     if (data) {
       return data;
     } else {
@@ -164,17 +164,13 @@ export const userBasicDetialsUpdate = async (
   }
 };
 
-
-export const fetchUser = async (
-  userId: string,
-) => {
-
+export const fetchUser = async (userId: string) => {
   try {
     let data = await userCollection.findOne(
       { _id: userId },
       { projection: { password: 0 } }
     );
-    
+
     if (data) {
       return data;
     } else {
@@ -185,3 +181,32 @@ export const fetchUser = async (
   }
 };
 
+export const getChatUserData = async (userDataContainer: any) => {
+  try {
+    const result = [];
+    let eachData = [];
+
+    for (let i = 0; i < userDataContainer[0].length; i++) {
+      if (userDataContainer[1] === "company") {
+        eachData = await userCollection.findOne({
+          _id: userDataContainer[0][i]?.roomJoiner,
+        });
+      } else {
+        eachData = await userCollection.findOne({
+          _id: userDataContainer[0][i]?.roomCreater,
+        });
+      }
+      result.push(eachData);
+    }
+    if (result) {
+      return result;
+    } else {
+      return false;
+    }
+  } catch (err: any) {
+    console.log(
+      err,
+      "====== err occured in the fetching caht users  in user repo"
+    );
+  }
+};

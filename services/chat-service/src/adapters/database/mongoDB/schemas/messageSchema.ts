@@ -6,9 +6,12 @@ const MessageSchema: Schema = new Schema({
     type: Schema.Types.ObjectId,
     required: true,
   },
-  chatRoomId: {
+  reciverId: {
     type: Schema.Types.ObjectId,
     required: true,
+  },
+  chatRoomId: {
+    type: Schema.Types.ObjectId,
   },
   message : {
     type :  String ,
@@ -25,6 +28,9 @@ const MessageSchema: Schema = new Schema({
   showToReciever : {
     type : String ,
     default : true 
+  },
+  latestMessage : {
+    type : String ,
   }
 },{
     timestamps : true 

@@ -19,7 +19,8 @@ import {
     findJobs,
     jobApply ,
     getMyJobApplications ,
-    changeJobApplicationStatus
+    changeJobApplicationStatus ,
+    getChatCompanyData
  } from "./companyRepo"; 
 
 export default {
@@ -43,6 +44,7 @@ export default {
     jobApply ,
     getPreferedJobs ,
     getMyJobApplications ,
-    changeJobApplicationStatus
+    changeJobApplicationStatus ,
+    getChatCompanyData
 
 }

@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { IoMdArrowRoundBack, IoIosPhonePortrait } from 'react-icons/io';
+import {  IoIosPhonePortrait } from 'react-icons/io';
 import { MdMessage, MdEmail } from 'react-icons/md';
 import { fetchJob, getUser } from '@/redux/actions/userActions';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch } from '@/redux/store';
+import { useNavigate } from 'react-router-dom'
 import { createNewChatRoom } from '@/redux/actions/chatActions'
 import { IUserSelector } from '@/interface/IUserSlice';
 
@@ -26,6 +27,7 @@ const ViewApplicantDetialSideBar: React.FC = () => {
   const [applicantData , setApplicantData ] = useState<any>({})
   const [jobData, setJobData] = useState<any | null>(null);
   const dispatch = useDispatch<AppDispatch>();
+  const navigate = useNavigate()
 
   const { jobId, applicantId } = useParams();
 
@@ -74,11 +76,13 @@ const ViewApplicantDetialSideBar: React.FC = () => {
   const handleCreateRoom : Function = async  () =>{
 
       const dataToSend = {
-        companyId  :user?._id  ,
-        applicantId : applicantId
+        roomCreater  :user?._id  ,
+        roomJoiner : applicantId
       }
       const response = await dispatch(createNewChatRoom(dataToSend))
-      console.log('Its reponse - 7 4 - csidebar', response)
+      const chatRoomId = response?.payload?.data?._id
+      console.log(chatRoomId,'-0-------p')
+      if(chatRoomId) navigate(`/company/messages/${chatRoomId}`)
   }
 
   return (

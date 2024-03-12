@@ -1,5 +1,10 @@
-import createNewRoom from "./createNewRoom";
+import createNewRoomController from "./createNewRoom";
+import fetchChatUsersController from './fetchChatUsers'
 
-export = {
-    createNewRoom
-}
+
+export default (dependencies: any) => {
+  return {
+    createNewRoomController:createNewRoomController(dependencies),
+    fetchChatUsersController : fetchChatUsersController(dependencies)
+  };
+};

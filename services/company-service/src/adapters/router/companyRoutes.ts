@@ -25,6 +25,7 @@ export default (dependencies: any): any => {
     getMyJobApplicationController,
     preferedJobsController ,
     getChartDataController ,
+    getChatCompanydataController ,
     changeJobApplicationStatusController
   } = companyController(dependencies);
 
@@ -55,6 +56,7 @@ export default (dependencies: any): any => {
   router.post("/applyjob",verifyuserAuth, jobApplyController);
   router.post("/change-status/job-application", verifyUserAuth, changeJobApplicationStatusController);
   router.get("/dashboard/get-jobs-applicants/:companyId",verifyUserAuth, getJobsAndApplicantsCount);
+  router.post('/get-chatCompanyDetials',verifyuserAuth,getChatCompanydataController);
   router.get("/dashboard/get-jobs-applicants/:filter/:companyId",verifyUserAuth, getChartDataController);
 
   return router;

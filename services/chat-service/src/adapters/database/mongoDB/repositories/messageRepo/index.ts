@@ -1,4 +1,7 @@
-// import { messageRepo } from "./messageRepo";
-// import  {
+import { 
+    saveMessage
+} from "./messageRepo"
 
-// }from messageRepo
+export default {
+    saveMessage
+}

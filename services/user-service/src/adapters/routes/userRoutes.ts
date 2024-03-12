@@ -12,7 +12,8 @@ export = (dependencies: any): any => {
     userExistCheckController,
     userProfileUpdateController,
     updateBasicDetialsController,
-    fetchUserDataController
+    fetchUserDataController,
+    getChatUserDataController
   } = userController(dependencies);
 
   // user-signup
@@ -22,6 +23,7 @@ export = (dependencies: any): any => {
   router.get('/fetchUser/:id',verifyuserAuth, fetchUserDataController);
 
   router.post('/update-profile', verifyUserAuth, userProfileUpdateController);
+  router.post('/get-chatUserDetials',verifyuserAuth,getChatUserDataController)
   router.post('/updateBasicDetials', verifyUserAuth, updateBasicDetialsController);
 
 

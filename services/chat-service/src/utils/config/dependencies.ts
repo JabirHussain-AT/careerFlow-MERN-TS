@@ -1,12 +1,15 @@
-import { chatUseCases } from "../../useCases";
-import { chatRepo } from "../../adapters/database/mongoDB/repositories";
+import { chatUseCases , messageUseCases } from "../../useCases";
+import { chatRepo ,messageRepo } from "../../adapters/database/mongoDB/repositories";
+
 
 const repositories : any  = {
-    chatRepo
+    chatRepo ,
+    messageRepo
 }
 
 const usecases   = {
-    chatUseCases
+    chatUseCases ,
+    messageUseCases
 }
 
 export = {

@@ -234,3 +234,20 @@ export const getPrefferedJobs = createAsyncThunk(
     }
   }
 );
+
+
+export const chatUsersDetials = createAsyncThunk(
+  "user/chatUsersDetials",
+  async ( userIdContainer : any , { rejectWithValue }) => {
+    try {
+      const { data } = await axios.post(
+        `${AuthBaseUrl}/get-chatUserDetials`,userIdContainer,
+        config
+      );
+      return data;
+    } catch (err: any) {
+      const axiosError = err as AxiosError<ApiError>;
+      return handleError(axiosError, rejectWithValue);
+    }
+  }
+);
