@@ -57,3 +57,18 @@ export const fetchChatUsers = createAsyncThunk(
     }
   }
 );
+export const fetchChatUserChat = createAsyncThunk(
+  "chat/fetchChatUserChat",
+  async ({senderId , recieverId}:{senderId : string , recieverId : string}, { rejectWithValue }) => {
+    try {
+      const { data } = await axios.get(
+        `${ChatSecUrl}/message/fetch-chat-userChat/${senderId}/${recieverId}`,
+        config
+      );
+      return data;
+    } catch (err: any) {
+      const axiosError = err as AxiosError<ApiError>;
+      return handleError(axiosError, rejectWithValue);
+    }
+  }
+);

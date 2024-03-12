@@ -2,9 +2,13 @@ import React, { useState, useEffect, useRef } from "react";
 import { IoIosSend } from "react-icons/io";
 import { useDispatch, useSelector } from "react-redux";
 import { ToastContainer, toast } from "react-toastify";
+import { formatDistanceToNow  , format} from "date-fns";
 import "react-toastify/dist/ReactToastify.css";
 import { useSocket } from "@/contexts/socketContext";
-import { saveChatMessages } from "@/redux/actions/chatActions";
+import {
+  fetchChatUserChat,
+  saveChatMessages,
+} from "@/redux/actions/chatActions";
 import { AppDispatch } from "@/redux/store";
 
 interface MessageChatSectionProps {
@@ -26,7 +30,6 @@ const MessageChatSection: React.FC<MessageChatSectionProps> = ({
   const messagesContainerRef = useRef<HTMLDivElement>(null);
   const [recieverStatus, setRecieverStatus] = useState<boolean>(false);
 
-
   useEffect(() => {
     // Clear messages when the applicantId changes
     setMessages([]);
@@ -38,7 +41,25 @@ const MessageChatSection: React.FC<MessageChatSectionProps> = ({
     }
   }, [messages, applicant]);
 
+  useEffect(() => {
+    const fetchData = async () => {
+      if (applicant) {
+        try {
+          const responseData = await dispatch(
+            fetchChatUserChat({
+              senderId: user?._id,
+              recieverId: applicant?._id,
+            })
+          );
+          setMessages(responseData?.payload?.data);
+        } catch (error) {
+          console.error("Error fetching chat:", error);
+        }
+      }
+    };
 
+    fetchData(); // Call the async function immediately
+  }, [applicant, user, dispatch]);
 
   useEffect(() => {
     const intervalId = setInterval(() => {
@@ -54,23 +75,17 @@ const MessageChatSection: React.FC<MessageChatSectionProps> = ({
     };
   }, [socket, applicant?._id, user?._id]);
 
-
-
-
   useEffect(() => {
     socket &&
       socket.off("new-message").on("new-message", (message: any) => {
         setMessages((prevMessages) => [...prevMessages, message]);
       });
 
-         // status check
-         socket.off("statusCheck-result").on("statusCheck-result", (status: any) => {
-          setRecieverStatus(status);
-          console.log(status , '------------------')
-        });
+    // status check
+    socket.off("statusCheck-result").on("statusCheck-result", (status: any) => {
+      setRecieverStatus(status);
+    });
   }, [socket]);
-
-
 
   const autoScroll = () => {
     if (messagesContainerRef.current) {
@@ -79,56 +94,46 @@ const MessageChatSection: React.FC<MessageChatSectionProps> = ({
     }
   };
 
-
-
   const sendMessage = async () => {
     if (inputMessage.trim() === "") return;
 
-    // Add the message to the state locally
     const sentMessage = {
       content: inputMessage,
       senderId: user?._id,
       sentByUser: true,
     };
-    
-    let temp ={
-      content : inputMessage , 
-      senderId : user?._id ,
-      recieverId : applicant?._id ,
-      latestMessage  : inputMessage 
-    } 
 
-    const savedMessage =  dispatch(saveChatMessages(temp))
+    let temp = {
+      content: inputMessage,
+      senderId: user?._id,
+      recieverId: applicant?._id,
+      latestMessage: inputMessage,
+    };
+
+    const savedMessage = await dispatch(saveChatMessages(temp));
 
     setMessages((prevMessages) => [...prevMessages, sentMessage]);
 
-    // Emit the message to the server
     const toSendId = applicant._id;
-    console.log(toSendId, " jabir hussian ");
     socket.emit("send-message", {
       content: inputMessage,
       receiverId: toSendId,
       senderId: user?._id,
     });
 
-    // Clear the input field
     setInputMessage("");
   };
-
-
-
 
   return (
     <div className="relative bg-green-100 w-7/12 rounded-lg overflow-hidden border shadow-lg">
       <div className="w-full h-12 flex bg-red-50">
-        {/* Online status, name, and profile pic */}
         <img
           className="h-10 rounded-full p-1 mt-2 "
           src={`${applicant?.profilePic}`}
           alt=""
         />
         <div className="flex flex-col items-center gap-1">
-          <p className="text-serif  font-semibold text-sm  ">
+          <p className="text-serif font-semibold text-sm">
             {applicant?.userName}
           </p>
           <p
@@ -146,40 +151,57 @@ const MessageChatSection: React.FC<MessageChatSectionProps> = ({
         ref={messagesContainerRef}
         className="w-full overflow-y-auto h-5/6 flex flex-col p-4"
       >
-        {messages &&
-          messages.map((message, index) => (
-            <div
-              key={index}
-              className={`flex items-${
-                message.sentByUser ? "end" : "start"
-              } mb-2 ${message.sentByUser ? "justify-end" : ""}`}
-            >
-              <div
-                className={`w-${
-                  message.sentByUser ? "11/12 text-right" : "1/12"
-                }`}
-              >
-                <div
-                  className={`bg-${
-                    message.sentByUser ? "blue-500 text-white" : "gray-300"
-                  } p-2 w-50 rounded-lg inline-block`}
-                >
-                  {message.content}
-                </div>
-              </div>
-              <div className={`w-${message.sentByUser ? "1/12" : "11/12"}`}>
-                {message.sentByUser ? (
-                  <img
-                    className="w-10 h-10 rounded-full"
-                    src="https://www.kasandbox.org/programming-images/avatars/old-spice-man-blue.png"
-                    alt="dp"
-                  />
-                ) : (
-                  ""
-                )}
-              </div>
-            </div>
-          ))}
+      {messages &&
+  messages.map((message, index) => (
+    <div key={index} className={`flex flex-col mb-2`}>
+      {index === 0 || 
+        new Date(messages[index - 1].createdAt).getDate() !== new Date(message.createdAt).getDate() ? (
+        <div className="text-center text-gray-500 text-xs mb-2">
+          {format(new Date(message.createdAt), "EEEE, MMMM d, yyyy")}
+        </div>
+      ) : null}
+      <div
+        className={`flex items-${message.senderId === user?._id ? "end" : "start"
+        }`}
+      >
+        <div
+          className={`w-${
+            message.senderId === user?._id ? "11/12 text-right" : "1/12"
+          }`}
+        >
+          <div
+            className={`bg-${
+              message.senderId === user?._id
+                ? "blue-500 text-white"
+                : "gray-300"
+            } p-2 w-50 rounded-lg inline-block`}
+          >
+            {message.content ?? message?.message}
+            <span className="text-sm text-gray-800 ml-2">
+              {format(new Date(message.createdAt), "h:mm aa")}
+            </span>
+          </div>
+        </div>
+        <div
+          className={`w-${
+            message.senderId === user?._id ? "1/12" : "11/12"
+          }`}
+        >
+          {message.senderId === user?._id ? (
+            <img
+              className="w-10 h-10 rounded-full"
+              src="https://www.kasandbox.org/programming-images/avatars/old-spice-man-blue.png"
+              alt="dp"
+            />
+          ) : (
+            ""
+          )}
+        </div>
+      </div>
+    </div>
+  ))}
+
+
       </div>
       <div className="absolute bottom-0 left-0 right-0 mb-2 mx-4">
         <div className="w-full flex justify-center">

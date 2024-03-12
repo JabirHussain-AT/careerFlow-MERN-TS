@@ -1,7 +1,9 @@
 import { 
-    saveMessage
+    saveMessage ,
+    fetchChatUserChat
 } from "./messageRepo"
 
 export default {
-    saveMessage
+    saveMessage ,
+    fetchChatUserChat
 }
