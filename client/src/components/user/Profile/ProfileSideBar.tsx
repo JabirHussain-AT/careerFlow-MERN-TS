@@ -49,7 +49,7 @@ const ProfileSideBar = () => {
               <p className="hover:text-blue-500">Profile</p>
             </div>
           </NavLink>
-          <NavLink
+          {/* <NavLink
             to={"/profile/dashboard"}
             className={({ isActive }) => {
               return `items-center flex py-4 hover:bg-gray-700 p-2 rounded h-full ${
@@ -61,7 +61,7 @@ const ProfileSideBar = () => {
           >
             <FaHome className="w-5" />
             <p className="hover:text-blue-5">Dashboard</p>
-          </NavLink>
+          </NavLink> */}
 
           {/* my applications  */}
           <NavLink
@@ -77,12 +77,18 @@ const ProfileSideBar = () => {
             <FaUserTie className="h-5 w-5" />
             My Applications
           </NavLink>
-          <li className="flex items-center hover:bg-gray-700 p-2 rounded gap-2 h-full">
-            <FaCog className="h-5 w-5" />
-            <a href="/settings" className="hover:text-blue-500" gap-2>
-              Settings
-            </a>
-          </li>
+          <NavLink
+          to={"/profile/my-interviews"}
+          className={({ isActive }) => {
+            return `items-center flex py-4 hover:bg-gray-700 p-2 rounded h-full ${
+              isActive
+                ? "bg-white flex w-30 text-black font-bold h-20 mx-2 my-2"
+                : ""
+            } `;
+          }}
+          >
+            Interviews 
+          </NavLink>
           <li className="flex items-center hover:bg-gray-700 p-2 rounded gap-2 h-full">
             <FaSave className="h-5 w-5" />
             <a href="/saved-jobs" className="hover:text-blue-500 gap-2">
@@ -90,9 +96,9 @@ const ProfileSideBar = () => {
             </a>
           </li>
           <li className="flex items-center hover:bg-gray-700 p-2 rounded gap-2 h-full">
-            <FaCalendarAlt className="h-5 w-5" />
-            <a href="/interviews" className="hover:text-blue-500">
-              Interviews
+            <FaCog className="h-5 w-5" />
+            <a href="/settings" className="hover:text-blue-500" gap-2>
+              Settings
             </a>
           </li>
         </ul>

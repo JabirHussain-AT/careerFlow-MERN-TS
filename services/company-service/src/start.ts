@@ -7,6 +7,7 @@ import session from 'express-session'
 import dependencies from './util/config/dependencies'
 import { routes } from './adapters/router'
 import errHandler from './util/errorHandlers/errorHandler'
+import scheduleJobUpdate  from './util/cronJob/forCheckingExpiry'
 
 
 
@@ -15,6 +16,7 @@ const PORT : number = Number(process.env.PORT) || 3003
 
 app.use(express.json())
 app.use(cookieParser())
+scheduleJobUpdate()
 
 app.use(cors({
   origin: process.env.FRONT_END_URL,

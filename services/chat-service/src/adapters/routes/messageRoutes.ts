@@ -1,7 +1,6 @@
 import { Router } from "express";
 import messageControllers from "../../handlers/controller/messageController";
-// import verifyUserAuth from "../../utils/middlewares/verifyUserAuth";
-// import upload from "../../utils/externalServices/aws-s3/fileUpload";
+import verifyUserAuth from "../../utils/middlewares/authCheck";
 
 const messageRoutes = ( dependencies: any) => {
     const router = Router();
@@ -12,10 +11,10 @@ const messageRoutes = ( dependencies: any) => {
         changeUnreadStatusController
     } = messageControllers(dependencies);
 
-    router.get('/fetch-chat-userChat/:senderId/:recieverId',fetchUserChatController)
-    router.get('/update-unread-messages/:userId',changeUnreadStatusController)
-    router.post('/save-message', saveMessageController)
-    router.post('/unread-messages-count', unreadMessageCountController)
+    router.get('/fetch-chat-userChat/:senderId/:recieverId',verifyUserAuth,fetchUserChatController)
+    router.get('/update-unread-messages/:userId',verifyUserAuth,changeUnreadStatusController)
+    router.post('/save-message',verifyUserAuth, saveMessageController)
+    router.post('/unread-messages-count',verifyUserAuth, unreadMessageCountController)
     
     return router;
 }

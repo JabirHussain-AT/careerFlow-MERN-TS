@@ -157,8 +157,6 @@ export const updateApprovel = async (companyId, status) => {
   }
 };
 
-
-
 export const addJobInCompany = async (companyData) => {
   try {
     const job = await jobCollection.create(companyData);
@@ -498,28 +496,25 @@ export const getJobsAndApplicantsCount = async (companyId: string) => {
 
 export const getChartData = async (companyId: string, filter: string) => {
   try {
-
-      const data = await Jobs.aggregate([
-        {
-          $match: {
-            companyId: new mongoose.Types.ObjectId(companyId),
-          },
+    const data = await Jobs.aggregate([
+      {
+        $match: {
+          companyId: new mongoose.Types.ObjectId(companyId),
         },
-        {
-          $group: {
-            _id:filter,
-            jobsPosted: { $sum: 1 },
-            applicationsDone: { $sum:  { $size: "$applicants" }}, 
-  
-          },
+      },
+      {
+        $group: {
+          _id: filter,
+          jobsPosted: { $sum: 1 },
+          applicationsDone: { $sum: { $size: "$applicants" } },
         },
-      ]);
-      if (data) {
-        return data;
-      } else {
-        return false;
-      }
-    
+      },
+    ]);
+    if (data) {
+      return data;
+    } else {
+      return false;
+    }
   } catch (error) {
     console.log(
       error,
@@ -527,7 +522,6 @@ export const getChartData = async (companyId: string, filter: string) => {
     );
   }
 };
-
 
 export const getChatCompanyData = async (companyDataContainer: any) => {
   try {
@@ -553,3 +547,70 @@ export const getChatCompanyData = async (companyDataContainer: any) => {
   }
 };
 
+export const scheduleInterview = async (interViewData: any) => {
+  console.log(
+    "🚀 ~ file: companyRepo.ts:564 ~ scheduleInterview ~ interViewData:",
+    interViewData
+  );
+  try {
+    const jobId = interViewData?.jobId;
+    const applicantId = interViewData?.applicantId;
+    const { date, time, InterviewType, InterviewerName } = interViewData;
+
+    const result = await Jobs.findOneAndUpdate(
+      {
+        _id: new mongoose.Types.ObjectId(jobId),
+        "applicants.applicantId": new mongoose.Types.ObjectId(applicantId),
+      },
+      {
+        $set: {
+          "applicants.$.schedule": {
+            date,
+            time,
+            InterviewType,
+            InterviewerName,
+          },
+        },
+      },
+      { new: true }
+    );
+
+    if (result) {
+      return result;
+    } else {
+      return false;
+    }
+  } catch (error) {
+    console.error("Error scheduling interview:", error);
+    return false;
+  }
+};
+
+export const getInterViewSchedule = async (jobId: any, applicantId: any) => {
+  try {
+    const result = await Jobs.aggregate([
+      {
+        $match: {
+          _id: new mongoose.Types.ObjectId(jobId),
+        },
+      },
+      {
+        $unwind: "$applicants",
+      },
+      {
+        $match: {
+          "applicants.applicantId": new mongoose.Types.ObjectId(applicantId),
+        },
+      },
+    ]);
+
+    if (result) {
+      return result;
+    } else {
+      return false;
+    }
+  } catch (error) {
+    console.error("Error scheduling interview:", error);
+    return false;
+  }
+};

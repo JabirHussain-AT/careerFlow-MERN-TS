@@ -178,12 +178,39 @@ export const getChartData = async (Id : string , filter : string)=>{
 }
 
 
+export const fetchInterViewSchedule = async (jobId : any , applicantId : any)=>{
+  try {
+    const { data } = await axios.get(`${AuthCompanyBaseUrl}/job/get-interview-schedules/${jobId}/${applicantId}`, config);
+    return data;
+  } catch (err: any) {
+    console.log(err,'==> error happened in the get interveiw schedule list applicant profile ')
+  }
+}
+
+
 export const chatCompanyDetials = createAsyncThunk(
-  "user/chatUsersDetials",
+  "company/chatUsersDetials",
   async ( companyIdContainer : any , { rejectWithValue }) => {
     try {
       const { data } = await axios.post(
         `${AuthCompanyBaseUrl}/get-chatCompanyDetials`,companyIdContainer,
+        config
+      );
+      return data;
+    } catch (err: any) {
+      const axiosError = err as AxiosError<ApiError>;
+      return handleError(axiosError, rejectWithValue);
+    }
+  }
+);
+
+
+export const scheduleInterview = createAsyncThunk(
+  "job/scheduleInterview",
+  async ( interViewData : any , { rejectWithValue }) => {
+    try {
+      const { data } = await axios.post(
+        `${AuthCompanyBaseUrl}/job/sceduleInterview`,interViewData,
         config
       );
       return data;

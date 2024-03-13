@@ -40,6 +40,7 @@ import ApplicantDetialsInteriewSchedule from "./components/company/Jobs/Applican
 import MessageHome from "./pages/company/Messages/MessageHome";
 import Messages from "./pages/user/Messages";
 import { useSocket } from '@/contexts/socketContext'
+import MyInterviews from "./pages/user/Profile/MyInteviews";
 
 interface ProtectedRouteProps {
   element: ReactNode;
@@ -274,6 +275,12 @@ function App() {
                 path="my-applications"
                 element={
                   <>{userProtectedRoute({ element: <MyApplications /> })}</>
+                }
+              />
+              <Route
+                path="my-interviews"
+                element={
+                  <>{userProtectedRoute({ element: <MyInterviews /> })}</>
                 }
               />
             </Route>

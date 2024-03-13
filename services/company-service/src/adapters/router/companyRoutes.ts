@@ -26,7 +26,9 @@ export default (dependencies: any): any => {
     preferedJobsController ,
     getChartDataController ,
     getChatCompanydataController ,
-    changeJobApplicationStatusController
+    changeJobApplicationStatusController,
+    scheduleInterViewController ,
+    getScheduledInterviewController
   } = companyController(dependencies);
 
   // company-signup
@@ -58,6 +60,8 @@ export default (dependencies: any): any => {
   router.get("/dashboard/get-jobs-applicants/:companyId",verifyUserAuth, getJobsAndApplicantsCount);
   router.post('/get-chatCompanyDetials',verifyuserAuth,getChatCompanydataController);
   router.get("/dashboard/get-jobs-applicants/:filter/:companyId",verifyUserAuth, getChartDataController);
+  router.post("/job/sceduleInterview",verifyUserAuth,scheduleInterViewController);
+  router.get("/job/get-interview-schedules/:jobId/:applicantId",verifyUserAuth,getScheduledInterviewController);
 
   return router;
 };

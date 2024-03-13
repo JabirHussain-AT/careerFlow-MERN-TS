@@ -22,6 +22,8 @@ import { changeJobApplicationStatus_useCase } from "./changeStatusJobApplicant";
 import { getJobAndApplicantsCount_useCase } from "./getJobsAndApplicants";
 import  { getChartData_useCase } from './getChartData'
 import { getChatCompanyData_useCase } from './getChatCompanyData'
+import { scheduleInterView_useCase } from './scheduleInterview'
+import { getInterViewSchedule_useCase } from './getInterViewSchedule'
 
 export default  {
   signUp_useCase,
@@ -42,10 +44,12 @@ export default  {
   addCategory_useCase ,
   fetchCategories_useCase ,
   findJobs_useCase ,
+  scheduleInterView_useCase,
   jobApply_useCase ,
   getChartData_useCase ,
   getMyJobApplications_useCase ,
   getJobAndApplicantsCount_useCase ,
   getChatCompanyData_useCase ,
-  changeJobApplicationStatus_useCase
+  changeJobApplicationStatus_useCase,
+  getInterViewSchedule_useCase
 }

@@ -18,8 +18,9 @@ const JobsSchema: Schema = new Schema(
           resume: { type: String },
           schedule: {
             date: { type: Date },
-            employeeId: { type: Schema.Types.ObjectId },
-            time: { type: String },
+            time : { type : String} ,
+            InterviewType : {type : String  },
+            InterviewName : { type : String } 
           },
         },
       ],

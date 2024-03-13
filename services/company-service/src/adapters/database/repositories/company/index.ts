@@ -20,7 +20,9 @@ import {
     jobApply ,
     getMyJobApplications ,
     changeJobApplicationStatus ,
-    getChatCompanyData
+    getChatCompanyData ,
+    scheduleInterview ,
+    getInterViewSchedule
  } from "./companyRepo"; 
 
 export default {
@@ -42,9 +44,11 @@ export default {
     findJobs ,
     getJobsAndApplicantsCount ,
     jobApply ,
+    getInterViewSchedule ,
     getPreferedJobs ,
     getMyJobApplications ,
     changeJobApplicationStatus ,
-    getChatCompanyData
+    getChatCompanyData ,
+    scheduleInterview
 
 }

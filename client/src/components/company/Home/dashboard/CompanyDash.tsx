@@ -82,7 +82,7 @@ const CompanyDash: React.FC = () => {
             icon={FaUsers}
             count={countData?.totalApplicants}
           />
-          <Cards text="Interviews" icon={MdOutlinePending} count={42} />
+          <Cards text="Interviews" icon={MdOutlinePending} count={3} />
           <Cards
             text="New Applicants"
             icon={MdOutlinePending}
