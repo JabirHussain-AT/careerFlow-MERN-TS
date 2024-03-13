@@ -92,26 +92,33 @@ const MessageChatSectionUser: React.FC<MessageChatSectionProps> = ({
   }, [socket, applicant?._id, user?._id]);
 
   useEffect(() => {
-    socket &&
-      socket.off("new-message").on("new-message", (message: any) => {
-        // console.log("🚀 ~ file: MessageChatSection.tsx:32 ~ socket&&socket.off ~ message:", message);
+    const fetchDataAndUpdateMessages = async () => {
+      try {
+        const updatedChatData = await dispatch(
+          fetchChatUserChat({
+            senderId: user?._id,
+            recieverId: applicant?._id,
+          })
+        );
 
-        setMessages((prevMessages) => [...prevMessages, message]);
-        if (location.pathname !== "/") {
-          // toast.info("New Message Received", {
-          //   position: "top-left",
-          //   autoClose: 3000,
-          //   hideProgressBar: false,
-          //   closeOnClick: true,
-          //   pauseOnHover: true,
-          //   draggable: true,
-          // });
-        }
+        setMessages(updatedChatData?.payload?.data);
+      } catch (error) {
+        console.error("Error fetching chat:", error);
+      }
+    };
+
+    if (socket) {
+      socket.off("new-message").on("new-message", (message: any) => {
+        fetchDataAndUpdateMessages();
       });
-    socket.off("statusCheck-result").on("statusCheck-result", (status: any) => {
-      setRecieverStatus(status);
-    });
-  }, [socket]);
+
+      socket
+        .off("statusCheck-result")
+        .on("statusCheck-result", (status: any) => {
+          setRecieverStatus(status);
+        });
+    }
+  }, [socket, applicant, user, dispatch]);
 
   const autoScroll = () => {
     if (messagesContainerRef.current) {
@@ -120,10 +127,9 @@ const MessageChatSectionUser: React.FC<MessageChatSectionProps> = ({
     }
   };
 
-  const sendMessage = () => {
+  const sendMessage = async () => {
     if (inputMessage.trim() === "") return;
 
-    // Add the message to the state locally
     const sentMessage = {
       content: inputMessage,
       senderId: user?._id,
@@ -137,25 +143,30 @@ const MessageChatSectionUser: React.FC<MessageChatSectionProps> = ({
       latestMessage: inputMessage,
     };
 
-    const savedMessage = dispatch(saveChatMessages(temp));
+    const savedMessage = await dispatch(saveChatMessages(temp));
 
-    setMessages((prevMessages) => [...prevMessages, sentMessage]);
+    // Fetch updated chat data after sending the message
+    const updatedChatData = await dispatch(
+      fetchChatUserChat({
+        senderId: user?._id,
+        recieverId: applicant?._id,
+      })
+    );
 
-    // Emit the message to the server
+    setMessages(updatedChatData?.payload?.data);
+
     const toSendId = applicant._id;
-    console.log(toSendId, " jabir hussian ");
     socket.emit("send-message", {
       content: inputMessage,
       receiverId: toSendId,
       senderId: user?._id,
     });
 
-    // Clear the input field
     setInputMessage("");
   };
 
   return (
-    <div className="relative bg-green-100 w-7/12 rounded-lg overflow-hidden border shadow-lg">
+    <div className="relative  max-h-[520px] bg-green-100 w-7/12 rounded-lg overflow-hidden border shadow-lg">
       <div className="w-full h-12 flex gap-3 bg-red-50">
         {/* Online status, name, and profile pic */}
         <img
@@ -185,52 +196,63 @@ const MessageChatSectionUser: React.FC<MessageChatSectionProps> = ({
         {messages &&
           messages.map((message, index) => (
             <div key={index} className={`flex flex-col mb-2`}>
-              {index === 0 ||
-              new Date(messages[index - 1].createdAt).getDate() !==
-                new Date(message.createdAt).getDate() ? (
-                <div className="text-center text-gray-500 text-xs mb-2">
-                  {format(new Date(message.createdAt), "EEEE, MMMM d, yyyy")}
-                </div>
-              ) : null}
-              <div
-                className={`flex items-${
-                  message.senderId === user?._id ? "end" : "start"
-                }`}
-              >
-                <div
-                  className={`w-${
-                    message.senderId === user?._id ? "11/12 text-right" : "1/12"
-                  }`}
-                >
-                  <div
-                    className={`bg-${
-                      message.senderId === user?._id
-                        ? "blue-500 text-white"
-                        : "gray-300"
-                    } p-2 w-50 rounded-lg inline-block`}
-                  >
-                    {message.content ?? message?.message}
-                    <span className="text-sm text-gray-800 ml-2">
-                      {format(new Date(message.createdAt), "h:mm aa")}
-                    </span>
-                  </div>
-                </div>
-                <div
-                  className={`w-${
-                    message.senderId === user?._id ? "1/12" : "11/12"
-                  }`}
-                >
-                  {message.senderId === user?._id ? (
-                    <img
-                      className="w-10 h-10 rounded-full"
-                      src="https://www.kasandbox.org/programming-images/avatars/old-spice-man-blue.png"
-                      alt="dp"
-                    />
-                  ) : (
-                    ""
+              {message.createdAt && (
+                <>
+                  {(index === 0 ||
+                    (messages[index - 1] &&
+                      new Date(messages[index - 1]?.createdAt).getDate() !==
+                        new Date(message.createdAt).getDate())) && (
+                    <div className="text-center text-gray-500 text-xs mb-2">
+                      {format(
+                        new Date(message?.createdAt),
+                        "EEEE, MMMM d, yyyy"
+                      )}
+                    </div>
                   )}
-                </div>
-              </div>
+                  <div
+                    className={`flex items-${
+                      message.senderId === user?._id ? "end" : "start"
+                    }`}
+                  >
+                    <div
+                      className={`w-${
+                        message.senderId === user?._id
+                          ? "11/12 text-right"
+                          : "1/12"
+                      }`}
+                    >
+                      <div
+                        className={`bg-${
+                          message.senderId === user?._id
+                            ? "blue-500 text-white"
+                            : "gray-300"
+                        } p-2 w-50 rounded-lg inline-block`}
+                      >
+                        {message.content ?? message?.message}
+                        <span className="text-sm text-gray-800 ml-2">
+                          {message.createdAt &&
+                            format(new Date(message.createdAt), "h:mm aa")}
+                        </span>
+                      </div>
+                    </div>
+                    <div
+                      className={`w-${
+                        message.senderId === user?._id ? "1/12" : "11/12"
+                      }`}
+                    >
+                      {message.senderId === user?._id ? (
+                        <img
+                          className="w-10 h-10 rounded-full"
+                          src="https://www.kasandbox.org/programming-images/avatars/old-spice-man-blue.png"
+                          alt="dp"
+                        />
+                      ) : (
+                        ""
+                      )}
+                    </div>
+                  </div>
+                </>
+              )}
             </div>
           ))}
       </div>

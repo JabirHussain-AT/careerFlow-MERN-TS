@@ -1,9 +1,13 @@
 import { 
     saveMessage ,
-    fetchChatUserChat
+    fetchChatUserChat ,
+    getUnreadMessagesCount ,
+    changeUnreadStatus
 } from "./messageRepo"
 
 export default {
     saveMessage ,
-    fetchChatUserChat
+    fetchChatUserChat ,
+    getUnreadMessagesCount ,
+    changeUnreadStatus
 }

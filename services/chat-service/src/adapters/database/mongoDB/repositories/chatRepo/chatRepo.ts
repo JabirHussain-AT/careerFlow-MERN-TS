@@ -43,11 +43,11 @@ export const createNewChatroom = async (roomDetails: {
 
 
 
-export const fetchChatUsers = async (companyId: string) => {
+export const fetchChatUsers = async (companyId: string , limit : number ) => {
   try {
     const data = await ChatRoomCollection.find({
       $or: [{ roomCreater: companyId }, { roomJoiner: companyId }],
-    });
+    }).limit(limit);
 
     if (data) {
       return data;

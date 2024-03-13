@@ -82,7 +82,7 @@ const ViewApplicantDetialSideBar: React.FC = () => {
       const response = await dispatch(createNewChatRoom(dataToSend))
       const chatRoomId = response?.payload?.data?._id
       console.log(chatRoomId,'-0-------p')
-      if(chatRoomId) navigate(`/company/messages/${chatRoomId}`)
+      if(chatRoomId) navigate(`/company/messages`)
   }
 
   return (

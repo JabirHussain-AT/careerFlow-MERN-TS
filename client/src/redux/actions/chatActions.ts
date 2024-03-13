@@ -44,10 +44,10 @@ export const saveChatMessages = createAsyncThunk(
 
 export const fetchChatUsers = createAsyncThunk(
   "chat/fetchChatUsers",
-  async (companyId: string, { rejectWithValue }) => {
+  async ({companyId , limit } : { companyId : string , limit : number | string }, { rejectWithValue }) => {
     try {
       const { data } = await axios.get(
-        `${ChatSecUrl}/room/fetch-chat-users/${companyId}`,
+        `${ChatSecUrl}/room/fetch-chat-users/${companyId}/${limit}`,
         config
       );
       return data;
@@ -63,6 +63,31 @@ export const fetchChatUserChat = createAsyncThunk(
     try {
       const { data } = await axios.get(
         `${ChatSecUrl}/message/fetch-chat-userChat/${senderId}/${recieverId}`,
+        config
+      );
+      return data;
+    } catch (err: any) {
+      const axiosError = err as AxiosError<ApiError>;
+      return handleError(axiosError, rejectWithValue);
+    }
+  }
+);
+
+export const getUnreadMessageCount = async (applicantIds : any)=>{
+  try {
+    const { data } = await axios.post(`${ChatSecUrl}/message/unread-messages-count`, applicantIds ,config);
+    return data;
+  } catch (err: any) {
+    console.log(err,'==> error get unread message ')
+  }
+}
+
+export const updateUnreadMessageCount = createAsyncThunk(
+  "chat/updateUnreadMessageCount",
+  async (applicantId : string, { rejectWithValue }) => {
+    try {
+      const { data } = await axios.get(
+        `${ChatSecUrl}/message/update-unread-messages/${applicantId}`,
         config
       );
       return data;

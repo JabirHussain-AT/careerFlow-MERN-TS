@@ -2,42 +2,41 @@ import { Request, Response, NextFunction } from "express";
 
 export = (dependencies: any): any => {
   const {
-    usecases : { messageUseCases : { fetchuserChat_useCase }}
+    usecases : { messageUseCases : { changeUnreadStatus_useCase }}
   } = dependencies;
 
 
-  const saveMessageController = async (
+  const changeUnreadStatus = async (
     req: Request,
     res: Response,
     next: NextFunction
   ) => {
     try {
         
-      const senderId = req.params?.senderId 
-      const reciverId = req.params?.recieverId 
+    const userId = req.params.userId
 
-      const data = await fetchuserChat_useCase(dependencies).interactor(
-      senderId , reciverId
+      const data = await changeUnreadStatus_useCase(dependencies).interactor(
+        userId
       );
       if (data) {
         res.json({
             data : data ,
           success: true,
-          message: "Successfully fetched ",
+          message: "Successfully changed the status ",
         });
       } else {
         res.json({
             data : null ,
           success: true,
-          message: "Successfully updated ",
+          message: "not  changed the status ",
         });
       }
     } catch (err: any) {
-      console.log(err, "error - fetchUserChat in the fetching chat users in chat service");
+      console.log(err, "error - fetch unread messages count in chat service");
         res.status(500).json({ error: "Internal Server Error" });
         next();
     }
   };
 
-  return saveMessageController;
+  return changeUnreadStatus;
 };

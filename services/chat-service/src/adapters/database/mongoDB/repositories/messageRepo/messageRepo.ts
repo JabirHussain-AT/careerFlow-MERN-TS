@@ -15,8 +15,7 @@ export const saveMessage = async (messageData: any) => {
 };
 
 export const fetchChatUserChat = async (senderId : string , recieverId : string) => {
-  console.log("🚀 ~ file: messageRepo.ts:18 ~ fetchChatUserChat ~ recieverId:", recieverId)
-  console.log("🚀 ~ file: messageRepo.ts:18 ~ fetchChatUserChat ~ senderId:", senderId)
+
   try {
   const data = await MessageCollection.find({
   $or: [
@@ -24,10 +23,6 @@ export const fetchChatUserChat = async (senderId : string , recieverId : string)
     { senderId: recieverId, reciverId: senderId }
   ]
 }).sort({ createdAt: 1 });
-
-
-
-    
 
     if (data) {
       return data;
@@ -38,4 +33,57 @@ export const fetchChatUserChat = async (senderId : string , recieverId : string)
     return false;
   }
 };
+
+
+export const getUnreadMessagesCount = async (applicantIds) => {
+  try {
+    const unreadMessagesCounts = {};
+
+    const data = await MessageCollection.find({ 
+      unread: true, 
+      senderId: { $in: applicantIds } 
+    });
+
+    data.forEach(message => {
+      const applicantId = message.senderId.toString(); // Convert ObjectId to string
+      unreadMessagesCounts[applicantId] = (unreadMessagesCounts[applicantId] || 0) + 1;
+    });
+
+    // Create an object with keys of applicantId
+    const unreadMessagesObject = {};
+    applicantIds.forEach(id => {
+      unreadMessagesObject[id] = unreadMessagesCounts[id] || 0;
+    });
+
+    return unreadMessagesObject;
+  } catch (error) {
+    console.log(`An error occurred during the fetching chat users : ${error}`);
+    return false;
+  }
+};
+
+
+
+export const changeUnreadStatus = async (userId) => {
+  try {
+    const data = await MessageCollection.updateMany(
+      { senderId: userId },
+      { $set: { unread: false } }
+    );
+    if(data){
+      return data
+    }else{
+      return false
+    }
+    
+     
+  } catch (error) {
+    console.log(`An error occurred during the fetching chat users : ${error}`);
+    return false;
+  }
+};
+
+
+
+
 

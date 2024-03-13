@@ -4,9 +4,9 @@ export const fetchChatUsers_useCase = ( dependencies: any) => {
             chatRepo : {fetchChatUsers}
         }
     } = dependencies;
-    const interactor = async (companyId:string) => {
+    const interactor = async (companyId:string,limit : number | string ) => {
 
-        return await fetchChatUsers(companyId)
+        return await fetchChatUsers(companyId,limit)
     }
 
     return { interactor }

@@ -12,7 +12,7 @@ const chatRoomRoutes = (dependencies: any) => {
 
 
     router.post('/creat-chat-room',createNewRoomController)
-    router.get('/fetch-chat-users/:companyId',fetchChatUsersController)
+    router.get('/fetch-chat-users/:companyId/:limit',fetchChatUsersController)
     // router.patch(`/get-chat-room/with/:applicantId`, verifyUserAuth, getChatroomController)
     // router.get(`/get-current-user-chats`, verifyUserAuth, getCurrentUserChatRoomsController)
 

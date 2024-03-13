@@ -2,22 +2,21 @@ import { Request, Response, NextFunction } from "express";
 
 export = (dependencies: any): any => {
   const {
-    usecases : { messageUseCases : { fetchuserChat_useCase }}
+    usecases : { messageUseCases : { unreadMessagesCount_useCase }}
   } = dependencies;
 
 
-  const saveMessageController = async (
+  const unreadMessageCount = async (
     req: Request,
     res: Response,
     next: NextFunction
   ) => {
     try {
         
-      const senderId = req.params?.senderId 
-      const reciverId = req.params?.recieverId 
+    const applicantIds = req.body
 
-      const data = await fetchuserChat_useCase(dependencies).interactor(
-      senderId , reciverId
+      const data = await unreadMessagesCount_useCase(dependencies).interactor(
+        applicantIds
       );
       if (data) {
         res.json({
@@ -29,15 +28,15 @@ export = (dependencies: any): any => {
         res.json({
             data : null ,
           success: true,
-          message: "Successfully updated ",
+          message: "Successfully fetched ",
         });
       }
     } catch (err: any) {
-      console.log(err, "error - fetchUserChat in the fetching chat users in chat service");
+      console.log(err, "error - fetch unread messages count in chat service");
         res.status(500).json({ error: "Internal Server Error" });
         next();
     }
   };
 
-  return saveMessageController;
+  return unreadMessageCount;
 };

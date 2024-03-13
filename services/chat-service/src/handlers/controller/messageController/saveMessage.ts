@@ -35,8 +35,8 @@ export = (dependencies: any): any => {
       }
     } catch (err: any) {
       console.log(err, "error in the fetching chat users in chat service");
-      //   res.status(500).json({ error: "Internal Server Error" });
-      //   next();
+        res.status(500).json({ error: "Internal Server Error" });
+        next();
     }
   };
 

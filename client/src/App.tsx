@@ -186,7 +186,7 @@ function App() {
                 element={<>{companyProtectedRoute({ element: <AddJobs /> })}</>}
               />
               <Route
-                path="messages/:applicantId"
+                path="messages"
                 element={
                   <>{companyProtectedRoute({ element: <MessageHome /> })}</>
                 }

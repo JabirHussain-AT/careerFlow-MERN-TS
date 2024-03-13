@@ -15,7 +15,8 @@ export = (dependencies: any): any => {
     try {
      
       const companyId = req.params.companyId
-      const data  = await fetchChatUsers_useCase(dependencies).interactor(companyId)
+      const limit = req.params.limit
+      const data  = await fetchChatUsers_useCase(dependencies).interactor(companyId , limit )
   
       res.json({
         data : data , 

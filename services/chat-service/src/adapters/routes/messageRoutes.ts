@@ -7,14 +7,15 @@ const messageRoutes = ( dependencies: any) => {
     const router = Router();
     const {
         saveMessageController,
-        fetchUserChatController
+        fetchUserChatController ,
+        unreadMessageCountController ,
+        changeUnreadStatusController
     } = messageControllers(dependencies);
 
-    router.post('/save-message', saveMessageController)
     router.get('/fetch-chat-userChat/:senderId/:recieverId',fetchUserChatController)
-    // router.post('/save-media-files', upload.array("files"), saveMediafilesController)
-    // router.patch('/change-message-status', changeMessagesStatusAsReadController)
-    // router.get('/get-unread-messages-count', getCountOfUnreadMessagesController)
+    router.get('/update-unread-messages/:userId',changeUnreadStatusController)
+    router.post('/save-message', saveMessageController)
+    router.post('/unread-messages-count', unreadMessageCountController)
     
     return router;
 }
