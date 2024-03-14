@@ -100,6 +100,7 @@ const MessageChatSection: React.FC<MessageChatSectionProps> = ({
         setRecieverStatus(status);
       });
     }
+    socket.emit("check",'check-success')
   }, [socket, applicant, user, dispatch]);
   
 

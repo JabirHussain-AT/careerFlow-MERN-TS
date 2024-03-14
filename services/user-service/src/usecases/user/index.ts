@@ -10,6 +10,7 @@ import { userProfileUpdate_useCase } from './userProfileUpdate'
 import { updateBasicDetials_useCase } from './updateBasicDetials'
 import { fetchUser_useCase } from './fetchUser'
 import { getChatUserData_useCase } from './getChatUserData'
+import { changeUserBlockSatus_useCase } from './changeBlockStatus'
  
 export = {
   signUp_useCase,
@@ -23,5 +24,6 @@ export = {
   fetchUsers_useCase ,
   userProfileUpdate_useCase ,
   updateBasicDetials_useCase ,
-  fetchUser_useCase
+  fetchUser_useCase,
+  changeUserBlockSatus_useCase
 }

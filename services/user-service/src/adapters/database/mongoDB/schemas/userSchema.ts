@@ -60,6 +60,7 @@ const userSchema: Schema = new Schema(
     location: { type: String },
     position: { type: String },
     preferredJobs: [{type:String}] ,
+    isBlocked : { type : Boolean , default : false },              
     profileVerification: { type: Boolean },
     savedJobs: [{ type: String }],
     basicInfoUpdated: { type: Boolean, default: false },
@@ -76,7 +77,7 @@ export interface IUserData extends IUser {
   updatedAt: Date;
 }
 export interface IUserDoc {
-  _id: ObjectId;
+  _id: ObjectId | string ,
   userName: string;
   email: string;
   role: string;
@@ -97,6 +98,7 @@ export interface IUserDoc {
   education?: object[] | null;
   experiance: object[] | null;
   approved: boolean | null;
+  isBlocked : boolean | null ;
   stage: string | null;
   savedJobs: string[];
   basicInfoUpdated: boolean;

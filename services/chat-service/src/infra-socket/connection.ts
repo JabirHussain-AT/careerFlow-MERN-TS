@@ -47,6 +47,7 @@ const connectSocketIo = (server: Server) => {
         // console.log('onlineUsers after sending message:', onlineUsers);
       });
 
+
       socket.on("status-check", ({ receiverId, senderId }) => {
         const result = onlineUsers.some((user) => user.userId === receiverId);
         const sender = onlineUsers.find((user) => user.userId === senderId);

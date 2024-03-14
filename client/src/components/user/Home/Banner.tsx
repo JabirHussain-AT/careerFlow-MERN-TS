@@ -12,7 +12,7 @@ const Banner: React.FC = () => {
   };
 
   return (
-    <div className="flex justify-between items-center h-screen bg-green-100">
+    <div className="flex justify-between items-center h-screen bg-green-200">
       <div className=" px-44 mb-11">
         <h1 className="text-5xl font-sans font-bold">
           Find <span className="text-blue-500"> Jobs </span> That <br />{" "}

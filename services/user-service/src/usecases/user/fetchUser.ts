@@ -7,7 +7,6 @@ export const fetchUser_useCase = (dependencies: any): any => {
   
   if(!fetchUser) throw new Error('repository is required  !')
   const interactor = async ( userId  )=>{
-       console.log('hey ')
       return await fetchUser(userId)
    }
    return {interactor}

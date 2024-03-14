@@ -53,7 +53,7 @@ const Dashboard: React.FC = () => {
 
 
           ) : (
-             user?.status === 'pending' ?
+             user?.status === 'pending'  ?
 
 
              <div className="max-w-md mx-auto mt-10 bg-white p-8 border rounded shadow">
@@ -62,7 +62,7 @@ const Dashboard: React.FC = () => {
              </p>
              <div className="flex items-center">
                <svg
-                 xmlns="http://www.w3.org/2000/svg"
+                 xmlns="http://www.w3.org/20 00/svg"
                  className="h-6 w-6 text-green-500 mr-2"
                  fill="none"
                  viewBox="0 0 24 24"

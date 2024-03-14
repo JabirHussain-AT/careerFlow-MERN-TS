@@ -25,6 +25,22 @@ export const approveCompanyAccount = createAsyncThunk('compnay/approveStatus' , 
   }
 })
 
+export const userBlockStatus = createAsyncThunk(
+  "user/userBlockStatus",
+  async (userId: string, { rejectWithValue }) => {
+    try {
+      const { data } = await axios.patch(
+        `${AuthBaseAdminUrl}/change-user-Block-status/${userId}`,
+        config
+      );
+      return data;
+    } catch (err: any) {
+      const axiosError = err as AxiosError<ApiError>;
+      return handleError(axiosError, rejectWithValue);
+    }
+  }
+);
+
 
 export const fetchUsers = async () => {
   try {

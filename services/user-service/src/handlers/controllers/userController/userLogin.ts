@@ -2,6 +2,7 @@ import { Request, Response, NextFunction } from "express";
 import ErrorResponse from "../../../util/errorHandlers/errorResponse";
 import { comparePasswords } from "../../../util/externalServices/bcrypt/bcryptComapre";
 import { generateToken } from "../../../util/externalServices/jwt";
+import userExist from "./userExist";
 
 export = (dependencies: any): any => {
   const {
@@ -10,14 +11,12 @@ export = (dependencies: any): any => {
 
   const loginUser = async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const userCredentials = req.body;
-      console.log(userCredentials,'this is the one')
+      const { email  , password , googleAuth  } =req.body
       const isUserExist = await login_useCase(dependencies).interactor(
-        userCredentials.email,
-        userCredentials.password
+        email,
+        password
       );
 
-      console.log(isUserExist, "is user exist or not");
       if (!isUserExist) {
         return next(
           ErrorResponse.forbidden(
@@ -27,10 +26,20 @@ export = (dependencies: any): any => {
       }
 
       let userVerify = await comparePasswords(
-        userCredentials.password,
+        password,
         isUserExist.password
       );
-      if (userVerify || userCredentials?.googleAuth) {
+
+      if(isUserExist.isBlocked === true){
+          return next(
+            ErrorResponse.forbidden(
+              "This User is Blocked By the Admin"
+            )
+          );
+      }
+    
+      if (userVerify || googleAuth) {
+       
 
         let payload = {
           _id: String(isUserExist?.id),

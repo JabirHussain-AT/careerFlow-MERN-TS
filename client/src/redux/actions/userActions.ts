@@ -38,14 +38,13 @@ export const userLogin = createAsyncThunk(
     }
   }
 );
+
+
 export const isUserExist = createAsyncThunk(
   "user/isUserExist",
   async (userCredentials: any, { rejectWithValue }) => {
     try {
-      console.log(
-        "<<<<<<<<>>>>>>>>>>>>>>>>>>>==========================================================",
-        userCredentials
-      );
+  
       const { data } = await axios.post(
         `${AuthBaseUrl}/exists`,
         userCredentials,
@@ -58,6 +57,14 @@ export const isUserExist = createAsyncThunk(
     }
   }
 );
+
+
+
+
+
+
+
+
 
 export const fetchJob = async (jobId: any) => {
   try {

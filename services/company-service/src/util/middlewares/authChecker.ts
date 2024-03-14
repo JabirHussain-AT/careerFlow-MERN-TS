@@ -4,9 +4,7 @@ import jwt from "jsonwebtoken";
 const verifyUserAuth = (req: Request, res: Response, next: NextFunction) => {
   const token: string = req.cookies.user_jwt;
   const secret: string = process.env.JWt_SECRET;
-  console.log(req.url)
-    console.log(token,'----------token')
-    console.log(secret,'----------secret')
+
 
   if (token !== undefined ) {
     jwt.verify(token, secret, (err: any, decodedUser: any) => {

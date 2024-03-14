@@ -37,6 +37,34 @@ export const userExistCheck = async (
   }
 };
 
+
+export const changeBlockStatus = async (userId: string) => {
+
+  try {
+    
+    const user = await userCollection.findOne({_id: userId });
+    if(!user){
+      throw new Error
+    }
+    const updatedStatus = !user.isBlocked;
+
+    const data = await userCollection.findOneAndUpdate(
+      { _id: userId },
+      { $set: { isBlocked: updatedStatus } }
+    );
+
+    if (data) {
+      return data;
+    }
+    return false;
+  } catch (err: any) {
+    console.log(err, "=> err happened in userRepo changing block status");
+    throw err;
+  }
+};
+
+
+
 export const saveOtp = async (otp: number, email: string) => {
   try {
     console.log("save otp repo");

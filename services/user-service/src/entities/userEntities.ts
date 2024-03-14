@@ -17,6 +17,7 @@ export interface IUser extends Document {
     about?:string | null,
     languages?:string[] | null,
     education?:object[] | null ,
+    isBlocked?: Boolean | null ,
     experiance : object [ ] | null 
     preferredJobs?:string[] | null
     stage:string ,

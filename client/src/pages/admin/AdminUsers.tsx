@@ -4,11 +4,15 @@ import AlertBox from "@/components/common/AlertBox";
 import { fetchUsers } from "../../redux/actions/adminActions";
 import { IUserDoc } from "@/interface/IUserDoc";
 import MoreInfoModalUsers from "@/components/admin/compnayUsers.tsx/MoreInfoModalUsers";
+import { AppDispatch } from "@/redux/store";
+import { useDispatch } from "react-redux";
+import {  userBlockStatus } from '@/redux/actions/adminActions'
 
 const AdminUsers = () => {
   const [users, setUsers] = useState<IUserDoc[]>([]);
   const [filter, setFilter] = useState("user");
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const dispatch = useDispatch<AppDispatch>()
 
   useEffect(() => {
     fetchUsers()
@@ -38,15 +42,13 @@ const AdminUsers = () => {
 
   //
 
-  const handleBlock = (userId: any) => {
-    console.log(`Block user with ID ${userId}`);
-    // Add your logic here to block the user
+  const handleBlock =async  (userId: any) => {
     makeChange(userId, "blocked");
+    const response  =  await dispatch(userBlockStatus(userId))
+    console.log("🚀 ~ file: AdminUsers.tsx:48 ~ handleBlock ~ response:", response)
   };
 
   const handleUnblock = (userId: any) => {
-    console.log(`Unblock user with ID ${userId}`);
-    // Add your logic here to unblock the user
     makeChange(userId, "active");
   };
 
@@ -117,7 +119,7 @@ const AdminUsers = () => {
                   />
                 <td className="text-black">
                   <div className="flex justify-center mt-1">
-                    { user.status === "approved" && (
+                    { user.isBlocked === false && (
                       <AlertBox
                         button={
                           <FaBan className="text-red-500 cursor-pointer mx-2" />
@@ -126,7 +128,7 @@ const AdminUsers = () => {
                         onConfirm={() => handleBlock(user._id)}
                       />
                     )}
-                    {user.status === "rejected" && (
+                    {user.isBlocked === true && (
                       <AlertBox
                         button={
                           <FaCheck className="text-green-500 cursor-pointer mx-2" />
