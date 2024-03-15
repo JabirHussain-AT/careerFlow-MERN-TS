@@ -126,6 +126,9 @@ export const updatingJob = createAsyncThunk(
   }
 );
 
+
+
+
 export const fetchComJobs = async (id: string | any) => {
   try {
     const { data } = await axios.get(
@@ -157,6 +160,7 @@ export const fetchJobs = async () => {
     return data;
   } catch (err: any) {}
 };
+
 
 export const getTotalJobsAndApplicants = async (Id : string)=>{
   try {

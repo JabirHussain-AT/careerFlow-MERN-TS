@@ -238,3 +238,22 @@ export const getChatUserData = async (userDataContainer: any) => {
     );
   }
 };
+
+
+
+
+export const saveTheJob =  async ( userId : string , jobId : string ) => {
+  try{
+
+    const data = await userCollection.findOneAndUpdate({ _id : userId }, { $push : { savedJobs : jobId } } , { new : true})
+    if( data ) {
+      return data 
+    } else {
+      return false 
+    }
+
+  }catch( err : any ){
+    console.log(err , ' error in the user repo - save the job ')
+
+  }
+}

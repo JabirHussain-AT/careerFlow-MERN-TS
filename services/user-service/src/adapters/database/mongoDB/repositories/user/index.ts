@@ -10,7 +10,8 @@ import {
     getChatUserData ,
     userBasicDetialsUpdate ,
     fetchUser ,
-    changeBlockStatus
+    changeBlockStatus ,
+    saveTheJob
  } from "./userRepo"; 
 
 export = {
@@ -25,5 +26,6 @@ export = {
     userProfileUpdate ,
     userBasicDetialsUpdate ,
     fetchUser,
-    changeBlockStatus
+    changeBlockStatus ,
+    saveTheJob
 }

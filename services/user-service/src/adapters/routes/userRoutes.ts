@@ -13,10 +13,11 @@ export = (dependencies: any): any => {
     userProfileUpdateController,
     updateBasicDetialsController,
     fetchUserDataController,
-    getChatUserDataController
+    getChatUserDataController,
+    saveTheJobController
   } = userController(dependencies);
 
-  // user-signup
+
   router.post('/sign-up', userSignupController);
   router.post('/logIn', userLoginController);
   router.post('/exists', userExistCheckController);
@@ -25,6 +26,7 @@ export = (dependencies: any): any => {
   router.post('/update-profile', verifyUserAuth, userProfileUpdateController);
   router.post('/get-chatUserDetials',verifyuserAuth,getChatUserDataController)
   router.post('/updateBasicDetials', verifyUserAuth, updateBasicDetialsController);
+  router.post('/save-the-job/:userId/:jobId',verifyUserAuth,saveTheJobController)
 
 
   return router;

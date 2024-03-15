@@ -61,11 +61,6 @@ export const isUserExist = createAsyncThunk(
 
 
 
-
-
-
-
-
 export const fetchJob = async (jobId: any) => {
   try {
     const { data } = await axios.get(
@@ -249,6 +244,23 @@ export const chatUsersDetials = createAsyncThunk(
     try {
       const { data } = await axios.post(
         `${AuthBaseUrl}/get-chatUserDetials`,userIdContainer,
+        config
+      );
+      return data;
+    } catch (err: any) {
+      const axiosError = err as AxiosError<ApiError>;
+      return handleError(axiosError, rejectWithValue);
+    }
+  }
+);
+
+export const saveTheJob = createAsyncThunk(
+  "user/saveThejob",
+  async ( { userId , jobId } :{ userId : string , jobId : string}, { rejectWithValue }) => {
+    try {
+      const { data } = await axios.post(
+        `${AuthBaseUrl}/save-the-job/${userId}/${jobId}`,
+        {},
         config
       );
       return data;

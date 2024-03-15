@@ -20,8 +20,9 @@ const updateExpiredJobs = async () => {
 };
 
 const scheduleJobUpdate = () => {
-  cron.schedule("*/30 * * * * *", async () => {
-    console.log("Running job update task...");
+  // Schedule the job to run at midnight every day (00:00)
+  cron.schedule("0 0 * * *", async () => {
+    console.log("Running job update task at midnight...");
     console.log("========================");
     await updateExpiredJobs();
   });

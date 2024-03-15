@@ -11,6 +11,7 @@ import { updateBasicDetials_useCase } from './updateBasicDetials'
 import { fetchUser_useCase } from './fetchUser'
 import { getChatUserData_useCase } from './getChatUserData'
 import { changeUserBlockSatus_useCase } from './changeBlockStatus'
+import { saveTheJob_useCase } from './saveTheJob'
  
 export = {
   signUp_useCase,
@@ -25,5 +26,6 @@ export = {
   userProfileUpdate_useCase ,
   updateBasicDetials_useCase ,
   fetchUser_useCase,
-  changeUserBlockSatus_useCase
+  changeUserBlockSatus_useCase ,
+  saveTheJob_useCase
 }
