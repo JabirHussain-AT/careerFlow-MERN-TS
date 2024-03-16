@@ -53,7 +53,7 @@ const MyInterviews = () => {
     const difference = differenceInSeconds(targetDate, now);
 
     if (difference < 0) {
-      return "Interview passed";
+      return "Its Interview time ";
     }
 
     const days = Math.floor(difference / (24 * 60 * 60));

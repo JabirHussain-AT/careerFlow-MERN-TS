@@ -205,8 +205,6 @@ export const changeJobStatus = async (jobId, value) => {
 export const fetchJobs = async () => {
   try {
     const result = await Jobs.find({}).populate("companyId");
-
-    // console.log("^^^^^^&&&&&&&&&&&&", result);
     return result;
   } catch (error) {
     console.log(error, "error happened in the fetching jobs in  repo");

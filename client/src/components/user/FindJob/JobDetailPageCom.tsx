@@ -60,7 +60,7 @@ const JobDetailPageCom: React.FC<JobDetailPageProps> = ({ job }) => {
     const userId  : string = user?._id
     const response = await dispatch( saveTheJob( { userId : userId , jobId : jobId } ) )
     if(response?.payload?.success && response?.payload?.success ===true ){
-      toast('Job Saved Successfully ' , {
+      toast(response?.payload?.message , {
         position: "top-center",
         autoClose: 5000,
         hideProgressBar: false,

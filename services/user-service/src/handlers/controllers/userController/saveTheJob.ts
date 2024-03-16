@@ -11,9 +11,9 @@ export = (dependencies: any): any => {
       const data = await saveTheJob_useCase(dependencies).interactor( userId , jobId );
 
       if(data ){
-        res.json({success : true , data : data , message : 'updated save the job successfully '})
+        res.json({success : true , data : data , message : ' updated successfully  '})
       }else{
-        res.json({success : false , data : false , message : 'not updated successfully '})
+        res.json({success : false , data : false , message : 'something went wrong in job saving '})
       }
 
     } catch (err: any) {

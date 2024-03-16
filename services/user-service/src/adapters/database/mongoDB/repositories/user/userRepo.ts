@@ -240,20 +240,35 @@ export const getChatUserData = async (userDataContainer: any) => {
 };
 
 
+export const saveTheJob = async (userId: string, jobId: string) => {
+  try {
 
-
-export const saveTheJob =  async ( userId : string , jobId : string ) => {
-  try{
-
-    const data = await userCollection.findOneAndUpdate({ _id : userId }, { $push : { savedJobs : jobId } } , { new : true})
-    if( data ) {
-      return data 
-    } else {
-      return false 
+    const user = await userCollection.findOne({ _id: userId });
+    if (!user) {
+      return false
     }
+    const jobIndex = user.savedJobs.indexOf(jobId);
 
-  }catch( err : any ){
-    console.log(err , ' error in the user repo - save the job ')
+    if (jobIndex !== -1) {
 
+      const updatedUser = await userCollection.findOneAndUpdate(
+        { _id: userId },
+        { $pull: { savedJobs: jobId } },
+        { returnDocument: "after" }
+      );
+      return updatedUser ;
+
+    } else {
+
+      const updatedUser = await userCollection.findOneAndUpdate(
+        { _id: userId },
+        { $addToSet: { savedJobs: jobId } },
+        { returnDocument: "after" }
+      );
+      return updatedUser
+    }
+  } catch (err: any) {
+    console.error(err, 'Error in the user repo - save the job');
+    return false;
   }
-}
+};
