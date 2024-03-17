@@ -42,6 +42,7 @@ import Messages from "./pages/user/Messages";
 import { useSocket } from '@/contexts/socketContext'
 import MyInterviews from "./pages/user/Profile/MyInteviews";
 import MySavedJobs from "./pages/user/Profile/MySavedJobs"
+import InterviewMeet from "./components/company/Rooms/InterviewMeet";
 
 interface ProtectedRouteProps {
   element: ReactNode;
@@ -197,6 +198,12 @@ function App() {
                 path="jobs"
                 element={
                   <>{companyProtectedRoute({ element: <CompanyJobs /> })}</>
+                }
+              />
+              <Route
+                path="interview-meet/:roomId"
+                element={
+                  <>{companyProtectedRoute({ element: <InterviewMeet /> })}</>
                 }
               />
               <Route
