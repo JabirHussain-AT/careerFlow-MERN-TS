@@ -12,7 +12,7 @@ const CompanySchema: Schema = new Schema(
     address : {type : Object },
     linkedIn: { type: String },
     totalEmployees : { type : Number} ,
-    approved: { type: Boolean, default: false },
+    approved: { type: Boolean, default: true },
     phone: { type: Number },
     locations: { type: String },
     headOffice: { type: String },

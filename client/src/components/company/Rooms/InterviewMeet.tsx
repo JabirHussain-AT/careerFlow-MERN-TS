@@ -4,13 +4,19 @@ import { ZegoUIKitPrebuilt } from '@zegocloud/zego-uikit-prebuilt'
 
 const InterviewMeet : React.FC = () => {
     const { roomId } = useParams()
-    const meeting = async ( element ) => {
+    const meeting = async ( element : any ) => {
         const appID = 1916087609 ;
         const serverSecret = "9452af6a726e6150cd728db8129dc18d" ;
         const kitToken  = ZegoUIKitPrebuilt.generateKitTokenForTest(appID , serverSecret , roomId! , Date.now().toString(),'CareerFlow')
         const zc = ZegoUIKitPrebuilt.create( kitToken )
         zc.joinRoom({
             container : element ,
+            sharedLinks : [{
+                name : 'Copy Link ',
+                url : `http://localhost:5173/company/interview-meet/${roomId}`
+            }],
+            showRemoveUserButton : true ,
+            showRoomTimer : true ,
             scenario : {
                 mode : ZegoUIKitPrebuilt.GroupCall ,
           }}

@@ -13,7 +13,7 @@ export default async (
             userName : data?.userName,
             password : data?.password,
             stage : 'pending' ,
-            approved : false 
+            approved : true 
         }
          const user =  await User.create(dataToSave)
         console.log("==========");

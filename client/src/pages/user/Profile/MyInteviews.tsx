@@ -2,12 +2,14 @@ import { IUserSelector } from "@/interface/IUserSlice";
 import { getUserApplications } from "@/redux/actions/userActions";
 import { AppDispatch } from "@/redux/store";
 import React, { useState, useEffect } from "react";
+import { useNavigate } from 'react-router-dom'
 import { useSelector, useDispatch } from "react-redux";
 import { parseISO, format, differenceInSeconds } from "date-fns";
 
-const MyInterviews = () => {
+const MyInterviews : React.FC  = () => {
   const [jobInterviews, setJobInterViews] = useState<any[]>([]);
   const dispatch = useDispatch<AppDispatch>();
+  const navigate = useNavigate()
 
   const { user } = useSelector((state: IUserSelector) => state.user);
 
@@ -61,8 +63,15 @@ const MyInterviews = () => {
     const minutes = Math.floor((difference % (60 * 60)) / 60);
     const seconds = difference % 60;
 
+
+
     return `${days} days ${hours} hours ${minutes} minutes ${seconds} seconds`;
   };
+
+  const handleInterViewMeet = (roomId: string) => {
+    navigate(`/interview-meet/${roomId}`);
+  };
+  
 
   return (
     <div className="container mx-auto px-4 pb-5">
@@ -92,7 +101,7 @@ const MyInterviews = () => {
                             </div>
                             <div className="m-4">
                                 {differenceInSeconds(parseISO(interview.applicants[0].schedule.date), new Date()) <= 5 * 60 ? (
-                                    <div className="bg-blue-500 animate-out hover:bg-blue-700 text-white font-mono  rounded-md px-4 py-1 mx-4 text-sm text-center">Join Now</div>
+                                    <div onClick={()=>handleInterViewMeet(interview.applicants[0].schedule?.roomId)} className="bg-blue-500 animate-out hover:bg-blue-700 text-white font-mono  rounded-md px-4 py-1 mx-4 text-sm text-center">Join Now</div>
                                 ) : (
                                     <div className="bg-gray-300 text-gray-600 font-mono  rounded-md px-4 py-1 mx-4 text-sm text-center">Join Later</div>
                                 )}

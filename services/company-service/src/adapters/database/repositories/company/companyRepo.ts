@@ -211,15 +211,12 @@ export const fetchJobs = async () => {
   }
 };
 
-export const fetchJob = async (jobId) => {
+export const fetchJob = async (jobId : string ) => {
   try {
+
     const result = await Jobs.findOne({ _id: jobId }).populate("companyId");
-
-    // console.log("===============");
-    // console.log(result);
-    // console.log("===============");
-
     return result;
+
   } catch (error) {
     console.log(error, "error happened in the fetching jobs in  repo");
   }
@@ -546,13 +543,11 @@ export const getChatCompanyData = async (companyDataContainer: any) => {
 };
 
 export const scheduleInterview = async (interViewData: any) => {
-  console.log(
-    "🚀 ~ file: companyRepo.ts:564 ~ scheduleInterview ~ interViewData:",
-    interViewData
-  );
+
   try {
     const jobId = interViewData?.jobId;
     const applicantId = interViewData?.applicantId;
+    const InterviewRoom  = jobId + applicantId
     const { date, time, InterviewType, InterviewerName } = interViewData;
 
     const result = await Jobs.findOneAndUpdate(
@@ -567,6 +562,7 @@ export const scheduleInterview = async (interViewData: any) => {
             time,
             InterviewType,
             InterviewerName,
+            InterviewRoom
           },
         },
       },

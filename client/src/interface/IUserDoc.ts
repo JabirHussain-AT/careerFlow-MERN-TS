@@ -32,4 +32,5 @@ export interface IUserDoc{
     savedJobs : string []
     status : string | boolean
     role : string
+    createdAt ?: any
 }

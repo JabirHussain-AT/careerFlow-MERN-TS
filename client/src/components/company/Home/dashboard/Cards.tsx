@@ -1,6 +1,5 @@
-// Cards.tsx
 import React from "react";
-import { IconType } from "react-icons";
+
 
 interface CardsProps {
   text: string;

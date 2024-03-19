@@ -39,10 +39,11 @@ import ApplicantDetialsHiring from "./components/company/Jobs/ApplicantDetialsHi
 import ApplicantDetialsInteriewSchedule from "./components/company/Jobs/ApplicantDetialsInteriewSchedule";
 import MessageHome from "./pages/company/Messages/MessageHome";
 import Messages from "./pages/user/Messages";
-import { useSocket } from '@/contexts/socketContext'
+import { useSocket } from "@/contexts/socketContext";
 import MyInterviews from "./pages/user/Profile/MyInteviews";
-import MySavedJobs from "./pages/user/Profile/MySavedJobs"
+import MySavedJobs from "./pages/user/Profile/MySavedJobs";
 import InterviewMeet from "./components/company/Rooms/InterviewMeet";
+import UserMeetConsole from "./pages/user/UserMeetConsole";
 
 interface ProtectedRouteProps {
   element: ReactNode;
@@ -53,14 +54,11 @@ function App() {
   const dispatch = useDispatch();
   const { socket } = useSocket();
 
-  // console.log('user === > ',user)
-
   useEffect(() => {
     if (socket && user) {
       socket.emit("join-user-room", user?._id);
     }
-  }, [socket, user?._id]); 
-
+  }, [socket, user?._id]);
 
   useEffect(() => {
     if (error) {
@@ -256,6 +254,12 @@ function App() {
               path="/messages"
               element={<>{userProtectedRoute({ element: <Messages /> })}</>}
             />
+            <Route
+              path="/interview-meet/:roomId"
+              element={
+                <>{userProtectedRoute({ element: <UserMeetConsole /> })}</>
+              }
+            />
             {/* <Route path='/showJobs' element={<>{userProtectedRoute({ element: < ShowJobs /> })}</>} /> */}
             <Route
               path="/job/:id"
@@ -294,7 +298,7 @@ function App() {
               <Route
                 path="saved-jobs"
                 element={
-                  <>{userProtectedRoute({ element: < MySavedJobs /> })}</>
+                  <>{userProtectedRoute({ element: <MySavedJobs /> })}</>
                 }
               />
             </Route>

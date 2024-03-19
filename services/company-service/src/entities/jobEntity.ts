@@ -11,9 +11,11 @@ export interface IJobs extends Document {
       number?: Number | null;
       resume?: String | null;
       schedule?: {
-        date: Date | null;
-        duration : string | number | null ;
-        time: String | null;
+        date ?: Date | null;
+        time ?: String | null;
+        InterviewType  ?: String | null ;
+        InterviewName ?: String | null ;
+        InterviewRoom ?: String | null ;
       };
     }[];
     category: String | null;

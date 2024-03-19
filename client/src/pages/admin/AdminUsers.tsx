@@ -3,7 +3,7 @@ import { FaArrowAltCircleRight } from "react-icons/fa";
 import AlertBox from "@/components/common/AlertBox";
 import { fetchUsers, userBlockStatus } from "../../redux/actions/adminActions";
 import { IUserDoc } from "@/interface/IUserDoc";
-import MoreInfoModalUsers from "@/components/admin/compnayUsers.tsx/MoreInfoModalUsers";
+import MoreInfoModalUsers from "@/components/admin/compnayUsers/MoreInfoModalUsers";
 import { AppDispatch } from "@/redux/store";
 import { useDispatch } from "react-redux";
 
@@ -79,7 +79,7 @@ const AdminUsers = () => {
   });
 
   return (
-    <div className="container mx-auto mt-8 p-8">
+    <div className="container mx-auto mt-8 p-8 min-h-screen">
       <div className="mb-4 flex items-center">
         <label className="mr-2">Filter by Role:</label>
         <select

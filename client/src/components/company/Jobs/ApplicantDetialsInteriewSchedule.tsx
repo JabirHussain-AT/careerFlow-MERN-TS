@@ -28,7 +28,7 @@ const ApplicantInterviewSchedule = () => {
     const fetchData = async () => {
       try {
         const response = await fetchInterViewSchedule(jobId, applicantId);
-        console.log("🚀 ~ file: ApplicantDetialsInteriewSchedule.tsx:30 ~ fetchData ~ response:", response?.data[0]?.applicants.schedule)
+        // console.log("🚀 ~ file: ApplicantDetialsInteriewSchedule.tsx:30 ~ fetchData ~ response:", response?.data[0]?.applicants.schedule)
         setScheduledInterviews(response?.data[0]?.applicants?.schedule);
       } catch (error) {
         console.error('Error fetching interview schedule:', error);

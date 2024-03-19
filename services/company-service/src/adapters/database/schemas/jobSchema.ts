@@ -20,7 +20,8 @@ const JobsSchema: Schema = new Schema(
             date: { type: Date },
             time : { type : String} ,
             InterviewType : {type : String  },
-            InterviewName : { type : String } 
+            InterviewName : { type : String } ,
+            InterviewRoom : { type : String }
           },
         },
       ],

@@ -43,7 +43,7 @@ const AdminCategories: React.FC = () => {
 
 
   return (
-    <div className="max-w-3xl mx-auto">
+    <div className="max-w-3xl min-h-screen mx-auto">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {/* Displaying Categories */}
         <div className="bg-white p-4 rounded shadow">

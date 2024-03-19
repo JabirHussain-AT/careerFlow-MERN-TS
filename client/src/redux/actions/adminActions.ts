@@ -53,6 +53,7 @@ export const fetchUsers = async () => {
 
 
 
+
 export const fetchCategories = async () => {
   try {
     const { data } = await axios.get(`${AuthCompanyBaseUrl}/fetchCategories`, config);

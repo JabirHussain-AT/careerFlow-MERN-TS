@@ -19,7 +19,7 @@ const CompanyDash: React.FC = () => {
   const [countData, setCountData] = useState<any>({});
   const [chartData , setChartData ] = useState<any>([])
   const [ companyJobs , setCompanyJobs ] = useState<IJob[]>([])
-  const [filterType, setFilterType] = useState<string>("weekly");
+  const [filterType, setFilterType] = useState<string>("monthly");
 
 
   const handleFilterChange =async (newFilterType: string) => {

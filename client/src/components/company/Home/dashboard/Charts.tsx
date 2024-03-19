@@ -101,29 +101,6 @@ const Charts: React.FC<{ chartData: ChartDataItem[]; filterType: string }> = ({
           </div>
         </div>
       </div>
-
-      {/* Area Chart */}
-      {/* <div className="w-full sm:w-full md:w-1/3 lg:w-1/3 xl:w-1/3 mb-4">
-        <div className="border rounded shadow-xl w-full p-3 h-auto">
-          <AreaChart
-            width={260}
-            height={130}
-            data={areaChartData}
-            margin={{ top: 5, right: 20, left: 10, bottom: 5 }}
-          >
-            <XAxis dataKey="name" />
-            <YAxis />
-            <Tooltip />
-            <CartesianGrid stroke="#f5f5f5" />
-            <Area type="monotone" dataKey="uv" fill="#8884d8" />
-            <Area type="monotone" dataKey="pv" fill="#82ca9d" />
-          </AreaChart>
-          <div className="w-full text-center p-3">
-            <h1 className="font-bold text-lg">Area Chart</h1>
-            <p>Additional information</p>
-          </div>
-        </div>
-      </div> */}
     </div>
   );
 };

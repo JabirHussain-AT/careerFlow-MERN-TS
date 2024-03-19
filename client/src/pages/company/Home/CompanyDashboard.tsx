@@ -75,12 +75,12 @@ const Dashboard: React.FC = () => {
                    d="M5 13l4 4L19 7"
                  />
                </svg>
-               <p className="text-green-500">Your Submission is Successful.</p>
+               <p className="text-green-500">Your Submission is Successfull.</p>
              </div>
            </div>
            
              :
-             <div className="bg-red-800 h-10 w-full">Approved  </div>
+             <div className="bg-red-800 h-10 w-full"> Approved  </div>
           )}
         </div>
       ) : (
