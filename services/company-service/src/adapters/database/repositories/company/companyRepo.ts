@@ -222,14 +222,28 @@ export const fetchJob = async (jobId : string ) => {
   }
 };
 
+export const removeScheduledInterview = async (jobId: string, userId: string) => {
+  try {
+    const userid = new mongoose.Types.ObjectId(userId);
+    
+    const result = await Jobs.updateOne(
+      { _id: jobId, "applicants.applicantId": userid },
+      { $unset: { "applicants.$.schedule": "" } }
+    );
+    return result;
+  } catch (error) {
+    console.log(error, "error happened in the removing the scheduled interview from jobs in repo");
+    throw error;
+  }
+};
+
+
+
+
 export const addCategory = async (category) => {
+  console.log("🚀 ~ file: companyRepo.ts:244 ~ addCategory ~ category:", category)
   try {
     const result = await Category.create({ category: category });
-
-    console.log("===============");
-    console.log(result);
-    console.log("===============");
-
     return result;
   } catch (error) {
     console.log(error, "error happened in the adding category in  repo");
@@ -239,10 +253,6 @@ export const addCategory = async (category) => {
 export const fetchCategories = async () => {
   try {
     const result = await Category.find();
-
-    console.log("===============");
-    console.log(result);
-    console.log("===============");
 
     return result;
   } catch (error) {

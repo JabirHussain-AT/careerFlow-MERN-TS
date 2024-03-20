@@ -22,7 +22,8 @@ import {
     changeJobApplicationStatus ,
     getChatCompanyData ,
     scheduleInterview ,
-    getInterViewSchedule
+    getInterViewSchedule ,
+    removeScheduledInterview
  } from "./companyRepo"; 
 
 export default {
@@ -49,6 +50,7 @@ export default {
     getMyJobApplications ,
     changeJobApplicationStatus ,
     getChatCompanyData ,
-    scheduleInterview
+    scheduleInterview ,
+    removeScheduledInterview
 
 }

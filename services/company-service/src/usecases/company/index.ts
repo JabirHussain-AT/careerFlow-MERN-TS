@@ -24,6 +24,7 @@ import  { getChartData_useCase } from './getChartData'
 import { getChatCompanyData_useCase } from './getChatCompanyData'
 import { scheduleInterView_useCase } from './scheduleInterview'
 import { getInterViewSchedule_useCase } from './getInterViewSchedule'
+import { removeScheduledInterview_useCase } from './removeScheduledInterview'
 
 export default  {
   signUp_useCase,
@@ -51,5 +52,6 @@ export default  {
   getJobAndApplicantsCount_useCase ,
   getChatCompanyData_useCase ,
   changeJobApplicationStatus_useCase,
-  getInterViewSchedule_useCase
+  getInterViewSchedule_useCase ,
+  removeScheduledInterview_useCase
 }

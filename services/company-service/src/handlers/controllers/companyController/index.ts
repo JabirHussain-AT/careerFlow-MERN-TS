@@ -20,6 +20,7 @@ import getChatCompanydataController from './getChatCompanyData'
 import changeJobApplicationStatusController from './changeJobApplicationStatus'
 import getScheduledInterviewController from './getInterViewSchedule'
 import scheduleInterViewController from './scheduleInterview'
+import removeScheduleController from './removeScheduledInterview'
 
 export default (dependencies: any) => {
   return {
@@ -44,6 +45,7 @@ export default (dependencies: any) => {
     getChartDataController : getChartDataController(dependencies),
     scheduleInterViewController : scheduleInterViewController(dependencies),
     getChatCompanydataController : getChatCompanydataController(dependencies),
-    getScheduledInterviewController : getScheduledInterviewController(dependencies)
+    getScheduledInterviewController : getScheduledInterviewController(dependencies),
+    removeScheduleController : removeScheduleController(dependencies) ,
   };
 };

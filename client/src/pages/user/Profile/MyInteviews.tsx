@@ -101,7 +101,7 @@ const MyInterviews : React.FC  = () => {
                             </div>
                             <div className="m-4">
                                 {differenceInSeconds(parseISO(interview.applicants[0].schedule.date), new Date()) <= 5 * 60 ? (
-                                    <div onClick={()=>handleInterViewMeet(interview.applicants[0].schedule?.roomId)} className="bg-blue-500 animate-out hover:bg-blue-700 text-white font-mono  rounded-md px-4 py-1 mx-4 text-sm text-center">Join Now</div>
+                                    <div onClick={()=>handleInterViewMeet(interview.applicants[0].schedule?.InterviewRoom)} className="bg-blue-500 animate-out hover:bg-blue-700 text-white font-mono  rounded-md px-4 py-1 mx-4 text-sm text-center">Join Now</div>
                                 ) : (
                                     <div className="bg-gray-300 text-gray-600 font-mono  rounded-md px-4 py-1 mx-4 text-sm text-center">Join Later</div>
                                 )}

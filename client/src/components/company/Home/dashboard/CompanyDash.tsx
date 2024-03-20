@@ -76,17 +76,20 @@ const CompanyDash: React.FC = () => {
             text="Total Jobs Posted"
             icon={MdWork}
             count={countData?.jobCount}
+            link={'/company/jobs'}
           />
           <Cards
             text="Total Applicants"
             icon={FaUsers}
             count={countData?.totalApplicants}
+            link={'/company/jobs'}
           />
           <Cards text="Interviews" icon={MdOutlinePending} count={3} />
           <Cards
             text="New Applicants"
             icon={MdOutlinePending}
             count={countData?.totalApplicantsInApplyedStage}
+            link={'/company/schedules'}
           />
         </div>
         {/* Filter Section */}

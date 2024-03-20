@@ -1,15 +1,19 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 
 interface CardsProps {
   text: string;
   icon: React.ComponentType;
   count: number;
+  link ?: string 
 }
 
-const Cards: React.FC<CardsProps> = ({ text, icon: IconComponent, count }) => {
+
+const Cards: React.FC<CardsProps> = ({ text, icon: IconComponent, count  , link}) => {
+  const navigate = useNavigate()
   return (
-    <div className="max-w-xs border rounded overflow-hidden shadow-sm bg-white mx-auto mt-6">
+    <div onClick={()=> navigate(`${link}`)} className="max-w-xs border cursor-pointer hover:scale-90 hover:shadow-lg duration-500 rounded overflow-hidden shadow-sm bg-white mx-auto mt-6">
       <div className="px-6 py-4">
         <div className="flex items-center justify-center">
           <div className="bg-gray-800 text-white rounded-full p-3   ">

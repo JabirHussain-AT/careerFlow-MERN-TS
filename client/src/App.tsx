@@ -44,6 +44,7 @@ import MyInterviews from "./pages/user/Profile/MyInteviews";
 import MySavedJobs from "./pages/user/Profile/MySavedJobs";
 import InterviewMeet from "./components/company/Rooms/InterviewMeet";
 import UserMeetConsole from "./pages/user/UserMeetConsole";
+import CompanySchedules from "./pages/company/Schedules/CompanySchedules";
 
 interface ProtectedRouteProps {
   element: ReactNode;
@@ -199,7 +200,13 @@ function App() {
                 }
               />
               <Route
-                path="interview-meet/:roomId"
+                path="schedules"
+                element={
+                  <>{companyProtectedRoute({ element: < CompanySchedules /> })}</>
+                }
+              />
+              <Route
+                path="interview-meet/:roomId/:jobId/:applicantId"
                 element={
                   <>{companyProtectedRoute({ element: <InterviewMeet /> })}</>
                 }

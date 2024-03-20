@@ -44,15 +44,12 @@ export const companyForm = createAsyncThunk(
   "company/Form",
   async (userCredentials: ICompanyForm, { rejectWithValue }) => {
     try {
+      
       const { data } = await axios.post(
         `${AuthCompanyBaseUrl}/updateForm`,
         userCredentials,
         config
       );
-
-      // console.log("======================================");
-      // console.log("the data over here", data);
-      // console.log("======================================");
       return data;
     } catch (err: any) {
       const axiosError = err as AxiosError<ApiError>;
@@ -159,6 +156,15 @@ export const fetchJobs = async () => {
     const { data } = await axios.get(`${AuthCompanyBaseUrl}/fetchJobs`, config);
     return data;
   } catch (err: any) {}
+};
+
+export const removeSchedule = async ({ jobId  , applicantId } : { jobId : string , applicantId : string }) => {
+  try {
+    const { data } = await axios.get(`${AuthCompanyBaseUrl}/removeSchedule/${jobId}/${applicantId}`, config);
+    return data;
+  } catch (err: any) {
+    console.log(err, ' err in the removeScheule ')
+  }
 };
 
 

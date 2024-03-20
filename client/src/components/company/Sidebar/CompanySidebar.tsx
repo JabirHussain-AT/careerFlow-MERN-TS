@@ -29,14 +29,14 @@ const CompanySidebar: React.FC = () => {
         
       </div> */}
       <div>
-      {user?.approved && user?.approved === true ?
+      {user?.approved && user?.status === 'approved' ?
       <div className="flex  overflow-y-auto  ">
         <div
           className={`${
             open ? "lg:w-64  " : "lg:w-20 max-w-20 h-auto sticky "
           } min-h-screen max-h-max bg-sky-950 rounded text-black   duration-300 lg:flex-shrink-0`}
         >
-          <div className={`${ open ? "w-full bg-white" : ""} duration-300 flex justify-start items-center`}>
+          <div className={`${ open ? "w-full bg-white" : ""} duration-300 flex justify-start items-center h-14`}>
             <img className={`${ open ? "w-28 mx-auto" : "w-28" } bg-white rounded-md p-2`} src={Logo} alt="Logo" />
           </div>
           <div className="flex justify-end  relative -right-5 p-2">

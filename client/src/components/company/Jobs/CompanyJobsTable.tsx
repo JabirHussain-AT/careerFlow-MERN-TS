@@ -278,7 +278,7 @@ const CompanyJobsTable: React.FC<CompanyJobsTableProps> = ({
 
       {/* Edit Job Section */}
       {editingJob && (
-        <div className=" absolute top-20 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50">
+        <div className=" absolute top-0 left-0 min-h-screen h-auto w-full  flex items-center justify-center bg-black bg-opacity-50">
           <div className="bg-white p-8 rounded-md">
             {/* Edit Job Form */}
 

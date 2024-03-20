@@ -14,7 +14,7 @@ const verifyUserAuth = (req: Request, res: Response, next: NextFunction) => {
             .json({ success: false, message: "Invalid token!" });
         } else {
             (req as any).decodedUser = decodedUser;
-            console.log(decodedUser , '----------------decoded user')
+  
     
           if (decodedUser.role !== "company") {
             return res
