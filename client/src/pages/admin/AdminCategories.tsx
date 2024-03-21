@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { addCategories, fetchCategories  , deleteCategory} from '@/redux/actions/adminActions';
+import { addCategories, fetchCategories ,deleteCategory } from '@/redux/actions/adminActions';
 import { AppDispatch } from '@/redux/store';
 
 const AdminCategories: React.FC = () => {
@@ -44,7 +44,7 @@ const AdminCategories: React.FC = () => {
 
   const handleDeleteCategory = async (categoryId: string) => {
     try {
-      await deleteCategory(categoryId);
+      await dispatch(deleteCategory(categoryId));
       fetchCategoriesData();
     } catch (error) {
       console.error('Error deleting category:', error);

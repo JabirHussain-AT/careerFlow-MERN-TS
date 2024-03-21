@@ -10,6 +10,7 @@ const verifyUserAuth = (req: Request, res: Response, next: NextFunction) => {
   }
 
   jwt.verify(token, secret, (err: any, decodedUser: any) => {
+
     if (err) {
       return res.status(401).json({ success: false, message: 'Invalid token!' });
     } else {

@@ -240,8 +240,17 @@ export const removeScheduledInterview = async (jobId: string, userId: string) =>
 
 
 
+export const removeCategory = async (CategoryId : string) => {
+  try {
+    const result = await Category.deleteOne({ _id: CategoryId });
+    return result;
+  } catch (error) {
+    console.log(error, "error happened in the adding category in  repo");
+  }
+};
+
+
 export const addCategory = async (category) => {
-  console.log("🚀 ~ file: companyRepo.ts:244 ~ addCategory ~ category:", category)
   try {
     const result = await Category.create({ category: category });
     return result;

@@ -74,6 +74,7 @@ export interface IApproveCompanyAccount {
 }
 
 export interface ICategory {
+  _id ?: string 
   category: string;
   logo?: string;
 }

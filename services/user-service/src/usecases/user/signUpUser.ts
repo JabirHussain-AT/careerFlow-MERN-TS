@@ -4,8 +4,6 @@ export const signUp_useCase = (dependencies : any) : any =>{
                 userRepo : {createNewUser},
         }
     } = dependencies ;  
-    console.log('from the signUP use cases in use cases-user ')
-
 
     if(!createNewUser) throw new Error('repository is required !')
 

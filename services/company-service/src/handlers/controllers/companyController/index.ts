@@ -21,6 +21,7 @@ import changeJobApplicationStatusController from './changeJobApplicationStatus'
 import getScheduledInterviewController from './getInterViewSchedule'
 import scheduleInterViewController from './scheduleInterview'
 import removeScheduleController from './removeScheduledInterview'
+import removeCategoryController from './removeCategory'
 
 export default (dependencies: any) => {
   return {
@@ -47,5 +48,6 @@ export default (dependencies: any) => {
     getChatCompanydataController : getChatCompanydataController(dependencies),
     getScheduledInterviewController : getScheduledInterviewController(dependencies),
     removeScheduleController : removeScheduleController(dependencies) ,
+    removeCategoryController : removeCategoryController(dependencies)
   };
 };

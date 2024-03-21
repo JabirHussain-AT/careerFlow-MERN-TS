@@ -29,7 +29,8 @@ export default (dependencies: any): any => {
     changeJobApplicationStatusController,
     scheduleInterViewController ,
     getScheduledInterviewController ,
-    removeScheduleController
+    removeScheduleController ,
+    removeCategoryController
   } = companyController(dependencies);
 
   // company-signup
@@ -50,8 +51,9 @@ export default (dependencies: any): any => {
   router.post('/add-Category',verifyuserAuth, addCategoryController);
   router.get('/fetchJob/:jobId',verifyuserAuth, fetchJobController);
 
-  router.get('/removeSchedule/:jobId/:userId',verifyUserAuth, removeScheduleController)
+  router.get('/removeSchedule/:jobId/:userId',verifyUserAuth, removeScheduleController);
 
+  router.get('/delete-Category/:CategoryId',verifyuserAuth,removeCategoryController )
   router.get('/getPrefferedJobs/:preferedJobs/:page',verifyuserAuth,preferedJobsController)
   router.post('/find-jobs-data', verifyuserAuth,findJobsController);
   router.get('/getUserApplications/:userId',verifyuserAuth, getMyJobApplicationController);

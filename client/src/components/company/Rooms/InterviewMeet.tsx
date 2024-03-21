@@ -38,10 +38,7 @@ const InterviewMeet: React.FC = () => {
           jobId: jobId!,
           applicantId: applicantId!,
         });
-        console.log(
-          "🚀 ~ file: InterviewMeet.tsx:25 ~ onReturnToHomeScreenClicked: ~ response:",
-          response
-        );
+  
         if (response?.success === true) {
           navigate(
             `/company/jobApplicant/viewProfile/${jobId}/${applicantId}/profile`

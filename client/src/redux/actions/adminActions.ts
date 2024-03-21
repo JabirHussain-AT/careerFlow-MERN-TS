@@ -75,13 +75,12 @@ export const addCategories = createAsyncThunk('compnay/addCategories' , async ( 
   }
 } )
 
-// export const deleteCategory = createAsyncThunk('company/deleteCategory' , async ( category : ICategory ,{rejectWithValue})=>{
-//   try{
-
-//        const {data} = await axios.post(`${AuthCompanyBaseUrl}/delete-Category`, category ,config)
-//        return data 
-//   }catch(err : any){
-//    const axiosError = err as AxiosError<ApiError>;
-//        return handleError(axiosError, rejectWithValue);
-//   }
-// } )
+export const deleteCategory = createAsyncThunk('company/deleteCategory' , async ( category : string ,{rejectWithValue})=>{
+  try{
+       const {data} = await axios.get(`${AuthCompanyBaseUrl}/delete-Category/${category}`,config)
+       return data 
+  }catch(err : any){
+   const axiosError = err as AxiosError<ApiError>;
+       return handleError(axiosError, rejectWithValue);
+  }
+} )
