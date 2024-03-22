@@ -1,9 +1,10 @@
 import { consumer } from "./index";
 import { createSubscriber, IUserSubscriber } from "./subscriber";
+import color from 'colors'
 
 export const runConsumer = async () => {
   try {
-    await consumer.connect().then(()=> console.log('connected kafka'))
+    await consumer.connect().then(()=> console.log(color.green('connected kafka')))
 
     await consumer.subscribe({
       topic: "to-user",
