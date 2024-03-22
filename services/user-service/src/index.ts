@@ -1,6 +1,7 @@
 import start from "./start";
 import dbConnection from "./config/db/dbConnection";
 import envChecker from "./util/checker/envChecker";
+
 import {
   runConsumer,
   stopConsumer,

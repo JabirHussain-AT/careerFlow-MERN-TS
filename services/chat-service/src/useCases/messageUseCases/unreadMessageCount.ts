@@ -1,4 +1,6 @@
-export const unreadMessagesCount_useCase = ( dependencies: any) => {
+import { IDependencies } from "../../entities/interfaces/IChatInterface";
+
+export const unreadMessagesCount_useCase = ( dependencies: IDependencies ) => {
     const {
         repositories: {
             messageRepo : { getUnreadMessagesCount}

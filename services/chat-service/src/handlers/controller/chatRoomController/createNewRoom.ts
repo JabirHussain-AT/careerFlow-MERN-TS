@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from "express";
+import { IDependencies } from "../../../entities/interfaces/IChatInterface";
 
-export = (dependencies: any): any => {
+export = (dependencies: IDependencies )  => {
   const {
     usecases: { chatUseCases :{
       creatNewRoom_useCase

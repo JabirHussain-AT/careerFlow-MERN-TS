@@ -1,9 +1,10 @@
 import { consumer } from "./index";
 import { createSubscriber, IUserSubscriber } from "./subscriber";
+import color from 'colors'
 
 export const runConsumer = async () => {
   try {
-    await consumer.connect().then(()=> console.log('connected kafka'))
+    await consumer.connect().then(()=> console.log(color.green('connected kafka')))
 
     await consumer.subscribe({
       topic: "to-chat",
@@ -25,14 +26,14 @@ export const runConsumer = async () => {
         try {
           await subscriber[subscriberMethod](subscriberData);
           console.log(`Successfully processed message`);
-        } catch (error: any) {
+        } catch (error  ) {
           console.error(`Error processing message: ${error?.message}`);
           throw new Error(error?.message);
         }
       },
       
     });
-  } catch (error: any) {
+  } catch (error  ) {
     throw new Error("Kafka Consume Error : " + error?.message);
   }
 };

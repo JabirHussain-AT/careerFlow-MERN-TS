@@ -6,8 +6,6 @@ export default async (
 ) : Promise<void> => {
     
     try{
-
-        //  const user =  await Chat.find()
         console.log("==========");
         console.log("chat kafka ");
         console.log("==========");

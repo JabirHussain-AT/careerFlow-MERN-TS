@@ -1,8 +1,9 @@
 import { Router } from "express";
 import messageControllers from "../../handlers/controller/messageController";
 import verifyUserAuth from "../../utils/middlewares/authCheck";
+import { IDependencies } from "../../entities/interfaces/IChatInterface";
 
-const messageRoutes = ( dependencies: any) => {
+const messageRoutes = ( dependencies: IDependencies ) => {
     const router = Router();
     const {
         saveMessageController,

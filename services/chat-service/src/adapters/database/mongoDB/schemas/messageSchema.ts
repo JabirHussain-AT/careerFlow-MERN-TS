@@ -2,6 +2,7 @@ import mongoose, { Schema } from "mongoose";
 import { IMessages } from "../../../../entities/messageEntities";
 
 const MessageSchema: Schema = new Schema({
+  
   senderId: {
     type: Schema.Types.ObjectId,
     required: true,

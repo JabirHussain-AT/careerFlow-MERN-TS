@@ -1,6 +1,6 @@
 import { MessageCollection, MessageDocument } from "../../schemas";
 
-export const saveMessage = async (messageData: any) => {
+export const saveMessage = async ( messageData : { content : string , senderId : string , recieverId : string , latestMessage : string  } ) => {
   try {
     const data = await MessageCollection.create(messageData);
 
@@ -35,7 +35,7 @@ export const fetchChatUserChat = async (senderId : string , recieverId : string)
 };
 
 
-export const getUnreadMessagesCount = async (applicantIds) => {
+export const getUnreadMessagesCount = async (applicantIds :  string[] ) => {
   try {
     const unreadMessagesCounts = {};
 
@@ -64,7 +64,7 @@ export const getUnreadMessagesCount = async (applicantIds) => {
 
 
 
-export const changeUnreadStatus = async (userId) => {
+export const changeUnreadStatus = async (userId : string ) => {
   try {
     const data = await MessageCollection.updateMany(
       { senderId: userId },

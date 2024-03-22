@@ -1,14 +1,18 @@
-export const creatNewRoom_useCase = ( dependencies: any) => {
-    const {
-        repositories: {
-            chatRepo : {createNewChatroom}
-        }
-    } = dependencies;
-        console.log('its reaching here in use case')
-    const interactor = async (roomDetials: {  roomCreater : string , roomJoiner : string  }) => {
+import { IDependencies } from "../../entities/interfaces/IChatInterface";
 
-        return await createNewChatroom(roomDetials)
-    }
+export const creatNewRoom_useCase = (dependencies: IDependencies) => {
+  const {
+    repositories: {
+      chatRepo: { createNewChatroom },
+    },
+  } = dependencies;
 
-    return { interactor }
-}
+  const interactor = async (roomDetials: {
+    roomCreater: string;
+    roomJoiner: string;
+  }) => {
+    return await createNewChatroom(roomDetials);
+  };
+
+  return { interactor };
+};

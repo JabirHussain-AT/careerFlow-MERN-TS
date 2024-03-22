@@ -1,4 +1,6 @@
-export const changeUnreadStatus_useCase = ( dependencies: any) => {
+import { IDependencies } from "../../entities/interfaces/IChatInterface";
+
+export const changeUnreadStatus_useCase = ( dependencies: IDependencies ) => {
     const {
         repositories: {
             messageRepo : { changeUnreadStatus }

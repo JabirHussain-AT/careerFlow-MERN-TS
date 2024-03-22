@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from "express";
+import { IDependencies } from "../../../entities/interfaces/IChatInterface";
 
-export = (dependencies: any): any => {
+export = (dependencies: IDependencies ) => {
   const {
     usecases : { messageUseCases : { changeUnreadStatus_useCase }}
   } = dependencies;
@@ -31,7 +32,7 @@ export = (dependencies: any): any => {
           message: "not  changed the status ",
         });
       }
-    } catch (err: any) {
+    } catch (err: unknown) {
       console.log(err, "error - fetch unread messages count in chat service");
         res.status(500).json({ error: "Internal Server Error" });
         next();

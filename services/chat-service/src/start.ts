@@ -9,11 +9,12 @@ import { routes } from './adapters/routes'
 import dependencies from './utils/config/dependencies'
 import errHandler from './utils/errorHandlers/errorHandler'
 import connectSocketIo from './infra-socket/connection'
+import color from 'colors'
 
 
 
 const app : Express = express()
-const PORT : number = Number(process.env.PORT) || 3002
+const PORT : number = Number(process.env.PORT) 
 
 app.use(express.json())
 app.use(cookieParser())
@@ -34,9 +35,6 @@ app.use(session({
     saveUninitialized : true
 }))
 
-app.get('/',(req : Request,res : Response)=>{
-  res.send("ok till here index ")
-})  
 
 app.use('/api/chat',routes(dependencies))
 
@@ -49,7 +47,7 @@ const server = http.createServer(app)
 app.use(errHandler);
 
 server.listen( PORT, () => {
-  console.log(`chat service starte successfully at the port ${PORT}`);
+  console.log(color.green(`chat service starte successfully at the port ${PORT}`));
 })
 
 connectSocketIo(server)

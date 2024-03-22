@@ -1,15 +1,16 @@
 import { chatUseCases , messageUseCases } from "../../useCases";
 import { chatRepo ,messageRepo } from "../../adapters/database/mongoDB/repositories";
+import { IRepositories, IUseCases } from "../../entities/interfaces/IChatInterface";
 
 
-const repositories : any  = {
+const repositories : IRepositories  = {
     chatRepo ,
     messageRepo
 }
 
-const usecases   = {
-    chatUseCases ,
-    messageUseCases
+const usecases : IUseCases   = {
+    messageUseCases, 
+    chatUseCases 
 }
 
 export = {

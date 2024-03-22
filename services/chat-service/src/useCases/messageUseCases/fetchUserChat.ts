@@ -1,4 +1,6 @@
-export const fetchuserChat_useCase = ( dependencies: any) => {
+import { IDependencies } from "../../entities/interfaces/IChatInterface";
+
+export const fetchuserChat_useCase = ( dependencies: IDependencies ) => {
     const {
         repositories: {
             messageRepo : { fetchChatUserChat }

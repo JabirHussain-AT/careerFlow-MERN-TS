@@ -1,10 +1,11 @@
 import { Request, Response, NextFunction } from "express";
+import { IDependencies } from "../../../entities/interfaces/IChatInterface";
 
-export = (dependencies: any): any => {
+export = (dependencies: IDependencies ) => {
   const {
     usecases : { messageUseCases : { saveMessage_useCase }}
   } = dependencies;
-    console.log("🚀 ~ file: saveMessage.ts:7 ~ usecases:", saveMessage_useCase)
+
 
   const saveMessageController = async (
     req: Request,
@@ -33,7 +34,7 @@ export = (dependencies: any): any => {
           message: "Successfully updated ",
         });
       }
-    } catch (err: any) {
+    } catch (err: unknown ) {
       console.log(err, "error in the fetching chat users in chat service");
         res.status(500).json({ error: "Internal Server Error" });
         next();
