@@ -1,7 +1,8 @@
 import { Request, Response, NextFunction } from "express";
 import ErrorResponse from "../../../util/errorHandlers/errorResponse";
+import { IDependencies } from "../../../entities/intrefaces/IUserInterfaces";
 
-export = (dependencies: any): any => {
+export = (dependencies: IDependencies) => {
   const {
     usecases: { updateBasicDetials_useCase },
   } = dependencies;
@@ -12,17 +13,15 @@ export = (dependencies: any): any => {
     next: NextFunction
   ) => {
     try {
-      
       let userId = req.body._id;
-      
-      let dataToUpdate = {
-        location : req.body.location ,
-        position : req.body.position ,
-        dob : req.body.dob ,
-        phoneNumber : req.body.phoneNumber ,
-        basicInfoUpdated : true 
 
-      }
+      let dataToUpdate = {
+        location: req.body.location,
+        position: req.body.position,
+        dob: req.body.dob,
+        phoneNumber: req.body.phoneNumber,
+        basicInfoUpdated: true,
+      };
 
       const data = await updateBasicDetials_useCase(dependencies).interactor(
         userId,
@@ -42,8 +41,10 @@ export = (dependencies: any): any => {
           )
         );
       }
-    } catch (err: any) {
-      console.log(err + "  in the catch of the  profile basic detieals update controller ");
+    } catch (err: unknown) {
+      console.log(
+        err + "  in the catch of the  profile basic detieals update controller "
+      );
       next();
     }
   };

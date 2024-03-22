@@ -2,7 +2,7 @@ import { Request , Response , NextFunction  } from "express";
 import ErrorResponse from "./errorResponse";
 
 const errHandler = (
-    err : any ,
+    err : unknown ,
     req : Request ,
     res : Response ,
     next : NextFunction

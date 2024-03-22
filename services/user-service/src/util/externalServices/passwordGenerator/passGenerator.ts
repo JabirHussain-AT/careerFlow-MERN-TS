@@ -1,4 +1,4 @@
-export function generatePassword(length) {
+export function generatePassword( length : number  ) {
   const lowercaseChars = "abcdefghijklmnopqrstuvwxyz";
   const uppercaseChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
   const numberChars = "0123456789";
@@ -11,7 +11,7 @@ export function generatePassword(length) {
   };
   let password = "";
 
-  for (let i = 0; i < length; i++) {
+  for (let i = 0; i < length ; i++) {
     password += getRandomchar(allChars);
   }
 

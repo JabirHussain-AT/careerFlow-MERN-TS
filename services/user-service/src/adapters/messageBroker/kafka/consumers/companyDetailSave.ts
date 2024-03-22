@@ -22,9 +22,7 @@ export default async (
             approved : true 
         }
          const user =  await User.create(dataToSave)
-        // console.log("==========");
-        // console.log("user kafka ",user);
-        // console.log("==========");
+
 
     } catch (error: any){
         console.log("user-unblocked auth-service error: ",error?.message);

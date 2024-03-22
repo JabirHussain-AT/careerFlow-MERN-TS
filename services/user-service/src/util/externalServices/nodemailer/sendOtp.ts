@@ -2,7 +2,8 @@ import nodemailer from "nodemailer";
 import { EMAIL, PASSWORD } from "../../../config/envConfig/config";
 
 export const sendOtp = (email: string, content: number | string): boolean => {
-  //set the transporter
+
+
   const transporter = nodemailer.createTransport({
     service: "gmail",
     auth: {
@@ -11,6 +12,7 @@ export const sendOtp = (email: string, content: number | string): boolean => {
     },
     secure: true,
   });
+
 
   let mailOptions = {};
   if (typeof content === "number") {
@@ -30,7 +32,8 @@ export const sendOtp = (email: string, content: number | string): boolean => {
     };
   }
 
-  // Send the email
+  
+
   let result = false;
   transporter.sendMail(mailOptions, (error, info) => {
     if (error) {
@@ -41,5 +44,7 @@ export const sendOtp = (email: string, content: number | string): boolean => {
       console.log("Email sent successfully :", info.response);
     }
   });
+
+  
   return result;
 };

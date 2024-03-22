@@ -6,9 +6,10 @@ import updateBasicDetialsController from './updateBasicInfo'
 import fetchUserDataController from './fetchUser'
 import saveTheJobController from './saveTheJob'
 import getChatUserDataController from './getChatUserData'
+import { IDependencies } from "../../../entities/intrefaces/IUserInterfaces";
 
 
-export = (dependencies : any ) =>{
+export = (dependencies : IDependencies ) =>{
     return {
         userSignupController : userSignupController(dependencies),
         userLoginController : userLoginController(dependencies),

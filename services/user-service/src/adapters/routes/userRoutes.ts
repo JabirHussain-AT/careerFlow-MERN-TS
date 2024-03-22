@@ -2,8 +2,9 @@ import express, { Request, Response } from 'express';
 import { userController } from '../../handlers/controllers';
 import verifyUserAuth from '../../util/middlewares/authChecker';
 import verifyuserAuth from '../../util/middlewares/authCheck';
+import { IDependencies } from '../../entities/intrefaces/IUserInterfaces';
 
-export = (dependencies: any): any => {
+export = (dependencies: IDependencies) => {
   const router = express.Router();
 
   const {

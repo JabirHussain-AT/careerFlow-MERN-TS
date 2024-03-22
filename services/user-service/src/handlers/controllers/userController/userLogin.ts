@@ -3,8 +3,9 @@ import ErrorResponse from "../../../util/errorHandlers/errorResponse";
 import { comparePasswords } from "../../../util/externalServices/bcrypt/bcryptComapre";
 import { generateToken } from "../../../util/externalServices/jwt";
 import userExist from "./userExist";
+import { IDependencies } from "../../../entities/intrefaces/IUserInterfaces";
 
-export = (dependencies: any): any => {
+export = (dependencies: IDependencies ) => {
   const {
     usecases: { login_useCase },
   } = dependencies;
@@ -62,7 +63,7 @@ export = (dependencies: any): any => {
       } else {
         return next(ErrorResponse.forbidden("invalid credentials !"));
       }
-    } catch (err: any) {
+    } catch (err : unknown  ) {
       console.log(err + "  in the catch of the user login");
     }
   };

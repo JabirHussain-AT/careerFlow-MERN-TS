@@ -11,9 +11,7 @@ export default async (
     
     try{ 
         const user =  await User.findOneAndUpdate({email : data.email},{stage : data.stage , status : data.status},{new : true})
-        console.log("==================");
-        console.log("updating stage thrigh kafka ",user);
-        console.log("================");
+
 
     } catch (error: any){
         console.log("user-updating stage  error: ",error?.message);

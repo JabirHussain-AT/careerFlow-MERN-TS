@@ -4,8 +4,9 @@ import { hashPassword } from "../../../util/externalServices/bcrypt/hashPass";
 import { generateToken } from "../../../util/externalServices/jwt";
 import ErrorResponse from "../../../util/errorHandlers/errorResponse";
 import { generatePassword } from "../../../util/externalServices/passwordGenerator/passGenerator";
+import { IDependencies } from "../../../entities/intrefaces/IUserInterfaces";
 
-export = (dependencies: any): any => {
+export = (dependencies: IDependencies) => {
   const {
     usecases: {
       signUp_useCase,
@@ -52,10 +53,6 @@ export = (dependencies: any): any => {
             });
           }
         } else {
-          // res.json({
-          //   success: false,
-          //   message: "User Exists With The Same Email, Try Another One",
-          // });
           return next(
             ErrorResponse.forbidden(
               "Email already resgitered, try another email"
@@ -83,21 +80,22 @@ export = (dependencies: any): any => {
         //if user is user signed through google
         //to check it is google sign in or not
         if (!userCredentials.password) {
-
           const userExist = await findUserByEmail_useCase(
             dependencies
           ).interactor(userCredentials);
 
-          if(userExist) return next(ErrorResponse.forbidden('User Already Exists ! try another one'))
+          if (userExist)
+            return next(
+              ErrorResponse.forbidden("User Already Exists ! try another one")
+            );
 
           userCredentials.password = await generatePassword(8);
           await sendPass_useCase(dependencies).interactor(
             userCredentials.password,
             userCredentials.email
-          )
-          }
+          );
+        }
 
-        
         if (!otpVerified && userCredentials.otp) {
           return next(ErrorResponse.forbidden("otp is invalied !"));
         } else {
@@ -108,37 +106,32 @@ export = (dependencies: any): any => {
             );
             const user = await signUp_useCase(dependencies).interactor(
               userCredentials
-              );
+            );
 
             if (!user) {
-              return next(ErrorResponse.forbidden('User Already Exists ! try another one'))
+              return next(
+                ErrorResponse.forbidden("User Already Exists ! try another one")
+              );
             } else {
               // creating jwt token for furthor authentication
-          
-
-              
 
               let payload = {
                 _id: String(user?.id),
-                email:user?.email!,
+                email: user?.email!,
                 role: user?.role!,
               };
-      
+
               const token = generateToken(payload);
-      
-      
+
               res.cookie("user_jwt", token, {
                 httpOnly: true,
                 maxAge: 7 * 24 * 60 * 60 * 1000,
-              });  
-              
-      
+              });
 
               user.token = token;
               res.status(201).json(user);
-              
             }
-          } catch (err: any) {
+          } catch (err: unknown) {
             console.log(err, "err occured while creating user ");
             next(err);
           }

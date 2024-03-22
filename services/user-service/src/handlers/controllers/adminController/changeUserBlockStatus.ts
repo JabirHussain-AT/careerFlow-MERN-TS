@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from "express";
+import { IDependencies } from "../../../entities/intrefaces/IUserInterfaces";
 
-export = (dependencies: any): any => {
+export = (dependencies: IDependencies ) => {
   const {
     usecases: { changeUserBlockSatus_useCase },
   } = dependencies;
@@ -17,8 +18,8 @@ export = (dependencies: any): any => {
         res.json({data :  data , success : true , message :  ' successfully changed block status '})
       }
    
-    } catch (err: any) {
-      console.log(err + "  in the catch of the change status block");
+    } catch (err: unknown  ) {
+      console.log(err + " in the catch of the change status block");
     }
   };
   return changeBlockStatus;

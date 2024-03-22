@@ -1,20 +1,25 @@
+import { IDependencies } from "../../entities/intrefaces/IUserInterfaces";
 
-export const updateBasicDetials_useCase = (dependencies : any) : any =>{
-    const {
-        repositories : {
-                userRepo : {userBasicDetialsUpdate},
-        }
-    } = dependencies ;  
+export const updateBasicDetials_useCase = (dependencies: IDependencies) => {
+  const {
+    repositories: {
+      userRepo: { userBasicDetialsUpdate },
+    },
+  } = dependencies;
 
+  if (!userBasicDetialsUpdate) throw new Error("repository is required !");
 
-    if(!userBasicDetialsUpdate) throw new Error('repository is required !')
-
-    const interactor = (userId  : string ,  dataToUpload : any  )=>{
-        // console.log('in interactor user use case : userProfileUpdate Usecase ')
-        return userBasicDetialsUpdate(userId ,dataToUpload )
+  const interactor = (
+    userId: string,
+    dataToUpload: {
+      phoneNumber: number;
+      dob: string;
+      location: string;
+      position: string;
+      _id: string;
     }
-    return {interactor}
-}
-
-
-  
+  ) => {
+    return userBasicDetialsUpdate(userId, dataToUpload);
+  };
+  return { interactor };
+};

@@ -6,7 +6,6 @@ export interface ISubscriber {
     companyDetailSave: (data: any) => Promise<void>;
     updateStage : (data : any) => Promise<void>
     updateStatus : (data : any) => Promise<void>
-    // Add other methods as needed
 }
 
 

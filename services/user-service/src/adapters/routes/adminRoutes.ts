@@ -1,8 +1,9 @@
 import express, { Request, Response } from "express";
 import { adminController } from "../../handlers/controllers";
 import verifyToken from "../../util/middlewares/authCheckerAdmin";
+import { IDependencies } from "../../entities/intrefaces/IUserInterfaces";
 
-export = (dependencies: any): any => {
+export = (dependencies: IDependencies )  => {
   const router = express.Router();
 
   const { fetchUsersController, changeUserBlockStatusController } = adminController(dependencies);

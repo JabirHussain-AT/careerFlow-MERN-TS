@@ -1,4 +1,6 @@
-export const saveTheJob_useCase = (dependencies: any): any => {
+import { IDependencies } from "../../entities/intrefaces/IUserInterfaces";
+
+export const saveTheJob_useCase = (dependencies: IDependencies) => {
   const {
     repositories: {
       userRepo: { saveTheJob },
@@ -7,8 +9,8 @@ export const saveTheJob_useCase = (dependencies: any): any => {
 
   if (!saveTheJob) throw new Error("repository is required  !");
 
-  const interactor = async ( userId : string , jobId : string ) => {
-    return await saveTheJob( userId , jobId );
+  const interactor = async (userId: string, jobId: string) => {
+    return await saveTheJob(userId, jobId);
   };
   return { interactor };
 };

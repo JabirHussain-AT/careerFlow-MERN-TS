@@ -1,7 +1,8 @@
 import { Request, Response, NextFunction } from "express";
 import ErrorResponse from "../../../util/errorHandlers/errorResponse";
+import { IDependencies } from "../../../entities/intrefaces/IUserInterfaces";
 
-export = (dependencies: any): any => {
+export = (dependencies: IDependencies ) => {
   const {
     usecases: { userProfileUpdate_useCase },
   } = dependencies;
@@ -18,9 +19,7 @@ export = (dependencies: any): any => {
 
     try {
 
-
-      console.log(req.body, " FROM Profile update");
-      let userId = req.body.userId;
+      let { userId } = req.body;
 
       const updateData: Record<string, any> = {};
       for (const key in req.body) {
@@ -54,7 +53,7 @@ export = (dependencies: any): any => {
       }
 
       
-    } catch (err: any) {
+    } catch ( err ) {
       console.log(err + "  in the catch of the proifle update controller ");
       next();
     }

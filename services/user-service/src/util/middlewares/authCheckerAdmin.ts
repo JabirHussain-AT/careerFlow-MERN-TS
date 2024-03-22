@@ -1,8 +1,11 @@
 import express, { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
-import User from "../../adapters/database/mongoDB/schemas/userSchema";
 
-const verifyUserAuth = async (req: Request, res: Response, next: NextFunction) => {
+const verifyUserAuth = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   const token: string = req.cookies.user_jwt;
   const secret: string = process.env.JWt_SECRET;
 
@@ -12,24 +15,25 @@ const verifyUserAuth = async (req: Request, res: Response, next: NextFunction) =
       .json({ success: false, message: "Current user is not authenticated!" });
   }
 
-  jwt.verify(token, secret, (err: any, decodedUser: any) => {
-    if (err) {
-      return res
-        .status(401)
-        .json({ success: false, message: "Invalid token!" });
-    } else {
-      (req as any).decodedUser = decodedUser;
-
-
-      if (decodedUser.role !== "admin") {
+  jwt.verify(
+    token,
+    secret,
+    (err: any, decodedUser: { _id: string; role: string }) => {
+      if (err) {
         return res
-          .status(403)
-          .json({ success: false, message: "Insufficient privileges!" });
+          .status(401)
+          .json({ success: false, message: "Invalid token!" });
+      } else {
+        (req as any).decodedUser = decodedUser;
+
+        if (decodedUser.role !== "admin") {
+          return res
+            .status(403)
+            .json({ success: false, message: "Insufficient privileges!" });
+        }
       }
-    
     }
-    
-  });
+  );
   next();
 };
 

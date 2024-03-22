@@ -1,15 +1,17 @@
-export const signUp_useCase = (dependencies : any) : any =>{
-    const {
-        repositories : {
-                userRepo : {createNewUser},
-        }
-    } = dependencies ;  
+import { IUserData } from "../../adapters/database/mongoDB/schemas/userSchema";
+import { IDependencies } from "../../entities/intrefaces/IUserInterfaces";
 
-    if(!createNewUser) throw new Error('repository is required !')
+export const signUp_useCase = (dependencies: IDependencies) => {
+  const {
+    repositories: {
+      userRepo: { createNewUser },
+    },
+  } = dependencies;
 
-    const interactor = (userCredentials : any )=>{
-        console.log('in interactor user use case')
-        return createNewUser(userCredentials)
-    }
-    return {interactor}
-}
+  if (!createNewUser) throw new Error("repository is required !");
+
+  const interactor = (userCredentials: IUserData) => {
+    return createNewUser(userCredentials);
+  };
+  return { interactor };
+};

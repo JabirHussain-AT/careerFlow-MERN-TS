@@ -1,10 +1,13 @@
 import { otpCollection, userCollection } from "../..";
-import mongoose, { MongooseError, startSession } from "mongoose";
 import { IUserData, IUserDoc } from "../../schemas/userSchema";
+
+
+
 
 export const createNewUser = async (
   userCredentials: IUserData
 ): Promise<IUserData | boolean> => {
+
   try {
     const newUser = await userCollection.create(userCredentials);
     return newUser as IUserData; // Assuming userCollection.create returns a single document
@@ -19,9 +22,12 @@ export const createNewUser = async (
   }
 };
 
+
+
 export const userExistCheck = async (
   userCredentials: IUserData
 ): Promise<IUserData | boolean | IUserDoc> => {
+
   try {
     const userEmail = userCredentials?.email;
     let userExistOrNot = await userCollection.findOne({ email: userEmail });
@@ -36,6 +42,7 @@ export const userExistCheck = async (
 };
 
 export const changeBlockStatus = async (userId: string) => {
+
   try {
     const user = await userCollection.findOne({ _id: userId });
     if (!user) {
@@ -58,9 +65,12 @@ export const changeBlockStatus = async (userId: string) => {
   }
 };
 
+
+
+
 export const saveOtp = async (otp: number, email: string) => {
+
   try {
-    console.log("save otp repo");
 
     setTimeout(() => {
       otpCollection.findOneAndDelete({ email: email });
@@ -83,9 +93,12 @@ export const saveOtp = async (otp: number, email: string) => {
   }
 };
 
+
+
+
 export const verifyOtp = async (otp: number, email: string) => {
   try {
-    console.log("verify otp repo");
+   
     let otpDoc = await otpCollection.findOne({ email: email });
 
     if (otp === otpDoc?.otp) {
@@ -97,24 +110,32 @@ export const verifyOtp = async (otp: number, email: string) => {
   }
 };
 
+
+
+
+
 export const loginVerify = async (email: string, password: string) => {
   try {
     let isUserExist = await userCollection.findOne({ email: email });
-    // console.log(isUserExist,'<<<<<<<<<<<>...........')
+
     if (isUserExist == null) {
       return false;
     } else {
-      // console.log("loginVerify repo");
       return isUserExist;
     }
   } catch (err: unknown) {
     console.log(err, "====== err occured in the verify otp repo");
   }
 };
+
+
+
+
+
 export const userExistorNot = async (email: string) => {
   try {
     let isUserExist = await userCollection.findOne({ email: email });
-    console.log(email, "this is the email");
+
     if (isUserExist == null) {
       return false;
     } else if (isUserExist) {
@@ -125,10 +146,15 @@ export const userExistorNot = async (email: string) => {
   }
 };
 
+
+
+
+
+
 export const fetchUsers = async (email: string) => {
   try {
     let users = await userCollection.find();
-    console.log("this is the email");
+
     if (users == null) {
       return false;
     } else if (users) {
@@ -138,6 +164,10 @@ export const fetchUsers = async (email: string) => {
     console.log(err, "====== err occured in the userExistorNot");
   }
 };
+
+
+
+
 
 export const userProfileUpdate = async (
   userId: string,
@@ -159,6 +189,10 @@ export const userProfileUpdate = async (
     console.log(err, "====== err occured in the userExistorNot");
   }
 };
+
+
+
+
 
 export const userBasicDetialsUpdate = async (
   userId: string,
@@ -187,6 +221,10 @@ export const userBasicDetialsUpdate = async (
   }
 };
 
+
+
+
+
 export const fetchUser = async (userId: string) => {
   try {
     let data = await userCollection.findOne(
@@ -204,7 +242,11 @@ export const fetchUser = async (userId: string) => {
   }
 };
 
-export const getChatUserData = async (userDataContainer) => {
+
+
+
+
+export const getChatUserData = async (userDataContainer ) => {
   try {
     const result = [];
     let eachData = [];
@@ -233,6 +275,10 @@ export const getChatUserData = async (userDataContainer) => {
     );
   }
 };
+
+
+
+
 
 export const saveTheJob = async (userId: string, jobId: string) => {
   try {

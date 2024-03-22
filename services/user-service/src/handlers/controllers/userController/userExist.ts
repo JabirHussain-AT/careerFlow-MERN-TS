@@ -1,9 +1,8 @@
 import { Request, Response, NextFunction } from "express";
 import ErrorResponse from "../../../util/errorHandlers/errorResponse";
-import { comparePasswords } from "../../../util/externalServices/bcrypt/bcryptComapre";
-import { generateToken } from "../../../util/externalServices/jwt";
+import { IDependencies } from "../../../entities/intrefaces/IUserInterfaces";
 
-export = (dependencies: any): any => {
+export = (dependencies: IDependencies) => {
   const {
     usecases: { userExist_useCase },
   } = dependencies;
@@ -15,7 +14,6 @@ export = (dependencies: any): any => {
         email
       );
 
-      console.log(isUserExist, "is user exist or not");
       if (isUserExist) {
         return next(
           ErrorResponse.forbidden(
@@ -23,14 +21,10 @@ export = (dependencies: any): any => {
           )
         );
       }
-      
-
 
       res.json({ sucess: true, message: "no user exists ! " });
-
-      
-    } catch (err: any) {
-      console.log(err + "  in the catch of the user exists");
+    } catch (err: unknown) {
+      console.log(err + "  in the catch o f the user exists");
     }
   };
   return userExist;
