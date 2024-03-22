@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from "express";
+import { IDependencies } from "../../../entities/Interfaces/ICompanyInterface";
 
-export = (dependencies: any) => {
+export = (dependencies: IDependencies ) => {
   const {
     usecases: { removeScheduledInterview_useCase },
   } = dependencies;

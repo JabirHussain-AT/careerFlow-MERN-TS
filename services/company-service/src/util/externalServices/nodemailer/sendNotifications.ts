@@ -16,7 +16,7 @@ export const sendMessages = (email: string, content: string , Intro  : string): 
       from: EMAIL,
       to: email,
       subject: " Notification From CareerFlow ",
-      html: `<p> ${Intro}: </p><p style="color: tomato; font-size: 25px; letter-spacing: 2px;"><b>${content}</b></p><p>Thank you <b><br>Team CareerFlow </br>.</p>`,
+      html: `<p> ${Intro}: </p><p style="color: tomato ;font-italic ; font-size: 18px; letter-spacing: 2px;"><b>${content}</b></p><p>Thank you <b><br>Team CareerFlow </br>.</p>`,
     };
   
 

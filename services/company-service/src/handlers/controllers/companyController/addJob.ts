@@ -1,7 +1,8 @@
 import { Request, Response, NextFunction } from "express";
 import ErrorResponse from "../../../util/errorHandlers/errorResponse";
+import { IDependencies } from "../../../entities/Interfaces/ICompanyInterface";
 
-export = (dependencies: any): any => {
+export = (dependencies: IDependencies ) => {
   const {
     usecases: { addJob_useCase },
   } = dependencies;

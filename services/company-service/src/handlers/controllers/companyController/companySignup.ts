@@ -4,10 +4,16 @@ import ErrorResponse from "../../../util/errorHandlers/errorResponse";
 import { hashPassword } from "../../../util/externalServices/bcrypt/hashPass";
 import { generateToken } from "../../../util/externalServices/jwt";
 import { generatePassword } from "../../../util/externalServices/passwordGenerator/passGenerator";
+import { IDependencies } from "../../../entities/Interfaces/ICompanyInterface";
 
-export = (dependencies: any): any => {
+export = (dependencies: IDependencies) => {
   const {
-    usecases: { signUp_useCase, saveAndSendOtp_useCase, verifyOtp_useCase, sendPass_useCase },
+    usecases: {
+      signUp_useCase,
+      saveAndSendOtp_useCase,
+      verifyOtp_useCase,
+      sendPass_useCase,
+    },
   } = dependencies;
 
   const signUpUser = async (
@@ -23,7 +29,6 @@ export = (dependencies: any): any => {
       } else {
         await handleOtpSignup(userCredentials, res, next);
       }
-
     } catch (err: any) {
       console.log(err, "Error in the company signup controller");
       res.status(500).json({ error: "Internal Server Error" });
@@ -73,13 +78,6 @@ export = (dependencies: any): any => {
         );
       }
 
-
-
-      console.log('========================')
-      console.log(otpVerified)
-      console.log('========================')
-
-
       if (!otpVerified && userCredentials.otp) {
         return next(ErrorResponse.forbidden("otp is invalied !"));
       } else {
@@ -98,13 +96,12 @@ export = (dependencies: any): any => {
   ) => {
     try {
       if (!userCredentials.password) {
-        userCredentials.password = await generatePassword(8);
-        console.log(userCredentials.password ,' THIS IS THE PASS')
+        userCredentials.password =  generatePassword(8);
+
         await sendPass_useCase(dependencies).interactor(
           userCredentials.password,
           userCredentials.email
-          );
-          console.log(userCredentials.password ,' THIS IS THE PASS 2')
+        );
       }
 
       userCredentials.password = await hashPassword(userCredentials?.password);
@@ -113,29 +110,25 @@ export = (dependencies: any): any => {
       );
 
       if (!user) {
-        return next(ErrorResponse.forbidden('User Already Exists! Try another one'));
+        return next(
+          ErrorResponse.forbidden("User Already Exists! Try another one")
+        );
       } else {
-
         let payload = {
           _id: String(user?.id),
-          email:user?.email!,
+          email: user?.email!,
           role: user?.role!,
         };
 
         const token = generateToken(payload);
 
-
         res.cookie("user_jwt", token, {
           httpOnly: true,
           maxAge: 7 * 24 * 60 * 60 * 1000,
-        });  
-        
-        
+        });
+
         user.token = token;
         res.status(201).json(user);
-       
-
-
       }
     } catch (err: any) {
       console.log(err, "Error occurred while creating user");

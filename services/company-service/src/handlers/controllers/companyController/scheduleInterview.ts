@@ -1,9 +1,10 @@
 import { Request, Response, NextFunction } from "express";
 import { sendMessages } from "../../../util/externalServices/nodemailer/sendNotifications";
+import { IDependencies } from "../../../entities/Interfaces/ICompanyInterface";
 
-export = (dependencies: any): any => {
+export = (dependencies: IDependencies): any => {
   const {
-    usecases: { scheduleInterView_useCase, notifyInterview_useCase },
+    usecases: { scheduleInterView_useCase },
   } = dependencies;
 
   const scheduleInterview = async (
@@ -19,19 +20,24 @@ export = (dependencies: any): any => {
 
       let email = null;
       if (data && data.applicants && data.applicants.length) {
-        for (const applicant of data.applicants) {    
+        for (const applicant of data.applicants) {
           if (applicant.applicantId == interviewData.applicantId) {
             email = applicant.email;
             break;
           }
-
         }
       }
-      if(email !== null){
-        let Intro = 'Hey Applicant  , We Scheduled An Interview with you on a time  , or There is an updation in the time please check it out through website on user profile '
-        let content = "" + interviewData?.date + ' on time of ' + interviewData?.time + ` like a ${interviewData?.InterviewType} `
-        const result = await sendMessages( email ,  content , Intro)
-        console.log("🚀 ~ file: scheduleInterview.ts:35 ~ result:", result)
+      if (email !== null) {
+        let Intro =
+          "Hey Applicant  , We Scheduled An Interview with you on a time  , or There is an updation in the time please check it out through website on user profile ";
+        let content =
+          "" +
+          interviewData?.date +
+          " on time of " +
+          interviewData?.time +
+          ` like a ${interviewData?.InterviewType} `;
+        const result = await sendMessages(email, content, Intro);
+        console.log("🚀 ~ file: scheduleInterview.ts:35 ~ result:", result);
       }
 
       res.json({

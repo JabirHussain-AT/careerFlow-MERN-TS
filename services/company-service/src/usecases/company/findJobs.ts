@@ -1,4 +1,6 @@
-export const findJobs_useCase = (dependencies: any): any => {
+import { IDependencies } from "../../entities/Interfaces/ICompanyInterface";
+
+export const findJobs_useCase = (dependencies: IDependencies) => {
   const {
     repositories: {
       companyRepo: { findJobs },
@@ -8,7 +10,6 @@ export const findJobs_useCase = (dependencies: any): any => {
   if (!findJobs) throw new Error("repository is required !");
 
   const interactor = async (jobsDocs: any) => {
-    console.log("in interactor finding   job in company use case");
     const data = await findJobs(jobsDocs);
     return data;
   };

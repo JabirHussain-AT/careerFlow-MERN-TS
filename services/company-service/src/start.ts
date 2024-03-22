@@ -4,11 +4,11 @@ import express , {Express, Request , Response} from 'express'
 import cors from 'cors'
 import cookieParser from 'cookie-parser'
 import session from 'express-session'
+import color from 'colors'
 import dependencies from './util/config/dependencies'
 import { routes } from './adapters/router'
 import errHandler from './util/errorHandlers/errorHandler'
 import scheduleJobUpdate  from './util/cronJob/forCheckingExpiry'
-
 
 
 const app : Express = express()
@@ -30,9 +30,6 @@ app.use(session({
     saveUninitialized : true
 }))
 
-app.get('/',(req : Request,res : Response)=>{
-  res.send("ok till here index ")
-})  
 
 app.use('/api/users',routes(dependencies))
 
@@ -43,7 +40,7 @@ app.use((req: Request, res: Response) => {
 app.use(errHandler);
 
 app.listen( PORT, () => {
-  console.log(`company-service is listening at the port ${PORT}`);
+  console.log(color.green(`company-service is listening at the port ${PORT}`));
 })
 
 export default app

@@ -57,10 +57,10 @@ export const saveOtp = async (otp: number, email: string) => {
       .then((doc) => {
         return doc;
       })
-      .catch((err: any) => {
+      .catch((err: unknown) => {
         console.log(err, "err in the saveOtp");
       });
-  } catch (err: any) {
+  } catch (err: unknown) {
     console.log(err, "======  err happened in userRepo saveOtp repo");
   }
 };
@@ -73,26 +73,11 @@ export const verifyOtp = async (otp: number, email: string) => {
     if (otp === otpDoc?.otp) {
       return true;
     } else return false;
-  } catch (err: any) {
+  } catch (err: unknown) {
     console.log(err, "====== err occured in the verify otp repo");
     return false;
   }
 };
-
-// export const loginVerify = async(email : string , password : string) =>{
-//   try{
-//     let isUserExist  = await userCollection.findOne({email : email})
-//     // console.log(isUserExist,'<<<<<<<<<<<>...........')
-//     if(isUserExist == null){
-//       return false
-//     }else{
-//       // console.log("loginVerify repo");
-//        return isUserExist
-//     }
-//   }catch(err : any){
-//     console.log(err, "====== err occured in the verify otp repo");
-//   }
-// }
 
 export const updateFormData = async (
   email: string,
@@ -113,7 +98,7 @@ export const updateFormData = async (
       updateStage(data);
     }
     return company ?? false;
-  } catch (err: any) {
+  } catch (err) {
     console.log(err, "================== in the updateFormData catch ");
   }
 };
@@ -129,7 +114,7 @@ export const fetchCompanies = async (
     console.log(err, "================== in the updateFormData catch ");
   }
 };
-export const updateApprovel = async (companyId, status) => {
+export const updateApprovel = async (companyId: string, status: boolean) => {
   try {
     let value = status === true ? "approved" : "rejected";
     let company = await companyCollection
@@ -146,10 +131,6 @@ export const updateApprovel = async (companyId, status) => {
       email: companyEmail as string,
     };
 
-    console.log("--------------------------------------");
-    console.log(company, "<<>>><><><><><><<><");
-    console.log("--------------------------------------");
-
     updateStatus(data);
     return company ?? false;
   } catch (err: any) {
@@ -161,35 +142,38 @@ export const addJobInCompany = async (companyData) => {
   try {
     const job = await jobCollection.create(companyData);
     return true;
-  } catch (err: any) {
+  } catch (err) {
     console.log(err, "================== in the add jobs catch ");
   }
 };
 
-export const editJobInCompany = async (jobData, jobId) => {
+export const editJobInCompany = async (jobData, jobId: string) => {
   try {
     const udpdatedData = await jobCollection.findOneAndUpdate(
       { _id: jobId },
       { $set: jobData },
       { new: true }
     );
-    //  console.log('><><<><><<><><<><   :  ; ', udpdatedData )
+
     return udpdatedData;
-  } catch (err: any) {
+  } catch (err) {
     console.log(err, "================== in the edit  jobs catch ");
   }
 };
 
-export const fetchComJobInCompany = async (companyId) => {
+export const fetchComJobInCompany = async (companyId: string) => {
   try {
     const result = await jobCollection.find({ companyId: companyId });
     return result;
-  } catch (err: any) {
+  } catch (err: unknown) {
     console.log(err, "================== in the edit  jobs catch ");
   }
 };
 
-export const changeJobStatus = async (jobId, value) => {
+export const changeJobStatus = async (
+  jobId: string,
+  value: boolean | string
+) => {
   try {
     const result = await jobCollection.findOneAndUpdate(
       { _id: jobId },
@@ -211,36 +195,37 @@ export const fetchJobs = async () => {
   }
 };
 
-export const fetchJob = async (jobId : string ) => {
+export const fetchJob = async (jobId: string) => {
   try {
-
     const result = await Jobs.findOne({ _id: jobId }).populate("companyId");
     return result;
-
   } catch (error) {
     console.log(error, "error happened in the fetching jobs in  repo");
   }
 };
 
-export const removeScheduledInterview = async (jobId: string, userId: string) => {
+export const removeScheduledInterview = async (
+  jobId: string,
+  userId: string
+) => {
   try {
     const userid = new mongoose.Types.ObjectId(userId);
-    
+
     const result = await Jobs.updateOne(
       { _id: jobId, "applicants.applicantId": userid },
       { $unset: { "applicants.$.schedule": "" } }
     );
     return result;
   } catch (error) {
-    console.log(error, "error happened in the removing the scheduled interview from jobs in repo");
+    console.log(
+      error,
+      "error happened in the removing the scheduled interview from jobs in repo"
+    );
     throw error;
   }
 };
 
-
-
-
-export const removeCategory = async (CategoryId : string) => {
+export const removeCategory = async (CategoryId: string) => {
   try {
     const result = await Category.deleteOne({ _id: CategoryId });
     return result;
@@ -248,7 +233,6 @@ export const removeCategory = async (CategoryId : string) => {
     console.log(error, "error happened in the adding category in  repo");
   }
 };
-
 
 export const addCategory = async (category) => {
   try {
@@ -537,7 +521,7 @@ export const getChartData = async (companyId: string, filter: string) => {
   }
 };
 
-export const getChatCompanyData = async (companyDataContainer: any) => {
+export const getChatCompanyData = async (companyDataContainer) => {
   try {
     const result = [];
     let eachData = [];
@@ -553,7 +537,7 @@ export const getChatCompanyData = async (companyDataContainer: any) => {
     } else {
       return false;
     }
-  } catch (err: any) {
+  } catch (err: unknown) {
     console.log(
       err,
       "====== err occured in the fetching caht company  in user repo"
@@ -561,13 +545,19 @@ export const getChatCompanyData = async (companyDataContainer: any) => {
   }
 };
 
-export const scheduleInterview = async (interViewData: any) => {
-
+export const scheduleInterview = async (interViewData: {
+  jobId: string;
+  applicantId: string;
+  date: string | Date;
+  time: string | Date;
+  InterviewName?: string;
+  InterviewType: string;
+}) => {
   try {
     const jobId = interViewData?.jobId;
     const applicantId = interViewData?.applicantId;
-    const InterviewRoom  = jobId + applicantId
-    const { date, time, InterviewType, InterviewerName } = interViewData;
+    const InterviewRoom = jobId + applicantId;
+    const { date, time, InterviewType, InterviewName } = interViewData;
 
     const result = await Jobs.findOneAndUpdate(
       {
@@ -580,8 +570,8 @@ export const scheduleInterview = async (interViewData: any) => {
             date,
             time,
             InterviewType,
-            InterviewerName,
-            InterviewRoom
+            InterviewName,
+            InterviewRoom,
           },
         },
       },
@@ -599,7 +589,10 @@ export const scheduleInterview = async (interViewData: any) => {
   }
 };
 
-export const getInterViewSchedule = async (jobId: any, applicantId: any) => {
+export const getInterViewSchedule = async (
+  jobId: string,
+  applicantId: string
+) => {
   try {
     const result = await Jobs.aggregate([
       {

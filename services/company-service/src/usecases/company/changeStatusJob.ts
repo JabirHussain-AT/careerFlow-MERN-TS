@@ -1,18 +1,16 @@
-export const changeStatus_useCase = (dependencies : any) : any =>{
-    const {
-        repositories : {
-                companyRepo : {changeJobStatus },
-        }
-    } = dependencies ;  
+import { IDependencies } from "../../entities/Interfaces/ICompanyInterface";
 
-    console.log('now at change status job  use case ')
+export const changeStatus_useCase = (dependencies: IDependencies) => {
+  const {
+    repositories: {
+      companyRepo: { changeJobStatus },
+    },
+  } = dependencies;
 
+  if (!changeJobStatus) throw new Error("repository is required !");
 
-    if(!changeJobStatus) throw new Error('repository is required !')
-
-    const interactor = (jobId : string , value : boolean )=>{
-        console.log('in interactor add  job in company use case')
-        return changeJobStatus(jobId , value)
-    }
-    return {interactor}
-}
+  const interactor = (jobId: string, value: boolean) => {
+    return changeJobStatus(jobId, value);
+  };
+  return { interactor };
+};

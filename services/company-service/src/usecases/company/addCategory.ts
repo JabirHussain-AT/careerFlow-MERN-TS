@@ -1,4 +1,6 @@
-export const addCategory_useCase = (dependencies : any) : any =>{
+import { IDependencies } from "../../entities/Interfaces/ICompanyInterface";
+
+export const addCategory_useCase = (dependencies : IDependencies )  =>{
     const {
         repositories : {
                 companyRepo : {addCategory},

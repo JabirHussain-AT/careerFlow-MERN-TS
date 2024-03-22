@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from "express";
-import ErrorResponse from "../../../util/errorHandlers/errorResponse";
+import { IDependencies } from "../../../entities/Interfaces/ICompanyInterface";
 
-export = (dependencies: any): any => {
+export = (dependencies: IDependencies) => {
   const {
     usecases: { getMyJobApplications_useCase },
   } = dependencies;
@@ -12,7 +12,7 @@ export = (dependencies: any): any => {
     next: NextFunction
   ) => {
     try {
-      const userId = req.params.userId;
+      const { userId } = req.params ;
       const data = await getMyJobApplications_useCase(dependencies).interactor(
         userId
       );

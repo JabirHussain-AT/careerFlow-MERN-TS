@@ -1,17 +1,16 @@
-export const updateFormData_useCase = (dependencies : any) : any =>{
-    const {
-        repositories : {
-                companyRepo : { updateFormData },
-        }
-    } = dependencies ;  
-    console.log('from the signUP use cases in use cases-company ')
+import { IDependencies } from "../../entities/Interfaces/ICompanyInterface";
 
+export const updateFormData_useCase = (dependencies: IDependencies) => {
+  const {
+    repositories: {
+      companyRepo: { updateFormData },
+    },
+  } = dependencies;
 
-    if(!updateFormData) throw new Error('repository is required !')
+  if (!updateFormData) throw new Error("repository is required !");
 
-    const interactor = (email : string , companyCredentials : any )=>{
-        console.log('in interactor company - update form use case')
-        return updateFormData(email , companyCredentials)
-    }
-    return {interactor}
-}
+  const interactor = (email: string, companyCredentials: any) => {
+    return updateFormData(email, companyCredentials);
+  };
+  return { interactor };
+};

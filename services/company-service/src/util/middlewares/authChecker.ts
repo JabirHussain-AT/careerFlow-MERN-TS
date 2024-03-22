@@ -7,7 +7,7 @@ const verifyUserAuth = (req: Request, res: Response, next: NextFunction) => {
 
 
   if (token !== undefined ) {
-    jwt.verify(token, secret, (err: any, decodedUser: any) => {
+    jwt.verify(token, secret, (err : unknown , decodedUser: { role: string}) => {
         if (err) {
           return res
             .status(401)

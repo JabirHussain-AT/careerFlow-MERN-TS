@@ -1,15 +1,17 @@
-export const getInterViewSchedule_useCase = (dependencies : any) : any =>{
-    const {
-        repositories : {
-                companyRepo : { getInterViewSchedule },
-        }
-    } = dependencies ;  
+import { IDependencies } from "../../entities/Interfaces/ICompanyInterface";
 
-    if(!getInterViewSchedule) throw new Error('repository is required !')
-    
-    const interactor = async ( jobId : string  , applicantId )=>{
-        const data =  await getInterViewSchedule(jobId , applicantId)
-        return data
-    }
-    return {interactor}
-}
+export const getInterViewSchedule_useCase = (dependencies: IDependencies) => {
+  const {
+    repositories: {
+      companyRepo: { getInterViewSchedule },
+    },
+  } = dependencies;
+
+  if (!getInterViewSchedule) throw new Error("repository is required !");
+
+  const interactor = async (jobId: string, applicantId) => {
+    const data = await getInterViewSchedule(jobId, applicantId);
+    return data;
+  };
+  return { interactor };
+};

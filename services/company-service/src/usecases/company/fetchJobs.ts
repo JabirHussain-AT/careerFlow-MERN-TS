@@ -1,16 +1,17 @@
-export const fetchJobs_useCase = (dependencies : any) : any =>{
-    const {
-        repositories : {
-                companyRepo : {fetchJobs},
-        }
-    } = dependencies ;  
-    // console.log('now at fetching job use case ')
+import { IDependencies } from "../../entities/Interfaces/ICompanyInterface";
 
-    if(!fetchJobs) throw new Error('repository is required !')
-    
-    const interactor = async ( )=>{
-        const data =  await fetchJobs()
-        return data
-    }
-    return {interactor}
-}
+export const fetchJobs_useCase = (dependencies: IDependencies) => {
+  const {
+    repositories: {
+      companyRepo: { fetchJobs },
+    },
+  } = dependencies;
+
+  if (!fetchJobs) throw new Error("repository is required !");
+
+  const interactor = async () => {
+    const data = await fetchJobs();
+    return data;
+  };
+  return { interactor };
+};

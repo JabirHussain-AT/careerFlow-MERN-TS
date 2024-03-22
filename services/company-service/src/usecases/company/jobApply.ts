@@ -1,6 +1,7 @@
 import { ObjectId } from "mongoose";
+import { IDependencies } from "../../entities/Interfaces/ICompanyInterface";
 
-export const jobApply_useCase = (dependencies: any): any => {
+export const jobApply_useCase = (dependencies: IDependencies) => {
   const {
     repositories: {
       companyRepo: { jobApply },
@@ -19,8 +20,7 @@ export const jobApply_useCase = (dependencies: any): any => {
       resume: string;
     }
   ) => {
-    console.log("in interactor applying    jobs in company use case");
-    const data = await jobApply(jobId , jobDocs );
+    const data = await jobApply(jobId, jobDocs);
     return data;
   };
   return { interactor };

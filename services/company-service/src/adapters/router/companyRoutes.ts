@@ -2,8 +2,9 @@ import express, { Request, Response } from "express";
 import { companyController } from "../../handlers/controllers";
 import verifyUserAuth from "../../util/middlewares/authChecker";
 import verifyuserAuth from "../../util/middlewares/authCheck";
+import { IDependencies } from "../../entities/Interfaces/ICompanyInterface";
 
-export default (dependencies: any): any => {
+export default (dependencies: IDependencies )  => {
   const router = express.Router();
 
   const {

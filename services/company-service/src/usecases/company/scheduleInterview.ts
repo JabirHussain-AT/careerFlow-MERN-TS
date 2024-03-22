@@ -1,5 +1,6 @@
+import { IDependencies } from "../../entities/Interfaces/ICompanyInterface";
 
-export const scheduleInterView_useCase = (dependencies: any): any => {
+export const scheduleInterView_useCase = (dependencies: IDependencies ) => {
     const {
       repositories: {
         companyRepo: { scheduleInterview },

@@ -1,22 +1,19 @@
 import start from './start';
 import dbConnection from './config/db/dbConnection';
 import { runConsumer , stopConsumer } from "./adapters/messageBroker/kafka/consumer";
+import envChecker from './util/checker/envChecker';
 
-// import envChecker from './util/checker/envChecker';
-// import { broker, producer, consumer } from './adapters/messageBroker/kafka/connection';
-// import { userCreatedProducer } from './adapters/messageBroker/kafka/producer';
-// import { userCreatedConsumer } from './adapters/messageBroker/kafka/consumer';
 
-(async () => {
+( async () => {
+
     try {
         start;
-        console.log('i am here');
         dbConnection();
-        // await envChecker();
+        await envChecker();
 
         
         await runConsumer()
-        .catch((error: any) => {
+        .catch((error) => {
             console.info(error);
         })
 

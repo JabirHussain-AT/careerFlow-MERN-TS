@@ -1,7 +1,8 @@
 import { Request, Response, NextFunction } from "express";
 import ErrorResponse from "../../../util/errorHandlers/errorResponse";
+import { IDependencies } from "../../../entities/Interfaces/ICompanyInterface";
 
-export = (dependencies: any): any => {
+export = (dependencies: IDependencies )  => {
   const {
     usecases: { changeJobApplicationStatus_useCase  },
   } = dependencies;
@@ -11,7 +12,7 @@ export = (dependencies: any): any => {
     res: Response,
     next: NextFunction
   ) => {
-      console.log(req.body ,' {}{}{}')
+
     try {
         const applicantId = req.body.applicantId 
         const jobId = req.body.jobId 

@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from "express";
-import ErrorResponse from "../../../util/errorHandlers/errorResponse";
+import { IDependencies } from "../../../entities/Interfaces/ICompanyInterface";
 
-export = (dependencies: any): any => {
+export = (dependencies: IDependencies) => {
   const {
     usecases: { updateFormData_useCase },
   } = dependencies;
@@ -16,15 +16,15 @@ export = (dependencies: any): any => {
       const companyCredentials = req.body;
 
       delete companyCredentials.email;
-      companyCredentials.stage = 'completed' ;
-      companyCredentials.status = 'pending' ;
+      companyCredentials.stage = "completed";
+      companyCredentials.status = "pending";
 
       const company = await updateFormData_useCase(dependencies).interactor(
         email,
         companyCredentials
       );
       res.json({
-        company : company ,
+        company: company,
         success: true,
         message: "updated successfully from the company service",
       });
@@ -32,6 +32,6 @@ export = (dependencies: any): any => {
       console.log(err, "Error in the company updateFormData controller");
       res.status(500).json({ error: "Internal Server Error" });
     }
-  };  
+  };
   return updateFormData;
 };

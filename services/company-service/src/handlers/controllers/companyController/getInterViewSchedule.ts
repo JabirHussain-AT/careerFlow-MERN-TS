@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from "express";
+import { IDependencies } from "../../../entities/Interfaces/ICompanyInterface";
 
-export = (dependencies: any): any => {
+export = (dependencies: IDependencies )  => {
   const {
     usecases: { getInterViewSchedule_useCase },
   } = dependencies;

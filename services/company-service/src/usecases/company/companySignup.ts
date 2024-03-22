@@ -1,17 +1,16 @@
-export const signUp_useCase = (dependencies : any) : any =>{
-    const {
-        repositories : {
-                companyRepo : {createNewUser},
-        }
-    } = dependencies ;  
-    console.log('from the signUP use cases in use cases-company ')
+import { IDependencies } from "../../entities/Interfaces/ICompanyInterface";
 
+export const signUp_useCase = (dependencies: IDependencies) => {
+  const {
+    repositories: {
+      companyRepo: { createNewUser },
+    },
+  } = dependencies;
 
-    if(!createNewUser) throw new Error('repository is required !')
+  if (!createNewUser) throw new Error("repository is required !");
 
-    const interactor = (userCredentials : any )=>{
-        console.log('in interactor user use case')
-        return createNewUser(userCredentials)
-    }
-    return {interactor}
-}
+  const interactor = (userCredentials: any) => {
+    return createNewUser(userCredentials);
+  };
+  return { interactor };
+};

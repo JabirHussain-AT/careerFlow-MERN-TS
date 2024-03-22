@@ -1,14 +1,16 @@
-export const fetchCompanies_useCase = (dependencies : any) : any =>{
-    const {
-        repositories : {
-                companyRepo : { fetchCompanies },
-        }
-    } = dependencies ;  
+import { IDependencies } from "../../entities/Interfaces/ICompanyInterface";
 
-    if(!fetchCompanies) throw new Error('repository is required !')
+export const fetchCompanies_useCase = (dependencies: IDependencies) => {
+  const {
+    repositories: {
+      companyRepo: { fetchCompanies },
+    },
+  } = dependencies;
 
-    const interactor = ( )=>{
-        return fetchCompanies()
-    }   
-    return {interactor}
-}
+  if (!fetchCompanies) throw new Error("repository is required !");
+
+  const interactor = () => {
+    return fetchCompanies();
+  };
+  return { interactor };
+};

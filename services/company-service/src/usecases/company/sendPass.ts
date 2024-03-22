@@ -1,6 +1,7 @@
+import { IDependencies } from "../../entities/Interfaces/ICompanyInterface";
 import { sendOtp } from "../../util/externalServices/nodemailer/sendOtp";
 
-export const sendPass_useCase = (dependencies : any) : any =>{
+export const sendPass_useCase = (dependencies : IDependencies )  =>{
     const {
         repositories : {
                 companyRepo : {createNewUser},
