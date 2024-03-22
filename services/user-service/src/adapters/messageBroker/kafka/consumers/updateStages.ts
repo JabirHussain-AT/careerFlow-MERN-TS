@@ -2,7 +2,11 @@ import  User  from "../../../database/mongoDB/schemas/userSchema";
 import { ObjectId } from "mongoose";
 
 export default async (
-   data : any
+   data : {
+    email : string ,
+    stage : string ,
+    status : string 
+   }
 ) : Promise<void> => {
     
     try{ 

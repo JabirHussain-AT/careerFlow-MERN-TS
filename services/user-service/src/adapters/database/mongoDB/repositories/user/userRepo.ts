@@ -1,5 +1,5 @@
 import { otpCollection, userCollection } from "../..";
-import mongoose, { startSession } from "mongoose";
+import mongoose, { MongooseError, startSession } from "mongoose";
 import { IUserData, IUserDoc } from "../../schemas/userSchema";
 
 export const createNewUser = async (
@@ -8,13 +8,11 @@ export const createNewUser = async (
   try {
     const newUser = await userCollection.create(userCredentials);
     return newUser as IUserData; // Assuming userCollection.create returns a single document
-  } catch (err: any) {
+  } catch (err) {
     if (err.code && (err.code === 11000 || err.code === 11001)) {
-      // Duplicate key error (unique constraint violation)
       console.error("Duplicate key violation:", err);
       return false;
     } else {
-      // Other errors
       console.error("Error creating user:", err);
       return false;
     }
@@ -32,19 +30,16 @@ export const userExistCheck = async (
     } else {
       return userExistOrNot ? true : false;
     }
-  } catch (err: any) {
+  } catch (err: unknown) {
     console.log(err, "======  err happened in userRepo userExistCheck");
   }
 };
 
-
 export const changeBlockStatus = async (userId: string) => {
-
   try {
-    
-    const user = await userCollection.findOne({_id: userId });
-    if(!user){
-      throw new Error
+    const user = await userCollection.findOne({ _id: userId });
+    if (!user) {
+      throw new Error();
     }
     const updatedStatus = !user.isBlocked;
 
@@ -57,13 +52,11 @@ export const changeBlockStatus = async (userId: string) => {
       return data;
     }
     return false;
-  } catch (err: any) {
+  } catch (err: unknown) {
     console.log(err, "=> err happened in userRepo changing block status");
     throw err;
   }
 };
-
-
 
 export const saveOtp = async (otp: number, email: string) => {
   try {
@@ -82,10 +75,10 @@ export const saveOtp = async (otp: number, email: string) => {
       .then((doc) => {
         return doc;
       })
-      .catch((err: any) => {
+      .catch((err: unknown) => {
         console.log(err, "err in the saveOtp");
       });
-  } catch (err: any) {
+  } catch (err: unknown) {
     console.log(err, "======  err happened in userRepo saveOtp repo");
   }
 };
@@ -98,7 +91,7 @@ export const verifyOtp = async (otp: number, email: string) => {
     if (otp === otpDoc?.otp) {
       return true;
     } else return false;
-  } catch (err: any) {
+  } catch (err: unknown) {
     console.log(err, "====== err occured in the verify otp repo");
     return false;
   }
@@ -114,7 +107,7 @@ export const loginVerify = async (email: string, password: string) => {
       // console.log("loginVerify repo");
       return isUserExist;
     }
-  } catch (err: any) {
+  } catch (err: unknown) {
     console.log(err, "====== err occured in the verify otp repo");
   }
 };
@@ -127,7 +120,7 @@ export const userExistorNot = async (email: string) => {
     } else if (isUserExist) {
       return true;
     }
-  } catch (err: any) {
+  } catch (err: unknown) {
     console.log(err, "====== err occured in the userExistorNot");
   }
 };
@@ -141,7 +134,7 @@ export const fetchUsers = async (email: string) => {
     } else if (users) {
       return users;
     }
-  } catch (err: any) {
+  } catch (err: unknown) {
     console.log(err, "====== err occured in the userExistorNot");
   }
 };
@@ -149,7 +142,7 @@ export const fetchUsers = async (email: string) => {
 export const userProfileUpdate = async (
   userId: string,
   updateField: string,
-  updateValue: any
+  updateValue: string
 ) => {
   try {
     let data = await userCollection.findOneAndUpdate(
@@ -162,14 +155,16 @@ export const userProfileUpdate = async (
     } else {
       return false;
     }
-  } catch (err: any) {
+  } catch (err: unknown) {
     console.log(err, "====== err occured in the userExistorNot");
   }
 };
 
 export const userBasicDetialsUpdate = async (
   userId: string,
-  dataToUpload: any
+  dataToUpload: {
+    _id: string;
+  }
 ) => {
   delete dataToUpload._id;
   try {
@@ -187,7 +182,7 @@ export const userBasicDetialsUpdate = async (
     } else {
       return false;
     }
-  } catch (err: any) {
+  } catch (err: unknown) {
     console.log(err, "====== err occured in the updating user basic info ");
   }
 };
@@ -204,12 +199,12 @@ export const fetchUser = async (userId: string) => {
     } else {
       return false;
     }
-  } catch (err: any) {
+  } catch (err: unknown) {
     console.log(err, "====== err occured in the fetching user repo");
   }
 };
 
-export const getChatUserData = async (userDataContainer: any) => {
+export const getChatUserData = async (userDataContainer) => {
   try {
     const result = [];
     let eachData = [];
@@ -231,7 +226,7 @@ export const getChatUserData = async (userDataContainer: any) => {
     } else {
       return false;
     }
-  } catch (err: any) {
+  } catch (err: unknown) {
     console.log(
       err,
       "====== err occured in the fetching caht users  in user repo"
@@ -239,36 +234,31 @@ export const getChatUserData = async (userDataContainer: any) => {
   }
 };
 
-
 export const saveTheJob = async (userId: string, jobId: string) => {
   try {
-
     const user = await userCollection.findOne({ _id: userId });
     if (!user) {
-      return false
+      return false;
     }
     const jobIndex = user.savedJobs.indexOf(jobId);
 
     if (jobIndex !== -1) {
-
       const updatedUser = await userCollection.findOneAndUpdate(
         { _id: userId },
         { $pull: { savedJobs: jobId } },
         { returnDocument: "after" }
       );
-      return updatedUser ;
-
+      return updatedUser;
     } else {
-
       const updatedUser = await userCollection.findOneAndUpdate(
         { _id: userId },
         { $addToSet: { savedJobs: jobId } },
         { returnDocument: "after" }
       );
-      return updatedUser
+      return updatedUser;
     }
-  } catch (err: any) {
-    console.error(err, 'Error in the user repo - save the job');
+  } catch (err: unknown) {
+    console.error(err, "Error in the user repo - save the job");
     return false;
   }
 };

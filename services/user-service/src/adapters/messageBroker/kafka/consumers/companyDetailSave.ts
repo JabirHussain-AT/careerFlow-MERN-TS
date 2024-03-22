@@ -2,7 +2,13 @@ import  User  from "../../../database/mongoDB/schemas/userSchema";
 import { ObjectId } from "mongoose";
 
 export default async (
-   data : any
+   data : {
+    _id : string ,
+    email : string ,
+    role : string ,
+    userName : string ,
+    password  : string
+   }
 ) : Promise<void> => {
     
     try{
@@ -16,9 +22,9 @@ export default async (
             approved : true 
         }
          const user =  await User.create(dataToSave)
-        console.log("==========");
-        console.log("user kafka ",user);
-        console.log("==========");
+        // console.log("==========");
+        // console.log("user kafka ",user);
+        // console.log("==========");
 
     } catch (error: any){
         console.log("user-unblocked auth-service error: ",error?.message);

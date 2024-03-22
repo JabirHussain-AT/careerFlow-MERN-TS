@@ -20,7 +20,7 @@ export default async () => {
 
     // Disconnect the Kafka producer after sending the message
     await producer.disconnect();
-  } catch (err: any) {
+  } catch (err: unknown ) {
     console.error("Error in sending Kafka message:", err);
     // Handle the error as needed
   } finally {

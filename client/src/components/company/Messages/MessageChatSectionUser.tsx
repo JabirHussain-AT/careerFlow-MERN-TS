@@ -22,10 +22,7 @@ interface MessageChatSectionProps {
 const MessageChatSectionUser: React.FC<MessageChatSectionProps> = ({
   applicant,
 }) => {
-  console.log(
-    "🚀 ~ file: MessageChatSectionUser.tsx:15 ~ applicantId:",
-    applicant
-  );
+
   const { socket } = useSocket();
   const dispatch = useDispatch<AppDispatch>();
   const { user } = useSelector((state: any) => state.user);
@@ -34,17 +31,7 @@ const MessageChatSectionUser: React.FC<MessageChatSectionProps> = ({
   const [inputMessage, setInputMessage] = useState<string>("");
   const messagesContainerRef = useRef<HTMLDivElement>(null);
 
-  // useEffect(() => {
-  //   const newSocket = io("http://localhost:3005");
-  //   newSocket.emit("join-user-room", user._id);
-  //   setSocket(newSocket);
 
-  //   return () => {
-  //     if (socket) {
-  //       socket.disconnect();
-  //     }
-  //   };
-  // }, [ user?._id]);
 
   useEffect(() => {
     const fetchData = async () => {

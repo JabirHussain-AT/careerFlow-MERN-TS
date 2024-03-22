@@ -6,9 +6,9 @@ import { useNavigate } from "react-router-dom";
 
 const InterviewMeet: React.FC = () => {
 
-   useEffect(()=>{
-    window.location.reload()
-   }) 
+  //  useEffect(()=>{
+  //   window.location.reload()
+  //  },[]) 
    
   const { roomId, jobId, applicantId } = useParams();
   const navigate = useNavigate();

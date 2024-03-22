@@ -54,10 +54,7 @@ const MessagesSideBar: React.FC<MessagesSideBarProps> = ({
 
         setApplicantsWithUnreadMessages(updatedApplicants);
         applicants = updatedApplicants;
-        console.log(
-          "🚀 ~ file: MessagesSideBar.tsx:49 ~ fetchUnreadMessagesCount ~ applicants:",
-          applicants
-        );
+      
       } catch (error) {
         console.error("Error fetching unread messages counts:", error);
       }
