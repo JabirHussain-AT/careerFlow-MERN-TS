@@ -22,7 +22,7 @@ export = (dependencies: IDependencies ) => {
             success : true ,
             message: "fetched successfully from the company service"
         })
-    } catch (err: any) {
+    } catch (err: unknown ) {
 
       console.log(err, "Error in the fetching jobs in the company form controller");
       res.status(500).json({ error: "Internal Server Error" });

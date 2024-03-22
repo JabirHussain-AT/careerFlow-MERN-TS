@@ -29,7 +29,7 @@ const ApplicantInterviewSchedule = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetchInterViewSchedule(jobId, applicantId);
+        const response = await fetchInterViewSchedule(jobId!, applicantId!);
         // console.log("🚀 ~ file: ApplicantDetialsInteriewSchedule.tsx:30 ~ fetchData ~ response:", response?.data[0]?.applicants.schedule)
         setScheduledInterviews(response?.data[0]?.applicants?.schedule);
       } catch (error) {

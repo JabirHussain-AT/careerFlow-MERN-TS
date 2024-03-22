@@ -20,7 +20,7 @@ export = (dependencies: IDependencies ) => {
         success: true,
         message: "fetched successfully from the company service",
       });
-    } catch (err: any) {
+    } catch (err) {
       console.log(err, "Error in the company fetching controller");
       res.status(500).json({ error: "Internal Server Error" });
       next()

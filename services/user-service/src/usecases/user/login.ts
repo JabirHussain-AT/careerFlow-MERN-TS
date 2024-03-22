@@ -13,7 +13,7 @@ export const login_useCase = (dependencies: IDependencies) => {
     try {
       let result = await loginVerify(email, password);
       return result;
-    } catch (err: any) {
+    } catch (err) {
       return false;
     }
   };

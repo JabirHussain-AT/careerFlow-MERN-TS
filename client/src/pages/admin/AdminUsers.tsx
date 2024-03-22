@@ -19,7 +19,7 @@ const AdminUsers = () => {
       .then((data: { success: string; message: string; data: IUserDoc[] }) => {
         setUsers(data.data);
       })
-      .catch((err: any) => {
+      .catch((err: unknown ) => {
         console.error(err, "error from fetching companies");
       });
   }, []);

@@ -45,7 +45,7 @@ export = (dependencies: IDependencies): any => {
         success: true,
         message: "scheduled  interview for job  successfully completed ",
       });
-    } catch (err: any) {
+    } catch (err) {
       console.log(
         err,
         "Error occured when  the scheduling of interview  in the company form controller"

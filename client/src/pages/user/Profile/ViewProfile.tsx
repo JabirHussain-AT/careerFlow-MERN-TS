@@ -54,7 +54,7 @@ const ViewProfile: React.FC = () => {
         dispatch(submitViewProfileUpdations(dataToSubmit));
         toast.dismiss(); // Dismiss the loading toast
         setResumeVisible(true);
-      } catch (error: any) {
+      } catch (error : any ) {
         console.error("Error uploading resume:", error.message);
         toast.error("Error uploading resume");
       }

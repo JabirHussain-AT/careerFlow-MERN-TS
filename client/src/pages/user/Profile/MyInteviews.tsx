@@ -7,7 +7,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { parseISO, format, differenceInSeconds } from "date-fns";
 
 const MyInterviews : React.FC  = () => {
-  const [jobInterviews, setJobInterViews] = useState<any[]>([]);
+  const [jobInterviews, setJobInterViews] = useState<IJOb[]>([]);
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate()
 

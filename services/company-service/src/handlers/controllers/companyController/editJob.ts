@@ -55,7 +55,7 @@ export = (dependencies: IDependencies ): any => {
       if (data) {
         res.json({ success: true, data: data, message: "updatedSuccessfully" });
       }
-    } catch (err: any) {
+    } catch (err) {
       console.log(err, "Error in the company adding job controller");
       res.status(500).json({ error: "Internal Server Error" });
       next();

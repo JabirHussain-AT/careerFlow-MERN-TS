@@ -349,9 +349,6 @@ function App() {
               />
             </Route>
 
-            {/* <Route path='/admin/dashboard' element={<>{adminProtectedRoute({ element: < AdminDashboard /> })}</>} />
-            <Route path='/admin/company-approvel' element={<>{adminProtectedRoute({ element: <  AdminApproval /> })}</>} />
-            <Route path='/login' element={<>{adminProtectedRoute({ element: <Login /> })}</>} /> */}
           </>
         ) : (
           // Redirect to Login when user is null

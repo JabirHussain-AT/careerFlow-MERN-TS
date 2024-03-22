@@ -36,7 +36,7 @@ export = (dependencies: IDependencies) => {
         message:
           "updated approvel status successfully from the company service",
       });
-    } catch (err: any) {
+    } catch (err) {
       console.log(err, "Error in the company approvel status controller");
       next(err.message);
     }

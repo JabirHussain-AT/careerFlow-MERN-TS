@@ -16,7 +16,7 @@ export = (dependencies: IDependencies )  => {
       const companyDataContainer = req.body;
       const data = await getChatCompanyData_useCase(dependencies).interactor(companyDataContainer)
       res.json({ success: true, message: "error chat users fetching  ! ", data: data });
-    } catch (err: any) {
+    } catch (err: unknown ) {
       console.log(err + "  in the catch of the chatusers in company fetching ");
     }
   };

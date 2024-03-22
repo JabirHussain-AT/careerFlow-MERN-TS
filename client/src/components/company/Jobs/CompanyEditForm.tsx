@@ -17,7 +17,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import "react-toastify/dist/ReactToastify.css";
 
 interface CompanyJobsFormProps {
-  Values: {
+  Values?: {
     jobType: string | null | undefined;
     category?: string | null | undefined;
     jobTitle: string | null;
@@ -32,8 +32,8 @@ interface CompanyJobsFormProps {
     noOfApplications?: number | null;
     _id?: string;
   },
-  onClose : Function ,
-  onSave : Function
+  onClose ?: Function ,
+  onSave ?: Function
 }
 
 const CompanyEditForm: React.FC<CompanyJobsFormProps> = ({ Values , onClose , onSave } ) => {

@@ -24,7 +24,7 @@ export = (dependencies: IDependencies )  => {
             success : true ,
             message: "fetched prefered jobs  successfully for the job "
         })
-    } catch (err: any) {
+    } catch (err) {
 
       console.log(err, "Error in the fetching prefererd jobs  in the company form controller");
       res.status(500).json({ error: "Internal Server Error" });

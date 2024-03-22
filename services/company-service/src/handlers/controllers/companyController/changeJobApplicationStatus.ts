@@ -32,7 +32,7 @@ export = (dependencies: IDependencies )  => {
             })
         }
 
-    } catch (err: any) {
+    } catch (err) {
       console.log(err, "Error in the change job application status change controller ");
       next(err.message);
     }

@@ -12,7 +12,7 @@ export const verifyOtp_useCase = (dependencies: IDependencies) => {
   const interactor = (user_email: string, otp: number): boolean => {
     try {
       return verifyOtp(otp, user_email);
-    } catch (err: any) {
+    } catch (err) {
       return false;
     }
   };

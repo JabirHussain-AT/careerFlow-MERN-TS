@@ -8,7 +8,7 @@ export default () => {
    .then(()=>{
     console.log(color.green('db connected with the company service successfully '))
    })
-   .catch((err : any)=>{
+   .catch((err )=>{
     console.log(color.red('db connection failed in company service with error ==>'),err)
    })
 }

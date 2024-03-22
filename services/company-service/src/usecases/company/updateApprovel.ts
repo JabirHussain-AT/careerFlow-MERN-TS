@@ -10,7 +10,7 @@ export const updateCompanyApprovel_useCase = (dependencies: IDependencies) => {
   if (!updateApprovel) throw new Error("repository is required");
 
   const interactor = async (
-    companyId: any,
+    companyId: string ,
     status: boolean,
     reason?: string
   ) => {

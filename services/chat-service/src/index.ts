@@ -13,7 +13,7 @@ import envChecker from './utils/checker/envChecker';
 
         
         await runConsumer()
-        .catch((error: any) => {
+        .catch((error) => {
             console.info(error);
         })
 

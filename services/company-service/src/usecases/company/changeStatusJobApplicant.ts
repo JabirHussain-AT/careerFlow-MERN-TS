@@ -19,7 +19,7 @@ export const changeJobApplicationStatus_useCase = (
     try {
       const data = await changeJobApplicationStatus(applicantId, jobId, value);
       return data;
-    } catch (err: any) {
+    } catch (err) {
       return false;
     }
   };

@@ -27,7 +27,7 @@ export const createNewUser = async (
     await companyDetialSend(data);
 
     return newUser as ICompanyData;
-  } catch (err: any) {
+  } catch (err) {
     if (err.code && (err.code === 11000 || err.code === 11001)) {
       // Duplicate key error (unique constraint violation)
       console.error("Duplicate key violation:", err);
@@ -110,7 +110,7 @@ export const fetchCompanies = async (
   try {
     let company = await companyCollection.find().select("-password");
     return company ?? false;
-  } catch (err: any) {
+  } catch (err) {
     console.log(err, "================== in the updateFormData catch ");
   }
 };
@@ -133,7 +133,7 @@ export const updateApprovel = async (companyId: string, status: boolean) => {
 
     updateStatus(data);
     return company ?? false;
-  } catch (err: any) {
+  } catch (err) {
     console.log(err, "================== in the updateFormData catch ");
   }
 };

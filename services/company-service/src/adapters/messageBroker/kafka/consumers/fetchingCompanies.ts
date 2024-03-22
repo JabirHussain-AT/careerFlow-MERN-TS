@@ -2,17 +2,17 @@ import  Company  from "../../../database/schemas/companySchema";
 import { ObjectId } from "mongoose";
 
 export default async (
-   data : any
+   data : { }
 ) : Promise<void> => {
     
     try{
 
          const user =  await Company.find()
-        console.log("==========");
-        console.log("company kafka ",user);
-        console.log("==========");
+         console.log("==========");
+          console.log("company kafka ",user);
+           console.log("==========");
 
-    } catch (error: any){
+    } catch (error){
         console.log("user-unblocked auth-service error: ",error?.message);
     }
 

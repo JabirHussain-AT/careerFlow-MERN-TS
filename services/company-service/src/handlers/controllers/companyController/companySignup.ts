@@ -29,7 +29,7 @@ export = (dependencies: IDependencies) => {
       } else {
         await handleOtpSignup(userCredentials, res, next);
       }
-    } catch (err: any) {
+    } catch (err) {
       console.log(err, "Error in the company signup controller");
       res.status(500).json({ error: "Internal Server Error" });
     }
@@ -50,7 +50,7 @@ export = (dependencies: IDependencies) => {
         success: true,
         message: "otp sent successfully from the company service",
       });
-    } catch (err: any) {
+    } catch (err) {
       console.log(
         err,
         " <<< something went wrong in the user signup otp section >>> "
@@ -83,7 +83,7 @@ export = (dependencies: IDependencies) => {
       } else {
         await handleUserSignup(userCredentials, res, next);
       }
-    } catch (err: any) {
+    } catch (err) {
       console.log(err, "Error in otp verification or user signup");
       next(err);
     }
@@ -130,7 +130,7 @@ export = (dependencies: IDependencies) => {
         user.token = token;
         res.status(201).json(user);
       }
-    } catch (err: any) {
+    } catch (err: unknown ) {
       console.log(err, "Error occurred while creating user");
       next(err);
     }

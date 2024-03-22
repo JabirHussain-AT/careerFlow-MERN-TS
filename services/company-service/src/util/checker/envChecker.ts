@@ -6,7 +6,7 @@ export default async () => {
       if (!process.env.FRONT_END_URL) throw new Error("Front end url  is missing ");
       if (!process.env.EMAIL) throw new Error(" Nodemailer Email  is missing ");
       if (!process.env.PASSWORD) throw new Error(" Nodemailer Email - password is missing ");
-    } catch (err: any) {
+    } catch (err) {
       throw err;
     }
   };

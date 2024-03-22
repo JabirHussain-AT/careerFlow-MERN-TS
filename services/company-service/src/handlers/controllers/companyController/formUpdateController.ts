@@ -28,7 +28,7 @@ export = (dependencies: IDependencies) => {
         success: true,
         message: "updated successfully from the company service",
       });
-    } catch (err: any) {
+    } catch (err) {
       console.log(err, "Error in the company updateFormData controller");
       res.status(500).json({ error: "Internal Server Error" });
     }

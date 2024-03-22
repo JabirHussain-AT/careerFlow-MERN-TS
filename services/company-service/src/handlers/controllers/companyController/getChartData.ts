@@ -35,7 +35,7 @@ export = ( dependencies: IDependencies ): any => {
             message: "fetched chart data successfully from the company service"
         })
         
-    } catch (err: any) {
+    } catch (err: unknown ) {
 
       console.log(err, "Error in the fetching chart data in the company form controller");
       res.status(500).json({ error: "Internal Server Error" });

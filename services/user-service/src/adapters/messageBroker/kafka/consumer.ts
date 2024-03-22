@@ -26,14 +26,14 @@ export const runConsumer = async () => {
         try {
           await subscriber[subscriberMethod](subscriberData);
           console.log(`Successfully processed message`);
-        } catch (error: any) {
+        } catch (error) {
           console.error(`Error processing message: ${error?.message}`);
           throw new Error(error?.message);
         }
       },
       
     });
-  } catch (error: any) {
+  } catch (error) {
     throw new Error("Kafka Consume Error : " + error?.message);
   }
 };

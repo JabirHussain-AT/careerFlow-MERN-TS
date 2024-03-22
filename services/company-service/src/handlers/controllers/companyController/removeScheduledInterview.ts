@@ -29,7 +29,7 @@ export = (dependencies: IDependencies ) => {
           message: "removing the scheduled interview ",
         });
       }
-    } catch (err: any) {
+    } catch (err) {
       console.log(
         err,
         "Error in the removing the scheduled interview in the company form controller"

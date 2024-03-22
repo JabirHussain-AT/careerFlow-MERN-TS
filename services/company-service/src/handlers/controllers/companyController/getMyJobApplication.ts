@@ -24,7 +24,7 @@ export = (dependencies: IDependencies) => {
           message: "sucessfully fetched jobs ",
         });
       }
-    } catch (err: any) {
+    } catch (err) {
       console.log(err, "Error in the user fetching g job controller");
       res.status(500).json({ error: "Internal Server Error" });
       next();

@@ -24,7 +24,7 @@ export = (dependencies: IDependencies )  => {
         message : 'room created or existing room taken fetched'
       })
 
-    } catch (err: any) {
+    } catch (err) {
       console.log(err, "error in the create new room chat service");
       res.status(500).json({ error: "Internal Server Error" });
       next();

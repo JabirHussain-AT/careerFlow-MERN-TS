@@ -25,7 +25,7 @@ export = (dependencies: IDependencies ) => {
       }
 
 
-    } catch (err: any) {
+    } catch (err ) {
       console.log(err, "Error in the company change status  job controller");
       res.status(500).json({ error: "Internal Server Error" });
       next();

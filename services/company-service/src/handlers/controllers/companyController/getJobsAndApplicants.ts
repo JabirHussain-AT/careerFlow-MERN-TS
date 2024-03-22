@@ -24,7 +24,7 @@ export = ( dependencies: IDependencies )  => {
           message: "sucessfully fetched jobs and applicants count ",
         });
       }
-    } catch (err: any) {
+    } catch (err) {
       console.log(err, "Error in the user fetching  applicants and job controller");
       res.status(500).json({ error: "Internal Server Error" });
       next();

@@ -8,7 +8,7 @@ export = (dependencies: IDependencies): any => {
 
   const findJobs = async (req: Request, res: Response, next: NextFunction) => {
     try {
-      
+
       const jobsDocs = req.body;
 
       const data = await findJobs_useCase(dependencies).interactor(jobsDocs);
@@ -17,7 +17,7 @@ export = (dependencies: IDependencies): any => {
         success: true,
         message: "fetched successfully from the job db",
       });
-    } catch (err: any) {
+    } catch (err) {
       console.log(
         err,
         "Error in the finding jobs  in the company form controller"

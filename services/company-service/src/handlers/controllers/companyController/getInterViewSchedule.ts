@@ -32,7 +32,7 @@ export = (dependencies: IDependencies )  => {
             message: " not sucessfully fetched interview schedule of applicant ",
           })
       }
-    } catch (err: any) {
+    } catch (err) {
       console.log(err, "Error in the user fetching  applicants and job controller");
       res.status(500).json({ error: "Internal Server Error" });
       next();

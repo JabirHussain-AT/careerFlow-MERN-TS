@@ -21,7 +21,7 @@ export = ( dependencies: IDependencies ) => {
             success : true ,
             message: " remove categoy controller successfull  "
         })
-    } catch (err: any) {
+    } catch (err) {
 
       console.log(err, "Error in the removing category  controller");
       res.status(500).json({ error: "Internal Server Error" });

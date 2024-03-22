@@ -25,7 +25,7 @@ export = (dependencies: IDependencies )  => {
         success: true,
         message: "applyed  successfully for the job ",
       });
-    } catch (err: any) {
+    } catch (err) {
       console.log(
         err,
         "Error in the finding jobs  in the company form controller"
