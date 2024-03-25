@@ -6,6 +6,8 @@ import updateBasicDetialsController from './updateBasicInfo'
 import fetchUserDataController from './fetchUser'
 import saveTheJobController from './saveTheJob'
 import getChatUserDataController from './getChatUserData'
+import resetPasswordController from './resetPassword'
+import changePasswordController from './changePassword'
 import { IDependencies } from "../../../entities/intrefaces/IUserInterfaces";
 
 
@@ -18,6 +20,8 @@ export = (dependencies : IDependencies ) =>{
         updateBasicDetialsController: updateBasicDetialsController(dependencies)  ,
         fetchUserDataController : fetchUserDataController(dependencies) ,
         getChatUserDataController : getChatUserDataController(dependencies) ,
-        saveTheJobController : saveTheJobController(dependencies)
+        saveTheJobController : saveTheJobController(dependencies) ,
+        resetPasswordController : resetPasswordController(dependencies) ,
+        changePasswordController : changePasswordController(dependencies)
     }
 }

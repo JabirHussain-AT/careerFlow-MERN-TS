@@ -15,18 +15,25 @@ export = (dependencies: IDependencies) => {
     updateBasicDetialsController,
     fetchUserDataController,
     getChatUserDataController,
-    saveTheJobController
+    saveTheJobController ,
+    resetPasswordController ,
+    changePasswordController
   } = userController(dependencies);
 
+
+  router.get('/fetchUser/:id',verifyuserAuth, fetchUserDataController);
 
   router.post('/sign-up', userSignupController);
   router.post('/logIn', userLoginController);
   router.post('/exists', userExistCheckController);
-  router.get('/fetchUser/:id',verifyuserAuth, fetchUserDataController);
+  
+  router.put('/update-profile', verifyUserAuth, userProfileUpdateController);
+  router.put('/updateBasicDetials', verifyUserAuth, updateBasicDetialsController);
 
-  router.post('/update-profile', verifyUserAuth, userProfileUpdateController);
+  router.patch('/reset-password', verifyUserAuth, resetPasswordController);
+  router.patch('/change-password', verifyUserAuth, changePasswordController);
+  
   router.post('/get-chatUserDetials',verifyuserAuth,getChatUserDataController)
-  router.post('/updateBasicDetials', verifyUserAuth, updateBasicDetialsController);
   router.post('/save-the-job/:userId/:jobId',verifyUserAuth,saveTheJobController)
 
 

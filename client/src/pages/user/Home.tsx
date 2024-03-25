@@ -13,7 +13,7 @@ const Home: FC = () => {
       <Banner />
       <FeaturedJobSec />
       <CategorySec />
-      <TopCompanies />
+      {/* <TopCompanies /> */}
       <Footer />
     </>
   );

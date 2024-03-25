@@ -23,6 +23,7 @@ export const userSignUp = createAsyncThunk(
   }
 );
 
+
 export const userLogin = createAsyncThunk(
   "user/userLogin",
   async (userCredentials: ILoginForm, { rejectWithValue }) => {
@@ -39,6 +40,7 @@ export const userLogin = createAsyncThunk(
     }
   }
 );
+
 
 export const isUserExist = createAsyncThunk(
   "user/isUserExist",
@@ -99,7 +101,7 @@ export const submitUserProfilePic = createAsyncThunk(
   "user/userProfilePic ",
   async (userProfilePic: string, { rejectWithValue }) => {
     try {
-      const { data } = await axios.post(
+      const { data } = await axios.put(
         `${AuthBaseUrl}/update-profile`,
         userProfilePic,
         config
@@ -116,7 +118,7 @@ export const submitViewProfileUpdations = createAsyncThunk(
   "user/userProfileUpdations ",
   async (dataToStore: any, { rejectWithValue }) => {
     try {
-      const { data } = await axios.post(
+      const { data } = await axios.put(
         `${AuthBaseUrl}/update-profile`,
         dataToStore,
         config
@@ -150,7 +152,7 @@ export const submitBasicDetials = createAsyncThunk(
   "user/submitbasicDetials ",
   async (basicDetials: any, { rejectWithValue }) => {
     try {
-      const { data } = await axios.post(
+      const { data } = await axios.put(
         `${AuthBaseUrl}/updateBasicDetials`,
         basicDetials,
         config
@@ -235,6 +237,8 @@ export const chatUsersDetials = createAsyncThunk(
   }
 );
 
+
+
 export const saveTheJob = createAsyncThunk(
   "user/saveThejob",
   async (
@@ -245,6 +249,50 @@ export const saveTheJob = createAsyncThunk(
       const { data } = await axios.post(
         `${AuthBaseUrl}/save-the-job/${userId}/${jobId}`,
         {},
+        config
+      );
+      return data;
+    } catch (err) {
+      const axiosError = err as AxiosError<ApiError>;
+      return handleError(axiosError, rejectWithValue);
+    }
+  }
+);
+
+
+
+export const resetPass = createAsyncThunk(
+  "user/resetPass",
+  async (
+     email : string  ,
+    { rejectWithValue }
+  ) => {
+    try {
+      const { data } = await axios.patch(
+        `${AuthBaseUrl}/reset-password`,
+        {email} ,
+        config
+      );
+      return data;
+    } catch (err) {
+      const axiosError = err as AxiosError<ApiError>;
+      return handleError(axiosError, rejectWithValue);
+    }
+  }
+);
+
+
+
+export const changePass = createAsyncThunk(
+  "user/changePass",
+  async (
+    { oldPassword , newPassword } :{ oldPassword : string , newPassword : string}  ,
+    { rejectWithValue }
+  ) => {
+    try {
+      const { data } = await axios.patch(
+        `${AuthBaseUrl}/change-password`,
+        { oldPassword , newPassword },
         config
       );
       return data;

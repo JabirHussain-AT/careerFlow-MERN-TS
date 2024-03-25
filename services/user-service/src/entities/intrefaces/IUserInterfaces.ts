@@ -22,7 +22,8 @@ export interface IRepositoriesData {
   userBasicDetialsUpdate  : Function ,
   fetchUser : Function ,
   changeBlockStatus  : Function ,
-  saveTheJob : Function ,
+  saveTheJob : Function , 
+  resetPass : Function 
 }
 
 export interface IUseCasesData {
@@ -40,6 +41,7 @@ export interface IUseCasesData {
   fetchUser_useCase : Function ,
   changeUserBlockSatus_useCase  : Function ,
   saveTheJob_useCase : Function ,
+  resetPassword_useCase : Function
 }
 
 export interface IRepositories { 

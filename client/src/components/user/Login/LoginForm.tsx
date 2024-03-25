@@ -46,7 +46,6 @@ const LoginForm: React.FC<LoginFormProps> = ({ textToshow, submitLink }) => {
         const userData = await dispatch(userLogin(userValues));
 
         if(userData){
-          console.log(userData,'<<<<<<>>>>>>>>',user)
          navigate('/')
         }
          
@@ -59,7 +58,6 @@ const LoginForm: React.FC<LoginFormProps> = ({ textToshow, submitLink }) => {
 
   const handleFormSubmit = async (values: FormData, submitLink: string) => {
     const data = await dispatch(userLogin(values));
-    console.log("Form Data:", data, `submitted to `, user);
     if (data.type !== "user/userLogin/rejected") {
       setTimeout(() => {
         navigate("/");
@@ -170,10 +168,8 @@ const LoginForm: React.FC<LoginFormProps> = ({ textToshow, submitLink }) => {
                 )}
               </div>
 
-              <div className="mb-4 flex items-center justify-between">
-                <a href="#!" className="text-blue-500 hover:underline">
+              <div onClick={()=> navigate('/reset/password')} className="mb-4 flex items-center justify-between font-serif  hover:underline  text-blue-500 hover:text-blue-600">            
                   Forgot password?
-                </a>
               </div>
 
               <button

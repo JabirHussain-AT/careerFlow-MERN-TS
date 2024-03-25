@@ -220,7 +220,7 @@ const MessageChatSection: React.FC<MessageChatSectionProps> = ({
                     </div>
                     <div
                       className={`w-${
-                        message.senderId === user?._id ? "1/12" : "11/12"
+                        message.senderId === user?._id ? "5/12" : "11/12"
                       }`}
                     >
                       {message.senderId === user?._id ? (
@@ -248,7 +248,7 @@ const MessageChatSection: React.FC<MessageChatSectionProps> = ({
 
   <div className="absolute bottom-0 left-0 right-0 mb-2 mx-4">
     <div className="w-full flex justify-center">
-      <div className="flex items-center w-10/12">
+      <div className="flex items-center w-10/12 ">
         <input
           type="text"
           placeholder="Type a message"

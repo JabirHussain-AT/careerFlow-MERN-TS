@@ -28,7 +28,7 @@ export const sendOtp = (email: string, content: number | string): boolean => {
       from: EMAIL,
       to: email,
       subject: "Auth Detials Pass -CareerFlow ",
-      html: `<p>password FROM careerFlow is this: </p><p style="color: tomato; font-size: 25px; letter-spacing: 2px;"><b>${content}</b></p><p>change this code <b>Immediatly</b>.</p>`,
+      html: `<p>password FROM careerFlow is this: </p><p style="color: tomato; font-size: 25px; letter-spacing: 2px;"><b>${content}</b></p><p>change this password <b>as soon as possible from your profile</b>.</p>`,
     };
   }
 

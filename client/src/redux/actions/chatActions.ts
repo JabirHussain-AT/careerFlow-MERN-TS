@@ -4,6 +4,8 @@ import { SaveChatMessagesPayload } from "@/components/helper/interfaces";
 import { ChatSecUrl } from "../../config/constants";
 import { ApiError, config, handleError } from "../../config/configuration";
 
+
+
 //for creating a chat room with the user
 export const createNewChatRoom = createAsyncThunk(
   "chat/createChatRoom",
@@ -22,6 +24,8 @@ export const createNewChatRoom = createAsyncThunk(
   }
 );
 
+
+
 export const saveChatMessages = createAsyncThunk(
   "chat/saveChatMessages",
   async (chatMessage: SaveChatMessagesPayload, { rejectWithValue }) => {
@@ -38,6 +42,7 @@ export const saveChatMessages = createAsyncThunk(
     }
   }
 );
+
 
 export const fetchChatUsers = createAsyncThunk(
   "chat/fetchChatUsers",
@@ -57,6 +62,8 @@ export const fetchChatUsers = createAsyncThunk(
     }
   }
 );
+
+
 export const fetchChatUserChat = createAsyncThunk(
   "chat/fetchChatUserChat",
   async (
@@ -75,6 +82,7 @@ export const fetchChatUserChat = createAsyncThunk(
     }
   }
 );
+
 
 export const getUnreadMessageCount = async (applicantIds: string[]) => {
   try {

@@ -12,8 +12,8 @@ const chatRoomRoutes = (dependencies: IDependencies ) => {
     } = chatRoomController(dependencies)
 
 
-    router.post('/creat-chat-room',verifyuserAuth,createNewRoomController)
     router.get('/fetch-chat-users/:companyId/:limit',verifyuserAuth,fetchChatUsersController)
+    router.post('/creat-chat-room',verifyuserAuth,createNewRoomController)
 
     return router;
 }

@@ -92,7 +92,7 @@ const MessagesSideBarUser: React.FC<MessagesSideBarProps> = ({
 
   return (
     <>
-      <div className="w-4/12 h-screen flex justify-center">
+      <div className="w-4/12 mt-2 h-screen flex justify-center">
         {/* side bar showing recent messages */}
         <div className="bg-white h-auto overflow border-2 w-4/5 rounded-xl">
           {/* head section */}

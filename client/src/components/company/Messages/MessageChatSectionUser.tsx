@@ -2,7 +2,9 @@ import React, { useState, useEffect, useRef } from "react";
 import { IoIosSend } from "react-icons/io";
 import { useDispatch, useSelector } from "react-redux";
 import { ToastContainer, toast } from "react-toastify";
-import { formatDistanceToNow, format } from "date-fns";
+import { format } from "date-fns";
+import EmojiPicker from "emoji-picker-react";
+import { MdOutlineEmojiEmotions } from "react-icons/md";
 import "react-toastify/dist/ReactToastify.css";
 import { useSocket } from "@/contexts/socketContext";
 import {
@@ -22,7 +24,6 @@ interface MessageChatSectionProps {
 const MessageChatSectionUser: React.FC<MessageChatSectionProps> = ({
   applicant,
 }) => {
-
   const { socket } = useSocket();
   const dispatch = useDispatch<AppDispatch>();
   const { user } = useSelector((state: any) => state.user);
@@ -30,8 +31,6 @@ const MessageChatSectionUser: React.FC<MessageChatSectionProps> = ({
   const [recieverStatus, setRecieverStatus] = useState<boolean>(false);
   const [inputMessage, setInputMessage] = useState<string>("");
   const messagesContainerRef = useRef<HTMLDivElement>(null);
-
-
 
   useEffect(() => {
     const fetchData = async () => {
@@ -153,8 +152,8 @@ const MessageChatSectionUser: React.FC<MessageChatSectionProps> = ({
   };
 
   return (
-    <div className="relative  max-h-[520px] bg-green-100 w-7/12 rounded-lg overflow-hidden border shadow-lg">
-      <div className="w-full h-12 flex gap-3 bg-red-50">
+    <div className="relative mt-2  max-h-[520px] bg-green-100 w-7/12 rounded-lg overflow-hidden border shadow-lg">
+      <div className="w-full py-1 shadow-sm flex gap-3 bg-red-50">
         {/* Online status, name, and profile pic */}
         <img
           className="h-10 rounded-full p-1 mt-2 "
@@ -204,8 +203,8 @@ const MessageChatSectionUser: React.FC<MessageChatSectionProps> = ({
                     <div
                       className={`w-${
                         message.senderId === user?._id
-                          ? "11/12 text-right"
-                          : "1/12"
+                          ? "full text-right"
+                          : "5/12"
                       }`}
                     >
                       <div

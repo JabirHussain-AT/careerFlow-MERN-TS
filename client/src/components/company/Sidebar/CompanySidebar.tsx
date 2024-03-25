@@ -117,9 +117,9 @@ const CompanySidebar: React.FC = () => {
       </div>
       :
       <div>
-         {/* <div className={`w-full ${open ? ' ' : 'ml-20'} bg-gray-100}`}>
+         <div className={`w-full ${open ? ' ' : 'ml-20'} bg-gray-100}`}>
           <Outlet />
-        </div> */}
+        </div>
       </div>
             }
       </div>

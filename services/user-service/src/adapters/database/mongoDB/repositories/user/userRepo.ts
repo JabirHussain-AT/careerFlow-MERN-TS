@@ -1,13 +1,10 @@
+import user from ".";
 import { otpCollection, userCollection } from "../..";
 import { IUserData, IUserDoc } from "../../schemas/userSchema";
-
-
-
 
 export const createNewUser = async (
   userCredentials: IUserData
 ): Promise<IUserData | boolean> => {
-
   try {
     const newUser = await userCollection.create(userCredentials);
     return newUser as IUserData; // Assuming userCollection.create returns a single document
@@ -22,12 +19,9 @@ export const createNewUser = async (
   }
 };
 
-
-
 export const userExistCheck = async (
   userCredentials: IUserData
 ): Promise<IUserData | boolean | IUserDoc> => {
-
   try {
     const userEmail = userCredentials?.email;
     let userExistOrNot = await userCollection.findOne({ email: userEmail });
@@ -41,8 +35,24 @@ export const userExistCheck = async (
   }
 };
 
-export const changeBlockStatus = async (userId: string) => {
+export const resetPass = async (email: string, password: string) => {
+  try {
+    const result = await userCollection.findOneAndUpdate(
+      { email: email },
+      { $set: { password: password } },
+      { new: true }
+    );
+    if (!result) {
+      return false;
+    } else {
+      return result;
+    }
+  } catch (err: unknown) {
+    console.log(err, "======  err happened in userrepo password reset ");
+  }
+};
 
+export const changeBlockStatus = async (userId: string) => {
   try {
     const user = await userCollection.findOne({ _id: userId });
     if (!user) {
@@ -65,13 +75,8 @@ export const changeBlockStatus = async (userId: string) => {
   }
 };
 
-
-
-
 export const saveOtp = async (otp: number, email: string) => {
-
   try {
-
     setTimeout(() => {
       otpCollection.findOneAndDelete({ email: email });
     }, 120 * 1000);
@@ -93,12 +98,8 @@ export const saveOtp = async (otp: number, email: string) => {
   }
 };
 
-
-
-
 export const verifyOtp = async (otp: number, email: string) => {
   try {
-   
     let otpDoc = await otpCollection.findOne({ email: email });
 
     if (otp === otpDoc?.otp) {
@@ -109,10 +110,6 @@ export const verifyOtp = async (otp: number, email: string) => {
     return false;
   }
 };
-
-
-
-
 
 export const loginVerify = async (email: string, password: string) => {
   try {
@@ -128,10 +125,6 @@ export const loginVerify = async (email: string, password: string) => {
   }
 };
 
-
-
-
-
 export const userExistorNot = async (email: string) => {
   try {
     let isUserExist = await userCollection.findOne({ email: email });
@@ -146,11 +139,6 @@ export const userExistorNot = async (email: string) => {
   }
 };
 
-
-
-
-
-
 export const fetchUsers = async (email: string) => {
   try {
     let users = await userCollection.find();
@@ -164,10 +152,6 @@ export const fetchUsers = async (email: string) => {
     console.log(err, "====== err occured in the userExistorNot");
   }
 };
-
-
-
-
 
 export const userProfileUpdate = async (
   userId: string,
@@ -189,10 +173,6 @@ export const userProfileUpdate = async (
     console.log(err, "====== err occured in the userExistorNot");
   }
 };
-
-
-
-
 
 export const userBasicDetialsUpdate = async (
   userId: string,
@@ -221,10 +201,6 @@ export const userBasicDetialsUpdate = async (
   }
 };
 
-
-
-
-
 export const fetchUser = async (userId: string) => {
   try {
     let data = await userCollection.findOne(
@@ -242,11 +218,7 @@ export const fetchUser = async (userId: string) => {
   }
 };
 
-
-
-
-
-export const getChatUserData = async (userDataContainer ) => {
+export const getChatUserData = async (userDataContainer) => {
   try {
     const result = [];
     let eachData = [];
@@ -275,10 +247,6 @@ export const getChatUserData = async (userDataContainer ) => {
     );
   }
 };
-
-
-
-
 
 export const saveTheJob = async (userId: string, jobId: string) => {
   try {

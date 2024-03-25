@@ -34,40 +34,36 @@ export default (dependencies: IDependencies )  => {
     removeCategoryController
   } = companyController(dependencies);
 
-  // company-signup
-  router.post("/sign-up", companySignupController);
 
-  // company updating-form data
-  router.post("/updateForm", formUpdateController);
-
-  router.post('/add-job', verifyUserAuth, addJobController);
-
-  router.post('/updating-job', verifyUserAuth, editJobController);
 
   router.get('/fetch-ComJobs/:id', verifyUserAuth, fetchComJobController);
-
   router.get('/changestatus/job/:id/:value', verifyUserAuth, changeStatusController);
-
   router.get('/fetchJobs', verifyuserAuth,fetchJobsController);
-  router.post('/add-Category',verifyuserAuth, addCategoryController);
   router.get('/fetchJob/:jobId',verifyuserAuth, fetchJobController);
-
   router.get('/removeSchedule/:jobId/:userId',verifyUserAuth, removeScheduleController);
-
   router.get('/delete-Category/:CategoryId',verifyuserAuth,removeCategoryController )
   router.get('/getPrefferedJobs/:preferedJobs/:page',verifyuserAuth,preferedJobsController)
-  router.post('/find-jobs-data', verifyuserAuth,findJobsController);
   router.get('/getUserApplications/:userId',verifyuserAuth, getMyJobApplicationController);
   router.get("/fetch-companies", verifyuserAuth, fetchCompaniesController);
   router.get("/fetchCategories",verifyuserAuth, fetchCategoriesController);
-  router.post("/approve-companyStatus",verifyuserAuth, updateCompanyApprovelController);
-  router.post("/applyjob",verifyuserAuth, jobApplyController);
-  router.post("/change-status/job-application", verifyUserAuth, changeJobApplicationStatusController);
   router.get("/dashboard/get-jobs-applicants/:companyId",verifyUserAuth, getJobsAndApplicantsCount);
-  router.post('/get-chatCompanyDetials',verifyuserAuth,getChatCompanydataController);
   router.get("/dashboard/get-jobs-applicants/:filter/:companyId",verifyUserAuth, getChartDataController);
-  router.post("/job/sceduleInterview",verifyUserAuth,scheduleInterViewController);
   router.get("/job/get-interview-schedules/:jobId/:applicantId",verifyUserAuth,getScheduledInterviewController);
+
+  router.post("/sign-up", companySignupController);
+  router.post("/updateForm", formUpdateController);
+  router.post('/add-job', verifyUserAuth, addJobController);
+  router.post('/add-Category',verifyuserAuth, addCategoryController);
+  router.post('/find-jobs-data', verifyuserAuth,findJobsController);
+  router.post("/applyjob",verifyuserAuth, jobApplyController);
+  router.post('/get-chatCompanyDetials',verifyuserAuth,getChatCompanydataController);
+  router.post("/job/sceduleInterview",verifyUserAuth,scheduleInterViewController);
+  
+  // 1
+  router.put('/updating-job', verifyUserAuth, editJobController); 
+  // 2
+  router.put("/change-status/job-application", verifyUserAuth, changeJobApplicationStatusController);
+  router.put("/approve-companyStatus",verifyuserAuth, updateCompanyApprovelController);
 
   return router;
 };

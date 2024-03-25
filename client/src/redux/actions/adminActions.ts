@@ -7,6 +7,8 @@ import {
   ICategory,
 } from "../../interface/ICompanyApprovelModal";
 
+
+
 // fetching companies
 export const fetchCompanies = async () => {
   try {
@@ -24,11 +26,7 @@ export const approveCompanyAccount = createAsyncThunk(
   "compnay/approveStatus",
   async (updatigDetails: IApproveCompanyAccount, { rejectWithValue }) => {
     try {
-      console.log(
-        " IF IT IS HERE IT IS SUCCESS >><><><><><><>",
-        updatigDetails
-      );
-      const { data } = await axios.post(
+      const { data } = await axios.put(
         `${AuthCompanyBaseUrl}/approve-companyStatus `,
         updatigDetails,
         config

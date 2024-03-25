@@ -11,7 +11,8 @@ import {
     userBasicDetialsUpdate ,
     fetchUser ,
     changeBlockStatus ,
-    saveTheJob
+    saveTheJob ,
+    resetPass
  } from "./userRepo"; 
 
 export = {
@@ -27,5 +28,6 @@ export = {
     userBasicDetialsUpdate ,
     fetchUser,
     changeBlockStatus ,
-    saveTheJob
+    saveTheJob ,
+    resetPass
 }

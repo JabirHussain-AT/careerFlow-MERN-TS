@@ -12,6 +12,7 @@ import { fetchUser_useCase } from "./fetchUser";
 import { getChatUserData_useCase } from "./getChatUserData";
 import { changeUserBlockSatus_useCase } from "./changeBlockStatus";
 import { saveTheJob_useCase } from "./saveTheJob";
+import { resetPassword_useCase  } from './resetPass'
 
 export = {
   signUp_useCase,
@@ -28,4 +29,5 @@ export = {
   fetchUser_useCase,
   changeUserBlockSatus_useCase,
   saveTheJob_useCase,
+  resetPassword_useCase
 };

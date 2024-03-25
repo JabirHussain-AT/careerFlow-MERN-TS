@@ -87,7 +87,7 @@ const MessagesSideBar: React.FC<MessagesSideBarProps> = ({
   ;
   return (
     <>
-      <div className="w-4/12 h-screen flex justify-center">
+      <div className="w-4/12 h-screen mb-5 mt-2 flex justify-center">
         {/* side bar showing recent messages */}
         <div className="bg-white h-auto overflow border-2 w-4/5 rounded-xl">
           {/* head section */}
@@ -129,7 +129,7 @@ const MessagesSideBar: React.FC<MessagesSideBarProps> = ({
                   markMessagesAsRead(applicant._id); // Call the function to mark messages as read
                 }}
               >
-                <div className="m-2 rounded-xl flex items-center justify-center bg-white ">
+                <div className="m-2 rounded-xl py-2 flex items-center justify-center bg-white ">
                   <img
                     className="w-9  rounded-xl border m-1"
                     src={applicant.logo}

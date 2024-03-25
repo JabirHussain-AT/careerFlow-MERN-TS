@@ -89,7 +89,7 @@ export const changeStatusOfJobApplication = createAsyncThunk(
     { rejectWithValue }
   ) => {
     try {
-      const { data } = await axios.post(
+      const { data } = await axios.put(
         `${AuthCompanyBaseUrl}/change-status/job-application`,
         dataToSend,
         config
@@ -110,7 +110,7 @@ export const updatingJob = createAsyncThunk(
   "company/updating-jobs",
   async (detials: IAddingJobs, { rejectWithValue }) => {
     try {
-      const { data } = await axios.post(
+      const { data } = await axios.put(
         `${AuthCompanyBaseUrl}/updating-job`,
         detials,
         config

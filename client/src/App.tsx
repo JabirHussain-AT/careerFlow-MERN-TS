@@ -42,9 +42,11 @@ import Messages from "./pages/user/Messages";
 import { useSocket } from "@/contexts/socketContext";
 import MyInterviews from "./pages/user/Profile/MyInteviews";
 import MySavedJobs from "./pages/user/Profile/MySavedJobs";
+import Settings from "./pages/user/Profile/Settings";
 import InterviewMeet from "./components/company/Rooms/InterviewMeet";
 import UserMeetConsole from "./pages/user/UserMeetConsole";
 import CompanySchedules from "./pages/company/Schedules/CompanySchedules";
+import ResetPass from "./pages/user/ResetPass";
 
 interface ProtectedRouteProps {
   element: ReactNode;
@@ -69,11 +71,16 @@ function App() {
     }
   }, [error, dispatch]);
 
+
+
   const userProtectedRoute = ({
     element,
   }: ProtectedRouteProps): JSX.Element => {
     return user?.role === "user" ? <>{element}</> : <Navigate to="/login" />;
   };
+
+
+
 
   const companyProtectedRoute = ({
     element,
@@ -81,6 +88,9 @@ function App() {
     return user?.role === "company" ? <>{element}</> : <Navigate to="/login" />;
   };
 
+
+
+  
   const adminProtectedRoute = ({
     element,
   }: ProtectedRouteProps): JSX.Element => {
@@ -123,6 +133,20 @@ function App() {
             />
             <Route
               path="/login"
+              element={
+                <>
+                  {user?.role === "company" ? (
+                    <Navigate to={"/company/updateForm"} />
+                  ) : user?.role === "admin" ? (
+                    <Navigate to={"/admin/dashboard"} />
+                  ) : (
+                    <Navigate to={"/"} />
+                  )}{" "}
+                </>
+              }
+            />
+            <Route
+              path="/reset/password"
               element={
                 <>
                   {user?.role === "company" ? (
@@ -308,6 +332,12 @@ function App() {
                   <>{userProtectedRoute({ element: <MySavedJobs /> })}</>
                 }
               />
+              <Route
+                path="settings"
+                element={
+                  <>{userProtectedRoute({ element: < Settings /> })}</>
+                }
+              />
             </Route>
             <Route
               path="/signup"
@@ -356,6 +386,7 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
             <Route path="/company/signup" element={<CompanySignup />} />
+            <Route path="/reset/password" element={< ResetPass />} />
             <Route path="*" element={<Navigate to={"/login"} />} />
           </>
         )}
