@@ -11,6 +11,7 @@ spec:
     http:
       paths:
       - path: /api/users/user
+        pathType: Prefix
         backend:
           service:
             name: careerflow-user
