@@ -1,0 +1,24 @@
+name: deploy-manifests
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup kubectl
+        uses: digitalocean/action-doctl@v2
+        with:
+          token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
+      - name: Configure kubectl
+        run: doctl kubernetes cluster kubeconfig save k8s-1-29-1-do-0-blr1-1711538524447
+      - name: Apply ConfigMaps
+        run: |
+          kubectl apply -f services/manifests/configMap/chat.yaml
+          kubectl apply -f services/manifests/configMap/company.yaml
+          kubectl apply -f services/manifests/configMap/user.yaml
