@@ -22,3 +22,4 @@ jobs:
           kubectl apply -f services/manifests/configMap/chat.yaml
           kubectl apply -f services/manifests/configMap/company.yaml
           kubectl apply -f services/manifests/configMap/user.yaml
+          kubectl apply -f services/manifests/ingress-controller.yaml
