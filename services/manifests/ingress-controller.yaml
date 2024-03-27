@@ -38,3 +38,4 @@ spec:
             name: careerflow-chat
             port:
               number: 3005
+
