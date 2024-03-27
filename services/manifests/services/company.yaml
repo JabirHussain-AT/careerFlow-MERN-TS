@@ -22,9 +22,9 @@ spec:
             name: company-config  # Name of the ConfigMap
   # Add dependsOn field to specify Kafka deployment dependency
   # This requires Kubernetes API version 1.21 or later
-  # dependsOn:
-  # - name: kafka
-  #   condition: Ready
+  dependsOn:
+  - name: kafka
+    condition: Ready
 ---
 apiVersion: v1
 kind: Service

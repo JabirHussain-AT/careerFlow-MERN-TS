@@ -20,9 +20,9 @@ spec:
         envFrom:
         - configMapRef:
             name: user-config  # Name of the ConfigMap
-  # dependsOn:
-  # - name: kafka
-  #   condition: Ready
+  dependsOn:
+  - name: kafka
+    condition: Ready
 ---
 apiVersion: v1
 kind: Service
