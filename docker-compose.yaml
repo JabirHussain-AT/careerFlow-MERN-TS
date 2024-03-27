@@ -18,3 +18,45 @@ services:
       KAFKA_LISTENERS: INSIDE://0.0.0.0:9093,OUTSIDE://0.0.0.0:9092
       KAFKA_INTER_BROKER_LISTENER_NAME: INSIDE
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+    healthcheck:
+      test: "exit 0"
+
+  client-services:
+    image: 'jabirhussainat/careerflow-client:client'
+    ports:
+      - "5173:5173"
+    env_file:
+      - ./client/.env.local
+    depends_on:
+      kafka:
+        condition: service_healthy
+
+  user-service:
+    image: 'jabirhussainat/careerflow-user:user'
+    ports:
+      - "3002:3002"
+    env_file:
+      - ./services/user-service/.env
+    depends_on:
+      kafka:
+        condition: service_healthy
+
+  company-service:
+    image: 'jabirhussainat/careerflow-company:company'
+    ports:
+      - "3003:3003"
+    env_file:
+      - ./services/company-service/.env
+    depends_on:
+      kafka:
+        condition: service_healthy
+      
+  chat-service:
+    image: 'jabirhussainat/careerflow-chat:chat'
+    ports:
+      - "3005:3005"
+    env_file:
+      - ./services/chat-service/.env
+    depends_on:
+      kafka:
+        condition: service_healthy

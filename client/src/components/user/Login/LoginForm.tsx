@@ -1,6 +1,6 @@
 import React from "react";
 import { useFormik } from "formik";
-import GoogleButton from "./GoogleButton";
+// import GoogleButton from "./GoogleButton";
 import { LoginFormProps } from "../../../interface/IUserLogin";
 import { FormData } from "../../../interface/IUserLogin";
 import { validationSchema } from "../../../validation/LoginFormValdiation";
@@ -12,10 +12,10 @@ import { IUserSelector } from "../../../interface/IUserSlice";
 
 import { jwtDecode } from "jwt-decode";
 import { GoogleLogin } from "@react-oauth/google";
-import { CustomJwtPayload, UserValues, userDataByGoogle } from "../../helper/interfaces";
+import { CustomJwtPayload , userDataByGoogle } from "../../helper/interfaces";
 
 const LoginForm: React.FC<LoginFormProps> = ({ textToshow, submitLink }) => {
-  const { user, loading, error } = useSelector(
+  const {  error } = useSelector(
     (state: IUserSelector) => state.user
   );
   const navigate = useNavigate();

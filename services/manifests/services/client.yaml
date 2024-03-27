@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: careerflow-client
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: careerflow-client
+  template:
+    metadata:
+      labels:
+        app: careerflow-client
+    spec:
+      containers:
+      - name: careerflow-client
+        image: jabirhussainat/careerflow-client:client
+        ports:
+        - containerPort: 5173
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: careerflow-client
+spec:
+  selector:
+    app: careerflow-client
+  ports:
+  - protocol: TCP
+    port: 5173
+    targetPort: 5173
+

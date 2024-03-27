@@ -3,7 +3,6 @@ import { NavLink, Outlet } from "react-router-dom";
 import {
   FaHome,
   FaAlgolia,
-  FaUser,
   FaFacebookMessenger,
   FaCalendarAlt,
   FaSignOutAlt,

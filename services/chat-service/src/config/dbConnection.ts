@@ -1,8 +1,7 @@
 import mongoose from "mongoose";
 import color from 'colors'
 
-const MONGODB_URL: string = String(process.env.MONGODB_URL)
-
+const MONGODB_URL: string = String(process.env.MONGODB_URL) 
 export default async ( ) => {
     mongoose.connect(MONGODB_URL)
     .then(() => {

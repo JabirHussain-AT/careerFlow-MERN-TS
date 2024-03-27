@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
 import { IoIosSend } from "react-icons/io";
 import { useDispatch, useSelector } from "react-redux";
-import { ToastContainer, toast } from "react-toastify";
-import { formatDistanceToNow, format } from "date-fns";
+import { ToastContainer } from "react-toastify";
+import {  format } from "date-fns";
 import "react-toastify/dist/ReactToastify.css";
 import { useSocket } from "@/contexts/socketContext";
 import {
@@ -93,6 +93,7 @@ const MessageChatSection: React.FC<MessageChatSectionProps> = ({
   
     if (socket) {
       socket.off("new-message").on("new-message", (message: any) => {
+        console.log(message)
         fetchDataAndUpdateMessages();
       });
   
@@ -119,6 +120,7 @@ const MessageChatSection: React.FC<MessageChatSectionProps> = ({
       senderId: user?._id,
       sentByUser: true,
     };
+    console.log(sentMessage)
   
     let temp = {
       content: inputMessage,
@@ -127,7 +129,7 @@ const MessageChatSection: React.FC<MessageChatSectionProps> = ({
       latestMessage: inputMessage,
     };
   
-    const savedMessage = await dispatch(saveChatMessages(temp));
+     await dispatch(saveChatMessages(temp));
   
     // Fetch updated chat data after sending the message
     const updatedChatData = await dispatch(

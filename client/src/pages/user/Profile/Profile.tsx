@@ -19,11 +19,11 @@ import "react-datepicker/dist/react-datepicker.css";
 import "react-toastify/dist/ReactToastify.css";
 
 const Profile: React.FC = () => {
-  const [profilePic, setProfilePic] = useState("");
+  const [_, setProfilePic] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-  const [location, setLocation] = useState("Not Available");
-  const [jobTitle, setJobTitle] = useState("Not Available");
+  // const [_, setLocation] = useState("Not Available");
+  // const [jobTitle, setJobTitle] = useState("Not Available");
   const dispatch = useDispatch<AppDispatch>();
   const { user } = useSelector((state: IUserSelector) => state.user);
 
@@ -81,6 +81,7 @@ const Profile: React.FC = () => {
         };
         // Update the Redux store with the new profile picture
         const data = await dispatch(submitUserProfilePic(dataTosend));
+        console.log("🚀 ~ file: Profile.tsx:84 ~ handleProfilePicChange ~ data:", data)
 
         // Manually fetch the user data after the successful upload
         const userData = await dispatch(fetchUser(user?._id));
@@ -100,7 +101,7 @@ const Profile: React.FC = () => {
   const handleEditBasicDetails = () => {
     setIsModalOpen(true);
   };
-
+  console.log(handleEditBasicDetails)
   const handleClose = () => {
     setIsModalOpen(false);
   };

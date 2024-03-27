@@ -1,0 +1,13 @@
+# apiVersion: v1
+# kind: ConfigMap
+# metadata:
+#   name: chat-config
+# data:
+#   FRONT_END_URL: "http://localhost:5173"
+#   EMAIL: "carcareecom@gmail.com"
+#   PASSWORD: "cwaw orvq waai jdla"
+#   HASH_SALT: "10"
+#   JWT_SECRET: "careerFlow"
+#   NODE_ENV: "production"
+#   MONGODB_URL: "mongodb+srv://jabirmhd6786:SBIYRiTREyA1tZDa@cluster0.odrintd.mongodb.net/chat-service?retryWrites=true&w=majority&appName=Cluster0"
+#   PORT: "3005"

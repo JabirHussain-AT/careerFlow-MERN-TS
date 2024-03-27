@@ -8,9 +8,9 @@ import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/redux/store";
 import MoreInfoModal from "@/components/admin/companyApprovel/MoreInfoModal";
 import AlertBox from "@/components/common/AlertBox";
-import { ICompany } from "@/interface/ICompanyApprovelModal";
+// import { ICompany } from "@/interface/ICompanyApprovelModal";
 
-const AdminApprovel = () => {
+const AdminApprovel : React.FC  = () => {
   const [companies, setCompanies] = useState<{_id : string , status : string }[]>([]);
   const [filter, setFilter] = useState("all");
   const [modalVisible, setModalVisible] = useState(false);
@@ -77,7 +77,7 @@ const AdminApprovel = () => {
   const closeModal = () => {
     setModalVisible(false);
   };
-
+ console.log(closeModal)
 
   const filteredCompanies: any = companies.filter((company: any) => {
     if (filter === "all") {

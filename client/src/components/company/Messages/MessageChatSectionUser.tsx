@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useRef } from "react";
 import { IoIosSend } from "react-icons/io";
 import { useDispatch, useSelector } from "react-redux";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import { format } from "date-fns";
-import EmojiPicker from "emoji-picker-react";
-import { MdOutlineEmojiEmotions } from "react-icons/md";
+// import EmojiPicker from "emoji-picker-react";
+// import { MdOutlineEmojiEmotions } from "react-icons/md";
 import "react-toastify/dist/ReactToastify.css";
 import { useSocket } from "@/contexts/socketContext";
 import {
@@ -95,6 +95,7 @@ const MessageChatSectionUser: React.FC<MessageChatSectionProps> = ({
 
     if (socket) {
       socket.off("new-message").on("new-message", (message: any) => {
+        console.log(message)
         fetchDataAndUpdateMessages();
       });
 
@@ -121,7 +122,7 @@ const MessageChatSectionUser: React.FC<MessageChatSectionProps> = ({
       senderId: user?._id,
       sentByUser: true,
     };
-
+    console.log(sentMessage)
     let temp = {
       content: inputMessage,
       senderId: user?._id,
@@ -129,7 +130,7 @@ const MessageChatSectionUser: React.FC<MessageChatSectionProps> = ({
       latestMessage: inputMessage,
     };
 
-    const savedMessage = await dispatch(saveChatMessages(temp));
+     await dispatch(saveChatMessages(temp));
 
     // Fetch updated chat data after sending the message
     const updatedChatData = await dispatch(

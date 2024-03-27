@@ -62,7 +62,7 @@ const MessagesSideBar: React.FC<MessagesSideBarProps> = ({
 
     fetchUnreadMessagesCount();
   }, [applicants,dispatch]);
-
+  console.log(messages)
 
 
 

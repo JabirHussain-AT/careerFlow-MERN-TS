@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React   from "react";
 import CompanyJobsTable from "@/components/company/Jobs/CompanyJobsTable";
 import { BsPlus } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";

@@ -2,7 +2,7 @@ import color from 'colors'
 import mongoose  from "mongoose";
 
 
-const MONGO_URL : string = process.env.MONGO_DB_URL || 'mongodb://localhost:27017/user-service'
+const MONGO_URL : string = process.env.MONGO_DB_URL 
 
 export default () => {
    mongoose.connect(MONGO_URL)

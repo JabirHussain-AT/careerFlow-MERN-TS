@@ -45,6 +45,7 @@ const CompanyJobsForm: React.FC = () => {
         const result = await fetchCategories()
         let temp : string[] = []
         const updatedResult = result?.data.filter((data : ICategory)=>{
+          console.log(updatedResult)
           let category = data?.category
           temp.push(category)
           return category
@@ -98,6 +99,9 @@ const CompanyJobsForm: React.FC = () => {
       setRequirmentErrorSkills(true);
     }
     setRequirmentErrorSkills(false);
+    if(value && setFieldError){
+      console.log(value,setFieldError)
+    }
   };
 
   const handleSkillInputChange = (value: any) => {
@@ -129,6 +133,9 @@ const CompanyJobsForm: React.FC = () => {
       setRequirmentError(false);
     }
     setRequirmentError(true);
+    if(value && setFieldError){
+      console.info(value,'---',setFieldError)
+    }
   };
 
   const handleInputChange = (value: any) => {

@@ -6,7 +6,7 @@ import {
 } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { IUserSelector } from "./interface/IUserSlice";
-import { useEffect, ReactNode, useState } from "react";
+import { useEffect, ReactNode } from "react";
 import { makeErrorDisable } from "./redux/reducers/user/userSlice";
 import Login from "./pages/user/Login";
 import Signup from "./pages/user/Signup";
@@ -20,7 +20,7 @@ import Sidebar from "./components/admin/Sidebar";
 import CompanySidebar from "./components/company/Sidebar/CompanySidebar";
 import CompanyJobs from "./pages/company/Home/CompanyJobs";
 // import CompanyJobsForm from "./pages/company/Home/CompanyJobs";
-import ShowJobs from "./pages/user/ShowJobs";
+// import ShowJobs from "./pages/user/ShowJobs";
 import AddJobs from "./pages/company/Home/AddJobs";
 import { EditJobs } from "./pages/company/Home/EditJobs";
 import Profile from "./pages/user/Profile/Profile";

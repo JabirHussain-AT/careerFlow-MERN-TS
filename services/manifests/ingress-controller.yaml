@@ -1,0 +1,35 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-controller
+  annotations:
+    nginx.ingress.kubernetes.io/use-regex: "true"
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: kubernetes.docker.internal
+    http:
+      paths:
+      - path: /api/users/user 
+      - path: /api/users/admin 
+        pathType: Prefix
+        backend:
+          service:
+            name: careerflow-user
+            port:
+              number: 3002
+      - path: /api/users/company
+        pathType: Prefix
+        backend:
+          service:
+            name: careerflow-company
+            port:
+              number: 3003
+      - path: /apifit /chat
+        pathType: Prefix
+        backend:
+          service:
+            name: careerflow-chat
+            port:
+              number: 3005
+     

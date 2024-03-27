@@ -44,7 +44,7 @@ export const userLogin = createAsyncThunk(
 
 export const isUserExist = createAsyncThunk(
   "user/isUserExist",
-  async (userCredentials: IUserDoc, { rejectWithValue }) => {
+  async (userCredentials: IUserDoc , { rejectWithValue }) => {
     try {
       const { data } = await axios.post(
         `${AuthBaseUrl}/exists`,
@@ -58,6 +58,25 @@ export const isUserExist = createAsyncThunk(
     }
   }
 );
+
+
+export const isUserExistEmail = createAsyncThunk(
+  "user/isUserExistemail",
+  async (email : { email : string}, { rejectWithValue }) => {
+    try {
+      const { data } = await axios.post(
+        `${AuthBaseUrl}/exists`,
+        email,
+        config
+      );
+      return data;
+    } catch (err) {
+      const axiosError = err as AxiosError<ApiError>;
+      return handleError(axiosError, rejectWithValue);
+    }
+  }
+);
+
 
 export const fetchJob = async (jobId: string) => {
   try {
@@ -99,7 +118,7 @@ export const fetchUser = createAsyncThunk(
 
 export const submitUserProfilePic = createAsyncThunk(
   "user/userProfilePic ",
-  async (userProfilePic: string, { rejectWithValue }) => {
+  async (userProfilePic: { userId : string , profilePic : string }, { rejectWithValue }) => {
     try {
       const { data } = await axios.put(
         `${AuthBaseUrl}/update-profile`,
@@ -204,7 +223,7 @@ export const getPrefferedJobs = createAsyncThunk(
     {
       prefferedJobs,
       currentPage,
-    }: { prefferedJobs: string[]; currentPage: number },
+    }: { prefferedJobs: string[] | string ; currentPage: number },
     { rejectWithValue }
   ) => {
     try {

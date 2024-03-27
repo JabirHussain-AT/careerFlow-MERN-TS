@@ -4,7 +4,7 @@ import User from "../../adapters/database/mongoDB/schemas/userSchema";
 
 const verifyUserAuth = (req: Request, res: Response, next: NextFunction) => {
   const token: string = req.cookies.user_jwt;
-  const secret: string = process.env.JWt_SECRET;
+  const secret: string = process.env.JWT_SECRET;
 
   if (!token) {
     return res

@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: careerflow-user
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: careerflow-user
+  template:
+    metadata:
+      labels:
+        app: careerflow-user
+    spec:
+      containers:
+      - name: careerflow-user
+        image: jabirhussainat/careerflow-user:user
+        ports:
+        - containerPort: 3002
+        envFrom:
+        - configMapRef:
+            name: user-config  # Name of the ConfigMap
+  # dependsOn:
+  # - name: kafka
+  #   condition: Ready
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: careerflow-user
+spec:
+  selector:
+    app: careerflow-user
+  ports:
+  - protocol: TCP
+    port: 3002
+    targetPort: 3002

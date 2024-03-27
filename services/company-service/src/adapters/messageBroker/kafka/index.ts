@@ -2,7 +2,7 @@ import { Kafka , Producer , Consumer } from "kafkajs";
 
 export const kafka = new Kafka({
     clientId : 'user-client',
-    brokers : ["localhost:9092"]
+    brokers : ["kafka:9093"]
 })
 
 console.log('iam here ==== in kafka')

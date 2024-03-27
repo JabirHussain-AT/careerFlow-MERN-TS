@@ -11,7 +11,7 @@ const JobDetailsContainer: React.FC = () => {
   useEffect(() => {
     const fetchJobData = async () => {
       try {
-        const jobData = await fetchJob(id);
+        const jobData = await fetchJob(id!);
         setJob(jobData.data);
       } catch (error) {
         console.error("Error fetching job data === :", error);

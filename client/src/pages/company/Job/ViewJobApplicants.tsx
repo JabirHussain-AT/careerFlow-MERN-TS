@@ -29,10 +29,11 @@ const ViewJobApplicants: React.FC = () => {
 
   const { jobId } = useParams();
   const [job, setJob] = useState<Job | null>(null);
-  const [applicantData, setApplicantData] = useState(null);
+  const [_, setApplicantData] = useState(null);
   const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [filteredApplicants, setFilteredApplicants] = useState<Applicant[]>([]);
+  console.log("🚀 ~ file: ViewJobApplicants.tsx:36 ~ filteredApplicants:", filteredApplicants)
 
   useEffect(() => {
     const fetchData = async () => {

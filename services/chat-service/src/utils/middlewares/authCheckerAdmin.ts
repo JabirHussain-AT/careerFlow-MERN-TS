@@ -3,7 +3,7 @@ import jwt from 'jsonwebtoken';
 
 const verifyUserAuth = (req: Request, res: Response, next: NextFunction) => {
   const token: string = req.cookies.user_jwt;
-  const secret: string = process.env.JWt_SECRET;
+  const secret: string = process.env.JWT_SECRET;
 
   if (!token) {
     return res.status(401).json({ success: false, message: 'Current user is not authenticated!' });

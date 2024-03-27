@@ -9,7 +9,7 @@ import { ApiError, config, handleError } from "../../config/configuration";
 //for creating a chat room with the user
 export const createNewChatRoom = createAsyncThunk(
   "chat/createChatRoom",
-  async (chatRoomData, { rejectWithValue }) => {
+  async  ( chatRoomData : {roomCreater : string , roomJoiner : string } , { rejectWithValue }) => {
     try {
       const { data } = await axios.post(
         `${ChatSecUrl}/room/creat-chat-room`,

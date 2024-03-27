@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import LOGO from "../../../assets/googleIcon.png";
+// import LOGO from "../../../assets/googleIcon.png";
 import { format, parseISO } from "date-fns";
 import Modal from "../../common/ModalBox";
 import { useParams } from "react-router-dom";
@@ -84,7 +84,7 @@ const ApplicantInterviewSchedule = () => {
       InterviewName: formData.interviewName,
     };
 
-    const response = await dispatch(scheduleInterview(obj));
+     await dispatch(scheduleInterview(obj));
 
     setIsModalOpen(false);
     // Reset form data

@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: careerflow-chat
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: careerflow-chat
+  template:
+    metadata:
+      labels:
+        app: careerflow-chat
+    spec:
+      containers:
+      - name: careerflow-chat
+        image: jabirhussainat/careerflow-chat:chat
+        ports:
+        - containerPort: 3005
+        envFrom:
+        - configMapRef:
+            name: chat-config 
+  # Add dependsOn field to specify Kafka deployment dependency
+  # This requires Kubernetes API version 1.21 or later
+  # dependsOn:
+  # - name: kafka
+  #   condition: Ready
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: careerflow-chat
+spec:
+  selector:
+    app: careerflow-chat
+  ports:
+  - protocol: TCP
+    port: 3005
+    targetPort: 3005

@@ -3,14 +3,14 @@ import { FaArrowAltCircleRight } from "react-icons/fa";
 import AlertBox from "@/components/common/AlertBox";
 import { fetchUsers, userBlockStatus } from "../../redux/actions/adminActions";
 import { IUserDoc } from "@/interface/IUserDoc";
-import MoreInfoModalUsers from "@/components/admin/compnayUsers/MoreInfoModalUsers";
+// import MoreInfoModalUsers from "@/components/admin/compnayUsers/MoreInfoModalUsers";
 import { AppDispatch } from "@/redux/store";
 import { useDispatch } from "react-redux";
 
-const AdminUsers = () => {
+const AdminUsers : React.FC  = () => {
   const [users, setUsers] = useState<IUserDoc[]>([]);
   const [filter, setFilter] = useState("user"); // Set default filter value
-  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [_, setIsOpen] = useState<boolean>(false);
   const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
@@ -38,6 +38,7 @@ const AdminUsers = () => {
   const handleModalClose = () => {
     setIsOpen(false);
   };
+  console.log(handleModalClose)
 
   const handleBlock = async (userId : string) => {
     // Optimistically update isBlocked to false

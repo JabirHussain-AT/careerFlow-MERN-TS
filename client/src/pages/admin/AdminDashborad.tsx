@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { logout } from "../../redux/reducers/user/userSlice";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { IoMdBusiness } from "react-icons/io";
 import { FaUsers } from "react-icons/fa";
 import { MdWork } from "react-icons/md";
@@ -88,6 +88,7 @@ const AdminDashboard: React.FC = () => {
     console.log("Logging out...");
     dispatch(logout());
   };
+  console.log("🚀 ~ file: AdminDashborad.tsx:88 ~ handleLogout ~ handleLogout:", handleLogout)
 
   // Prepare data for the line chart showing companies registered in each month
   const prepareCompanyData = () => {
