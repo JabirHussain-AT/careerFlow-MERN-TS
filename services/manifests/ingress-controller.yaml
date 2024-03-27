@@ -10,8 +10,13 @@ spec:
   - host: kubernetes.docker.internal
     http:
       paths:
-      - path: /api/users/user 
-      - path: /api/users/admin 
+      - path: /api/users/user
+        backend:
+          service:
+            name: careerflow-user
+            port:
+              number: 3002
+      - path: /api/users/admin
         pathType: Prefix
         backend:
           service:
@@ -25,12 +30,10 @@ spec:
             name: careerflow-company
             port:
               number: 3003
-      - path: /apifit /chat
+      - path: /apifit/chat
         pathType: Prefix
         backend:
           service:
             name: careerflow-chat
             port:
               number: 3005
-     
-     
