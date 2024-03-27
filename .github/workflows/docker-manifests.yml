@@ -17,9 +17,18 @@ jobs:
           token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
       - name: Configure kubectl
         run: doctl kubernetes cluster kubeconfig save k8s-1-29-1-do-0-blr1-1711538524447
+      - name: Apply Deployments
+        run: |
+          kubectl apply -f services/manifests/services/kafka.yaml
+          kubectl apply -f services/manifests/services/chat.yaml
+          kubectl apply -f services/manifests/services/company.yaml
+          kubectl apply -f services/manifests/services/user.yaml
+          kubectl apply -f services/manifests/services/client.yaml
       - name: Apply ConfigMaps
         run: |
           kubectl apply -f services/manifests/configMap/chat.yaml
           kubectl apply -f services/manifests/configMap/company.yaml
           kubectl apply -f services/manifests/configMap/user.yaml
+      - name: Apply Ingress Controller
+        run: |
           kubectl apply -f services/manifests/ingress-controller.yaml
