@@ -10,24 +10,37 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
-    - name: Build and tag Docker images
-      run: |
-        cd services/user-service && docker build -t careerflow-user:latest . &&
-        cd ../chat-service && docker build -t careerflow-chat:latest . &&
-        cd ../company-service && docker build -t careerflow-company:latest . &&
-        cd ../../client && docker build -t careerflow-client:latest . &&
-        docker tag careerflow-user:latest jabirhussainat/careerflow-user:user &&
-        docker tag careerflow-chat:latest jabirhussainat/careerflow-chat:chat &&
-        docker tag careerflow-company:latest jabirhussainat/careerflow-company:company &&
-        docker tag careerflow-client:latest jabirhussainat/careerflow-client:client &&
-        docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
-      env:
-        DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
-        DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-    - name: Push Docker images to registry
-      run: |
-        docker push jabirhussainat/careerflow-user:user &&
-        docker push jabirhussainat/careerflow-chat:chat && 
-        docker push jabirhussainat/careerflow-company:company &&
-        docker push jabirhussainat/careerflow-client:client
+      - uses: actions/checkout@v3
+      - name: Build and tag Docker images
+        run: |
+          cd services/user-service && docker build -t careerflow-user:latest . &&
+          cd ../chat-service && docker build -t careerflow-chat:latest . &&
+          cd ../company-service && docker build -t careerflow-company:latest . &&
+          cd ../../client && docker build -t careerflow-client:latest . &&
+          docker tag careerflow-user:latest jabirhussainat/careerflow-user:user &&
+          docker tag careerflow-chat:latest jabirhussainat/careerflow-chat:chat &&
+          docker tag careerflow-company:latest jabirhussainat/careerflow-company:company &&
+          docker tag careerflow-client:latest jabirhussainat/careerflow-client:client &&
+          docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+        env:
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+      - name: Push Docker images to registry
+        run: |
+          docker push jabirhussainat/careerflow-user:user &&
+          docker push jabirhussainat/careerflow-chat:chat && 
+          docker push jabirhussainat/careerflow-company:company &&
+          docker push jabirhussainat/careerflow-client:client
+      - name: Setup kubectl
+        uses: digitalocean/action-doctl@v2
+        with:
+          token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
+      - name: Configure kubectl
+        run: doctl kubernetes cluster kubeconfig save k8s-1-29-1-do-0-blr1-1711538524447
+      - name: Restart deployments
+        run: |
+          kubectl rollout restart deployment careerflow-client
+          kubectl rollout restart deployment careerflow-chat
+          kubectl rollout restart deployment careerflow-company
+          kubectl rollout restart deployment careerflow-user
+          kubectl rollout restart deployment kafka
