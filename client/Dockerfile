@@ -14,7 +14,7 @@ RUN npm run build
 
 # CMD ["npm", "run","dev"]
 # Use nginx to serve the built React app
-FROM nginx:alpine
+FROM nginx
 
 # Copy the build files to the nginx server
 COPY --from=build /app/build /usr/share/nginx/html
