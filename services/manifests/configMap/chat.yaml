@@ -3,7 +3,7 @@ kind: ConfigMap
 metadata:
   name: chat-config
 data:
-  FRONT_END_URL: "http://localhost:5173"
+  FRONT_END_URL: "http://careerflow-frontend-repo.onrender.com"
   EMAIL: "carcareecom@gmail.com"
   PASSWORD: "cwaw orvq waai jdla"
   HASH_SALT: "10"

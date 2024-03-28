@@ -3,13 +3,13 @@ kind: ConfigMap
 metadata:
   name: company-config
 data:
-  FRONT_END_URL: "http://localhost:5173"
+  FRONT_END_URL: "http://careerflow-frontend-repo.onrender.com
   EMAIL: "carcareecom@gmail.com"
   PASSWORD: "cwaw orvq waai jdla"
   HASH_SALT: "10"
   JWT_SECRET: "careerFlow"
   NODE_ENV: "production"
-  MONGODB_URL: "mongodb+srv://jabirmhd6786:SBIYRiTREyA1tZDa@cluster0.odrintd.mongodb.net/company-service?retryWrites=true&w=majority&appName=Cluster0"
+  MONG_ODB_URL: "mongodb+srv://jabirmhd6786:SBIYRiTREyA1tZDa@cluster0.odrintd.mongodb.net/company-service?retryWrites=true&w=majority&appName=Cluster0"
   PORT: "3003"
   KAFKA_BOOTSTRAP_SERVER: "pkc-41p56.asia-south1.gcp.confluent.cloud:9092"
   KAFKA_CLIENT_ID: "company-client"
