@@ -4,8 +4,14 @@ metadata:
   name: ingress-controller
   annotations:
     nginx.ingress.kubernetes.io/use-regex: "true"
+    ert-manager.io/cluster-issuer: letsencrypt-prod
 spec:
   ingressClassName: nginx
+  tls:
+  -- hosts:
+    - careerflow.shop
+    - www.careerflow.shop
+    secretName: careerflow-tls
   rules:
   - host: careerflow.shop
     http:
