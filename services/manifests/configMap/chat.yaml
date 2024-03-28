@@ -11,3 +11,7 @@ data:
   NODE_ENV: "production"
   MONGODB_URL: "mongodb+srv://jabirmhd6786:SBIYRiTREyA1tZDa@cluster0.odrintd.mongodb.net/chat-service?retryWrites=true&w=majority&appName=Cluster0"
   PORT: "3005"
+  KAFKA_BOOTSTRAP_SERVER: "pkc-41p56.asia-south1.gcp.confluent.cloud:9092"
+  KAFKA_CLIENT_ID: "chat-client"
+  KAFKA_USERNAME: "F4NUXIJ3IZADPFSO"
+  KAFKA_PASSWORD: "DrOln1QRgJAUi1ruYxJBTZbH7H+ArJTbvrfA4lHmXovB9eIzABND/WDN2DZ4ji2u"
