@@ -13,6 +13,7 @@ import scheduleJobUpdate  from './util/cronJob/forCheckingExpiry'
 
 const app : Express = express()
 const PORT : number = Number(process.env.PORT) || 3003
+console.log(process.env.PORT,'============')
 
 app.use(express.json())
 app.use(cookieParser())
