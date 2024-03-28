@@ -1,6 +1,6 @@
 FROM node:alpine
 
-WORKDIR /usr/src/app
+WORKDIR /app
 
 COPY package.json .
 
@@ -14,7 +14,7 @@ RUN npm run build
 
 # CMD ["npm", "run","dev"]
 # Use nginx to serve the built React app
-FROM nginx
+FROM nginx:alpine
 
 # Copy the build files to the nginx server
 COPY --from=build /app/build /usr/share/nginx/html
