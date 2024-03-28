@@ -1,6 +1,6 @@
 FROM node:alpine
 
-WORKDIR /app
+WORKDIR /usr/src/app
 
 COPY package.json .
 
@@ -17,7 +17,7 @@ RUN npm run build
 FROM nginx:alpine
 
 # Copy the build files to the nginx server
-COPY --from=build /app/build /usr/share/nginx/html
+COPY --from=build /usr/src/app/build /usr/share/nginx/html
 
 # Expose port 80
 EXPOSE 80
