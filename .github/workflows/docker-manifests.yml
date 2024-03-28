@@ -32,3 +32,4 @@ jobs:
       - name: Apply Ingress Controller
         run: |
           kubectl apply -f services/manifests/ingress-controller.yaml
+          kubectl apply -f production_issuer.yaml
