@@ -44,4 +44,4 @@ spec:
           service:
             name: careerflow-client
             port:
-              number: 80
+              number: 5173
