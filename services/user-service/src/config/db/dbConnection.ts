@@ -3,6 +3,7 @@ import mongoose  from "mongoose";
 
 
 const MONGO_URL : string = process.env.MONGO_DB_URL 
+console.log("🚀 ~ file: dbConnection.ts:6 ~ MONGO_URL:", MONGO_URL)
 
 export default () => {
    mongoose.connect(String(MONGO_URL))
