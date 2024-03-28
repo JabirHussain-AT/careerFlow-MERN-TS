@@ -9,7 +9,7 @@ data:
   HASH_SALT: "10"
   JWT_SECRET: "careerFlow"
   NODE_ENV: "production"
-  MONG_ODB_URL: "mongodb+srv://jabirmhd6786:SBIYRiTREyA1tZDa@cluster0.odrintd.mongodb.net/company-service?retryWrites=true&w=majority&appName=Cluster0"
+  MONGO_DB_URL: "mongodb+srv://jabirmhd6786:SBIYRiTREyA1tZDa@cluster0.odrintd.mongodb.net/company-service?retryWrites=true&w=majority&appName=Cluster0"
   PORT: "3003"
   KAFKA_BOOTSTRAP_SERVER: "pkc-41p56.asia-south1.gcp.confluent.cloud:9092"
   KAFKA_CLIENT_ID: "company-client"
