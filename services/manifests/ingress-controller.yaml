@@ -10,6 +10,20 @@ spec:
   - host: careerflow.shop
     http:
       paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: careerflow-client
+            port:
+              number: 5173
+      - path: /api/chat
+        pathType: Prefix
+        backend:
+          service:
+            name: careerflow-chat
+            port:
+              number: 3005
       - path: /api/users/user
         pathType: Prefix
         backend:
@@ -31,20 +45,3 @@ spec:
             name: careerflow-company
             port:
               number: 3003
-      - path: /api/chat
-        pathType: Prefix
-        backend:
-          service:
-            name: careerflow-chat
-            port:
-              number: 3005
-      - path: /
-        pathType: Prefix
-        backend:
-          service:
-            name: careerflow-client
-            port:
-              number: 5173
-
-
-
