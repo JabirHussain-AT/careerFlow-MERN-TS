@@ -45,3 +45,4 @@ spec:
             name: careerflow-client
             port:
               number: 5173
+
