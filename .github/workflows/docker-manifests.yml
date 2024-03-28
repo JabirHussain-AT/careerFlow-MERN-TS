@@ -19,7 +19,6 @@ jobs:
         run: doctl kubernetes cluster kubeconfig save k8s-1-29-1-do-0-blr1-1711538524447
       - name: Apply Deployments
         run: |
-          kubectl apply -f services/manifests/services/kafka.yaml
           kubectl apply -f services/manifests/services/chat.yaml
           kubectl apply -f services/manifests/services/company.yaml
           kubectl apply -f services/manifests/services/user.yaml
