@@ -43,4 +43,3 @@ jobs:
           kubectl rollout restart deployment careerflow-chat
           kubectl rollout restart deployment careerflow-company
           kubectl rollout restart deployment careerflow-user
-          kubectl rollout restart deployment kafka
