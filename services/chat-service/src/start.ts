@@ -38,6 +38,7 @@ app.use("/api/chat", routes(dependencies));
 app.use("/api/connect", (req, res) => {
   connectSocketIo(server);
 });
+
 connectSocketIo(server);
 
 app.use((req: Request, res: Response) => {
