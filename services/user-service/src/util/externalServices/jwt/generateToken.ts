@@ -4,6 +4,6 @@ import jwt from 'jsonwebtoken'
 
 export const generateToken = ( payload : { _id : string , email : string , role : string  } )  => {
 
-    return jwt.sign(payload,process.env.JWT_SECRET, { expiresIn: '20d' });
+    return jwt.sign(payload,'careerflow', { expiresIn: '20d' });
     
 };
