@@ -32,6 +32,7 @@ export const runConsumer = async () => {
         }
       },
       
+      
     });
   } catch (error  ) {
     throw new Error("Kafka Consume Error : " + error?.message);
