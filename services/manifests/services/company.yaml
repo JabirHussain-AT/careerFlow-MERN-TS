@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: careerflow-company
-        image: jabirhussainat/careerflow-company:0.1.5
+        image: jabirhussainat/careerflow-company:0.1.0
         ports:
         - containerPort: 3003
         envFrom:
