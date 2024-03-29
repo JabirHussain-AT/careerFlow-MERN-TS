@@ -37,6 +37,13 @@ spec:
             name: careerflow-chat
             port:
               number: 3005
+      - path: /socket.io  
+        pathType: Prefix
+        backend:
+          service:
+            name: careerflow-chat
+            port:
+              number: 3005
       - path: /api/users/user
         pathType: Prefix
         backend:
