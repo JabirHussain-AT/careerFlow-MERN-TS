@@ -7,7 +7,6 @@ metadata:
     cert-manager.io/cluster-issuer: letsencrypt-prod
     nginx.ingress.kubernetes.io/enable-cors: "true" 
     nginx.ingress.kubernetes.io/cors-allow-origin: "https://web.careerflow.shop"
-    nginx.ingress.kubernetes.io/cors-allow-methods: "PUT, GET, POST, OPTIONS, DELETE , PATCH"
 spec:
   ingressClassName: nginx
   tls:
