@@ -38,11 +38,11 @@ app.use("/api/chat", routes(dependencies));
 app.use("/api/connect", (req, res) => {
   connectSocketIo(server);
 });
-
+connectSocketIo(server);
 app.use((req: Request, res: Response) => {
   res
-    .status(404)
-    .json({ success: false, status: 404, message: "Api Not found" });
+  .status(404)
+  .json({ success: false, status: 404, message: "Api Not found" });
 });
 
 app.use(errHandler);
