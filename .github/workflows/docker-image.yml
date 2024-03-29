@@ -13,7 +13,6 @@ jobs:
       - uses: actions/checkout@v3
       - name: Build and tag Docker images
         run: |
-          docker image rm -a
           cd services/user-service && docker build -t careerflow-user:latest . &&
           cd ../chat-service && docker build -t careerflow-chat:latest . &&
           cd ../company-service && docker build -t careerflow-company:latest . &&
