@@ -1,6 +1,6 @@
 import express, { Request, Response } from "express";
 import { adminController } from "../../handlers/controllers";
-import verifyToken from "../../util/middlewares/authCheckerAdmin";
+import verifyToken from "../../util/middlewares/authCheck";
 import { IDependencies } from "../../entities/intrefaces/IUserInterfaces";
 
 export = (dependencies: IDependencies )  => {
