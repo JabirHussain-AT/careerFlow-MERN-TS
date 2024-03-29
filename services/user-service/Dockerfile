@@ -8,6 +8,8 @@ RUN npm install
 
 COPY . .
 
+RUN npm run build
+
 EXPOSE 3002
 
-CMD ["sh", "-c", "npx tsc --skipLibCheck && node dist/index.js"]
+CMD ["npm","start"]
