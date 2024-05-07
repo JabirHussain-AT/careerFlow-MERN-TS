@@ -15,8 +15,10 @@ const UserMeetConsole : React.FC = () => {
     const { roomId } = useParams()
     const navigate = useNavigate()
     const meeting = async ( element : any ) => {
-        const appID = 1916087609 ;
-        const serverSecret = "9452af6a726e6150cd728db8129dc18d" ;
+        // const appID = 1916087609 ;
+        // const serverSecret = "9452af6a726e6150cd728db8129dc18d" ;
+        const appID = 46877336 ;
+        const serverSecret = "4ac3ffa5d4e7f2f54e4bb82b0c876db8" ;
         const kitToken  = ZegoUIKitPrebuilt.generateKitTokenForTest(appID , serverSecret , roomId! , Date.now().toString(),`${user?.userName!}`)
         const zc = ZegoUIKitPrebuilt.create( kitToken )
         zc.joinRoom({

@@ -113,7 +113,7 @@ export const verifyOtp = async (otp: number, email: string) => {
 
 export const loginVerify = async (email: string, password: string) => {
   try {
-    let isUserExist = await userCollection.findOne({ email: email });
+    let isUserExist = await userCollection.findOne({ email: email },{password : 0});
 
     if (isUserExist == null) {
       return false;
